@@ -1,0 +1,62 @@
+\chapter{Grafikus felület specifikációja}
+
+\section{A grafikus interfész}
+\comment{A menürendszer, a kezelői felület grafikus képe. A grafikus felület megjelenését, a használt ikonokat, stb screenshot-szerű képekkel kell bemutatni. Az építészetben ez a homlokzati terv.}
+\diagram{img/BMElogo}{Példa kép}{3cm}
+
+\section{A grafikus rendszer architektúrája}
+\comment{A felület működésének elve, a grafikus rendszer architektúrája (struktúra diagramok). A struktúra diagramokon a prototípus azon és csak azon osztályainak is szerepelnie kell, amelyekhez a grafikus felületet létrehozó osztályok kapcsolódnak.}
+
+\subsection{A felület működési elve}
+\comment{Le kell írni, hogy a grafikai megjelenésért felelős osztályok, objektumok hogyan kapcsolódnak a meglevő rendszerhez, a megjelenítés során mi volt az alapelv. Törekedni kell az MVC megvalósításra. Alapelvek lehetnek: \textbf{push} alapú: a modell értesíti a felületet, hogy változott; \textbf{pull} alapú: a felület kérdezi le a modellt, hogy változott-e; \textbf{kevert}: a kettő kombinációja.}
+
+\subsection{A felület osztály-struktúrája}
+\comment{Osztálydiagram. Minden új osztály, és azon régiek, akik az újakhoz közvetlenül kapcsolódnak.}
+\diagram{img/BMElogo}{Példa kép}{3cm}
+
+\section{A grafikus objektumok felsorolása}
+\comment{Az új osztályok felsorolása. Az régi osztályok közül azoknak a felsorolása, ahol változás volt. Ezek esetén csak a változásokat kell leírni.}
+
+\subsection{Új osztályok}
+\subsubsection{Osztály1}
+\begin{class-template-responsibility}
+    Felelősség leírása
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Megvalósított interfészek felsorolása
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Ős-Ősosztály \baseclass Ősosztály... 
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{+A [0..*]}{adattag A}
+\end{class-template-attribute}
+\comment{Milyen publikus, protected és privát  metódusokkal rendelkezik. Metódusonként precíz leírás, ha szükséges, activity diagram is a metódusban megvalósítandó algoritmusról. Minden olyan metódusnak szerepelnie kell, amelyiket az osztály megvalósít vagy felüldefiniál.}
+\begin{class-template-method}
+    \classitem{+B(A a) : void}{metódus B}
+\end{class-template-method}
+
+\subsection{Megváltozott osztályok}
+\subsubsection{Osztály2}
+\begin{class-template-responsibility}
+    Felelősség leírása
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Megvalósított interfészek felsorolása
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Ős-Ősosztály \baseclass Ősosztály... 
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{+A [0..*]}{adattag A}
+\end{class-template-attribute}
+\comment{Milyen publikus, protected és privát  metódusokkal rendelkezik. Metódusonként precíz leírás, ha szükséges, activity diagram is a metódusban megvalósítandó algoritmusról. Minden olyan metódusnak szerepelnie kell, amelyiket az osztály megvalósít vagy felüldefiniál.}
+\begin{class-template-method}
+    \classitem{+B(A a) : void}{metódus B}
+\end{class-template-method}
+
+\section{Kapcsolat az alkalmazói rendszerrel}
+\comment{Szekvencia-diagramokon ábrázolni kell a grafikus rendszer működését. Konzisztens kell legyen az előző alfejezetekkel. Minden metódus, ami ott szerepel, fel kell tűnjön valamelyik szekvenciában. Minden metódusnak, ami szekvenciában szerepel, szereplnie kell a valamelyik osztálydiagramon.}
+
+
+

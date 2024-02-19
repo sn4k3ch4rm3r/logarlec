@@ -1,0 +1,60 @@
+\chapter{Részletes tervek}
+\comment{A dokumentum célja, hogy pontosan specifikálja az implementálandó osztályokat, beleértve a privát attribútumokat és metódusokat, ezek definícióját is.A dokumentum második fele részletesen be kell mutassa a korábban definiált be-és kimeneti nyelv szintakszisát felhasználva, hogy mely tesztekkel lesz a prototípus ellenőrizve.}
+\section{Osztályok és metódusok tervei}
+\subsection{Osztály1}
+\begin{class-template-responsibility}
+    Felelősség leírása
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Megvalósított interfészek felsorolása
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Ős-Ősosztály \baseclass Ősosztály... 
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{+A [0..*]}{adattag A}
+\end{class-template-attribute}
+\comment{Milyen publikus, protected és privát  metódusokkal rendelkezik. Metódusonként precíz leírás, ha szükséges, activity diagram is a metódusban megvalósítandó algoritmusról. Minden olyan metódusnak szerepelnie kell, amelyiket az osztály megvalósít vagy felüldefiniál.}
+\begin{class-template-method}
+    \classitem{+B(A a) : void}{metódus B}
+\end{class-template-method}
+
+\subsection{Osztály2}
+\begin{class-template-responsibility}
+    Felelősség leírása
+\end{class-template-responsibility}
+\begin{class-template-statechart}
+    A belső működéshez tartozó állapotgép
+    \diagram{img/BMElogo}{Az osztály állapotváltozásai}{3cm}
+\end{class-template-statechart}
+
+\section{A tesztek részletes tervei, leírásuk a teszt nyelvén}
+\comment{A tesztek részletes tervei alatt meg kell adni azokat a bemeneti adatsorozatokat, amelyekkel a program működése ellenőrizhető. Minden bemenő adatsorozathoz definiálni kell, hogy az adatsorozat végrehajtásától a program mely részeinek, funkcióinak ellenőrzését várjuk és konkrétan milyen eredményekre számítunk, ezek az eredmények hogyan vethetők össze a bemenetekkel.A tesztek leírásakor az előző dokumentumban (proto koncepciója) megadott szintakszist kell használni.}
+
+\subsection{Teszteset1}
+\begin{test-case-description}
+    Szöveges leírás, kb 1-5 mondat
+\end{test-case-description}
+\begin{test-case-function}
+    ...
+\end{test-case-function}
+\begin{test-case-input}
+    A proto nyelvén megadva, pl.:
+    \begin{verbatim}
+    init world
+    0: S 3
+    ...
+    print
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    A poro kimeneti nyelvén megadva, pl.:
+    \begin{verbatim}
+    worlddata
+    ...
+    creatures 0
+    \end{verbatim}
+\end{test-case-output}
+
+\section{A tesztelést támogató programok tervei}
+\comment{A tesztadatok előállítására, a tesztek eredményeinek kiértékelésére szolgáló segédprogramok részletes terveit kell elkészíteni.}

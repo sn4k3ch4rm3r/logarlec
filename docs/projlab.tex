@@ -1,0 +1,124 @@
+%--------------------------------------------------------------------------------------
+% ÁLTALÁNOS ALAPSABLON A (RÉSZ)BEADANDÓKHOZ
+%--------------------------------------------------------------------------------------
+\documentclass[12pt, a4paper]{book}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[magyar]{babel}
+\usepackage[hidelinks]{hyperref} 
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage{amsthm}
+\usepackage{MnSymbol}
+\usepackage{wasysym}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\usepackage{changepage}
+\usepackage{xcolor}
+\usepackage{algorithmicx}
+\usepackage{listings}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE,LO]{\leftmark}
+\fancyfoot[CE,CO]{61 - Zeusz}
+
+\title{Szoftver projekt labor beadandó}
+\author{Balla Gergely, Joób Zalán Miklós, Nagy Alexandra, Tóth Boldizsár, Zelei Mátyás} 
+
+\setcounter{secnumdepth}{4}
+
+\begin{document}
+\begin{titlepage} 
+	\begin{center}
+		\includegraphics[width=5cm]{img/BMElogo}\\ 
+		\vspace{1cm}
+		\LARGE{\bfseries{Szoftver projekt laboratórium}}\\
+		\vspace{0.5cm}
+		%kitöltendő
+		\Large\textsc{[Cím]}\\
+		\vspace{1cm}
+		\small{Csapat}\\
+		\Large{\bfseries{61 - Zeusz}}\\
+		\vspace{1cm}
+		\small{Konzulens}\\
+		\Large{Dr. Simon Balázs}
+	\end{center}
+	\begin{flushleft}
+		\vspace*{6cm}
+		Csapattagok\\
+		\vspace{-0.3cm}
+		\rule{14cm}{0.5pt}\\
+		\vspace{0.2cm}
+		\begin{tabular}{l l l} %kitöltendő
+			Balla Gergely & [NEPTUN] & [email] \\
+			Joób Zalán Miklós & [NEPTUN] & [email] \\
+			Nagy Alexandra & [NEPTUN] & [email] \\
+			Tóth Boldizsár  & [NEPTUN] & [email] \\
+			Zelei Mátyás & [NEPTUN] & [email] \\
+		\end{tabular}
+	\end{flushleft}
+	\begin{flushright}
+		\vspace*{2cm}
+		\today   %vagy saját dátum megadása, manuálisan
+	\end{flushright}
+\end{titlepage}
+\input{definitions}
+\sloppy
+
+%-----------------------------------------------------------------------------------------
+
+%Végső beadáshoz tartalomjegyzék:
+%\tableofcontents
+
+%A fejezetek számozásának átállítására (mindig a megadott számtól folytatódik a számozás):
+\setcounter{chapter}{-1}
+
+
+\setcounter{chapter}{1}
+\input{weekly/bead02/02doc}
+\clearpage
+\input{weekly/bead02/02naplo}
+
+\input{weekly/bead03/03doc}
+\clearpage
+\input{weekly/bead03/03naplo}
+
+\input{weekly/bead04/04doc}
+\clearpage
+\input{weekly/bead04/04naplo}
+
+\input{weekly/bead05/05doc}
+\clearpage
+\input{weekly/bead05/05naplo}
+
+\input{weekly/bead06/06doc}
+\clearpage
+\input{weekly/bead06/06naplo}
+
+\input{weekly/bead07/07doc}
+\clearpage
+\input{weekly/bead07/07naplo}
+
+\input{weekly/bead08/08doc}
+\clearpage
+\input{weekly/bead08/08naplo}
+
+\setcounter{chapter}{9}
+\input{weekly/bead10/10doc}
+\clearpage
+\input{weekly/bead10/10naplo}
+
+\input{weekly/bead11/11doc}
+\clearpage
+\input{weekly/bead11/11naplo}
+
+\setcounter{chapter}{12}
+\input{weekly/bead13/13doc}
+\clearpage
+\input{weekly/bead13/13naplo}
+
+\input{weekly/bead14/14doc}
+
+\end{document}

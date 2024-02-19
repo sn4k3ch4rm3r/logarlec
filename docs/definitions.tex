@@ -1,0 +1,246 @@
+%---------------------------------------------------------------
+%\\\\\\\\\\\\\\\\\\\\\\\\NE MÓDOSÍTSD///////////////////////////
+
+\newenvironment{naplo}{\begin{longtable}{|l|l|p{2.5cm}|p{7.5cm}|}
+        \hline
+        \hline \multicolumn{1}{|c|}{\textbf{Kezdet}} & \multicolumn{1}{c|}{\textbf{Időtartam}} & \multicolumn{1}{c|}{\textbf{Résztvevők}} & \multicolumn{1}{c|}{\textbf{Leírás}}  \\ \hline 
+        \endfirsthead
+        
+        \multicolumn{3}{c}%
+        {{\bfseries}} \\
+        \hline \multicolumn{1}{|c|}{\textbf{Kezdet}} & \multicolumn{1}{c|}{\textbf{Időtartam}} & \multicolumn{1}{c|}{\textbf{Résztvevők}} & \multicolumn{1}{c|}{\textbf{Leírás}}  \\ \hline 
+        \endhead
+        
+}{\end{longtable}}
+
+\newcommand{\naplotag}[4]{#1 & #2 & #3 & #4 \\
+    \hline}
+
+\newtheorem{defi}{Definíció}
+\newtheorem{rov}{Rövidítés}
+\newcommand{\urlref}[2]{
+	\parbox{\linewidth}{\href{#1}{\RIGHTarrow \quad #2 - \texttt{#1}}}}
+
+\newcommand{\diagram}[3]{
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=#3]{#1}
+		\caption{#2}
+	\end{figure}}
+
+\renewcommand{\comment}[1]{\begin{flushright}
+		\color{red} 
+		#1
+\end{flushright} }
+
+\newenvironment{class-template}[5]
+{ 
+    \hspace*{0.4em} $\blacksquare $ \large Felelősség \\  \normalsize #1 \\[12px]
+    \hspace*{0.4em} $\blacksquare $ \large Ősosztályok \\  \normalsize #2 \\[12px]
+    \hspace*{0.4em} $\blacksquare $ \large Interfészek \\  \normalsize #3 \\[12px]
+    \hspace*{0.4em} $\blacksquare $ \large Attribútumok \\  \normalsize #4 \\[12px]
+    \hspace*{0.4em} $\blacksquare $ \large Metódusok \\  \normalsize #5 \\[12px]
+}{}
+
+\newenvironment{class-template-responsibility}{\hspace*{0.4em} $\blacksquare $ \large Felelősség \\[5px]  \normalsize}{\\[12px]}
+\newenvironment{class-template-baseclass}{\hspace*{0.4em} $\blacksquare $ \large Ősosztály \\[5px]  \normalsize}{\\[12px]}
+\newenvironment{class-template-interface}{\hspace*{0.4em} $\blacksquare $ \large Interfészek \\[5px]  \normalsize}{\\[12px]}
+\newenvironment{class-template-method}{\hspace*{0.4em} $\blacksquare $ \large Metódusok \\[5px]  \normalsize}{\\[12px]}
+\newenvironment{class-template-attribute}{\hspace*{0.4em} $\blacksquare $ \large Attribútumok \\[5px]  \normalsize}{\\[12px]}
+\newenvironment{class-template-statechart}{\hspace*{0.4em} $\blacksquare$ \large Állapotgép \\[5px] \normalsize}{\\[12px]}
+
+\newenvironment{enum-template}[2]
+{ 
+    \hspace*{0.4em} $\blacksquare $ \large Felelősség \\[5px]  \normalsize #1 \\[12px]
+    \hspace*{0.4em} $\blacksquare $ \large Literálok \\[5px]  \normalsize #2 \\[12px]
+}{}	
+
+{\vspace*{-1cm}}
+\newcommand{\classitem}[2]{
+    \hspace*{25px}\parbox{0.9\linewidth}{$\Diamond $ \textit{#1} - #2}
+}
+
+\newcommand{\baseclass}{ $\rightarrow$ }
+
+\newenvironment{funkovetelmeny}[6]
+{
+    \noindent\begin{tabular}{| p{2cm} | p{2cm} | p{2.2cm} | p{5.3cm} | p{2.5cm} |}
+        \hline
+        \hline
+        \textbf{Azonosító} & \textbf{Prioritás} & \textbf{Forrás} & \textbf{Use-case} & \textbf{Ellenőrzés} \\
+        \hline
+        #1 & #2 & #3 & #4 & #5 \\
+        \hline
+    \end{tabular}
+    \\[1ex]
+    \textbf{Leírás:} #6 \\[0.2ex]
+    \itshape}
+{\\[5px]}
+
+\newenvironment{kovetelmeny}[5]
+{ 
+    \noindent\begin{tabular}{| p{2cm} | p{3.5cm} | p{3.5cm} | p{3.5cm} |}
+        \hline
+        \hline
+        \textbf{Azonosító} & \textbf{Prioritás} & \textbf{Forrás} & \textbf{Ellenőrzés} \\
+        \hline
+        #1 & #2 & #3 & #4 \\
+        \hline
+    \end{tabular}
+    \\[1ex]
+    \textbf{Leírás:} #5 \\[0.2ex]
+    \itshape}
+{\\[5px]}
+
+\newenvironment{use-case}[3]
+{ 
+    
+    \vspace{10px}
+    \noindent\begin{tabular}{| p{3cm} | p{12cm} |}
+        \hline
+        \hline
+        \vspace{0.2ex} \textsc{\textbf{Use-case neve:}} & \vspace{0.2ex} \textsc{#1} \\[0.2ex]
+        \hline
+        \textbf{Rövid leírás:} & #2 \\
+        \hline
+        \textbf{Aktorok:} & #3 \\
+        \hline
+        \textbf{Forgatókönyv:} &  
+    }
+    {	\\
+        \hline
+\end{tabular} }
+
+\newenvironment{fajllista}{
+    \begin{longtable}{|p{4.5cm}|l|l| p{4.5cm} |}
+        \hline
+        \hline \multicolumn{1}{|c|}{\textbf{Fájl neve}} & \multicolumn{1}{c|}{\textbf{Méret}} & \multicolumn{1}{c|}{\textbf{Keletkezés ideje}} & \multicolumn{1}{c|}{\textbf{Tartalom}}  \\ \hline 
+        \endfirsthead
+        
+        \multicolumn{3}{c}%
+        {{\bfseries}} \\
+        \hline \multicolumn{1}{|c|}{\textbf{Fájl neve}} & \multicolumn{1}{c|}{\textbf{Méret}} & \multicolumn{1}{c|}{\textbf{Keletkezés ideje}} & \multicolumn{1}{c|}{\textbf{Tartalom}}  \\ \hline 
+        \endhead
+        
+    }{\end{longtable}}
+
+\newcommand{\fajl}[4] {
+    #1 & #2 & #3 & #4 \\ \hline
+}
+
+\newenvironment{ertekeles}{
+    \begin{figure}[h]
+        \centering
+        \noindent\begin{tabular}{| p{5cm} | p{4cm} | p{4cm} |}
+            \hline
+            \hline
+            \textbf{Tag neve} & \textbf{Tag neptun} & \textbf{Munka százalékban} \\	\hline
+}{\end{tabular}\end{figure}}
+
+\newcommand{\ertekelestag}[3]{ 
+    #1 & #2 & #3 \\ \hline
+}
+
+\newcommand{\ertekelestagk}[2]{ 
+    #1 & #2 \\ \hline
+}
+
+\newenvironment{ertekelesOra}{
+    \begin{figure}[h]
+        \centering
+        \noindent\begin{tabular}{| p{5cm} | p{4cm} | p{4cm} |}
+            \hline
+            \hline
+            \textbf{Tag neve} & \textbf{Tag neptun} & \textbf{Munka órában} \\	\hline
+            
+        }{\end{tabular}	\end{figure}}
+
+\newenvironment{ertekelesKod}{
+    \begin{figure}[h]
+        \centering
+        \noindent\begin{tabular}{| p{5cm} | p{4cm} |}
+            \hline
+            \hline
+            \textbf{Fázis} & \textbf{Kódsorok száma} \\	\hline
+            
+        }{\end{tabular}	\end{figure}}
+
+\newcommand{\test}[3]{
+    \vspace{10px}
+    \noindent\begin{tabular}{| p{3.5cm} | p{12cm} |}
+        \hline
+        \hline
+        \vspace{0.2ex} \textsc{\textbf{Teszt-eset neve}} & \vspace{0.2ex} \textsc{#1} \\[0.2ex]
+        \hline
+        \textbf{Rövid leírás} & #2 \\
+        \hline
+        \textbf{Teszt célja} & #3 \\
+        \hline
+    \end{tabular}
+}
+
+\newenvironment{test-case}[4]
+{ 
+    \hspace*{0.4em} $\blacksquare $ \large Leírás   \\  \normalsize #1   \\[12px]
+    \hspace*{0.4em} $\blacksquare $ \large Ellenőrzött funkcionalitás, várható hibahelyek  \\  \normalsize #2  \\[12px]
+    \hspace*{0.4em} $\blacksquare $ \large Bemenet  \\  \normalsize #3  \\[12px]
+    \hspace*{0.4em} $\blacksquare $ \large Elvárt kimenet \\  \normalsize #4 \\[12px]
+}{}
+
+\newenvironment{test-case-description}{\hspace*{0.4em} $\blacksquare $ \large Leírás \\[5px]  \normalsize}{\\[12px]}
+\newenvironment{test-case-function}{\hspace*{0.4em} $\blacksquare $ \large Ellenőrzött funkcionalitás, várható hibahelyek \\[5px]  \normalsize}{\\[12px]}
+\newenvironment{test-case-input}{\hspace*{0.4em}\parbox{\linewidth}{$\blacksquare $ \large Bemenet\vspace*{5px}}\normalsize}{\leavevmode\newline}
+\newenvironment{test-case-output}{\hspace*{0.4em}\parbox{\linewidth}{$\blacksquare $ \large Elvárt kimenet\vspace{5px}}\normalsize}{\leavevmode\newline}
+
+\newcommand{\testOK}[2]{
+    \vspace{10px}
+    \noindent\begin{tabular}{| p{4.2cm} | p{12cm} |}
+        \hline
+        \hline
+        \textbf{Tesztelő neve} & \textsc{#1} \\[0.2ex]
+        \hline
+        \textbf{Teszt időpontja} & #2 \\
+        \hline
+    \end{tabular}
+}
+
+\newcommand{\testFAIL}[5]{
+    \vspace{10px}
+    \noindent\begin{tabular}{| p{4.2cm} | p{12cm} |}
+        \hline
+        \hline
+        \textbf{Tesztelő neve} & \textsc{#1} \\[0.2ex]
+        \hline
+        \textbf{Teszt időpontja} & #2 \\
+        \hline
+        \textbf{Teszt eredménye} & #3 \\
+        \hline
+        \textbf{Lehetséges hibaokok} & #4 \\
+        \hline
+        \textbf{Változtatások} & #5 \\
+        \hline
+    \end{tabular}
+}
+
+\newenvironment{terv}{	
+    \begin{longtable}{| l | p{8cm} | l |}
+        \hline
+        \hline
+        \multicolumn{1}{|c|}{\textbf{Határidő}} & \multicolumn{1}{c|}{\textbf{Feladat}} & \multicolumn{1}{c|}{\textbf{Felelős}}  \\ \hline 
+        \endfirsthead
+        
+        \multicolumn{3}{c}%
+        {{\bfseries}} \\
+        \hline \multicolumn{1}{|c|}{\textbf{Határidő}} & \multicolumn{1}{c|}{\textbf{Feladat}} & \multicolumn{1}{c|}{\textbf{Felelős}}  \\ \hline 
+        \endhead
+        
+}{\end{longtable}}
+
+\newcommand{\tervitem}[3]{ #1 & #2 & #3 \\ \hline}
+
+\newenvironment{szotar}{
+    \begin{longtable}{ p{4cm}  p{11cm} }
+        
+}{\end{longtable}}
+
+\newcommand{\szotaritem}[2]{ \textbf{#1} & #2 \\[10px]}
