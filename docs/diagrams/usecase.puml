@@ -1,0 +1,31 @@
+@startuml use-case
+left to right direction
+actor Játékos as user
+actor Kontroller as be 
+package "Interakció a játékkal" {
+	usecase "Ajtó használat" as use_door
+	usecase "Tárgyfelvétel" as pick_item
+	usecase "Tárgyeldobás" as drop_item
+	usecase "Tárgyhasználat" as use_item
+	usecase "Logarléc felvétele" as pick_logarlec
+}
+usecase "A játék elindítása" as start_game
+usecase "Kilépés a játékból" as game_over
+package Szobamódosítás {
+	usecase "Szoba osztódása" as split_room
+	usecase "Szobák egyesítése" as combine_room
+}
+
+user -- use_door : "hallgató használ"
+user -- pick_item : "halgató felvesz"
+user -- use_item : "hallgató használ"
+user -- drop_item : "hallgató eldob"
+user -- start_game
+user -- game_over
+pick_logarlec .> pick_item  : <<extend>>
+split_room -- be
+combine_room -- be
+use_door -- be : "oktató használ"
+pick_item -- be : "oktató felvesz"
+game_over -- be
+@enduml

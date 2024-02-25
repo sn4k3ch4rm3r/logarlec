@@ -3,153 +3,600 @@
 \section{Bevezetés}
 
 \subsection{Cél}
-\comment{A dokumentum célja.}
+A dokumentum célja a megrendelő tájékoztatása a szoftver funkcióiról.
+A fejlesztők számára a szoftverrel szemben támasztott követelmények, a projekttel kapcsolatos feladatok, határidők, a szoftver funkcionalitásának részletes leírása.
 
 \subsection{Szakterület}
-\comment{A kialakítandó szoftver milyen területen használható, milyen célra.}
+A játék célja a szórakoztatás.
 
 \subsection{Definíciók, rövidítések}
-\comment{A dokumentumban használt definíciók, rövidítések magyarázata.}
-\begin{defi} 
-	Példa defi: egy demó a defi használatára
-\end{defi}
+
 \begin{rov}
-    PR: példa rövidítés
+FFP2:  Filtering Facepiece 2
+\end{rov}
+\begin{rov}
+JRE: Java Runtime Environment
+\end{rov}
+\begin{rov}
+MVC: Model–view–controller
+\end{rov}
+\begin{rov}
+TVSZ: Tanulmányi és Vizsgaszabályzat
 \end{rov}
 
 \subsection{Hivatkozások}
-\urlref{http://iit.bme.hu/}{BME IIT - Programozás alapjai 3. segédanyagok, Szoftvertechnikák segédanyagok, Szoftver projekt laboratórium feladatok}
+\urlref{https://www.iit.bme.hu/targyak/BMEVIIIAB02}{Tárgyhonlap}
+\urlref{https://niif.cloud.bme.hu/ }{Kari felhő}
 
 \subsection{Összefoglalás}
-\comment{A dokumentum további részeinek rövid ismertetése}
+A szoftverünk egy MVC modellre épülő számítógépes játék, melyet Java programnyeven fogunk elkészíteni.
 
+A játékot egyszerre többen is játszhatják. Minden játékos egy diák karaktert irányít. A játék célja, hogy megszerezzük a pályán elhelyezett Logarlécet a rendelkezésre álló idő alatt, mely 11 félévnyi játékidő. Ez az időtartam a valóságban 5 és fél percnek fog megfelelni. A diák karakterek ellenségei a tanárok. Egy játékos meghal, ha a karaktere egy tanárral egy szobába kerül. Ha az idő lejár vagy az összes játékos meghal, a hallgatók vesztettek és a játék véget ér.
+
+A játékosok többféle eszközt használhatnak a játék közben, ezek mindegyike segíti őket a túlélésben, ilyen tárgyak a Tranzisztor, TVSZ denevérbőrön, Szent söröspohár, a Nedves táblatörlő rongy és az FFP2-es maszk.
+
+A játékot minimum 2 ember játsza, akik egy meghatározott játéktérben kezdenek el mozogni.
 \section{Áttekintés}
 \subsection{Általános áttekintés}
-\comment{A kialakítandó szoftver legmagasabb szintű architekturális képe. A fontosabb alrendszerek felsorolása, a közöttük kialakítandó interfészek lényege, a felhasználói kapcsolatok alapja. Esetleges hálózati és adattárolási elvárások.}
+
+A szoftver a Model-view-controller (Modell-nézet-vezérlő) programtervezési minta használatával készül. Ennek a legfontosabb része a modell, ami a játék belső logikájával és az adatok tárolásával foglalkozik. Ide tartozik a játékosok tárolása, a tárgyakkal való interakciók megvalósítása, az oktatók vezérlése. Ez a komponens kezeli a térképet, szobák egyesülését és osztódását, valamint a játék állását is. A vezérlőtől egy interfészen keresztül megkapja a felhasználói interakciókat, majd ezek alapján módosítja a tárolt adatokat (például egy játékos pozícióját frissíti). A nézet feladata a felhasználói felület megjelenítése a modellben tárolt adatok alapján, a pálya, a játékosok, vagy éppen a főmenü megrajzolása.
 
 \subsection{Funkciók}
-\comment{A feladat kb. 4000 karakteres (kb 1,5 oldal) részletezettségű magyar nyelvű leírása. Nem szerepelhetnek informatikai kifejezések.}
+
+Feladatunk egy a Műegyetem Központi épületének alagsorában játszódó játék megvalósítása. A játék célja egy ereklye, a Logarléc megtalálása adott időintevallumon bellül. Ezt nehezíti az, hogy a játék egy mágikus labirintusban játszódik.
+
+A játék szereplői a hallgatók és oktatók. A hallgatókat játékosok irányítják. A oktatókat egy szofisztikált algoritmus vezérli.
+
+A játék előre meghatározott játéktérrel indul, a szobák kiosztása fix.
+Az egész játéktér szobákra van felosztva amik között ajtókon keresztül lehet közlekedni. Vannak ajtók, amelyek csak egy irányban használhatók. A szobákban hallgatók és oktatók vannak, de maximum annyian amennyi a szoba kapacitása, ez után új játékos nem léphet a szobába. 
+
+Egyes szobák mérgező levegővel rendelkeznek. Az ide belépő emberek 5 másodpercre elájulnak és elejtik a  náluk lévő tárgyakat. Az idő leteltével felébrednek és 5 másodpercük lesz kijutni a szobából, mielőtt a folyamat megismétlődik.
+
+Vannak elátkozott szobák amiknek az összes ajtaja véletlenszerű időközönként eltűnnek majd újra megjelennek.
+
+Szomszédos szobák összeolvadhatnak: Ekkor a kapott szoba örökli a két eredeti szoba tulajdonságait, a kapacitása pedig megegyezik a nagyobb szoba kapacitásával. Ha az így előállt szobában többen tartózkodnak, mint a szoba befogadóképessége, akkor a szobában tartózkodók közül néhányan (véletlenszerűen, akár hallgató akár oktató) a "Backrooms"-ba kerülnek, azaz eltűnik a pályáról. Amint valaki elhagyja a szobát és lesz rá kapacitás, a Backrooms-ba került személyek visszakerülnek a játékba.
+
+Osztódó szoba: "két olyan szobára válik szét, amelyek egymás szomszédai lesznek, és megosztoznak a korábbi szoba képességein és szomszédain (a korábbi szomszédok vagy csak az egyik, vagy csak a másik “új” szobának lesznek szomszédai)". 
+
+Egyes szobákban különleges képességekkel bíró tárgyak vannak. Ezeket a játékosok (és oktatók) magukhoz vehetik, eldobhatják és el is ejthetik. Az alábbi tárgyak vannak: 
+\begin{itemize}
+    \item Logarléc: a játék célja ezt megtalálni. Amikor egy játékos ezt felveszi, a játék véget ér és a játékosok nyernek.
+    \item Tranzisztor: kettőt össze kell kapcsolni, majd az egyiket le kell helyezni egy szobában. Ezután a másik tranzisztor tulajdonosa a nála maradt tárgyat bekapcsolhatja és lehelyezheti, ami után egyből átkerül a másik szobába. A kiindulási helyen lévő transzisztor kikapcsol.
+    \item TVSZ denevérbőrön: védelmet nyújthat oktatók ellen. Amikor a TVSZ-t birtokló játékos egy szobába kerül oktatókkal, a tárgy minden jelenlévő oktatóval használódik egyet, ami az adott oktatót megöli. Összesen háromszor használható.
+    \item Szent söröspohár: 5 másodpercig nyújt védelmet az oktatókkal szemben.
+    \item Nedves táblatörlő rongy: a vele egy szobában lévő oktatókat megbénítja arra az időtartamra amig egy szobában tartózkodnak vele. A hatása addig tart míg ki nem szárad (15 mp). Nem újrafelhasználható.
+    \item FFP2-es maszk: védelmet nyújt a mérgesgázzal szemben. Hatása először 5 másodpercig tart, majd  ez az időtartam használatonként egy másodperccel csökken.
+    \item Dobozolt káposztás Camambert: Felbontáskor mérgesgázt bocsát ki, mely 5 másodpercig kitölti a szobát.
+\end{itemize}
+
+Minden tárgy az elhasználódása után eltűnik a játékos kezéből, de bizonyos időközönként véletlenszerű helyeken újra megjelenhetnek.
 
 \subsection{Felhasználók}
-\comment{A felhasználók jellemzői, tulajdonságai}
+
+A felhasználókkal szemben nincs megkötés, amennyiben rendelkeznek a futtatáshoz szükséges környezettel.
 
 \subsection{Korlátozások}
-\comment{Az elkészítendő szoftverre vonatkozó – általában nem funkcionális - előírások, korlátozások.}
+
+A megvalósítás Java nyelven történik külső könyvtárak felhasználása nélkül, parancssorból lehessen fordítani, fusson a kari felhőben megadott virtuális gépen.
 
 \subsection{Feltételezések, kapcsolatok}
-\comment{A Hivatkozásokban felsoroltanyagok, web-oldalak kapcsolódása a feladathoz, melyik milyen szempontból érdekes, milyen inputot ad.}
+Az információszerzés fő forrása a tárgyhonlap.
+A megrendelő követelményeinek a feladatleírásban feltüntetteket tekintjük.
 
 
 \section{Követelmények}
 \subsection{Funkcionális követelmények}
-\comment{Az alábbi táblázat kitöltésével készítendő. Dolgozzon ki követelmény azonosító rendszert! Az ellenőrzés módja szokásosan bemutatás és/vagy kiértékelés. Prioritás lehet alapvető, fontos, opcionális. Az alapvető követelmények nem teljesítése végzetes. Forrás alatt a követelményt előíró anyagot, szervezetet kell érteni. Esetünkben forrás lehet maga a csapat is, mikor ő talál ki követelményt. Use-case-ek alatt az adott követelményt megvalósító használati esete(ke)t kell megadni.}
 \begin{funkovetelmeny}
 	%Azonosító
-	{Azonosító}
+	{FK001}
 	%Prioritás
-	{Pioritás}
+	{Alapvető}
 	%Forrás
-	{Forrás}
+	{Megrendelő}
 	%Use case
-	{Használati eset}
+	{A játék elindítása}
 	%Ellenőrzés
-	{llenőrzés}
+	{Tesztelés}
 	%Leírás
-	{Leírás}
-    Megjegyzés (opcionális)
+	{Van legalább két szoba.}
 \end{funkovetelmeny}
-
+\begin{funkovetelmeny}
+	%Azonosító
+	{FK002}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{A játék elindítása}
+	%Ellenőrzés
+	{Tesztelés}
+	%Leírás
+	{Egy szobából legalább egy másik szobába nyílik ajtó.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+	%Azonosító
+	{FK003}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{Ajtó használat}
+	%Ellenőrzés
+	{Tesztelés}
+	%Leírás
+	{Játékos csak ajtón haladhat át.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+	%Azonosító
+	{FK004}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{Tágyfelvétel}
+	%Ellenőrzés
+	{Tesztelés.}
+	%Leírás
+	{Tárgy felvehető.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+	%Azonosító
+	{FK005}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{Tágyeldobás}
+	%Ellenőrzés
+	{Tesztelés.}
+	%Leírás
+	{Tárgy eldobható.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+	%Azonosító
+	{FK006}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{Logarléc felvétele}
+	%Ellenőrzés
+	{Tesztelés.}
+	%Leírás
+	{A Logarléc felvételével véget ér a játék.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+	%Azonosító
+	{FK007}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{Kilépés a játékból}
+	%Ellenőrzés
+	{Tesztelés.}
+	%Leírás
+	{Az oktatók hallgatókat ejtenek ki a játékból.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+	%Azonosító
+	{FK008}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{Ajtó használat}
+	%Ellenőrzés
+	{Tesztelés.}
+	%Leírás
+	{Vannak egyirányú ajtók.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+	%Azonosító
+	{FK009}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{-}
+	%Ellenőrzés
+	{Tesztelés.}
+	%Leírás
+	{A szent söröspohár 5 mp-ig nyújt védelmet.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+	%Azonosító
+	{FK010}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{-}
+	%Ellenőrzés
+	{Tesztelés.}
+	%Leírás
+	{A nedves táblatörlő rongy megbénítja a vele egy szobában lévő tanárokat 5 másodpercre.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+	%Azonosító
+	{FK011}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{-}
+	%Ellenőrzés
+	{Tesztelés.}
+	%Leírás
+	{FFP2-es maszk egyre rövidebb ideig nyújt védelmet a mérgező gázos szobákban.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+	%Azonosító
+	{FK012}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{-}
+	%Ellenőrzés
+	{Tesztelés.}
+	%Leírás
+	{Dobozolt káposztás camamberet felbontáskor mérgező gázt bocsájt ki, mely 5 másodpercig hat.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+	%Azonosító
+	{FK013}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{A játék elindítása.}
+	%Ellenőrzés
+	{Tesztelés.}
+	%Leírás
+	{Minden tanár ugyanabban a szobában kezd.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+    %Azonosító
+	{FK014}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{Szobák egyesülése.}
+	%Ellenőrzés
+	{Tesztelés.}
+	%Leírás
+	{Két szoba random időpontokban egyesülhet. Ilyenkor a szobák közti ajtók eltűnnek és az újonnani szoba területe megegyezik a két régi szoba területeinek összegével, a kapacitását pedig a nagyobb kapacitású szobától örökli.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+    %Azonosító
+	{FK015}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{Szoba osztódása}
+	%Ellenőrzés
+	{Tesztelés.}
+	%Leírás
+	{Két szoba random időpontokban osztódhat. Ilyenkor az új két szoba területeinek összege megegyezik az eredeti szoba területével. A  két szoba kapacitása egyenlő lesz a nagyobb szoba kapcitásával.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+    %Azonosító
+	{FK016}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{-}
+	%Ellenőrzés
+	{Tesztelés.}
+	%Leírás
+	{A denevérbőrre nyomtatott TVSZ 3 alkalommal képes megmenteni a játékos életét. 3 alkalom után erejét veszti.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+    %Azonosító
+	{FK017}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{-}
+	%Ellenőrzés
+	{Tesztelés.}
+	%Leírás
+	{Két tranzisztor összekapcsolható egymással. Az összekapcsolt tranzisztorok teleportálásra használhatók.}
+\end{funkovetelmeny}
+\begin{funkovetelmeny}
+    %Azonosító
+	{FK018}
+	%Prioritás
+	{Alapvető}
+	%Forrás
+	{Megrendelő}
+	%Use case
+	{-}
+	%Ellenőrzés
+	{Tesztelés.}
+	%Leírás
+	{Az elhasznált tárgyak elvesznek, de két félév elteltével újra megjelennek valahol a pályán.}
+\end{funkovetelmeny}
+\clearpage
 
 \subsection{Erőforrásokkal kapcsolatos követelmények}
-\comment{A szoftver fejlesztésével és használatával kapcsolatos számítógépes, hardveres, alapszoftveres és egyéb architekturális és logisztikai követelmények}
-
 \begin{kovetelmeny}
-	{Azonosító} %Azonosító
-	{Pioritás} %Prioritás
-	{Forrás} %Forrás
-	{Ellenőrzés} %Ellenőrzés
-	{Leírás} %Leírás
-    Megjegyzés (opcionális)
+	{EK001} %Azonosító
+	{Alapvető} %Prioritás
+	{Megrendelő} %Forrás
+	{Bemutatás} %Ellenőrzés
+	{Java nyelven van írva.} %Leírás
 \end{kovetelmeny}
-
-\subsection{Átadással kapcsolatos követelmények}
-\comment{A szoftver átadásával, telepítésével, üzembe helyezésével kapcsolatos követelmények}
 \begin{kovetelmeny}
-    {Azonosító} %Azonosító
-    {Pioritás} %Prioritás
-    {Forrás} %Forrás
-    {Ellenőrzés} %Ellenőrzés
-    {Leírás} %Leírás
-    Megjegyzés (opcionális)
+	{EK002} %Azonosító
+	{Alapvető} %Prioritás
+	{Megrendelő} %Forrás
+	{Bemutatás} %Ellenőrzés
+	{Fut a kari felhőben megadott virtuális gépen.} %Leírás
+\end{kovetelmeny}
+\begin{kovetelmeny}
+	{EK003} %Azonosító
+	{Alapvető} %Prioritás
+	{Megrendelő} %Forrás
+	{Bemutatás} %Ellenőrzés
+	{Nem használ külső könyvtárt.} %Leírás
+\end{kovetelmeny}
+\begin{kovetelmeny}
+	{EK004} %Azonosító
+	{Alapvető} %Prioritás
+	{Fejlesztők} %Forrás
+	{Tesztelés} %Ellenőrzés
+	{A program futtatásához a számítógépnek legalább 4GB RAM-al kell rendelkeznie.} %Leírás
+\end{kovetelmeny}
+\begin{kovetelmeny}
+	{EK005} %Azonosító
+	{Opcionális} %Prioritás
+	{Fejlesztők} %Forrás
+	{Bemutatás} %Ellenőrzés
+	{A program futtatásához ajánlott RAM mennyiség 8GB.} %Leírás
+\end{kovetelmeny}
+\begin{kovetelmeny}
+	{EK006} %Azonosító
+	{Alapvető} %Prioritás
+	{Fejlesztők} %Forrás
+	{Tesztelés} %Ellenőrzés
+	{A program futtatásához legalább 2 maggal rendelkező processzor szükséges.} %Leírás
+\end{kovetelmeny}
+\subsection{Átadással kapcsolatos követelmények}
+\begin{kovetelmeny}
+    {AK001} %Azonosító
+    {Alapvető} %Prioritás
+    {Megrendelő} %Forrás
+    {Futtatás} %Ellenőrzés
+    {Parancssorból fut.} %Leírás
 \end{kovetelmeny}
 
 \subsection{Egyéb nem funkcionális követelmények}
-\comment{A biztonsággal, hordozhatósággal, megbízhatósággal, tesztelhetőséggel, a felhasználóval kapcsolatos követelmények}
 \begin{kovetelmeny}
-    {Azonosító} %Azonosító
-    {Pioritás} %Prioritás
-    {Forrás} %Forrás
-    {Ellenőrzés} %Ellenőrzés
-    {Leírás} %Leírás
-    Megjegyzés (opcionális)
+    {XK001} %Azonosító
+    {Alapvető} %Prioritás
+    {Fejlesztők} %Forrás
+    {Tesztek} %Ellenőrzés
+    {Átmegy a teszteken.} %Leírás
+\end{kovetelmeny}
+\begin{kovetelmeny}
+    {XK002} %Azonosító
+    {Fontos} %Prioritás
+    {Fejlesztők} %Forrás
+    {Próbafuttatások.} %Ellenőrzés
+    {Hordozható.} %Leírás
+\end{kovetelmeny}
+\begin{kovetelmeny}
+    {XK003} %Azonosító
+    {Fontos} %Prioritás
+    {Fejlesztők} %Forrás
+    {Próbafuttatások.} %Ellenőrzés
+    {Megbízható.} %Leírás
 \end{kovetelmeny}
 
 \section{Lényeges use-case-ek}
-\comment{Funkcionális követelmények részben felsorolt követelmények közül az alapvető és fontos követelményekhez tartozó használati esetek megadása az alábbi táblázatos formában.}
 \subsection{Use-case leírások}
-\comment{Minden use-case-hez külön}
 \begin{use-case}
 	%név
-	{Use-case Neve}
+	{Ajtó használat}
 	%rövid leírás
-	{Az eset rövid leírása}
+	{A játékos/oktató egyik szobából a másikba jut.}
 	%aktorok
-	{Aktorok}
-	%forgatókönyv
-	Forgatókönyv \newline 
-        \textbf{A.1} Alternatíva
+	{Egy játékos / A kontroller}
+	%forgatókönyv 
+        Egy ajtóhoz közel érünk.
+        
+        \textbf{A.1} A játékos/oktató átlképhet az ajtón: az ajtó jó irányba volt egyirányú vagy az ajtó kétirányú volt. 
+        
+        \textbf{A.2} A játékos/oktató nem tud átmenni az ajtón, mert a szoba tele van vagy az ellentétes irányban egyirányú.
+\end{use-case}
+\begin{use-case}
+	%név
+	{Tárgyfelvétel}
+	%rövid leírás
+	{A játékos/oktató fel akar venni egy tárgyat.}
+	%aktorok
+	{Egy játékos. / A kontroller}
+	%forgatókönyv         
+        \textbf{A.1} A játékos/oktató nem veheti fel a tárgyat mert már már van 5 db tárgy a birtokában.
+        
+        \textbf{A.2} A játékos/oktató felveszi a tárgyat.
+\end{use-case}
+\begin{use-case}
+	%név
+	{Tárgyhasználat}
+	%rövid leírás
+	{A játékos használni akar egy tárgyat.}
+	%aktorok
+	{Egy játékos.}
+	%forgatókönyv         
+    {A játékos használja a tágyat.}
+\end{use-case}
+\begin{use-case}
+	%név
+	{Tárgyeldobás}
+	%rövid leírás
+	{A játékos önszántából eldob egy a tulajdonában lévő tárgyat}
+	%aktorok
+	{Egy játékos.}
+	%forgatókönyv         
+    {Az eldobott tárgy a játékos közelében a földre kerül.}
+\end{use-case}
+\begin{use-case}
+	%név
+	{Logarléc felvétele}
+	%rövid leírás
+	{Az egyik játékos felveszi a Logarlécet}
+	%aktorok
+	{Egy játékos.}
+	%forgatókönyv         
+    {A játék véget ér, a játékosok nyernek.}
+\end{use-case}
+\begin{use-case}
+	%név
+	{Szoba osztódása}
+	%rövid leírás
+	{A program automatikusan kettéoszt egy szobát}
+	%aktorok
+	{A kontroller.}
+	%forgatókönyv         
+    \textbf{A1} Az eredeti szoba megszűnik.
+    
+    \textbf{A2} Helyette kettő új szoba jelenik meg.
+    
+    \textbf{A3} A kapacitásuk összege az eredeti szoba kapacitásásval egyezik meg.
+    
+    \textbf{A4} Az eredeti szobában levő tárgyak, tanárok és hallgatók véletlenszerűen elosztódnak az új szobák között.
+    
+    \textbf{A5} Ha az eredeti szoba mérges gázos volt, akkor az újak is azok lesznek. 
+\end{use-case}
+\begin{use-case}
+	%név
+	{Szobák egyesülése}
+	%rövid leírás
+	{A program automatikusan egyesít két szomszédos szobát}
+	%aktorok
+	{A kontroller.}
+	%forgatókönyv         
+    \textbf{A1} Az eredeti szobák megszűnnek.
+    
+    \textbf{A2} Helyettük egy új szoba jelenik meg.
+    
+    \textbf{A3} A kapacitása az eredeti szobák kapacitása közül a nagyobbik lesz
+
+     
+    \textbf{A4} Az eredeti szobákban levő tárgyak, tanárok és hallgatók véletlenszerűen az újba kerülnek.
+
+    
+    \textbf{A5} Ha az eredeti szobák közül legalább egyik mérges gázos volt, akkor az új is az lesz. 
+
+    \textbf{A6} Ha így több személy lenne a szobában, mint a kapacitás az egyesülés nem történik meg.
+\end{use-case}
+\begin{use-case}
+	%név
+	{A játék elindítása}
+	%rövid leírás
+	{A felhasználó a parancssorból elindítja a programot.}
+	%aktorok
+	{Egy játékos.}
+	%forgatókönyv         
+    {A játékablak megjelenik a felhasználó előtt.}
+\end{use-case}
+\begin{use-case}
+	%név
+	{Kilépés a játékból}
+	%rövid leírás
+	{A játékos nem kívánja tovább használni a programot, vagy a játék szabályai nem engedik.}
+	%aktorok
+	{Egy játékos / A kontroller}
+	%forgatókönyv         
+        \textbf{A.1} A játékos kilép a játékból.
+        
+        \textbf{A.2} A játékost kiejti egy oktató.
+
+        A játékos nem lesz jelen többé a labirintusban. Ha nincs több játékos a labirintusban, a játék véget ér.
 \end{use-case}
 
+
+
+
 \subsection{Use-case diagram}
-\diagram{img/BMElogo}{Demó}{4cm}
+
+\diagram{img/diagrams/use-case}{Use-case diagram}{14cm}
 
 \section{Szótár}
-\comment{A szótár a követelmények alapján készítendő fejezet. Egy szótári bejegyzés definiálásához csak más szótári bejegyzések és köznapi – a feladattól független – fogalmak használhatók fel. A szótár mérete kb. 1-2 oldal legyen. A bejegyzések legyenek ABC sorrendben!}
 
 %szotar.sh script, lsd. a dokumentációt!!!
 \begin{szotar}
-    \szotaritem{Kulcs 1 }{Érték 1}
-    \szotaritem{Hóásás }{Egy réteg hó eltakarítása, azaz törlése az adott jégtábláról. Egy egység munkába kerül.}
+\szotaritem {Ajtó}{két szoba közötti átjáró, lehet egyirányú}
+\szotaritem {Átjutás egyik szobából a másikba} {átlépés egy ajtón, tehát ahol nincs fal}
+\szotaritem {Backrooms} {Egy fiktív alternatív dimenzió, amelyet eredeti változatában üres irodahelyiségek labirintusaként írtak le, ahová programhiba miatt kerülhetünk át a valóságból. A játékban a befogadóképességüket túllépő szobákban tartózkodó személyek kerülnek ide.}
+\szotaritem {Befogadóképesség} {az adott szobára jellemző tulajdonság, azt adja meg, hogy hányan tartózkodhatnak egyidejűleg a szobában}
+\szotaritem {Dobozolt káposztás camambert}{egy olyan tárgy, mely mérges gázt bocsát ki}
+\szotaritem {Elátkozott szoba}{olyan szoba, melynek ajtajai néha eltűnnek}
+\szotaritem {Fal} {a labirintust szobákra osztja fel}
+\szotaritem {Hallgató} {Egy egyetemi diák. Itt egy játékos által irányított karakter.}
+\szotaritem{Játékos} {A programot szórakoztatás céljából vezérlő ember. Jelen dokumentáció sokszor a játékos által irányított hallgatót röviden játékosnak nevezi.}
+\szotaritem{Kapacitás} {befogadóképesség}
+\szotaritem {Labirintus} {a játéktér, itt mozoghatnak a játékosok}
+\szotaritem {Logarléc} {mágikus tárgy, a játék célja ezt megtalálni}
+\szotaritem {Maszk} {egy olyan tárgy, amely rövid ideig védettséget biztosít a mérgező gázzal szemben}
+\szotaritem {Mérgező gáz} {oktatók és hallgatók eszméletvesztését és tárgyaik elejtését okozza.}
+\szotaritem {Nedves táblatörlő rongy} {olyan tárgy, mely a vele egy szobában lévő oktatókat megbénítja, egy adott ideig hat}
+\szotaritem {Oktató} {a játék egy szereplője, aki a hallgatót akadályozza/elveszi a lelkét}
+\szotaritem {Szent söröspohár} {olyan tárgy, mely csak egy adott ideig nyújt védelmet az oktatóktól}
+\szotaritem {Szoba} {a labirintus egy része, a határait falak jelölik ki}
+\szotaritem {Szoba egyesülése} {ekkor a „létrejövő szoba a korábbi két szoba tulajdonságaival és szomszédaival rendelkezik, de a befogadóképessége a nagyobb szoba befogadóképességével lesz azonos”}
+\szotaritem {Szoba osztódása}{„két olyan szobára válik szét, amelyek egymás szomszédai lesznek, és megosztoznak a korábbi szoba képességein és szomszédain”}
+\szotaritem {Tárgy}{olyan elemei a játéknak, amiket a játékosok és oktatók magukhoz vehetnek (egy időben max. 5 db lehet egy játékosnál), elejthetnek, lerakhatnak. Lehetnek különleges képességeik}
+\szotaritem {Tranzisztor}{a szobákban találhatók, párok alkothatók belőlük. Az egyik tranzisztort egy szobában hagyva a hallgató egy másik szobából visszakerülhet ebbe a szobába. Korlátlan ideig használható}
+\szotaritem {TVSZ Denevérbőrön}{olyan tárgy, mely három alkalommal nyújt védelmet az oktatókkal szemben, aztán elveszíti az erejét}
+\szotaritem {Védettség} {az a státusz amit egy védettséget okozó tárgy birtoklása kölcsönöz az adott hallgatónak. Ekkor a hallgatónak nem árthatnak az oktatók. A védettség tárgytól függően mérhető időben/alkalomban.}
 \end{szotar}
 
 \section{Projekt terv}
-\comment{Tartalmaznia kell a projekt végrehajtásának lépéseit, a lépések, eredmények határidejét, az egyes feladatok elvégzéséért felelős személyek nevét és beosztását, a szükséges erőforrásokat, stb. Meg kell adni a csoportmunkát támogató eszközöket, a választott technikákat! Definiálni kell, hogy hogyan történik a dokumentumok és a forráskód megosztása!}
-
-
 \subsection{Projektütemterv}
 \begin{terv}
-		\tervitem{febr. 4.}  {Követelmény, projekt, funkcionalitás}{ ?????? }
-        \tervitem{márc. 2. } { Analízis modell kidolgozása 1. - beadás }{ ?????? } 
-        \tervitem{márc. 9. } { Analízis modell kidolgozása 2. - beadás }{ ?????? }
-        \tervitem{márc. 16. }{ Skeleton tervezése - beadás }{ ?????? }
-        \tervitem{márc. 23. }{ Skeleton - beadás és a forráskód herculesre való feltöltése }{ ?????? }
-        \tervitem{márc. 30. }{ Prototípus koncepciója - beadás }{ ?????? }
-        \tervitem{ápr. 6. }{ Részletes tervek - beadás }{ ?????? }
-        \tervitem{ápr. 27. }{ Prototípus - beadás és a forráskód, a tesztbemenetek és az elvárt kimenetek herculesre való feltöltése }{ ?????? }
-        \tervitem{ máj. 4. }{ Grafikus felület specifikációja - beadás }{ ?????? }
-        \tervitem{ máj. 18. }{ Grafikus változat és Összefoglalás - beadás és a forráskód herculesre való feltöltése }{ ?????? } 
+		\tervitem{ febr. 26.}  {Követelmény, projekt, funkcionalitás}{ Nagy Alexandra }
+        \tervitem{ márc. 4. } { Analízis modell kidolgozása 1. - beadás }{ Joób Zalán } 
+        \tervitem{ márc. 11. } { Analízis modell kidolgozása 2. - beadás }{ Joób Zalán }
+        \tervitem{ márc. 18. }{ Skeleton tervezése - beadás }{ Zelei Mátyás }
+        \tervitem{ márc. 25. }{ Skeleton - beadás és a forráskód herculesre való feltöltése }{ Nagy Alexandra }
+        \tervitem{ ápr. 8. }{ Prototípus koncepciója - beadás }{ Balla Gergely }
+        \tervitem{ ápr. 15. }{ Részletes tervek - beadás }{ Tóth Boldizsár }
+        \tervitem{ ápr. 29. }{ Prototípus - beadás és a forráskód, a tesztbemenetek és az elvárt kimenetek herculesre való feltöltése }{ Zelei Mátyás }
+        \tervitem{ máj. 6. }{ Grafikus felület specifikációja - beadás }{ Balla Gergely }
+        \tervitem{ máj. 22. }{ Grafikus változat és Összefoglalás - beadás és a forráskód herculesre való feltöltése }{ Tóth Boldizsár } 
 \end{terv}
-
+\comment{A tárgyhonlapon közzétett ütemezés szerint a Részletes tervek leadásának határideje május 15., viszont a sorrend és a korábbi évek alapján valószínűbb, hogy  április 15. }
 \subsection{Erőforrások, eszközök}
 A fejlesztés során felhasznált segédeszközök:
 \begin{itemize}
-	\item Dokumentáció: dokumentáló eszközök felsorlása
-	\item Kommunikáció: kommunikációs platformok...
-	\item Modellező eszköz: modellezési eszközök
-	\item Fejlesztő környezetek: ...
-	\item Forráskód megosztás, verziókezelés: ...
-	\item Egyéb ....
+	\item Dokumentáció: A heti beadandó feladatokhoz a \LaTeX\ sablont használjuk. Közös munkához az Overleaf online \LaTeX szerkesztő programot használjuk.
+	\item Kommunikáció: Első sorban Discord-on keresztül, ezen kívül GitHub-on az Issue-k alatti kommentekben.
+	\item Modellező eszköz: Modellek, diagrammok készítésére PlantUML-t használunk.
+	\item Fejlesztő környezetek: IntelliJ IDEA, Visual Studio Code
+	\item Forráskód megosztás, verziókezelés: Verziókezeléshez git-et használunk a repository megosztása pedig GitHub-on keresztül történik.
+	\item Projekt menedzsment: Feladatok kiosztásához, kezeléséhez, haladásuk nyomonkövetéséhez a GitHub Projects-et illetve GitHub-on felvett Issue-kat használunk.
 \end{itemize}
-
-\comment{Még szabadon felvehető releváns idetartozó dolgok...}
-
