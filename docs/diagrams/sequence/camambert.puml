@@ -1,0 +1,7 @@
+@startuml camambert-sequence
+
+ -> Camambert: use(p: Person)
+    Camambert -> Room: makeToxic()
+    Room -> Person: knockOut(duration: int)
+	
+@enduml

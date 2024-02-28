@@ -1,0 +1,74 @@
+@startuml static-structure
+abstract class Person {
+    +use(Item)
+    +pick(Item)
+    +knockOut(int)
+    +putDown(Item)
+    +enteredRoom()
+}
+abstract Item {
+    {abstract} +use(Person)
+    +drop()
+}
+class Room {
+    -capacity : int
+    +enter(Person)
+    +makeToxic(int)
+    +attack(Student)
+    +enteredRoom(Person)
+    +leaveRoom(Person)
+
+	+interact(Teacher)
+	+interact(Student)
+
+    +cleaningClothUsed()
+
+    +merge(Room)
+    +split()
+}
+class Door {
+    +use(person : Person, from : Room)
+}
+class Transistor {
+	+link(Transistor)
+}
+class Camambert {
+}
+class BeerBottle {
+}
+class CodeOfStudies {
+}
+class BoardCleaningCloth {
+}
+class FFP2 {
+}
+class SlideRule {
+}
+
+class Teacher {
+    +enteredRoom()
+}
+class Student {
+    +beingAttacked(Teacher)
+    +enteredRoom()
+}
+
+ Person <|-- Student
+ Person <|-- Teacher
+ Room *-- Person
+ Room *-- Item
+ Room *- Door
+ Room -o Door
+ Room --o Person
+ Transistor --o Transistor
+
+ Person *-- Item
+ Item <|--- CodeOfStudies
+ Item <|-- SlideRule
+ Item <|--- Transistor
+ Item <|-- BeerBottle
+ Item <|--- BoardCleaningCloth
+ Item <|--- FFP2
+ Item <|- Camambert
+'  Door <|-- Transistor
+@enduml
