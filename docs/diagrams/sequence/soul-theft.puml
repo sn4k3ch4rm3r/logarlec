@@ -1,0 +1,39 @@
+@startuml soul-theft
+
+hide footbox
+
+participant "student : Student" as s
+participant "item : Item" as i
+
+
+[-> s ++: elliminate()
+create "effectVisitor : PersonalEffectVisitor" as ev
+s -> ev : new 
+loop item in inventory
+	s -> i ++: accept(effectVisitor)
+	i -> ev ++: visit(this)
+	opt protects from ellimination
+		ev -> s ++: protect()
+		s --> ev --
+	end
+	ev --> i --
+	i --> s --
+end
+opt no effect worked
+	create "itemVisitor : DefenseItemVisitor" as iv
+	s -> iv : new
+	loop item in inventory
+		s -> i ++: accept(itemVisitor)
+		i -> iv ++: visit(this)
+		opt protects from ellimination
+			iv -> s ++: protect()
+			s --> iv --
+		end
+		iv --> i --
+		i --> s --
+	end
+end
+
+[<-- s --
+
+@enduml

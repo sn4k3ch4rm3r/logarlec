@@ -1,0 +1,73 @@
+@startuml visitors
+
+' left to right direction
+
+interface Item {
+	+ accept(visitor : ItemVisitor) : void
+}
+
+class SlideRule
+class Transistor
+class CodeOfStudies {
+	- uses : int
+}
+class Beer {
+	- active : bool
+	- amount : double
+}
+class WetRag {
+	- wetness : double
+}
+class Mask {
+	- uses : int
+}
+class Camambert {
+	- open : bool
+}
+
+interface ItemVisitor {
+	+ visit(slideRule : SlideRule) : void
+	+ visit(transistor : transistor) : void
+	+ visit(codeOfStudies : CodeOfStudies) : void
+	+ visit(beer : Beer) : void
+	+ visit(wetRag : WetRag) : void
+	+ visit(mask : Mask) : void
+	+ visit(camambert : Camambert) : void
+}
+
+class PersonalEffectVisitor {
+	- person : Person
+	+ visit(beer : Beer) : void
+	+ visit(mask : Mask) : void
+}
+
+class RoomEffectVisitor {
+	- room : Room
+	+ visit(wetRag : WetRag)
+	+ visit(camambert : Camambert)
+}
+
+class DefenseItemVisitor {
+	- person : Person
+	+ visit(codeOfStudies : CodeOfStudies)
+}
+
+together {
+	Item <|.- SlideRule
+	Item <|.-- Transistor
+	Item <|.- CodeOfStudies
+	Item <|.-- Beer
+	Item <|.- WetRag
+	Item <|.-- Mask
+	Item <|.- Camambert
+}
+
+together {
+	ItemVisitor <|.up- RoomEffectVisitor
+	ItemVisitor <|.up- DefenseItemVisitor
+	ItemVisitor <|.up- PersonalEffectVisitor
+}
+
+Item -up-> ItemVisitor : <<use>>
+
+@enduml
