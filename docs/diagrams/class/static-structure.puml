@@ -3,7 +3,6 @@ abstract class Person {
     -name : String
     -numItems : int
     -room: Room
-    -inventory: List<Item>
     +use(Item) 
     +pick(Item)
     +knockOut(int)
@@ -67,7 +66,7 @@ class Student {
  Room --o Person
  Transistor --o Transistor
 
- Person *-- Item
+ Person "0..5"*-- Item
  Item <|--- CodeOfStudies
  Item <|-- SlideRule
  Item <|--- Transistor
