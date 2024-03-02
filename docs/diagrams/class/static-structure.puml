@@ -1,10 +1,12 @@
 @startuml static-structure
 abstract class Person {
-    +use(Item)
+    -name : String
+    -numItems : int
+    -room: Room
+    +use(Item) 
     +pick(Item)
     +knockOut(int)
     +putDown(Item)
-    +enteredRoom()
 }
 abstract Item {
     {abstract} +use(Person)
@@ -12,17 +14,14 @@ abstract Item {
 }
 class Room {
     -capacity : int
+    -numOfPeople : int
     +enter(Person)
     +makeToxic(int)
+    +cleaningClothUsed()
     +attack(Student)
-    +enteredRoom(Person)
     +leaveRoom(Person)
-
 	+interact(Teacher)
 	+interact(Student)
-
-    +cleaningClothUsed()
-
     +merge(Room)
     +split()
 }
@@ -33,14 +32,19 @@ class Transistor {
 	+link(Transistor)
 }
 class Camambert {
+    -isOpen : boolean
 }
 class BeerBottle {
+    -effectTime : int
 }
 class CodeOfStudies {
+    -numUse : int
 }
 class BoardCleaningCloth {
 }
 class FFP2 {
+    -effectTime : int
+    -numUse : int
 }
 class SlideRule {
 }
