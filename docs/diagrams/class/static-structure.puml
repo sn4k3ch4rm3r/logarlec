@@ -3,6 +3,7 @@ abstract class Person {
     -name : String
     -numItems : int
     -room: Room
+    -inventory: List<Item>
     +use(Item) 
     +pick(Item)
     +knockOut(int)
