@@ -1,4 +1,4 @@
-@startuml door-sequence
+@startuml pickup_item_sequence
 hide footbox
 
 participant "person : Person" as per
@@ -11,12 +11,15 @@ alt there is an item near
     alt inventory has free space
         item -> per ++: Pickup
     else there is no space
-        <-- item ++:
+    item --> per :
+        <-- per ++:
     end
 else there is no item near
-    <-- item ++:
+   item --> per :
+    <-- per ++:
 end
 
-<-- item ++:
+item --> per :
+<-- per ++:
 
 @enduml

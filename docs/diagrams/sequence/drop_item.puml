@@ -1,0 +1,14 @@
+@startuml drop_item_sequence
+hide footbox
+
+participant "person : Person" as per
+participant "item : Item" as item
+
+[-> per ++: Drop Command
+
+per -> item ++: Drop
+item --> per --: 
+
+<-- per ++ : Item dropped
+
+@enduml
