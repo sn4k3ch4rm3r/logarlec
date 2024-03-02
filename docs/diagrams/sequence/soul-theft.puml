@@ -6,13 +6,13 @@ participant "student : Student" as s
 participant "item : Item" as i
 
 
-[-> s ++: elliminate()
+[-> s ++: eliminate()
 create "effectVisitor : PersonalEffectVisitor" as ev
 s -> ev : new 
 loop item in inventory
 	s -> i ++: accept(effectVisitor)
 	i -> ev ++: visit(this)
-	opt protects from ellimination
+	opt protects from elimination
 		ev -> s ++: protect()
 		s --> ev --
 	end
@@ -25,7 +25,7 @@ opt no effect worked
 	loop item in inventory
 		s -> i ++: accept(itemVisitor)
 		i -> iv ++: visit(this)
-		opt protects from ellimination
+		opt protects from elimination
 			iv -> s ++: protect()
 			s --> iv --
 		end

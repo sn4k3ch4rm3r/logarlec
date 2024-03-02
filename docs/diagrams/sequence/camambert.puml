@@ -1,7 +1,14 @@
 @startuml camambert-sequence
 
- -> Camambert: use(p: Person)
-    Camambert -> Room: makeToxic()
-    Room -> Person: knockOut(duration: int)
+hide footbox
+
+ -> Camambert ++: use(p: Person)
+    Camambert -> Room ++: makeToxic()
+    loop person in Room
+        Room -> Person ++: knockOut(duration: int)
+        Room <-- Person --
+    end
+Camambert <-- Room --
+<-- Camambert --
 	
 @enduml
