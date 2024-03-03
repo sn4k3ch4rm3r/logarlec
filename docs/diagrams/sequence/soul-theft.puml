@@ -6,7 +6,7 @@ participant "student : Student" as s
 participant "effect : Effect" as e
 participant "item : Item" as i
 
-[-> s ++ : interact(teacher)
+[-> s ++ : beingAttacked(teacher)
 opt teacher is not ignored
 	create "visitor : SoulTakingVisitor" as v
 	s -> v : student, teacher

@@ -22,6 +22,10 @@ package Visitors {
 		+ visit(item : Mask) : void
 		+ visit(item : Camambert) : void
 	}
+	interface PersonVisitor {
+		+ visit (object : Student) : void
+		+ visit (object : Teacher) : void
+	}
 
 	class SoulTakingVisitor {
 		- protected : bool
@@ -38,6 +42,14 @@ package Visitors {
 		+ visit(effect : MaskEffect) : void
 		+ poison() : void
 	}
+	class AttackingVisitor {
+		- canAttack : bool
+		- teacher : Teacher
+		- room : Room
+		+ visit(effect : RagEffect) : void
+		+ visit(object : Room) : void
+		+ visit(object : Person) : void
+	}
 }
 
 interface GameObject {
@@ -52,14 +64,17 @@ abstract Person {
 }
 
 class Student {
-	+ interact(other : Teacher)
+	+ beingAttacked(teacher : Teacher)
 }
 class Teacher {
 	
 }
 
 
-class Room
+class Room {
+	+ visitEffects(visitor : EffectVisitor) : void
+	+ visitPeople(visitor : PersonVisitor) : void
+}
 
 package Items {
 	interface Item {
@@ -130,5 +145,15 @@ Person *- Item
 
 ItemVisitor <|.- SoulTakingVisitor
 EffectVisitor <|.- SoulTakingVisitor
+
+ItemVisitor <|.- PoisoningVisitor
+EffectVisitor <|.- PoisoningVisitor
+
+EffectVisitor <|.- AttackingVisitor
+PersonVisitor <|.- AttackingVisitor
+
+PersonVisitor ---> GameObject
+EffectVisitor ---> Effect
+ItemVisitor ---> Item
 
 @enduml

@@ -1,0 +1,35 @@
+@startuml perform-attack
+title Perform Attack
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "visitor : AttackingVisitor" as visitor
+participant "room : Room" as room
+participant "effect : Effect" as effect
+participant "student : Student" as student
+
+[-> visitor ++ : performAttack()
+	visitor -> room ++ : visitEffects(visitor)
+		loop effect in effects
+			room -> effect ++ : accept(visitor)
+				effect -> visitor ++: visit(effect)
+				return
+			return
+		end
+	return
+	opt can attack
+		visitor -> room ++ : visitPeople(visitor)
+		loop person in people
+			room -> student ++ : accept(visitor)
+				student -> visitor ++: visit(student)
+					visitor -> student ++ : beingAttacked(teacher)
+						ref over student : Soul Theft
+					return
+				return 
+			return
+		end
+		return
+	end
+return
+
+@enduml
