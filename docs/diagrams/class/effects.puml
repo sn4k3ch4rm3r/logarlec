@@ -1,0 +1,134 @@
+@startuml effects
+
+left to right direction
+
+interface Updatable {
+	+ update(deltaTime : double) : void
+}
+
+package Visitors {
+	interface EffectVisitor {
+		+ visit(effect : BeerEffect)
+		+ visit(effect : RagEffect)
+		+ visit(effect : GasEffect)
+		+ visit(effect : MaskEffect)
+	}
+	interface ItemVisitor {
+		+ visit(item : SlideRule) : void
+		+ visit(item : transistor) : void
+		+ visit(item : CodeOfStudies) : void
+		+ visit(item : Beer) : void
+		+ visit(item : WetRag) : void
+		+ visit(item : Mask) : void
+		+ visit(item : Camambert) : void
+	}
+
+	class SoulTakingVisitor {
+		- protected : bool
+		- target : Student
+		- attacker: Teacher
+		+ visit(effect : BeerEffect) : void
+		+ visit(item : CodeOfStudies) : void
+		+ takeSoul() : void
+	}
+	class PoisoningVisitor {
+		- protected : bool
+		- target : Person
+		+ visit(item : Mask) : void
+		+ visit(effect : MaskEffect) : void
+		+ poison() : void
+	}
+}
+
+interface GameObject {
+	+ accept(visitor : GameObjectVisitor) : void
+	+ applyEffect(effect : Effect) : void
+	+ addItem(item : Item) : void
+	+ removeItem(item : Item) : void
+	+ interact(other : GameObject) : void
+}
+
+abstract Person {
+}
+
+class Student {
+	+ interact(other : Teacher)
+}
+class Teacher {
+	
+}
+
+
+class Room
+
+package Items {
+	interface Item {
+		+ accept(visitor : ItemVisitor)
+		+ use(target : GameObject)
+	}
+	class SlideRule
+	class Transistor
+	class CodeOfStudies {
+		- uses : int
+	}
+	class Beer {
+	}
+	class WetRag {
+		- effect : RagEffect
+		- wetness : double
+	}
+	class Mask {
+		- effect : MaskEffect
+		- uses : int
+	}
+	class Camambert {
+	}
+}
+
+package Effects {
+	interface Effect {
+		+ accept(visitor : EffectVisitor) : void
+	}
+
+	class BeerEffect 
+	class RagEffect
+	class GasEffect
+	class MaskEffect
+}
+
+together {
+	Effect <|.- BeerEffect
+	Effect <|.- RagEffect
+	Effect <|.- GasEffect
+	Effect <|.- MaskEffect
+}
+
+together {
+	Item <|.- SlideRule
+	Item <|.- Transistor
+	Item <|.- CodeOfStudies
+	Item <|.- Beer
+	Item <|.- WetRag
+	Item <|.- Mask
+	Item <|.- Camambert
+}
+
+Updatable <|.- GameObject
+Updatable <|.- Effect
+GameObject <|.- Person
+GameObject <|.- Room
+Person <|-- Teacher
+Person <|-- Student
+
+
+GameObject *- Effect
+
+Room *-- Person
+Room *-- Item
+
+Person *- Item
+
+ItemVisitor <|.- SoulTakingVisitor
+EffectVisitor <|.- SoulTakingVisitor
+
+@enduml

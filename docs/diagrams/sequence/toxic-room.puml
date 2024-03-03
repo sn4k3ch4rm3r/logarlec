@@ -4,21 +4,32 @@ hide footbox
 
 participant "person : Person" as p
 participant "item : Item" as i
+participant "effect : Effect" as e
 
-[-> p++: knockOut(duration: int)
-create "effectVisitor : PersonalEffectVisitor" as ev
-p -> ev : new 
-loop item in inventory
-	p -> i ++: accept(effectVisitor)
-	i -> ev ++: visit(this)
-	opt protects from toxic gas
-		ev -> p ++: protect()
-		p --> ev --
-	end
-	ev --> i --
+[-> p ++ : poison()
+create "visitor : PoisoningVisitor" as v
+p -> v : person
+loop effect in effects
+	p -> e ++: accept(visitor)
+	e -> v ++: visit(effect)
+	v --> e --
+	e --> p --
+end
+loop item in items
+	p -> i ++: accept(visitor)
+	i -> v ++: visit(item)
+	v -> i ++: use(person)
+	i --> v --
+	v --> i --
 	i --> p --
 end
 
+p -> v ++: poison()
+opt player was not protected
+v -> p ++: knockOut()
+p --> v --
+end 
+v --> p --
 [<-- p --
 
 @enduml

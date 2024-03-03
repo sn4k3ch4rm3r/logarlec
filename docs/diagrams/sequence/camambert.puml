@@ -1,14 +1,18 @@
-@startuml camambert-sequence
+@startuml camambert
 
 hide footbox
+autoactivate on
 
- -> Camambert ++: use(p: Person)
-    Camambert -> Room ++: makeToxic()
-    loop person in Room
-        Room -> Person ++: knockOut(duration: int)
-        Room <-- Person --
-    end
-Camambert <-- Room --
-<-- Camambert --
-	
+participant "camambert : Camambert" as c
+participant "person : Person" as p
+participant "room : Room" as r
+
+[-> c : use(person)
+    c -> p : applyEffect(gasEffect)
+        p -> r : applyEffect(gasEffect)
+        return 
+    return
+    c -> p : removeItem(camambert)
+    return
+return
 @enduml

@@ -1,0 +1,15 @@
+@startuml beer
+
+hide footbox
+
+participant "beer : Beer" as beer
+participant "student : Student" as student
+
+[-> beer ++: use(student)
+beer -> student ++ : applyEffect(beerEffect)
+student --> beer --
+beer -> student ++ : removeItem(beer)
+student --> beer --
+[<-- beer --
+
+@enduml

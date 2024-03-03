@@ -1,23 +1,21 @@
-@startuml door-sequence
+@startuml door
 hide footbox
 participant "door : Door" as door
 participant "next : Room" as next
 participant "previous : Room" as prev
 
 [-> door ++: use(p: Person, from: Room) 
-alt correct direction
+opt correct direction
 	door -> next ++: enterRoom(p: Person)
 	alt has capacity
 		next --> door: success
 		door -> prev ++: leaveRoom(p: Person)
-		deactivate prev
+		prev --> door --
 		[<-- door : success
 	else
 		next --> door --: failed
-		[<-- door : failed
 	end
-else
-	[<-- door : failed
 end
+[<-- door --: failed
 
 @enduml

@@ -3,37 +3,39 @@
 hide footbox
 
 participant "student : Student" as s
+participant "effect : Effect" as e
 participant "item : Item" as i
 
-
-[-> s ++: eliminate()
-create "effectVisitor : PersonalEffectVisitor" as ev
-s -> ev : new 
-loop item in inventory
-	s -> i ++: accept(effectVisitor)
-	i -> ev ++: visit(this)
-	opt protects from elimination
-		ev -> s ++: protect()
-		s --> ev --
+[-> s ++ : interact(teacher)
+opt teacher is not ignored
+	create "visitor : SoulTakingVisitor" as v
+	s -> v : student, teacher
+	loop effect in effects
+		s -> e ++: accept(visitor)
+		e -> v ++: visit(effect)
+		v --> e --
+		e --> s --
 	end
-	ev --> i --
-	i --> s --
-end
-opt no effect worked
-	create "itemVisitor : DefenseItemVisitor" as iv
-	s -> iv : new
-	loop item in inventory
-		s -> i ++: accept(itemVisitor)
-		i -> iv ++: visit(this)
-		opt protects from elimination
-			iv -> s ++: protect()
-			s --> iv --
+	loop item in items
+		s -> i ++: accept(visitor)
+		i -> v ++: visit(item)
+		v -> i ++: use(student)
+		i --> v --
+		opt tvsz saved the student
+			v -> s ++ : ignoreTeacher(teacher)
+			s --> v --
 		end
-		iv --> i --
+		v --> i --
 		i --> s --
 	end
-end
 
+	s -> v ++: takeSoul()
+	opt player was not protected
+	v -> s ++: eliminate()
+	s --> v --
+	end 
+	v --> s --
+end
 [<-- s --
 
 @enduml
