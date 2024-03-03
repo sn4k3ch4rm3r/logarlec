@@ -8,7 +8,7 @@ abstract class Person {
     +knockOut(int)
     +putDown(Item)
 }
-abstract Item {
+interface Item {
     {abstract} +use(Person)
     +drop()
 }
@@ -67,12 +67,12 @@ class Student {
  Transistor --o Transistor
 
  Person "0..5"*-- Item
- Item <|--- CodeOfStudies
- Item <|-- SlideRule
- Item <|--- Transistor
- Item <|-- BeerBottle
- Item <|--- BoardCleaningCloth
- Item <|--- FFP2
- Item <|- Camambert
+ Item <|.up- CodeOfStudies
+ Item <|.up- SlideRule
+ Item <|.up- Transistor
+ Item <|.left- BeerBottle
+ Item <|.down-- BoardCleaningCloth
+ Item <|.down-- FFP2
+ Item <|.down-- Camambert
 '  Door <|-- Transistor
 @enduml
