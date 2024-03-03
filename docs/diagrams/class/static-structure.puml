@@ -40,7 +40,7 @@ class BeerBottle {
 class CodeOfStudies {
     -numUse : int
 }
-class BoardCleaningCloth {
+class WetRag {
 }
 class Mask {
     -effectTime : int
@@ -71,7 +71,7 @@ class Student {
  Item <|.up- SlideRule
  Item <|.up- Transistor
  Item <|.left- BeerBottle
- Item <|.down-- BoardCleaningCloth
+ Item <|.down-- WetRag
  Item <|.down-- Mask
  Item <|.down-- Camambert
 '  Door <|-- Transistor
