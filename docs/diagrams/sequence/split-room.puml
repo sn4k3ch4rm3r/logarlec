@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+hide footbox
+actor Controller
+participant "r1 : Room" as r1
+
+
+
+Controller -> r1: split()
+create participant "r2 : Room" as r2
+r1 -> r2: Create
+create participant "d: Door" as d
+r1 -> d: Create
+
+
+@enduml

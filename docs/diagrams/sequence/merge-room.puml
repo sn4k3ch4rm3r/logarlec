@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+hide footbox
+actor Controller
+participant "r1 : Room" as r1
+participant "r2 : Room" as r2
+
+
+Controller -> r1: merge(r2)
+r1 -> r2: Merge
+
+alt can be merged
+    r1 <-- r2:
+    destroy r2
+else can't be merged
+    r1 <-- r2:
+end
+
+@enduml
