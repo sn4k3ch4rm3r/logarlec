@@ -42,7 +42,7 @@ class CodeOfStudies {
 }
 class BoardCleaningCloth {
 }
-class FFP2 {
+class Mask {
     -effectTime : int
     -numUse : int
 }
@@ -72,7 +72,7 @@ class Student {
  Item <|.up- Transistor
  Item <|.left- BeerBottle
  Item <|.down-- BoardCleaningCloth
- Item <|.down-- FFP2
+ Item <|.down-- Mask
  Item <|.down-- Camambert
 '  Door <|-- Transistor
 @enduml
