@@ -1,5 +1,5 @@
 @startuml soul-theft
-
+title Soul Theft
 hide footbox
 
 participant "student : Student" as s

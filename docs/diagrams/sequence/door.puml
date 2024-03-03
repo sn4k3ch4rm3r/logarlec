@@ -1,4 +1,5 @@
 @startuml door
+title Use Door
 hide footbox
 participant "door : Door" as door
 participant "next : Room" as next

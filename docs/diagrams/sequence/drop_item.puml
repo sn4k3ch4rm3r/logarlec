@@ -1,6 +1,6 @@
 @startuml drop_item_sequence
+title Drop Item
 hide footbox
-
 participant "person : Person" as per
 participant "item : Item" as item
 

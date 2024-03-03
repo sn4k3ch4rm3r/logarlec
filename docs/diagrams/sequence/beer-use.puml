@@ -1,5 +1,5 @@
 @startuml beer
-
+title Use Beer
 hide footbox
 
 participant "beer : Beer" as beer

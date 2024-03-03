@@ -1,6 +1,5 @@
-@startuml
-'https://plantuml.com/sequence-diagram
-
+@startuml split-room
+title Split Room
 hide footbox
 actor Controller
 participant "r1 : Room" as r1

@@ -1,5 +1,5 @@
 @startuml toxic-room
-
+title Poison People in a Toxic Room
 hide footbox
 
 participant "person : Person" as p

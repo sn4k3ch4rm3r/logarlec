@@ -1,5 +1,5 @@
 @startuml transistor
-
+title Link Transistors
 hide footbox
 
 participant "student : Student" as s
