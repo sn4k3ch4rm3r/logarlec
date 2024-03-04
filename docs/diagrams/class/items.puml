@@ -53,6 +53,6 @@ WetRag o--o RagEffect
 Mask o--o MaskEffect
 
 Transistor --o Transistor
-Transistor --o Room
+Transistor o-- Room
 
 @enduml

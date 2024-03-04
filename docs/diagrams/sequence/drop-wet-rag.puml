@@ -1,5 +1,5 @@
 @startuml drop-wet-rag
-title Pick Up Wet Rag
+title Drop Up Wet Rag
 hide footbox
 autoactivate on
 

@@ -1,4 +1,4 @@
-@startuml place-transistor
+@startuml use-transistor
 
 title Teleport Using Transistor
 hide footbox
