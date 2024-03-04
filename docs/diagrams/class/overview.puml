@@ -8,10 +8,10 @@ interface Updatable {
 
 package Visitors {
 	interface EffectVisitor {
-		+ visit(effect : BeerEffect)
-		+ visit(effect : RagEffect)
-		+ visit(effect : GasEffect)
-		+ visit(effect : MaskEffect)
+		+ visit(effect : BeerEffect) : void
+		+ visit(effect : RagEffect) : void
+		+ visit(effect : GasEffect) : void
+		+ visit(effect : MaskEffect) : void
 	}
 	interface ItemVisitor {
 		+ visit(item : SlideRule) : void
@@ -80,13 +80,13 @@ package GameObjects {
 		+ visitPeople(visitor : PersonVisitor) : void
 		+ enter(person : Person) : boolean
 		+ leave(person : Person) : void
-		+ merge(Room)
-		+ split()
+		+ merge(Room) : void
+		+ split() : void
 	}
 }
 
 class Door {
-    +use(person : Person, from : Room)
+    +use(person : Person, from : Room) : void
 }
 
 package Items {
