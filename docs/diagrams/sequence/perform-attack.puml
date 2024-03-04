@@ -9,16 +9,16 @@ participant "effect : Effect" as effect
 participant "student : Student" as student
 
 [-> visitor ++ : performAttack()
-	visitor -> room ++ : visitEffects(visitor)
+	visitor -> room ++ : visitEffects(EffectVisitor)
 		loop effect in effects
 			room -> effect ++ : accept(visitor)
-				effect -> visitor ++: visit(effect)
+				effect -> visitor ++: visit(RagEffect)
 				return
 			return
 		end
 	return
 	opt can attack
-		visitor -> room ++ : visitPeople(visitor)
+		visitor -> room ++ : visitPeople(PersonVisitor)
 		loop person in people
 			room -> student ++ : accept(visitor)
 				student -> visitor ++: visit(student)

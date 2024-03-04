@@ -11,13 +11,13 @@ create "visitor : PoisoningVisitor" as v
 p -> v : person
 loop effect in effects
 	p -> e ++: accept(visitor)
-	e -> v ++: visit(effect)
+	e -> v ++: visit(MaskEffect)
 	v --> e --
 	e --> p --
 end
 loop item in items
 	p -> i ++: accept(visitor)
-	i -> v ++: visit(item)
+	i -> v ++: visit(Mask)
 	v -> i ++: use(person)
 	i --> v --
 	v --> i --
