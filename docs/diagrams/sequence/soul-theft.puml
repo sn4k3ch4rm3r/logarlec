@@ -12,13 +12,13 @@ opt teacher is not ignored
 	s -> v : student, teacher
 	loop effect in effects
 		s -> e ++: accept(visitor)
-		e -> v ++: visit(BeerEffect)
+		e -> v ++: visit(effect)
 		v --> e --
 		e --> s --
 	end
 	loop item in items
 		s -> i ++: accept(visitor)
-		i -> v ++: visit(CodeOfStudies)
+		i -> v ++: visit(item)
 		v -> i ++: use(student)
 		i --> v --
 		opt tvsz saved the student
