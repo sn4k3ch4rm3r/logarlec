@@ -29,23 +29,18 @@ package Visitors {
 
 	class SoulTakingVisitor {
 		- protected : bool
-		- target : Student
-		- attacker: Teacher
 		+ visit(effect : BeerEffect) : void
 		+ visit(item : CodeOfStudies) : void
 		+ takeSoul() : void
 	}
 	class PoisoningVisitor {
 		- protected : bool
-		- target : Person
 		+ visit(item : Mask) : void
 		+ visit(effect : MaskEffect) : void
 		+ poison() : void
 	}
 	class AttackingVisitor {
 		- canAttack : bool
-		- teacher : Teacher
-		- room : Room
 		+ visit(effect : RagEffect) : void
 		+ visit(object : Room) : void
 		+ visit(object : Person) : void
@@ -53,7 +48,6 @@ package Visitors {
 }
 
 interface GameObject {
-	+ accept(visitor : GameObjectVisitor) : void
 	+ applyEffect(effect : Effect) : void
 	+ addItem(item : Item) : void
 	+ removeItem(item : Item) : void
@@ -61,10 +55,15 @@ interface GameObject {
 }
 
 abstract Person {
+	+ dropItem(item : Item) : Room
+	+ knockOut() : void
+	+ enterRoom(room : Room) : void
 }
 
 class Student {
-	+ beingAttacked(teacher : Teacher)
+	+ beingAttacked(teacher : Teacher) : void
+	+ ignoreTeacher(teacher : Teacher) : void
+	+ eliminate() : void
 }
 class Teacher {
 	
@@ -74,15 +73,23 @@ class Teacher {
 class Room {
 	+ visitEffects(visitor : EffectVisitor) : void
 	+ visitPeople(visitor : PersonVisitor) : void
+	+ enter(person : Person) : boolean
+	+ leave(person : Person) : void
 }
 
 package Items {
 	interface Item {
-		+ accept(visitor : ItemVisitor)
-		+ use(target : GameObject)
+		+ accept(visitor : ItemVisitor) : void
+		+ use(target : GameObject) : void
 	}
 	class SlideRule
-	class Transistor
+	class Transistor {
+		+ use(person : Person) : void
+		+ use(item : Item) : void
+		+ use(transistor : Transistor) : void
+		+ link(other : Transistor) : void
+		+ setTarget(target : Room) : void
+	}
 	class CodeOfStudies {
 		- uses : int
 	}
@@ -90,32 +97,32 @@ package Items {
 	}
 	class WetRag {
 		- effect : RagEffect
-		- wetness : double
 	}
 	class Mask {
 		- effect : MaskEffect
 		- uses : int
 	}
-	class Camambert {
+	class Camembert {
 	}
 }
 
 package Effects {
-	interface Effect {
-		+ accept(visitor : EffectVisitor) : void
+	abstract Effect {
+		{abstract} + accept(visitor : EffectVisitor) : void
+
 	}
 
-	class BeerEffect 
+	class BeerEffect
 	class RagEffect
 	class GasEffect
 	class MaskEffect
 }
 
 together {
-	Effect <|.- BeerEffect
-	Effect <|.- RagEffect
-	Effect <|.- GasEffect
-	Effect <|.- MaskEffect
+	Effect <|-- BeerEffect
+	Effect <|-- RagEffect
+	Effect <|-- GasEffect
+	Effect <|-- MaskEffect
 }
 
 together {
@@ -125,7 +132,7 @@ together {
 	Item <|.- Beer
 	Item <|.- WetRag
 	Item <|.- Mask
-	Item <|.- Camambert
+	Item <|.- Camembert
 }
 
 Updatable <|.- GameObject
@@ -156,4 +163,16 @@ PersonVisitor ---> GameObject
 EffectVisitor ---> Effect
 ItemVisitor ---> Item
 
+Transistor --o Transistor
+Room --o Transistor
+
+SoulTakingVisitor o-- Teacher
+SoulTakingVisitor o-- Student
+
+PoisoningVisitor o-- Person
+
+AttackingVisitor o-- Teacher
+AttackingVisitor o-- Room
+
+Person o-- Room
 @enduml

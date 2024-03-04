@@ -1,9 +1,9 @@
-@startuml camambert
-title Use Camambert
+@startuml camembert
+title Use Camembert
 hide footbox
 autoactivate on
 
-participant "camambert : Camambert" as c
+participant "camembert : Camembert" as c
 participant "person : Person" as p
 participant "room : Room" as r
 
@@ -12,7 +12,7 @@ participant "room : Room" as r
         p -> r : applyEffect(gasEffect)
         return 
     return
-    c -> p : removeItem(camambert)
+    c -> p : removeItem(camembert)
     return
 return
 @enduml
