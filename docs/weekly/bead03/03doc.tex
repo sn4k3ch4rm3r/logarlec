@@ -2,59 +2,212 @@
 
 \section{Objektum katalógus}
 
-\comment{Minden, a feladatban szereplő objektum rövid, egy-két bekezdés hosszú ismertetése. Meg kell jelenjen minden objektumhoz, hogy mi a felelőssége. Informális leírás, ezért nem kell foglalkozni az örökléssel, az interfészekkel, az absztrakt osztályokkal, a segédosztályokkal.}
+\subsection{Hallgató}
+A játékos irányítja. Szobáról szobára haladnak ajtókon keresztül. Tudják, melyik szobában vannak, milyen tárgyak vannak náluk, és tudnak velük interaktálni.
 
-\subsection{Objektum1}
-\comment{Felelősség informális leírása}
+\subsection{Oktató}
+Szobáról szobára haladnak. Ha egy szobába kerülnek egy hallgatóval, kiejtik a játékból. 
 
-\subsection{Objektum2}
-\comment{Felelősség informális leírása}
+\subsection{Logarléc}
+A játék célja ezt megtalálni. Amint egy hallgató felveszi, a játék véget ér.
 
-\comment{Az objektumkatalógus alapján kiindulva kell megalkotni az objektumorientált analízis modellt. A 3.2, 3.3, 3.4, 3.5 alfejezetek ugyanannak a modellnek a különböző nézetei, ezért egyidőben, egymással összefüggésben készülnek.Megtörténik az objektumkatalógusbantárgyalt objektumok felelősségének formalizálásaosztályokká,attribútumokká, metódusokká. Csak publikus metódusok szerepelhetnek. Megjelennek az interfészek, az öröklés, az absztrakt osztályok. Segédosztályokra még nincs szükség.}
+\subsection{Tranzisztor}
+Teleportálásra lehet használni. Össze lehet kapcsonli egy másik tranzisztorral, ami letevés után tudja, melyik szobában van. A kézben lévő tranzisztor a használat után deaktiválódik. Tudja, hogy mely szobákat kapcsolja össze.
 
-\section{Statikus struktúra diagramok}
-\comment{Az előző alfejezet osztályainak kapcsolatait és publikus metódusait bemutató osztálydiagram(ok). Tipikus hibalehetőségek: csillag-topológia, szigetek.}
+\subsection{TVSZ denevérbőrön}
+Védelmet nyút az oktatókkal szemben, oktatónként használódik. Tudja, hogy hány használat van hátra.
 
-\diagram{img/BMElogo}{Demó}{3cm}
+\subsection{Szent söröspohár}
+Aktiválás után 5 másodpercig nyújt védelmet az oktatókkal szemben, aztán  elveszti a képességét. Tudja, hogy még mennyi idő van hátra a hatásából.
+
+\subsection{Nedves táblatörlő rongy}
+A vele egy szobában lévő oktatókat megbénítja 15 másodpercre.
+Tudja, hogy  mennyi idő van hátra a hatásának időtartamából.
+
+\subsection{FFP2-es maszk}
+A mérgesgáz ellen véd. Tudja, hogy hány használata van hátra, és hogy az adott használatból mennyi van hátra.
+
+\subsection{Dobozolt káposztás Camambert}
+Felbontáskor mézgező gázt bocsát ki. Használatkor a birtokló játékos elmondja a szobájának, hogy legyen adott ideig mérgező.
+
+\subsection{Szoba}
+Egy szoba a játékban. Ő birtokolja a tárgyakat, oktatókat, hallgatókat, amik megtalálhatók benne, illetve az ajtókat, amik belőle nyílnak. Tudja, hogy milyen különleges képessége van. Ismeri az ajtóit, hogy hány ember van benne
+
+\subsection{Ajtó}
+Tudja melyik két szoba között megy, azt, hogy egy- vagy kétirányú. Ha egyirányú, az irányt.
 
 \section{Osztályok leírása}
-\comment{Az előző alfejezetben tárgyalt objektumok felelősségének formalizálása attribútumokká, metódusokká. Csak publikus metódusok szerepelhetnek. Ebben az alfejezetben megjelennek az interfészek, az öröklés, az absztrakt osztályok. Segédosztályokra még mindig nincs szükség. Az osztályok ABC sorrendben kövessék egymást. Interfészek esetén az Interfészek, Attribútumok pontok kimaradnak.}
-
-\subsection{Osztály1}
+\subsection{Beer}
 \begin{class-template-responsibility}
-    Felelősség leírása
+A játékbeli tárgy reprezentálása a modellben.
 \end{class-template-responsibility}
 \begin{class-template-interface}
-    Megvalósított interfészek felsorolása
+    Item
 \end{class-template-interface}
-\begin{class-template-baseclass}
-    Ős-Ősosztály \baseclass Ősosztály... 
-\end{class-template-baseclass}
+
+\subsection{CodeOfStudies}
+\begin{class-template-responsibility}
+A játékbeli tárgy reprezentálása a modellben.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Item
+\end{class-template-interface}
 \begin{class-template-attribute}
-    \classitem{+A [0..*]}{adattag A}
+    \classitem{- uses : int}{Megadja, hogy hányszor használható még a tárgy.}
 \end{class-template-attribute}
-\comment{Milyen publikus, protected és privát  metódusokkal rendelkezik. Metódusonként egy-három mondat arról, hogy mit csinál.}
+
+\subsection{Camambert}
+\begin{class-template-responsibility}
+A játékbeli tárgy reprezentálása a modellben.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Item
+\end{class-template-interface}
+
+\subsection{Door}
+\begin{class-template-responsibility}
+    Tudja melyik két szobát köti össze.
+    \end{class-template-responsibility}
 \begin{class-template-method}
-    \classitem{+B(A a) : void}{metódus B}
+    \classitem{use(Person person, Room from) : void} { A személy át kíván lépni a másik szobába. Ha abban van kapacitás a szobák értesülnek az átlépésről. Különben nem történik semmi.}
 \end{class-template-method}
 
-\subsection{Osztály2}
+\subsection{Item}
 \begin{class-template-responsibility}
-    Felelősség leírása
+    Interfész biztosítása a különböző tárgykat reprezentáló osztályok számára.
 \end{class-template-responsibility}
-\begin{class-template-statechart}
-    A belső működéshez tartozó állapotgép
-    \diagram{img/BMElogo}{Az osztály állapotváltozásai}{3cm}
-\end{class-template-statechart}
+\begin{class-template-method}
+    \classitem{accept(visitor : ItemVisitor) : void}{Visitor befogadása.}
+    \classitem{use(target : GameObject) : void}{Felhasználási kérelem befogadása.}
+\end{class-template-method}
+
+\subsection{Mask}
+\begin{class-template-responsibility}
+A játékbeli tárgy reprezentálása a modellben.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Item
+\end{class-template-interface}
+\begin{class-template-attribute}
+    \classitem{effect : RagEffect}{A maszkoz tartozó effekt.}
+    \classitem{uses : int}{A maszk felhasználásainak száma}
+\end{class-template-attribute}
+
+\subsection{Person}
+\begin{class-template-responsibility}
+    Alaposztály szolgáltatása a mozgó játék beli entitások számára.
+\end{class-template-responsibility}
+\begin{class-template-attribute}
+    \classitem{- name : String}{Az ember neve.}
+    \classitem{- numItems : int}{Az embernél lévő tárgyak száma.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+dropItem(Item item) : void}{Az ember eldobja/elejti a tárgyat.}
+    \classitem{+knockOut() : void}{Az ember adott időre elájul.}
+    \classitem{+enterRoom(room : Room) void}{A szoba értesítése arról, hogy a játékos belépett.}
+\end{class-template-method}
+
+\subsection{Room}
+\begin{class-template-responsibility}
+    Ő birtokolja a benne lévő Door, Person és (nem Personnál lévő) Item objektumokat.
+    Ő engedélyezi vagy tagadja meg a Personok belépését.
+    Ő értesíti a benne lévő Personokat új Person belépéséről, mérges gázról, táblatörlő rongy használatáról. 
+    \end{class-template-responsibility}
+\begin{class-template-attribute}
+    \classitem{- capacity : int}{Megadja maximum hány ember fér el a szobában.}
+    \classitem{- numOfPeople : int}{A szobába jelenleg tartózkodó emberek száma.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{visitEffects(visitor: EffectVisitor) : void}{Meghívja az összes szobára hatást gyakorló visitort.}
+    \classitem{visitPeople(visitor: PeopleVisitor) : void}{Meghívja az összes szobában lévő emberre a visitort.}
+    \classitem{enter(Person person) : void} { A személy belép a szobába és a többi személy értesül róla, és reagál, ha kell }
+    \classitem{leave(Person peron) : void} { A szobát elhagyna egy személy, a szobában lévő emberek száma csökken. }
+    \classitem{merge(Room room) : void} { Két szoba összeolvad. }
+    \classitem{split() : void} {A szoba a szabályoknak megfelelően osztódik.}
+\end{class-template-method}
+
+\subsection{Student}
+\begin{class-template-responsibility}
+    A játékos reprezentálása a modellben.
+\end{class-template-responsibility}
+\begin{class-template-baseclass}
+    Person
+\end{class-template-baseclass}
+\begin{class-template-method}
+    \classitem{+beingAttacked() : void}{ Megtámadja egy oktató. Ha van védőeszköze, azt használja. Ha nem, eltávolítja magát a szobából.}
+    \classitem{+ignoreTeacher(Teacher teacher) : void}{Atott tanárral szemben védi a hallgatót, amíg ugyanabban a szobában vannak.}
+    \classitem{+eliminate() : void}{A hallgatót értesíti arról, hogy meghalt.}
+\end{class-template-method}
+
+\subsection{Teacher}
+\begin{class-template-responsibility}
+    Az ellenségek reprezentálása a modellben.
+\end{class-template-responsibility}
+\begin{class-template-baseclass}
+    Person
+\end{class-template-baseclass}
+
+\subsection{Transistor}
+\begin{class-template-responsibility}
+A játékbeli tárgy reprezentálása a modellben.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Item
+\end{class-template-interface}
+\begin{class-template-method}
+    \classitem{use(person : Person) : void}{}
+    \classitem{use(item : Item) : void}{}
+    \classitem{use(transistor : Transistor) : void}{}
+    A három use függvény a Use Transistors szekvencia-diagramban van magyarázva.
+    \classitem{link(other: Transistor)}{A tranzisztor összekapcsolása a párjával.}
+    \classitem{setTarget(target : Room) : void}{A tranzisztor-teleportáció célszobájának beállítása}
+\end{class-template-method}
+
+\subsection{WetRag}
+\begin{class-template-responsibility}
+A játékbeli tárgy reprezentálása a modellben.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Item
+\end{class-template-interface}
+\begin{class-template-attribute}
+    \classitem{- effect : RagEffect}{A tárgyhoz hozzárendelt effekt.}
+\end{class-template-attribute}
 
 \section{Statikus struktúra diagramok}
-\comment{Az előző alfejezet osztályainak kapcsolatait és publikus metódusait bemutató osztálydiagram(ok). Tipikus hibalehetőségek: csillag-topológia, szigetek.}
-\diagram{img/BMElogo}{osztálydiagram}{3cm}
 
+Az osztálydiagram létrehozásakor egy szoba alapú architektúrát modelleztünk. Architektúránkban a szobák kezelik a területükön végbemenő folyamatokat. 
+
+A szobába való belépés egy ajtón keresztül történik. Egy ajtót a Door osztály reprezentál. Egy játékos(Student) az ajtó(Door) objektumhoz fordulva léphet be egy szobába. A belépési kérelmet az ajtó összeveti a saját irányával, majd ha a kérés kompatibilis az átengedési követelménnyel, akkor a kérést továbbítja a hozzá rendelt Room objektumnak, ami a kérésről a végső döntést meghozza.
+
+A játékban két mozgásra képes entitás létezik: a tanárok(Teacher) és a játékosok(Student). Ezeket egy ősosztályból származtatjuk(Person).
+
+A tárgyak(Item) kezelését Visitor tervezési minta használatával oldottuk meg, mivel így a kezelési algoritmusok teljesen elválaszthatóak az objektumoktól. Így későbbiekben a kezelés viselkedése megváltozatatható az adott osztály belső működésének megváltozattása nélkül. A különböző tárgyak egy Item interfész megvalósításai, így a tárgyak körében biztosított az encapsulation elve. Ezeket az Item-eket Külöböző visitor-ok kezelik, melyek az ItemVIsitor, EffectVisitor és PersonVisitor interfészeket valósítják meg.
+
+\diagram{img/diagrams/class/effects}{Hatások}{14cm}
+\diagram{img/diagrams/class/game-objects}{Játék objektumok}{14cm}
+\diagram{img/diagrams/class/items}{Tárgyak}{14cm}       
+\diagram{img/diagrams/class/Visitors}{Látogató minta megvalósítása}{14cm} 
+\clearpage
 
 \section{Szekvencia diagramok}
-\comment{Inicializálásra, use-case-ekre, belső működésre. Konzisztens kell legyen az előző alfejezettel. Minden metódus, ami ott szerepel, fel kell tűnjön valamelyik szekvenciában. Minden metódusnak, ami szekvenciában szerepel, szereplnie kell a valamelyik osztálydiagramon.}
-\diagram{img/BMElogo}{Szekvencia1}{3cm}
+\diagram{img/diagrams/sequence/add-item}{Tárgyfelvétel diagram}{14cm}
+\diagram{img/diagrams/sequence/beer}{Söröspohár használata diagram}{14cm}
+\diagram{img/diagrams/sequence/camembert}{Camembert diagram}{14cm}
+\diagram{img/diagrams/sequence/door}{Ajtó használat diagram}{14cm}
+\diagram{img/diagrams/sequence/drop-item}{Tárgyelejtés diagram}{14cm}
+\diagram{img/diagrams/sequence/drop-wet-rag}{Nedves táblatörlő rongy elejtése diagram}{14cm}
+\diagram{img/diagrams/sequence/link-transistor}{Tranzisztor összekapcsolása diagram}{14cm}
+\diagram{img/diagrams/sequence/merge-room}{Szobák egyesülése diagram}{14cm}
+\diagram{img/diagrams/sequence/perform-attack}{Támadás diagram}{14cm}
+\diagram{img/diagrams/sequence/person-enter-room}{Személy belépése egy szobába diagram}{14cm}
+\diagram{img/diagrams/sequence/place-transistor}{Tranzisztor lehelyezése diagram}{14cm}
+\diagram{img/diagrams/sequence/remove-item}{Tárgy eltávolítása diagram}{14cm}
+\diagram{img/diagrams/sequence/soul-theft}{Lélek elvétel diagram}{14cm}
+\diagram{img/diagrams/sequence/split-room}{Szoba osztódás diagram}{14cm}
+\diagram{img/diagrams/sequence/toxic-room}{Mérgező szoba diagram}{14cm}
+\diagram{img/diagrams/sequence/room-update}{Szoba frissítése diagram}{14cm}
+\diagram{img/diagrams/sequence/teacher-update}{Oktató frissítése diagram}{14cm}
+\diagram{img/diagrams/sequence/use-transistor}{Tranzisztor használat diagram}{14cm}
+\diagram{img/diagrams/sequence/pick-up-wet-rag}{Nedves táblatörlő rongy felvétele diagram}{14cm}
 
-\section{State-chartok}
-\comment{Csak azokhoz az osztályokhoz, ahol van értelme. Egyetlen állapotból álló state-chartok ne szerepeljenek. A játék működését bemutató state-chart-ot készíteni tilos.}

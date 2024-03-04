@@ -1,6 +1,6 @@
-@startuml Visitors
+@startuml visitors
 
-title visitors
+title Visitors
 left to right direction
 
 package Visitors {
