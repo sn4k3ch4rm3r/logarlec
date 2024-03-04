@@ -1,0 +1,25 @@
+@startuml place-transistor
+
+title Teleport Using Transistor
+hide footbox
+autoactivate on
+
+actor "person : Person" as p
+participant "transistor : Transistor" as tr1
+participant "target : Room" as target
+participant "previousRoom : Room" as old
+
+p -> tr1 : use(person)
+	opt active
+		tr1 -> p : dropItem(transistor)
+		return previousRoom
+		tr1 -> target : enter(person)
+		return success
+		opt is successful
+			tr1 -> old : leave(person)
+			return
+		end
+	end
+return
+
+@enduml
