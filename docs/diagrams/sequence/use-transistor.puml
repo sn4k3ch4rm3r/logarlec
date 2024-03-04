@@ -4,20 +4,19 @@ title Teleport Using Transistor
 hide footbox
 autoactivate on
 
-actor "person : Person" as p
-participant "transistor : Transistor" as tr1
+participant "transistor : Transistor" as transistor
+participant "person : Person" as p
 participant "target : Room" as target
-participant "previousRoom : Room" as old
 
-p -> tr1 : use(person)
+[-> transistor : use(person)
 	opt active
-		tr1 -> p : dropItem(transistor)
-		return previousRoom
-		tr1 -> target : enter(person)
+		transistor -> target : enter(person)
+		target -> p : enterRoom(target)
+		return
 		return success
-		opt is successful
-			tr1 -> old : leave(person)
-			return
+		opt success
+			transistor -> p : dropItem(transistor)
+			return previousRoom
 		end
 	end
 return

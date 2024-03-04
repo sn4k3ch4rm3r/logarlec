@@ -1,0 +1,24 @@
+@startuml person-enter-room
+title Person Enter Room
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+autoactivate on
+
+participant "person : Person" as person
+participant "item : Item" as item
+participant "prev : Room" as prev
+participant "next : Room" as next
+
+[-> person : enter(next)
+	person -> prev : remove(person)
+	return
+	loop effect in roomEffects 
+		person -> prev : removeEffect(effect)
+		return
+		person -> next : applyEffect(effect)
+		return
+	end
+	person -> next : add(person)
+	return
+return
+@enduml

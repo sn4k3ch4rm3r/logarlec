@@ -48,8 +48,9 @@ package Visitors {
 }
 
 package GameObjects {
-	interface GameObject {
+	abstract GameObject {
 		+ applyEffect(effect : Effect) : void
+		+ removeEffect(effect : Effect) : void
 		+ addItem(item : Item) : void
 		+ removeItem(item : Item) : void
 	}
@@ -60,6 +61,7 @@ package GameObjects {
 		+ dropItem(item : Item) : Room
 		+ knockOut() : void
 		+ enterRoom(room : Room) : void
+		+ applyEffect(effect : GasEffect) : void
 	}
 
 	class Student {
@@ -91,6 +93,7 @@ package Items {
 	interface Item {
 		+ accept(visitor : ItemVisitor) : void
 		+ use(target : GameObject) : void
+		+ use(target : Item) : void
 	}
 	class SlideRule
 	class Transistor {
@@ -106,10 +109,8 @@ package Items {
 	class Beer {
 	}
 	class WetRag {
-		- effect : RagEffect
 	}
 	class Mask {
-		- effect : MaskEffect
 		- uses : int
 	}
 	class Camembert {
@@ -185,4 +186,7 @@ AttackingVisitor o-- Teacher
 AttackingVisitor o-- Room
 
 Room o-o Door
+
+WetRag o-o RagEffect
+Mask o-o MaskEffect
 @enduml
