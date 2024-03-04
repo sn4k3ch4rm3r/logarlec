@@ -52,7 +52,6 @@ package GameObjects {
 		+ applyEffect(effect : Effect) : void
 		+ addItem(item : Item) : void
 		+ removeItem(item : Item) : void
-		+ interact(other : GameObject) : void
 	}
 
 	abstract Person {

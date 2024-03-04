@@ -7,10 +7,10 @@ participant "previous : Room" as prev
 
 [-> door ++: use(p: Person, from: Room) 
 opt correct direction
-	door -> next ++: enterRoom(p: Person)
+	door -> next ++: enter(p: Person)
 	alt has capacity
 		next --> door: success
-		door -> prev ++: leaveRoom(p: Person)
+		door -> prev ++: leave(p: Person)
 		prev --> door --
 		[<-- door : success
 	else
