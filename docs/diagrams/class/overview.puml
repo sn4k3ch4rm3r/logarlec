@@ -45,6 +45,12 @@ package Visitors {
 		+ visit(object : Room) : void
 		+ visit(object : Person) : void
 	}
+	class AddItemVisitor {
+		+ visit(item : WetRag) : void
+	}
+	class RemoveItemVisitor {
+		+ visit(item : WetRag) : void
+	}
 }
 
 package GameObjects {
@@ -154,7 +160,7 @@ Person <|-- Teacher
 Person <|-- Student
 
 
-GameObject *- Effect
+GameObject *-- Effect
 
 Room *-o Person
 Room *-- Item
@@ -170,9 +176,8 @@ EffectVisitor <|.- PoisoningVisitor
 EffectVisitor <|.- AttackingVisitor
 PersonVisitor <|.- AttackingVisitor
 
-PersonVisitor ---> GameObject
-EffectVisitor ---> Effect
-ItemVisitor ---> Item
+ItemVisitor <|.- AddItemVisitor
+ItemVisitor <|.- RemoveItemVisitor
 
 Transistor --o Transistor
 Room --o Transistor
@@ -184,6 +189,9 @@ PoisoningVisitor o-- Person
 
 AttackingVisitor o-- Teacher
 AttackingVisitor o-- Room
+
+AddItemVisitor o-- GameObject
+RemoveItemVisitor o-- GameObject
 
 Room o-o Door
 

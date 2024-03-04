@@ -1,0 +1,13 @@
+@startuml drop-wet-rag
+title Pick Up Wet Rag
+hide footbox
+autoactivate on
+
+participant "visitor : RemoveItemVisitor" as visitor
+participant "rag : WetRag" as rag
+
+[-> visitor : visit(rag : WetRag)
+visitor -> rag : removeEffect(object)
+return
+return
+@enduml
