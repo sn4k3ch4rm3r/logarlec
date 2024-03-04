@@ -1,0 +1,16 @@
+@startuml show-doors
+
+title Show Doors
+hide footbox
+autoactivate on
+participant "room : Room" as room
+participant "door : Door" as door
+
+[-> room : hideDoors() 
+loop door in doors
+	room -> door : show()
+	return
+end 
+return
+
+@enduml

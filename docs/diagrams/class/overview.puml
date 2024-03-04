@@ -90,12 +90,16 @@ package GameObjects {
 		+ split() : Room
 		+ moveContents(room : Room) : void
 		+ addDoor(door : Door) : void
+		+ hideDoors() : void
+		+ showDoors() : void
 	}
 }
 
 class Door {
-    +use(person : Person, from : Room) : void
-}
+    + use(person : Person, from : Room) : void
+	+ hide() : void
+	+ show() : void
+ }
 
 package Items {
 	interface Item {
