@@ -1,0 +1,15 @@
+@startuml drop-item
+title Drop Item
+hide footbox
+participant "person : Person" as per
+participant "room : Room" as room
+
+[-> per ++: drop(item)
+
+per -> per : removeItem(item)
+per -> room ++: addItem(item)
+return
+
+return room
+
+@enduml
