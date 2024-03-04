@@ -96,10 +96,10 @@ package GameObjects {
 }
 
 class Door {
-    + use(person : Person, from : Room) : void
+	+ use(person : Person, from : Room) : void
 	+ hide() : void
 	+ show() : void
- }
+}
 
 package Items {
 	interface Item {
@@ -132,7 +132,6 @@ package Items {
 package Effects {
 	abstract Effect {
 		{abstract} + accept(visitor : EffectVisitor) : void
-
 	}
 
 	class BeerEffect

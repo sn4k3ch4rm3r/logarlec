@@ -1,0 +1,58 @@
+@startuml items
+
+title Items
+left to right direction
+package Items {
+	interface Item {
+		+ accept(visitor : ItemVisitor) : void
+		+ use(target : GameObject) : void
+		+ use(target : Item) : void
+	}
+	class SlideRule
+	class Transistor {
+		+ use(person : Person) : void
+		+ use(item : Item) : void
+		+ use(transistor : Transistor) : void
+		+ link(other : Transistor) : void
+		+ setTarget(target : Room) : void
+	}
+	class CodeOfStudies {
+		- uses : int
+	}
+	class Beer
+	class WetRag
+	class Mask {
+		- uses : int
+	}
+	class Camembert
+}
+class Room {
+	- capacity : int
+	- numOfPeople : int
+	+ visitEffects(visitor : EffectVisitor) : void
+	+ visitPeople(visitor : PersonVisitor) : void
+	+ enter(person : Person) : boolean
+	+ leave(person : Person) : void
+	+ merge(room : Room) : void
+	+ split() : Room
+	+ moveContents(room : Room) : void
+	+ addDoor(door : Door) : void
+	+ hideDoors() : void
+	+ showDoors() : void
+}
+
+Item <|.- SlideRule
+Item <|.- Transistor
+Item <|.- CodeOfStudies
+Item <|.- Beer
+Item <|.- WetRag
+Item <|.- Mask
+Item <|.- Camembert
+
+WetRag o--o RagEffect
+Mask o--o MaskEffect
+
+Transistor --o Transistor
+Transistor --o Room
+
+@enduml

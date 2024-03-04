@@ -1,0 +1,34 @@
+@startuml effects
+
+title Effects
+' left to right direction
+
+package Effects {
+	abstract Effect {
+		{abstract} + accept(visitor : EffectVisitor) : void
+	}
+
+	class BeerEffect
+	class RagEffect
+	class GasEffect
+	class MaskEffect
+
+	Effect <|-- BeerEffect
+	Effect <|-- RagEffect
+	Effect <|-- GasEffect
+	Effect <|-- MaskEffect
+}
+
+interface Updatable {
+	+ update(deltaTime : double) : void
+}
+
+class Mask {
+	- uses : int
+}
+Updatable <|.- Effect
+
+RagEffect o--o WetRag
+MaskEffect o--o Mask
+
+@enduml
