@@ -86,8 +86,10 @@ package GameObjects {
 		+ visitPeople(visitor : PersonVisitor) : void
 		+ enter(person : Person) : boolean
 		+ leave(person : Person) : void
-		+ merge(Room) : void
-		+ split() : void
+		+ merge(room : Room) : void
+		+ split() : Room
+		+ moveContents(room : Room) : void
+		+ addDoor(door : Door) : void
 	}
 }
 

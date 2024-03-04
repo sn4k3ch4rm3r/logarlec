@@ -1,16 +1,18 @@
 @startuml split-room
 title Split Room
 hide footbox
-actor Controller
-participant "r1 : Room" as r1
 
-
-
-Controller -> r1: split()
-create participant "r2 : Room" as r2
-r1 -> r2: Create
-create participant "d: Door" as d
-r1 -> d: Create
-
+participant "room : Room" as r1
+[-> r1 ++: split()
+	create "newRoom : Room" as r2
+	r1 -> r2: effects, capcity
+	create  "door: Door" as d
+	r1 -> d ++: room, newRoom
+		d -> r1 ++ : addDoor(door)
+		return
+		d -> r2 ++ : addDoor(door)
+		return
+	return
+return newRoom
 
 @enduml
