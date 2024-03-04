@@ -47,34 +47,45 @@ package Visitors {
 	}
 }
 
-interface GameObject {
-	+ applyEffect(effect : Effect) : void
-	+ addItem(item : Item) : void
-	+ removeItem(item : Item) : void
-	+ interact(other : GameObject) : void
+package GameObjects {
+	interface GameObject {
+		+ applyEffect(effect : Effect) : void
+		+ addItem(item : Item) : void
+		+ removeItem(item : Item) : void
+		+ interact(other : GameObject) : void
+	}
+
+	abstract Person {
+		- name : String
+		- numItems : int
+		+ dropItem(item : Item) : Room
+		+ knockOut() : void
+		+ enterRoom(room : Room) : void
+	}
+
+	class Student {
+		+ beingAttacked(teacher : Teacher) : void
+		+ ignoreTeacher(teacher : Teacher) : void
+		+ eliminate() : void
+	}
+	class Teacher {
+		
+	}
+
+	class Room {
+		- capacity : int
+		- numOfPeople : int
+		+ visitEffects(visitor : EffectVisitor) : void
+		+ visitPeople(visitor : PersonVisitor) : void
+		+ enter(person : Person) : boolean
+		+ leave(person : Person) : void
+		+ merge(Room)
+		+ split()
+	}
 }
 
-abstract Person {
-	+ dropItem(item : Item) : Room
-	+ knockOut() : void
-	+ enterRoom(room : Room) : void
-}
-
-class Student {
-	+ beingAttacked(teacher : Teacher) : void
-	+ ignoreTeacher(teacher : Teacher) : void
-	+ eliminate() : void
-}
-class Teacher {
-	
-}
-
-
-class Room {
-	+ visitEffects(visitor : EffectVisitor) : void
-	+ visitPeople(visitor : PersonVisitor) : void
-	+ enter(person : Person) : boolean
-	+ leave(person : Person) : void
+class Door {
+    +use(person : Person, from : Room)
 }
 
 package Items {
@@ -145,10 +156,10 @@ Person <|-- Student
 
 GameObject *- Effect
 
-Room *-- Person
+Room *-o Person
 Room *-- Item
 
-Person *- Item
+Person "0..5" *- Item
 
 ItemVisitor <|.- SoulTakingVisitor
 EffectVisitor <|.- SoulTakingVisitor
@@ -174,5 +185,5 @@ PoisoningVisitor o-- Person
 AttackingVisitor o-- Teacher
 AttackingVisitor o-- Room
 
-Person o-- Room
+Room o-o Door
 @enduml
