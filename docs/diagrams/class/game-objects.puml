@@ -61,8 +61,8 @@ class Door {
 }
 
 Updatable <|.- GameObject
-GameObject <|.- Person
-GameObject <|.- Room
+GameObject <|-- Person
+GameObject <|-- Room
 Person <|-- Teacher
 Person <|-- Student
 
