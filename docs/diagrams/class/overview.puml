@@ -159,8 +159,8 @@ together {
 
 Updatable <|.- GameObject
 Updatable <|.- Effect
-GameObject <|.- Person
-GameObject <|.- Room
+GameObject <|-- Person
+GameObject <|-- Room
 Person <|-- Teacher
 Person <|-- Student
 
