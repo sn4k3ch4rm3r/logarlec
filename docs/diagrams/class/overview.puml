@@ -1,6 +1,6 @@
 @startuml effects
 
-' left to right direction
+left to right direction
 
 interface Updatable {
 	+ update(deltaTime : double) : void
@@ -20,63 +20,10 @@ class Inventory {
 	+ dropSelected(room : Room) : void	
 }
 
-package GameObjects {
-	abstract GameObject {
-		+ applyEffect(effect : Effect) : void
-		+ removeEffect(effect : Effect) : void
-		+ addItem(item : Item) : void
-		+ removeItem(item : Item) : void
-	}
-
-	abstract Person {
-		- name : String
-		+ knockOut() : void
-		+ enterRoom(room : Room) : void
-		+ applyEffect(effect : GasEffect) : void
-	}
-
-	class Student {
-		+ beingAttacked(teacher : Teacher) : void
-		+ ignoreTeacher(teacher : Teacher) : void
-		+ eliminate() : void
-	}
-	class Teacher {
-		
-	}
-
-	class Room {
-		- capacity : int
-		- numOfPeople : int
-		+ visitEffects(visitor : EffectVisitor) : void
-		+ visitPeople(visitor : PersonVisitor) : void
-		+ enter(person : Person) : boolean
-		+ leave(person : Person) : void
-		+ merge(room : Room) : void
-		+ split() : Room
-		+ moveContents(room : Room) : void
-		+ addDoor(door : Door) : void
-		+ hideDoors() : void
-		+ showDoors() : void
-	}
-	
-	Updatable <|.- GameObject
-	GameObject <|-- Person
-	GameObject <|-- Room
-	Person <|-- Teacher
-	Person <|-- Student
-
-	Room *-o Person
-	Room o-o Door
-	Person "inventory" *- Inventory
-	Inventory "items [0..5]" o-- Item
-}
-
-
 package Items {
-	interface Item {
-		+ accept(visitor : ItemVisitor) : void
-		+ use(target : GameObject) : void
-		+ use(target : Item) : void
+	abstract Item {
+		+ {abstract} use(person : Person) : void
+		+ {abstract} usePassive(person : Person) : bool		
 	}
 	
 	class SlideRule
@@ -107,21 +54,21 @@ package Items {
 	}
 
 	together {
-		Item <|.- SlideRule
-		Item <|.- Transistor
-		Item <|.- CodeOfStudies
-		Item <|.- Beer
-		Item <|.- WetRag
-		Item <|.- Mask
-		Item <|.- Camembert
+		Item <|-- SlideRule
+		Item <|-- Transistor
+		Item <|-- CodeOfStudies
+		Item <|-- Beer
+		Item <|-- WetRag
+		Item <|-- Mask
+		Item <|-- Camembert
 	}
 
-	Transistor --o Transistor
+	Transistor "pair" o- Transistor
 }
 
 package Effects {
-	abstract Effect {
-		{abstract} + accept(visitor : EffectVisitor) : void
+	interface Effect {
+		apply(target : GameObject)
 	}
 
 	class BeerEffect
@@ -130,20 +77,70 @@ package Effects {
 	class MaskEffect
 
 	together {
-		Effect <|-- BeerEffect
-		Effect <|-- RagEffect
-		Effect <|-- GasEffect
-		Effect <|-- MaskEffect
+		Effect <|.- BeerEffect
+		Effect <|.- RagEffect
+		Effect <|.- GasEffect
+		Effect <|.- MaskEffect
 	}
 	
 	Updatable <|.- Effect
 }
 
+package GameObjects {
+	abstract GameObject {
+		+ {abstract} addItem(item : Item) : void
+		+ {abstract} removeItem(item : Item) : void
+		+ applyEffect(effect : Effect) : void
+		+ removeEffect(effect : Effect) : void
+	}
 
-GameObject *-- Effect
-Room *-- Item
+	abstract Person {
+		- name : String
+		+ knockOut() : void
+		+ enterRoom(room : Room) : void
+	}
 
-Room --o Transistor
+	class Student {
+		+ beingAttacked(teacher : Teacher) : void
+		+ ignoreTeacher(teacher : Teacher) : void
+		+ eliminate() : void
+	}
+	class Teacher {
+		
+	}
+
+	class Room {
+		- capacity : int
+		- numOfPeople : int
+		+ enter(person : Person) : boolean
+		+ leave(person : Person) : void
+		+ merge(room : Room) : void
+		+ split() : Room
+		+ moveContents(room : Room) : void
+		+ addDoor(door : Door) : void
+		+ hideDoors() : void
+		+ showDoors() : void
+	}
+	
+	Updatable <|.- GameObject
+	GameObject <|-- Person
+	GameObject <|-- Room
+	Person <|-- Teacher
+	Person <|-- Student
+
+	Room "people" *- Person
+	Person "room" o- Room
+	Room "doors [1..*]" o- Door
+	Door "from" o- Room
+	Door "to" o- Room
+	Person "inventory" *- Inventory
+	Inventory "items [0..5]" o-- Item
+	GameObject "effects [0..*]" *-- Effect
+	Room "items [0..*]" o-- Item
+}
+
+
+Item "room" o-- Room
 
 WetRag o-o RagEffect
 Mask o-o MaskEffect
