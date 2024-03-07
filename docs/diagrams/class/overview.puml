@@ -1,56 +1,23 @@
 @startuml effects
 
-left to right direction
+' left to right direction
 
 interface Updatable {
 	+ update(deltaTime : double) : void
 }
 
-package Visitors {
-	interface EffectVisitor {
-		+ visit(effect : BeerEffect) : void
-		+ visit(effect : RagEffect) : void
-		+ visit(effect : GasEffect) : void
-		+ visit(effect : MaskEffect) : void
-	}
-	interface ItemVisitor {
-		+ visit(item : SlideRule) : void
-		+ visit(item : transistor) : void
-		+ visit(item : CodeOfStudies) : void
-		+ visit(item : Beer) : void
-		+ visit(item : WetRag) : void
-		+ visit(item : Mask) : void
-		+ visit(item : Camambert) : void
-	}
-	interface PersonVisitor {
-		+ visit (object : Student) : void
-		+ visit (object : Teacher) : void
-	}
+class Door {
+	+ use(person : Person, from : Room) : void
+	+ hide() : void
+	+ show() : void
+}
 
-	class SoulTakingVisitor {
-		- protected : bool
-		+ visit(effect : BeerEffect) : void
-		+ visit(item : CodeOfStudies) : void
-		+ takeSoul() : void
-	}
-	class PoisoningVisitor {
-		- protected : bool
-		+ visit(item : Mask) : void
-		+ visit(effect : MaskEffect) : void
-		+ poison() : void
-	}
-	class AttackingVisitor {
-		- canAttack : bool
-		+ visit(effect : RagEffect) : void
-		+ visit(object : Room) : void
-		+ visit(object : Person) : void
-	}
-	class AddItemVisitor {
-		+ visit(item : WetRag) : void
-	}
-	class RemoveItemVisitor {
-		+ visit(item : WetRag) : void
-	}
+class Inventory {
+	- itemCount : int
+	- selectedSlot : int
+	+ addItem(item : Item) : bool
+	+ removeItem(item : Item) : void
+	+ dropSelected(room : Room) : void	
 }
 
 package GameObjects {
@@ -63,8 +30,6 @@ package GameObjects {
 
 	abstract Person {
 		- name : String
-		- numItems : int
-		+ dropItem(item : Item) : Room
 		+ knockOut() : void
 		+ enterRoom(room : Room) : void
 		+ applyEffect(effect : GasEffect) : void
@@ -93,13 +58,19 @@ package GameObjects {
 		+ hideDoors() : void
 		+ showDoors() : void
 	}
+	
+	Updatable <|.- GameObject
+	GameObject <|-- Person
+	GameObject <|-- Room
+	Person <|-- Teacher
+	Person <|-- Student
+
+	Room *-o Person
+	Room o-o Door
+	Person "inventory" *- Inventory
+	Inventory "items [0..5]" o-- Item
 }
 
-class Door {
-	+ use(person : Person, from : Room) : void
-	+ hide() : void
-	+ show() : void
-}
 
 package Items {
 	interface Item {
@@ -107,7 +78,9 @@ package Items {
 		+ use(target : GameObject) : void
 		+ use(target : Item) : void
 	}
+	
 	class SlideRule
+	
 	class Transistor {
 		+ use(person : Person) : void
 		+ use(item : Item) : void
@@ -115,18 +88,35 @@ package Items {
 		+ link(other : Transistor) : void
 		+ setTarget(target : Room) : void
 	}
+	
 	class CodeOfStudies {
 		- uses : int
 	}
+	
 	class Beer {
 	}
+	
 	class WetRag {
 	}
+	
 	class Mask {
 		- uses : int
 	}
+
 	class Camembert {
 	}
+
+	together {
+		Item <|.- SlideRule
+		Item <|.- Transistor
+		Item <|.- CodeOfStudies
+		Item <|.- Beer
+		Item <|.- WetRag
+		Item <|.- Mask
+		Item <|.- Camembert
+	}
+
+	Transistor --o Transistor
 }
 
 package Effects {
@@ -138,67 +128,22 @@ package Effects {
 	class RagEffect
 	class GasEffect
 	class MaskEffect
-}
 
-together {
-	Effect <|-- BeerEffect
-	Effect <|-- RagEffect
-	Effect <|-- GasEffect
-	Effect <|-- MaskEffect
+	together {
+		Effect <|-- BeerEffect
+		Effect <|-- RagEffect
+		Effect <|-- GasEffect
+		Effect <|-- MaskEffect
+	}
+	
+	Updatable <|.- Effect
 }
-
-together {
-	Item <|.- SlideRule
-	Item <|.- Transistor
-	Item <|.- CodeOfStudies
-	Item <|.- Beer
-	Item <|.- WetRag
-	Item <|.- Mask
-	Item <|.- Camembert
-}
-
-Updatable <|.- GameObject
-Updatable <|.- Effect
-GameObject <|-- Person
-GameObject <|-- Room
-Person <|-- Teacher
-Person <|-- Student
 
 
 GameObject *-- Effect
-
-Room *-o Person
 Room *-- Item
 
-Person "0..5" *- Item
-
-ItemVisitor <|.- SoulTakingVisitor
-EffectVisitor <|.- SoulTakingVisitor
-
-ItemVisitor <|.- PoisoningVisitor
-EffectVisitor <|.- PoisoningVisitor
-
-EffectVisitor <|.- AttackingVisitor
-PersonVisitor <|.- AttackingVisitor
-
-ItemVisitor <|.- AddItemVisitor
-ItemVisitor <|.- RemoveItemVisitor
-
-Transistor --o Transistor
 Room --o Transistor
-
-SoulTakingVisitor o-- Teacher
-SoulTakingVisitor o-- Student
-
-PoisoningVisitor o-- Person
-
-AttackingVisitor o-- Teacher
-AttackingVisitor o-- Room
-
-AddItemVisitor o-- GameObject
-RemoveItemVisitor o-- GameObject
-
-Room o-o Door
 
 WetRag o-o RagEffect
 Mask o-o MaskEffect
