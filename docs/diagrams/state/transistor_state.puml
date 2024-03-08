@@ -1,0 +1,8 @@
+@startuml
+title Transistor State Diagram
+
+[*] --> NotConnected
+NotConnected --> Connected : Succesful connection
+Connected --> NotConnected : Disconnection
+
+@enduml

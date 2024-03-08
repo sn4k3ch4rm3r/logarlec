@@ -1,0 +1,9 @@
+@startuml
+title Mask State Diagram
+
+[*] --> Operable
+Operable --> Operable: Mask still has durability
+Operable --> Inoperable: Mask has been overused
+Inoperable --> [*]
+
+@enduml
