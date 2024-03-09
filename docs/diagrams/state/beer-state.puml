@@ -1,0 +1,12 @@
+@startuml beer
+title Holy Pint State Diagram
+
+[*] --> Ready
+Ready --> InUse: activate()
+InUse --> InUse: TimerNotExpired
+InUse --> Used: Timer Runs Out
+Used --> [*]
+
+InUse: entry/startTimer()
+
+@enduml

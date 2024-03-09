@@ -1,0 +1,5 @@
+@startuml door
+[*] --> Visible
+Visible --> Open : reveal()
+Open --> Visible : hide()
+@enduml

@@ -1,0 +1,10 @@
+@startuml rag
+title Wet Rag State Diagram
+
+[*] --> Wet
+Wet --> Wet: The rag still has its moisture
+Wet --> Dry: The wetness timer has expired
+Dry --> [*]
+
+Dry: entry/make self useless
+@enduml
