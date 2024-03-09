@@ -1,4 +1,5 @@
-@startuml
+@startuml person
+title Person State Diagram
 
 [*] --> Active
 Active --> KnockedOut: knock out
@@ -7,3 +8,5 @@ KnockedOut --> Active: KO timer ran out
 Active --> [*]: killed
 
 KnockedOut: entry/startKnockOutTimer()
+
+@enduml
