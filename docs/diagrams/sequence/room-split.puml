@@ -1,4 +1,4 @@
-@startuml split-room
+@startuml room-split
 title Split Room
 hide footbox
 

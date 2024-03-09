@@ -1,4 +1,4 @@
-@startuml merge-room
+@startuml room-merge
 title Merge Room
 hide footbox
 participant "room1 : Room" as r1

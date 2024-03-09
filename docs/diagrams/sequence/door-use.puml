@@ -1,4 +1,4 @@
-@startuml door
+@startuml door-use
 title Use Door
 hide footbox
 participant "door : Door" as door
