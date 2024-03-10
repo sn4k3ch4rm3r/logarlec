@@ -21,5 +21,6 @@ participant "next : Room" as next
 	person -> next : add(person)
 	return
 	person -> inv : setRoom(next)
+	return
 return
 @enduml
