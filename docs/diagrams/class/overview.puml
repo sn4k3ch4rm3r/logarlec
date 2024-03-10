@@ -21,8 +21,11 @@ class Inventory {
 
 package Items {
 	abstract Item {
-		+ {abstract} use(person : Person) : void
-		+ {abstract} usePassive(person : Person) : bool		
+		+ {abstract} use() : void
+		+ {abstract} useAgainst(target : Teacher) : void
+		+ {abstract} usePassive() : bool
+		+ setRoom(room : Room) : void
+		+ setPerson(person : Person) : void	
 	}
 	
 	class SlideRule
@@ -140,8 +143,8 @@ package GameObjects {
 	Room "items [0..*]" o-- Item
 }
 
-
 Item "room" o-- Room
+Item "person" o-- Person
 
 WetRag o-o RagEffect
 Mask o-o MaskEffect

@@ -1,0 +1,19 @@
+@startuml item-wet-rag-set-room
+
+title Apply Wet Rag Effect
+hide footbox
+
+participant "wetRag : WetRag" as wetRag
+participant "room : Room" as prev
+participant "newRoom : Room" as room
+
+[-> wetRag ++: setRoom(newRoom)
+	opt room is not NULL
+		wetRag -> prev ++: removeEffect(effect)
+		return
+	end
+	wetRag -> room ++: addEffect(effect)
+	return
+return
+
+@enduml

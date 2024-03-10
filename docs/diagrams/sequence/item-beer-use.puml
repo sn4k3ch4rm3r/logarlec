@@ -3,15 +3,15 @@ title Use Beer
 hide footbox
 
 participant "beer : Beer" as beer
-participant "student : Person" as student
+participant "person : Person" as person
 
-[-> beer ++: use(student)
+[-> beer ++: use()
 create "beerEffect : BeerEffect" as beerEffect
 beer -> beerEffect : <<create>>
-beer -> student ++ : applyEffect(beerEffect)
-student --> beer --
-beer -> student ++ : removeItem(beer)
-student --> beer --
+beer -> person ++ : applyEffect(beerEffect)
+person --> beer --
+beer -> person ++ : removeItem(beer)
+person --> beer --
 [<-- beer --
 
 @enduml

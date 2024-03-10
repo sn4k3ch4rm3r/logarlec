@@ -6,14 +6,14 @@ autoactivate on
 
 participant "person : Person" as person
 participant "inventory : Inventory" as inventory
-participant "room : Room" as room
 participant "item : Item" as item
+participant "room : Room" as room
 
 [-> person : dropItem(item)
 	person -> inventory : remove(item)
 	return
-	person -> room : addItem(item)
-		room -> item ++: setRoom(room)
+	person -> item ++ : drop()
+		item -> room ++: addItem(item)
 		return
 	return
 return

@@ -5,22 +5,15 @@ skinparam SequenceReferenceBackgroundColor white
 autoactivate on
 
 participant "person : Person" as person
-participant "inventory : Inventory" as inv
-participant "prev : Room" as prev
-participant "next : Room" as next
+participant "inventory : Inventory" as inventory
+participant "item : Item" as item
 
-[-> person : enter(next)
-	person -> prev : remove(person)
-	return
-	loop effect in roomEffects 
-		person -> prev : removeEffect(effect)
-		return
-		person -> next : applyEffect(effect)
-		return
-	end
-	person -> next : add(person)
-	return
-	person -> inv : setRoom(next)
+[-> person : enterRoom(room)
+	person -> inventory ++: setRoom(room)
+		loop item in items
+			inventory -> item ++ : setRoom(room)
+			return
+		end
 	return
 return
 @enduml

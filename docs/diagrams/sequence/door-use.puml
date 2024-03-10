@@ -4,15 +4,20 @@ hide footbox
 participant "door : Door" as door
 participant "next : Room" as next
 participant "person : Person" as person
+participant "from : Room" as from
 
 [-> door ++: use(person, from: Room) 
-opt correct direction
-	door -> next ++: enter(person)
-		opt has capacity
-			next -> person ++: enterRoom(next)
-			return
-		end
-	return
-end
+	opt correct direction
+		door -> next ++: enter(person)
+			opt has capacity
+				next -> person ++: enterRoom(next)
+				return
+			end
+		return success : bool
+	end
+	opt success
+		door -> from ++: leave(person)
+		return
+	end
 return
 @enduml
