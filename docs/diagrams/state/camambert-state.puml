@@ -1,0 +1,9 @@
+@startuml camambert
+title Camabert State Diagram
+
+[*] --> Ready
+Ready --> Used: activate()
+Used --> [*]
+
+Used: entry/poison()
+@enduml

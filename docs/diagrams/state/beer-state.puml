@@ -1,0 +1,13 @@
+@startuml beer
+title Holy Pint State Diagram
+
+[*] --> Ready
+Ready --> InUse: activate()
+InUse --> InUse: update(deltaTime) \n /useTime -= deltaTime
+InUse --> Used: useTime <= 0
+Used --> [*]
+
+
+Ready: exit/useTime = 5
+
+@enduml

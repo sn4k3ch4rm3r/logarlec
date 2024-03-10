@@ -14,10 +14,9 @@ class Door {
 
 class Inventory {
 	- itemCount : int
-	- selectedSlot : int
-	+ addItem(item : Item) : bool
-	+ removeItem(item : Item) : void
-	+ dropSelected(room : Room) : void	
+	+ add(item : Item) : bool
+	+ remove(item : Item) : void
+	+ drop(room : Room) : void	
 }
 
 package Items {
@@ -98,6 +97,7 @@ package GameObjects {
 		- name : String
 		+ knockOut() : void
 		+ enterRoom(room : Room) : void
+		+ dropItem(item : Item) : void
 	}
 
 	class Student {

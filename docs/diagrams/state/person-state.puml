@@ -1,0 +1,13 @@
+@startuml person
+title Person State Diagram
+
+[*] --> Active
+Active --> KnockedOut: knockOut()
+KnockedOut --> Active: knockOutTime = 0
+KnockedOut --> KnockedOut: update(deltaTime) \n /knockOutTime -= deltaTime
+
+Active --> [*]: kill()
+
+KnockedOut: entry/ knockOutTime = 5
+
+@enduml

@@ -1,0 +1,19 @@
+@startuml item-camembert-use
+
+title Camembert Use
+hide footbox
+
+participant "camembert : Camembert" as camembert
+participant "person : Person" as person
+participant "room : Room" as room
+
+[-> camembert ++: use(person)
+	camembert -> person ++: getRoom()
+	return room
+	create "gasEffect : GasEffect" as gasEffect
+	camembert -> gasEffect : <<create>>
+	camembert -> room ++: applyEffect(gasEffect)
+	return
+return
+
+@enduml

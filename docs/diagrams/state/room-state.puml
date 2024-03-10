@@ -1,0 +1,13 @@
+@startuml room
+title Room State Diagram
+[*] --> Neutral
+Neutral --> Poisioned: poison()
+
+Neutral --> [*]: merge() && smaller
+Poisioned --> [*]: merge() && smaller
+Poisioned --> Poisioned: update(deltaTime) \n poisonTime -= deltaTime
+Poisioned --> Neutral: poisonTime <= 0
+
+Poisioned: entry/ poisonTime = 5
+
+@enduml

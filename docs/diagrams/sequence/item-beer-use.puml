@@ -1,11 +1,13 @@
-@startuml beer
+@startuml item-beer-use
 title Use Beer
 hide footbox
 
 participant "beer : Beer" as beer
-participant "student : Student" as student
+participant "student : Person" as student
 
 [-> beer ++: use(student)
+create "beerEffect : BeerEffect" as beerEffect
+beer -> beerEffect : <<create>>
 beer -> student ++ : applyEffect(beerEffect)
 student --> beer --
 beer -> student ++ : removeItem(beer)

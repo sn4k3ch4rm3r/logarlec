@@ -1,4 +1,4 @@
-@startuml place-transistor
+@startuml transistor-place
 
 title Place Transistor
 hide footbox

@@ -1,0 +1,7 @@
+@startuml door
+title Door State Diagram
+
+[*] --> Visible
+Visible --> Open : reveal()
+Open --> Visible : hide()
+@enduml
