@@ -1,4 +1,4 @@
-@startuml
+@startuml inventory-set-room
 'https://plantuml.com/sequence-diagram
 
 title Set Inventory to New Room

@@ -28,7 +28,6 @@ package Items {
 	class SlideRule
 	
 	class Transistor {
-		+ use(person : Person) : void
 		+ use(item : Item) : void
 		+ use(transistor : Transistor) : void
 		+ link(other : Transistor) : void
@@ -67,7 +66,7 @@ package Items {
 
 package Effects {
 	interface Effect {
-		apply(target : GameObject)
+		apply(target : GameObject) : void
 	}
 
 	class BeerEffect
@@ -82,15 +81,15 @@ package Effects {
 		Effect <|.- MaskEffect
 	}
 	
-	Updatable <|.- Effect
+	Updatable <|-- Effect
 }
 
 package GameObjects {
 	abstract GameObject {
 		+ {abstract} addItem(item : Item) : void
 		+ {abstract} removeItem(item : Item) : void
-		+ applyEffect(effect : Effect) : void
-		+ removeEffect(effect : Effect) : void
+		+ {abstract} applyEffect(effect : Effect) : void
+		+ {abstract} removeEffect(effect : Effect) : void
 	}
 
 	abstract Person {
