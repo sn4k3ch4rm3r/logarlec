@@ -5,7 +5,7 @@ skinparam SequenceReferenceBackgroundColor white
 autoactivate on
 
 participant "person : Person" as person
-participant "item : Item" as item
+participant "inventory : Inventory" as inv
 participant "prev : Room" as prev
 participant "next : Room" as next
 
@@ -20,5 +20,6 @@ participant "next : Room" as next
 	end
 	person -> next : add(person)
 	return
+	person -> inv : setRoom(next)
 return
 @enduml

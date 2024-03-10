@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Update Person
+hide footbox
+autoactivate on
+
+participant "person: Person" as person
+participant "inventory : Inventory" as inventory
+participant "item : Item" as item
+
+[-> person : update(deltaTime)
+    person -> inventory : update(deltaTime)
+        loop item in items
+            inventory -> item : update(deltaTime)
+            return
+        end
+    return
+return
+
+@enduml

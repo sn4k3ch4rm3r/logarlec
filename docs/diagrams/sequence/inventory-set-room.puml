@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Set Inventory to New Room
+hide footbox
+autoactivate on
+
+participant "inventory : Inventory" as inventory
+participant "item : Item" as item
+
+[-> inventory : setRoom(room)
+    loop item in items
+        inventory -> item : setRoom(room)
+        return
+    end
+return
+
+@enduml

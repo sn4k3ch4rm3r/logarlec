@@ -123,6 +123,8 @@ package GameObjects {
 	}
 	
 	Updatable <|.- GameObject
+	Updatable <|.- Item
+	Updatable <|.- Inventory
 	GameObject <|-- Person
 	GameObject <|-- Room
 	Person <|-- Teacher

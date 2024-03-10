@@ -6,6 +6,7 @@ autoactivate on
 participant "room : Room" as room
 participant "effect : Effect" as effect
 participant "person : Person" as person
+participant "item : Item" as item
 
 [-> room : update(deltaTime)
 loop effect in effects
@@ -14,6 +15,10 @@ loop effect in effects
 end
 loop person in people
 	room -> person : update(deltaTime)
+	return
+end
+loop item in items
+	room -> item : update(deltaTime)
 	return
 end
 return
