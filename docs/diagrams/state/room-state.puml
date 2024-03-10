@@ -5,7 +5,9 @@ Neutral --> Poisioned: poison()
 
 Neutral --> [*]: merge() && smaller
 Poisioned --> [*]: merge() && smaller
+Poisioned --> Poisioned: update(deltaTime) \n poisonTime -= deltaTime
+Poisioned --> Neutral: poisonTime <= 0
 
-Poisioned: entry/ startPoisionTimer()
+Poisioned: entry/ poisonTime = 5
 
 @enduml

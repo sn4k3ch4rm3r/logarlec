@@ -2,11 +2,12 @@
 title Person State Diagram
 
 [*] --> Active
-Active --> KnockedOut: knock out
-KnockedOut --> Active: KO timer ran out
+Active --> KnockedOut: knockOut()
+KnockedOut --> Active: knockOutTime = 0
+KnockedOut --> KnockedOut: update(deltaTime) \n /knockOutTime -= deltaTime
 
-Active --> [*]: killed
+Active --> [*]: kill()
 
-KnockedOut: entry/startKnockOutTimer()
+KnockedOut: entry/ knockOutTime = 5
 
 @enduml
