@@ -6,7 +6,7 @@ hide footbox
 participant "codeOfStudies : CodeOfStudies" as codeOfStudies
 participant "person : Person" as person
 
-[-> codeOfStudies ++: use(target)
+[-> codeOfStudies ++: useAgainst(target)
 	codeOfStudies -> person ++: protectFromTeacher(target)
 	return
 return

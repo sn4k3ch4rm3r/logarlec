@@ -10,23 +10,19 @@ participant "person : Person" as person
 participant "item : Item" as item
 
 [-> room : update(deltaTime)
-loop effect in effects
-	room -> effect : update(deltaTime)
-	return
-end
-loop person in people
 	loop effect in effects
-		room -> person ++: applyEffect(effect)
-			ref over person: Apply Effect
+		room -> effect : update(deltaTime)
 		return
 	end
-	room -> person : update(deltaTime)
-	return
-end
-loop item in items
-	room -> item : update(deltaTime)
-	return
-end
+	loop person in people
+		loop effect in effects
+			room -> person ++: applyEffect(effect)
+				ref over person: Apply Effect
+			return
+		end
+		room -> person : update(deltaTime)
+		return
+	end
 return
 
 @enduml
