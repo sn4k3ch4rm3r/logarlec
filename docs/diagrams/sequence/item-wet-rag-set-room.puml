@@ -8,10 +8,8 @@ participant "room : Room" as prev
 participant "newRoom : Room" as room
 
 [-> wetRag ++: setRoom(newRoom)
-	opt room is not NULL
-		wetRag -> prev ++: removeEffect(effect)
-		return
-	end
+	wetRag -> prev ++: removeEffect(effect)
+	return
 	wetRag -> room ++: addEffect(effect)
 	return
 return

@@ -1,0 +1,15 @@
+@startuml student-apply-effect
+
+title Apply Effect to Student
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "student : Student" as student
+participant "effect : Effect" as effect
+
+[-> student ++: applyEffect(effect)
+	student -> effect ++: applyToStudent(student)
+	return
+return
+
+@enduml
