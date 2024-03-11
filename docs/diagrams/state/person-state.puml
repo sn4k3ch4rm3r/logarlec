@@ -6,7 +6,7 @@ Active --> KnockedOut: knockOut()
 KnockedOut --> Active: knockOutTime = 0
 KnockedOut --> KnockedOut: update(deltaTime) \n /knockOutTime -= deltaTime
 
-Active --> [*]: kill()
+Active --> [*]: eliminate()
 
 KnockedOut: entry/ knockOutTime = 5
 

@@ -1,9 +1,13 @@
 @startuml mask
 title Mask State Diagram
 
-[*] --> Operable
-Operable --> Operable: Mask still has durability
-Operable --> Inoperable: Mask has been overused
+[*] --> Operable: /durabilityTime = 5
+Operable --> Protecting: use()
+Protecting --> Protecting: update(deltaTime) \n currentTime -= deltaTime
+Protecting --> Operable: currentTime <= 0
+Protecting --> Inoperable: durabilityTime <= 0
 Inoperable --> [*]
 
+
+Protecting: /entry: currentTime = durabilityTime \n/exit: durabilityTime -= 1
 @enduml
