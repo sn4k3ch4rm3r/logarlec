@@ -1,7 +1,7 @@
 @startuml transistor
 title Transistor State Diagram
 
-[*] --> NotLinekd
-NotLinekd --> Linked : link()
+[*] --> NotLinked
+NotLinked --> Linked : link()
 
 @enduml
