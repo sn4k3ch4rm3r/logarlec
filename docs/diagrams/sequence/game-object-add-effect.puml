@@ -1,0 +1,15 @@
+@startuml game-object-add-effect
+
+title Add Effect to GameObject
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "object : GameObject" as object
+participant "effect : Effect" as effect
+
+[-> object ++: addEffect(effect)
+	object -> effect ++: setHolder(object)
+	return
+return
+
+@enduml

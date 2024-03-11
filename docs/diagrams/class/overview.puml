@@ -1,4 +1,4 @@
-@startuml effects
+@startuml overview
 
 left to right direction
 
@@ -18,7 +18,7 @@ class Inventory {
 	+ add(item : Item) : bool
 	+ remove(item : Item) : void
 	+ setRoom(room : Room) : void
-	+ protectFrom(teacher) : void
+	+ protectFrom(teacher : Teacher) : void
 }
 
 package Items {
@@ -72,6 +72,7 @@ package Effects {
 		- timeRemaining : double
 		+ {abstract} applyToStudent(target : Student) : void
 		+ {abstract} applyToTeacher(target : Teacher) : void
+		+ setHolder(holder : GameObject) : void
 	}
 
 	class BeerEffect
@@ -119,7 +120,7 @@ package GameObjects {
 
 	class Room {
 		- capacity : int
-		- numOfPeople : int
+		- personCount : int
 		+ enter(person : Person) : boolean
 		+ leave(person : Person) : void
 		+ merge(room : Room) : void

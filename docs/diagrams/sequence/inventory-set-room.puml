@@ -1,7 +1,6 @@
 @startuml inventory-set-room
-'https://plantuml.com/sequence-diagram
 
-title Set Inventory to New Room
+title Update Room for Items in the Inventory
 hide footbox
 autoactivate on
 
