@@ -1,13 +1,9 @@
 @startuml mask
+left to right direction
 title Mask State Diagram
-
-[*] --> Operable: /durabilityTime = 5
-Operable --> Protecting: use()
-Protecting --> Protecting: update(deltaTime) \n currentTime -= deltaTime
-Protecting --> Operable: currentTime <= 0
-Protecting --> Inoperable: durabilityTime <= 0
-Inoperable --> [*]
-
-
-Protecting: /entry: currentTime = durabilityTime \n/exit: durabilityTime -= 1
+hide empty description
+ 
+[*] --> Usable
+Usable --> Usable : usePassive()\n/uses=uses-1
+Usable --> [*] : uses = 0
 @enduml

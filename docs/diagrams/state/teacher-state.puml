@@ -1,0 +1,9 @@
+@startuml teacher
+left to right direction
+title Teacher State Diagram
+
+[*] --> Active
+Active --> Peaceful : setPeaceful(true)
+Peaceful --> Active : setPeaceful(false)
+
+@enduml
