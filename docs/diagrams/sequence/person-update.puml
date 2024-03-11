@@ -7,8 +7,10 @@ participant "person : Person" as person
 participant "effect : Effect" as effect
 
 [-> person ++: update(deltaTime)
-    person -> effect ++: update(deltaTime)
-    return
+    loop effect in effects
+        person -> effect ++: update(deltaTime)
+        return
+    end
 return
 
 @enduml

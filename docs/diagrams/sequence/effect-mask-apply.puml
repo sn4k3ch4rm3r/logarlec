@@ -8,10 +8,8 @@ participant "target : Student" as target
 
 [-> effect ++: applyToStudent(target)
 note right: Same for teacher
-	effect -> effect ++: apply(target)
-	effect -> target ++: setKnockOut(false)
+	effect -> target ++: setKnockOut(0)
 	return
-	deactivate
 return
 
 @enduml

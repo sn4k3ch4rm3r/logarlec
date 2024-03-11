@@ -10,7 +10,7 @@ participant "room : Room" as room
 [-> camembert ++: use()
 	create "gasEffect : GasEffect" as gasEffect
 	camembert -> gasEffect : <<create>>
-	camembert -> room ++: applyEffect(gasEffect)
+	camembert -> room ++: addEffect(gasEffect)
 	return
 	camembert -> person ++: removeItem(camembert)
 	return
