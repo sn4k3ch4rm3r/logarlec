@@ -72,6 +72,7 @@ package Effects {
 		- timeRemaining : double
 		+ {abstract} applyToStudent(target : Student) : void
 		+ {abstract} applyToTeacher(target : Teacher) : void
+		+ setHolder(holder : GameObject) : void
 	}
 
 	class BeerEffect
@@ -119,7 +120,7 @@ package GameObjects {
 
 	class Room {
 		- capacity : int
-		- numOfPeople : int
+		- personCount : int
 		+ enter(person : Person) : boolean
 		+ leave(person : Person) : void
 		+ merge(room : Room) : void
