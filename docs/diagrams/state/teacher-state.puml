@@ -1,6 +1,7 @@
 @startuml teacher
 left to right direction
 title Teacher State Diagram
+hide empty description
 
 [*] --> Active
 Active --> Peaceful : setPeaceful(true)
