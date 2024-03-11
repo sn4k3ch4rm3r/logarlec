@@ -18,7 +18,7 @@ class Inventory {
 	+ add(item : Item) : bool
 	+ remove(item : Item) : void
 	+ setRoom(room : Room) : void
-	+ protectFrom(teacher) : void
+	+ protectFrom(teacher : Teacher) : void
 }
 
 package Items {
