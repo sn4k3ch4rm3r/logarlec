@@ -1,0 +1,16 @@
+@startuml effect-update
+
+title Update Effect
+hide footbox
+
+participant "effect : Effect" as effect
+participant "holder : GameObject" as holder
+
+[-> effect ++: update(deltaTime)
+	opt timeRemaining <= 0
+		effect -> holder ++: removeEffect(effect)
+		return
+	end
+return
+
+@enduml

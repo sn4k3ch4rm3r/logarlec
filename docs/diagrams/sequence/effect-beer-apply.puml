@@ -1,0 +1,14 @@
+@startuml effect-beer-apply
+
+title Beer Protection
+hide footbox
+
+participant "effect : BeerEffect" as effect
+participant "target : Student" as target
+
+[-> effect ++: applyToStudent(target)
+	effect -> target ++: setEliminated(false)
+	return
+return
+
+@enduml

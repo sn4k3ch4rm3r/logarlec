@@ -1,0 +1,16 @@
+@startuml person-update
+
+title Update Person
+hide footbox
+
+participant "person : Person" as person
+participant "effect : Effect" as effect
+
+[-> person ++: update(deltaTime)
+    loop effect in effects
+        person -> effect ++: update(deltaTime)
+        return
+    end
+return
+
+@enduml

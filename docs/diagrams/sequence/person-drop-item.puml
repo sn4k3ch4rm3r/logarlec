@@ -1,0 +1,21 @@
+@startuml person-drop-item
+
+title Drop Item
+hide footbox
+autoactivate on
+
+participant "person : Person" as person
+participant "inventory : Inventory" as inventory
+participant "item : Item" as item
+participant "room : Room" as room
+
+[-> person : dropItem(item)
+	person -> inventory : remove(item)
+	return
+	person -> item ++ : drop()
+		item -> room ++: addItem(item)
+		return
+	return
+return
+
+@enduml

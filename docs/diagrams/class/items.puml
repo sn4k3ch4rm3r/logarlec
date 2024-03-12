@@ -2,57 +2,80 @@
 
 title Items
 left to right direction
+
 package Items {
-	interface Item {
-		+ accept(visitor : ItemVisitor) : void
-		+ use(target : GameObject) : void
-		+ use(target : Item) : void
+	abstract Item {
+		+ {abstract} use() : void
+		+ {abstract} useAgainst(target : Teacher) : void
+		+ {abstract} usePassive() : bool
+		+ {abstract} useItem(item : Item) : void
+		+ {abstract} link(other : Transistor) : void
+		+ drop() : void
+		+ setRoom(room : Room) : void
+		+ setPerson(person : Person) : void	
 	}
+	
 	class SlideRule
+	
 	class Transistor {
-		+ use(person : Person) : void
-		+ use(item : Item) : void
-		+ use(transistor : Transistor) : void
-		+ link(other : Transistor) : void
 		+ setTarget(target : Room) : void
+		+ setPair(pair : Transistor) : void
 	}
+	
 	class CodeOfStudies {
 		- uses : int
 	}
-	class Beer
-	class WetRag
+	
+	class Beer 
+	
+	class WetRag 
+	
 	class Mask {
 		- uses : int
 	}
+
 	class Camembert
+
+	together {
+		Item <|-- SlideRule
+		Item <|-- Transistor
+		Item <|-- CodeOfStudies
+		Item <|-- Beer
+		Item <|-- WetRag
+		Item <|-- Mask
+		Item <|-- Camembert
+	}
+
+	Transistor "pair" o- Transistor
 }
+
+abstract Person {
+	- name : String
+	- knockOutTime : double
+	+ {abstract} protectFromTeacher(target : Teacher) : void
+	+ enterRoom(room : Room) : void
+	+ dropItem(item : Item) : void
+	+ setKnockOut(value : double) : void
+}
+
 class Room {
 	- capacity : int
-	- numOfPeople : int
-	+ visitEffects(visitor : EffectVisitor) : void
-	+ visitPeople(visitor : PersonVisitor) : void
+	- personCount : int
 	+ enter(person : Person) : boolean
 	+ leave(person : Person) : void
 	+ merge(room : Room) : void
 	+ split() : Room
 	+ moveContents(room : Room) : void
 	+ addDoor(door : Door) : void
+	+ removeDoor(door : Door) : void 
 	+ hideDoors() : void
 	+ showDoors() : void
 }
 
-Item <|.- SlideRule
-Item <|.- Transistor
-Item <|.- CodeOfStudies
-Item <|.- Beer
-Item <|.- WetRag
-Item <|.- Mask
-Item <|.- Camembert
+Item "room" o-up- Room
+Item "person" o-up- Person
 
-WetRag o--o RagEffect
-Mask o--o MaskEffect
-
-Transistor --o Transistor
-Transistor o-- Room
+WetRag "effect" o-- RagEffect
+Mask "effect" o-- MaskEffect
 
 @enduml

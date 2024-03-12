@@ -1,0 +1,15 @@
+@startuml effect-rag-apply
+
+title Apply Rag Effect
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "effect : RagEffect" as effect
+participant "target : Teacher" as target
+
+[-> effect ++: applyToTeacher(target)
+	effect -> target ++: setPeaceful(true)
+	return
+return
+
+@enduml

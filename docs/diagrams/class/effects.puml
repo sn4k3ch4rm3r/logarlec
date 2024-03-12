@@ -5,7 +5,10 @@ title Effects
 
 package Effects {
 	abstract Effect {
-		{abstract} + accept(visitor : EffectVisitor) : void
+		- timeRemaining : double
+		+ {abstract} applyToStudent(target : Student) : void
+		+ {abstract} applyToTeacher(target : Teacher) : void
+		+ setHolder(holder : GameObject) : void
 	}
 
 	class BeerEffect
@@ -13,22 +16,35 @@ package Effects {
 	class GasEffect
 	class MaskEffect
 
-	Effect <|-- BeerEffect
-	Effect <|-- RagEffect
-	Effect <|-- GasEffect
-	Effect <|-- MaskEffect
+	together {
+		Effect <|-- BeerEffect
+		Effect <|-- RagEffect
+		Effect <|-- GasEffect
+		Effect <|-- MaskEffect
+	}
+	
 }
 
 interface Updatable {
 	+ update(deltaTime : double) : void
 }
 
-class Mask {
-	- uses : int
+abstract GameObject {
+	+ {abstract} addItem(item : Item) : void
+	+ {abstract} removeItem(item : Item) : void
+	+ {abstract} applyEffect(effect : Effect) : void
+	+ {abstract} interactTeacher(teacher : Teacher) : void
+	+ addEffect(effect : Effect) : void
+	+ removeEffect(effect : Effect) : void
 }
+
+class Mask
+class WetRag 
+
 Updatable <|.- Effect
 
-RagEffect o--o WetRag
-MaskEffect o--o Mask
+Effect "holder" o- GameObject
+MaskEffect "item" o-- Mask
+RagEffect "item" o-- WetRag
 
 @enduml

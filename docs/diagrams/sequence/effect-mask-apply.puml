@@ -1,0 +1,15 @@
+@startuml effect-mask-apply
+
+title Mask Protection
+hide footbox
+
+participant "effect : MaskEffect" as effect
+participant "target : Student" as target
+
+[-> effect ++: applyToStudent(target)
+note right: Same for teacher
+	effect -> target ++: setKnockOut(0)
+	return
+return
+
+@enduml

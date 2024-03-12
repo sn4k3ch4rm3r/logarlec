@@ -1,0 +1,20 @@
+@startuml person-add-item
+
+title Add Item to Person
+hide footbox
+autoactivate on
+
+participant "person : Person" as person
+participant "inventory : Inventory" as inventory
+participant "item : Item" as item
+
+[-> person : addItem(item)
+	person -> inventory : add(item)
+	return success : bool
+	opt success
+		person -> item ++: setPerson(person)
+		return
+	end
+return success
+
+@enduml

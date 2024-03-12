@@ -1,0 +1,10 @@
+@startuml CoS
+left to right direction
+
+title Code of Studies (CoS) - State Diagram
+hide empty description
+
+[*] --> Usable
+Usable --> Usable: useAgainst(teacher)\n/uses = uses-1
+Usable --> [*]: uses = 0
+@enduml

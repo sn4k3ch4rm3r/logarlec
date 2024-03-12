@@ -1,0 +1,16 @@
+@startuml item-mask-use
+
+title Use Mask
+hide footbox
+
+participant "mask : Mask" as mask
+participant "person : Person" as person
+
+[-> mask ++: usePassive()
+	create "maskEffect : MaskEffect" as maskEffect
+	mask -> maskEffect: <<create>>
+	mask -> person ++: addEffect(maskEffect)
+	return
+return
+
+@enduml

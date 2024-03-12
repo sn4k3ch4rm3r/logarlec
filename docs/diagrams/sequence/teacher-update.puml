@@ -1,0 +1,22 @@
+@startuml teacher-update
+title Update Teacher
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "teacher : Teacher" as teacher
+participant "room : Room" as room
+participant "person : Person" as person
+
+[-> teacher ++: update(deltaTime)
+	opt not peaceful
+		teacher -> room ++: interactTeacher(teacher)
+			loop person in people
+				room -> person ++: interactTeacher(teacher)
+					ref over person: Soul Theft
+				return
+			end
+		return
+	end
+return 
+
+@enduml

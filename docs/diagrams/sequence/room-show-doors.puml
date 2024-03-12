@@ -1,4 +1,4 @@
-@startuml show-doors
+@startuml room-show-doors
 
 title Show Doors
 hide footbox
@@ -6,7 +6,7 @@ autoactivate on
 participant "room : Room" as room
 participant "door : Door" as door
 
-[-> room : hideDoors() 
+[-> room : showDoors() 
 loop door in doors
 	room -> door : show()
 	return

@@ -1,76 +1,103 @@
 @startuml game-objects
 
 title GameObjects
-' left to right direction
+
 package GameObjects {
 	abstract GameObject {
-		+ applyEffect(effect : Effect) : void
+		+ {abstract} addItem(item : Item) : void
+		+ {abstract} removeItem(item : Item) : void
+		+ {abstract} applyEffect(effect : Effect) : void
+		+ {abstract} interactTeacher(teacher : Teacher) : void
+		+ addEffect(effect : Effect) : void
 		+ removeEffect(effect : Effect) : void
-		+ addItem(item : Item) : void
-		+ removeItem(item : Item) : void
 	}
 
 	abstract Person {
 		- name : String
-		- numItems : int
-		+ dropItem(item : Item) : Room
-		+ knockOut() : void
+		- knockOutTime : double
+		+ {abstract} protectFromTeacher(target : Teacher) : void
 		+ enterRoom(room : Room) : void
-		+ applyEffect(effect : GasEffect) : void
+		+ dropItem(item : Item) : void
+		+ setKnockOut(value : double) : void
 	}
 
 	class Student {
-		+ beingAttacked(teacher : Teacher) : void
-		+ ignoreTeacher(teacher : Teacher) : void
-		+ eliminate() : void
+		- eliminated : bool
+		+ setEliminated(value : bool) : void
 	}
-	class Teacher
+	class Teacher {
+		- peaceful : bool
+		+ setPeaceful(value : bool) : void
+	}
 
 	class Room {
 		- capacity : int
-		- numOfPeople : int
-		+ visitEffects(visitor : EffectVisitor) : void
-		+ visitPeople(visitor : PersonVisitor) : void
+		- personCount : int
 		+ enter(person : Person) : boolean
 		+ leave(person : Person) : void
 		+ merge(room : Room) : void
 		+ split() : Room
 		+ moveContents(room : Room) : void
 		+ addDoor(door : Door) : void
+		+ removeDoor(door : Door) : void 
 		+ hideDoors() : void
 		+ showDoors() : void
 	}
+	
 }
 
 interface Updatable {
 	+ update(deltaTime : double) : void
 }
-interface Item {
-	+ accept(visitor : ItemVisitor) : void
-	+ use(target : GameObject) : void
-	+ use(target : Item) : void
-}
-abstract Effect {
-	{abstract} + accept(visitor : EffectVisitor) : void
-}
 
 class Door {
 	+ use(person : Person, from : Room) : void
+	+ move(from : Room, to : Room) : void
 	+ hide() : void
 	+ show() : void
 }
 
+class Inventory {
+	- itemCount : int
+	+ add(item : Item) : bool
+	+ remove(item : Item) : void
+	+ setRoom(room : Room) : void
+	+ protectFrom(teacher : Teacher) : void
+}
+
+abstract Effect {
+	- timeRemaining : double
+	+ {abstract} applyToStudent(target : Student) : void
+	+ {abstract} applyToTeacher(target : Teacher) : void
+	+ setHolder(holder : GameObject) : void
+}
+
+abstract Item {
+	+ {abstract} use() : void
+	+ {abstract} useAgainst(target : Teacher) : void
+	+ {abstract} usePassive() : bool
+	+ {abstract} useItem(item : Item) : void
+	+ {abstract} link(other : Transistor) : void
+	+ drop() : void
+	+ setRoom(room : Room) : void
+	+ setPerson(person : Person) : void	
+}
+
 Updatable <|.- GameObject
-GameObject <|.- Person
-GameObject <|.- Room
+GameObject <|-- Person
+GameObject <|-- Room
 Person <|-- Teacher
 Person <|-- Student
 
+Room "people" *-left- Person
+Person "room" o-right- Room
+Room "doors [1..*]" o-- Door
+Person "inventory" *-- Inventory
+Room "items [0..*]" o- Item
+GameObject "effects [0..*]" *-left- Effect
 
-GameObject *- Effect
-GameObject *-- Item
-
-Room *-o Person
-Room o--o Door
+Door "from" o- Room
+Door "to" o- Room
+Inventory "items [0..5]" o-up- Item
 
 @enduml

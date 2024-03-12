@@ -1,0 +1,9 @@
+@startuml room
+title Room State Diagram
+hide empty description
+left to right direction
+
+[*] --> NotFull
+NotFull --> Full : capacity-personCount == 0
+Full --> NotFull : capacity-personCount > 0 
+@enduml
