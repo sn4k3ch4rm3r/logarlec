@@ -1,5 +1,5 @@
 @startuml room-update
-title Update Room
+title Update Room with no teachers
 hide footbox
 autoactivate on
 skinparam SequenceReferenceBackgroundColor white

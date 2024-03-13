@@ -1,0 +1,21 @@
+@startuml student_slide_create
+
+title Drop Mask Create
+hide footbox
+
+participant "main : Main" as main
+participant "student : Student" as stu
+participant "mask : Mask" as mask
+participant "inventory : Inventory" as inv
+
+main++
+create stu
+main-> stu  : <<create>>
+create inv
+stu -> inv : <<create>>
+create mask
+main -> mask : <<create>>
+stu -> inv : addItem(mask)
+
+
+@enduml

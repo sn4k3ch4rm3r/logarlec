@@ -1,5 +1,5 @@
 @startuml room-update
-title Update Room with Students
+title Update Room with Gas Effect
 hide footbox
 autoactivate on
 skinparam SequenceReferenceBackgroundColor white
@@ -17,8 +17,7 @@ Main -> room : update(1)
         alt timeRemaining <= 0
 		    gas -> room ++: removeEffect(effect)
 		    return
-	    end
-        alt timeRemaining > 0
+	    else timeRemaining > 0
         gas -> student : applyEffect(gas)
             student -> gas : applyToStudent(student)
                 gas -> student : setKnockout(5)

@@ -7,28 +7,19 @@ participant "main : Main" as main
 participant "room1 : Room" as r1
 participant "room2 : Room" as r2
 participant "door : Door" as door
+participant "gasEffect : GasEffect" as gasEffect
 
 main++
-main -> r1 ++: merge(room2)
+main-> r1 ++: merge(room2)
     r1 -> r2 ++: moveContents(room1)
-    loop effect in effects
-        r2 -> r1 ++: addEffect(gasEffect)
+        r2 -> r1 ++: applyEffect(gasEffect)
         return
-    end
-    loop person in people
-        r2 -> r1 ++: enter(person)
+        r2 -> r2 ++ : removeDoor(door)
         return
-    end
-    loop item in items
-        r2 -> r1 ++: addItem(item)
-        return
-    end
-    loop door in doors
-        r2 -> door ++: move(room1, room2)
-            ref over door: Move Door
-        return
-    end
+    return
+    r1 -> r1 ++: removeDoor(door)
     return
 destroy r2
 return
+
 @enduml

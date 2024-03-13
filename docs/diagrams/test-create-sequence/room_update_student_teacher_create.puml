@@ -1,0 +1,24 @@
+@startuml room-update-student-teacher
+title Create "Update Room with Student and Teacher" test
+hide footbox
+participant "main : Main" as main
+participant "room : Room" as room
+participant "student : Student" as stu1
+participant "teacher : Teacher" as stu2
+participant "inventory : Inventory" as inv
+
+main++
+create room
+main -> room : <<create>>
+create stu1
+main -> stu1 : <<create>>
+create inv
+stu1 -> inv : <<create>>
+create stu2
+main -> stu2 : <<create>>
+main -> room ++: enterPerson(student)
+return
+main -> room ++: enterPerson(teacher)
+return
+
+@enduml
