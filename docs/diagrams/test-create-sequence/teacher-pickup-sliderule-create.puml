@@ -1,4 +1,4 @@
-@startuml teacher_slide_create
+@startuml teacher-pickup-sliderule-create
 
 title Teacher Pick up Slide Rule Create
 hide footbox

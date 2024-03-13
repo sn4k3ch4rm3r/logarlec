@@ -1,4 +1,4 @@
-@startuml room-hide-doors
+@startuml room-hide-show-doors
 
 title Hide/Show Doors
 hide footbox

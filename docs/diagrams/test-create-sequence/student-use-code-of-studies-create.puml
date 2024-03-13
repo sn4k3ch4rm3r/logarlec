@@ -1,4 +1,4 @@
-@startuml item-code-of-studies-use-create
+@startuml student-use-code-of-studies-create
 
 title Create "Code Of Studies Protection" test
 hide footbox

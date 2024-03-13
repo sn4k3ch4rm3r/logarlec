@@ -1,4 +1,4 @@
-@startuml room-update
+@startuml room-update-rag-effect
 title Update Room with Rag Effect
 hide footbox
 autoactivate on

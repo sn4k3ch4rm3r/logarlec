@@ -1,4 +1,4 @@
-@startuml room-update
+@startuml room-update-gas-and-mask
 title Update Room with Student with Mask and Gas
 hide footbox
 autoactivate on

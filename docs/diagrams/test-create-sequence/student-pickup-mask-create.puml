@@ -1,6 +1,6 @@
-@startuml student_slide_create
+@startuml student-pickup-mask-create
 
-title Drop Mask Create
+title Pick up Mask
 hide footbox
 
 participant "main : Main" as main
@@ -15,7 +15,6 @@ create inv
 stu -> inv : <<create>>
 create mask
 main -> mask : <<create>>
-main -> inv : addItem(mask)
 
 
 @enduml

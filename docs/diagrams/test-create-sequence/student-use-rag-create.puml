@@ -1,4 +1,4 @@
-@startuml item-beer-use-create
+@startuml student-use-rag-create
 title Create "Wet Rag" test
 hide footbox
 

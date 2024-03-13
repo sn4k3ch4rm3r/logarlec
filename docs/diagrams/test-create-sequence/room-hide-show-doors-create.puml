@@ -1,4 +1,4 @@
-@startuml room-hide-doors-create
+@startuml room-hide-show-doors-create
 
 title Create "Hide/Show Doors" test
 hide footbox

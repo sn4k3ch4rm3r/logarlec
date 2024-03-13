@@ -1,4 +1,4 @@
-@startuml item-code-of-studies-use
+@startuml student-pickup-sliderule
 
 title Student picks up SlideRule
 hide footbox

@@ -1,4 +1,4 @@
-@startuml
+@startuml room-update-no-teachers-create
 hide footbox
 participant "main : Main" as main
 participant "room : Room" as room

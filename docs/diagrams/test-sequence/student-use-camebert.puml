@@ -1,4 +1,4 @@
-@startuml item-camembert-use
+@startuml student-use-camebert
 
 title Camembert Use
 hide footbox

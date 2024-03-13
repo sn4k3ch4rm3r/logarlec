@@ -1,4 +1,4 @@
-@startuml room-update
+@startuml room-update-student-teacher
 title Update Room with a Student and a Teacher
 hide footbox
 autoactivate on

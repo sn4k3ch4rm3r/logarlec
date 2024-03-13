@@ -1,4 +1,4 @@
-@startuml person-drop-mask
+@startuml student-drop-mask
 
 title Drop Mask
 hide footbox

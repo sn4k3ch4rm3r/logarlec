@@ -1,4 +1,4 @@
-@startuml room-merge-create
+@startuml room-merge-toic-create
 title Create "Merge Toxic Room BOLDI NÉZD ÁT! add/apply??" test
 hide footbox
 skinparam SequenceReferenceBackgroundColor white

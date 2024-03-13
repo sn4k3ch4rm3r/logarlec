@@ -1,4 +1,4 @@
-@startuml item-rag-use
+@startuml student-use-rag
 
 title Use Rag
 hide footbox

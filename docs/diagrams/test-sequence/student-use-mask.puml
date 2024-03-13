@@ -1,4 +1,4 @@
-@startuml item-mask-use
+@startuml student-use-mask
 
 title Use Mask
 hide footbox

@@ -1,4 +1,4 @@
-@startuml transistor
+@startuml student-use-transistor
 
 title Link Transistor
 hide footbox

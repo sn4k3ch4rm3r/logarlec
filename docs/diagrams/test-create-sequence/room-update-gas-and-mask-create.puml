@@ -1,4 +1,4 @@
-@startuml room-update-no-teachers-create
+@startuml room-update-gas-and-mask-create
 title Create "Update Room with Student with Mask and Gas effect" test
 hide footbox
 participant "main : Main" as main

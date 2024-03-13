@@ -1,4 +1,4 @@
-@startuml item-beer-use-create
+@startuml student-use-transistor-create
 title Create "Use Transistor" teszt
 hide footbox
 

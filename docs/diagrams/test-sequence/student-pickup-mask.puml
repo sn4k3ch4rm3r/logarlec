@@ -1,4 +1,4 @@
-@startuml person-add-item
+@startuml student-pickup-mask
 
 title Student picks up mask
 hide footbox

@@ -1,4 +1,4 @@
-@startuml room-merge
+@startuml room-merge-with-effect
 title Merge Room
 hide footbox
 skinparam SequenceReferenceBackgroundColor white

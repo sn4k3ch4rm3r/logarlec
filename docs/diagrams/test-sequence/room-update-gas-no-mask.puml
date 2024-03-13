@@ -1,4 +1,4 @@
-@startuml room-update
+@startuml room-update-gas-no-mask
 title Update Room with Gas Effect
 hide footbox
 autoactivate on

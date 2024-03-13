@@ -1,4 +1,4 @@
-@startuml item-beer-use-create
+@startuml student-use-camembert-create
 title Create "Camembert" test
 hide footbox
 
@@ -14,7 +14,7 @@ create room
 main --> room : <<create>>
 create camembert
 main --> camembert : <<create>>
-main -> student ++ : addItem(beer)
+main -> student ++ : addItem(camebert)
 return
 
 @enduml

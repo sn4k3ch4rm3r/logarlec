@@ -1,4 +1,4 @@
-@startuml item-beer-use-create
+@startuml student-use-beer-create
 title Create "Use Beer" test
 hide footbox
 
