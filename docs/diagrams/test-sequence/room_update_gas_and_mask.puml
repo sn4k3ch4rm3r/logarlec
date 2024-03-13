@@ -8,6 +8,7 @@ participant Main
 participant "room : Room" as room
 participant "student : Student" as student
 participant "gasEffect : GasEffect" as gas
+participant "maskEffect : MaskEffect" as mask
 
 activate Main
 Main -> room : update(1)
@@ -21,6 +22,10 @@ Main -> room : update(1)
         gas -> student : applyEffect(gas)
             student -> gas : applyToStudent(student)
                 gas -> student : setKnockout(5)
+                    student -> mask : knockedOut()
+                        mask -> student : setKnockout(0)
+                        return
+                    return
                 return
             return
         return

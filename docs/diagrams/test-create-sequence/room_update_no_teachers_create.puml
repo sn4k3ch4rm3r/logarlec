@@ -8,11 +8,11 @@ participant "student2 : Student" as stu2
 
 main++
 create room
-main -> room : <<create>>
+main --> room : <<create>>
 create stu1
-main -> stu1 : <<create>>
+main --> stu1 : <<create>>
 create stu2
-main -> stu2 : <<create>>
+main --> stu2 : <<create>>
 main -> room ++: enterPerson(student1)
 return
 main -> room ++: enterPerson(student2)

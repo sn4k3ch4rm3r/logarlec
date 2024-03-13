@@ -1,0 +1,27 @@
+@startuml item-beer-use-create
+title Create "Use Transistor" teszt
+hide footbox
+
+participant "main : Main" as main
+participant "student : Student" as student
+participant "transistor1 : Transistor" as tr
+participant "transistor2 : Transistor" as tr2
+participant "room : Room" as room
+participant "targetRoom : Room" as targetRoom
+
+main++
+create student
+main -> student : <<create>>
+create tr
+main --> tr : <<create>>
+create tr2
+main --> tr2 : <<create>>
+create room
+main --> room : <<create>>
+create targetRoom
+main --> targetRoom : <<create>>
+main -> student ++ : addItem(beer)
+return
+
+
+@enduml

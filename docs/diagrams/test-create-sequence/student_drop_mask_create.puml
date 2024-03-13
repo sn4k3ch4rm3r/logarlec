@@ -15,7 +15,7 @@ create inv
 stu -> inv : <<create>>
 create mask
 main -> mask : <<create>>
-stu -> inv : addItem(mask)
+main -> inv : addItem(mask)
 
 
 @enduml

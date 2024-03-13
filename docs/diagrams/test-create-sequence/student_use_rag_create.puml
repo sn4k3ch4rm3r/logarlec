@@ -4,14 +4,25 @@ hide footbox
 
 participant "main : Main" as main
 participant "student : Student" as student
+participant "teacher : Teacher" as teacher
+participant "room : Room" as room
 participant "wetRag : WetRag" as rag
 
 main++
 create student
-main -> student : <<create>>
+main --> student : <<create>>
+create teacher
+main --> teacher : <<create>>
+create room
+main --> room : <<create>>
+main -> room : enter(student)
+return
+main -> room : enter(teacher)
+return
 create rag
 main --> rag : <<create>>
-main -> student ++ : addItem(beer)
+main -> student ++ : addItem(wetRag)
 return
+
 
 @enduml
