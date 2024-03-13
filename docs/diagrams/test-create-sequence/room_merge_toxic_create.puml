@@ -12,29 +12,30 @@ participant "teacher : Teacher" as teacher
 participant "mask : Mask" as mask
 participant "gasEffect : GasEffect" as gasEffect
 
+main++
 create r1
 main --> r1 : <<create>>
 create r2
 main --> r2 : <<create>>
 create door
 main --> door : <<create>>
-main -> door: move(r1, r2)
+main -> door ++ : move(r1, r2)
 return
 create student
 main --> student : <<create>>
-main -> student: enterRoom(r1)
+main -> student ++ : enterRoom(r1)
 return
 create teacher
 main --> teacher : <<create>>
-main -> teacher: enterRoom(r2)
+main -> teacher ++ : enterRoom(r2)
 return
 create mask
 main --> mask : <<create>>
-main -> r1: addItem(mask)
+main -> r1 ++ : addItem(mask)
 return
 create gasEffect
 main --> gasEffect : <<create>>
-main -> r2 : applyEffect(gasEffect)
+main -> r2 ++ : applyEffect(gasEffect)
 return
 
 

@@ -1,6 +1,6 @@
 @startuml person-add-item
 
-title Add Item to Person
+title Student picks up mask
 hide footbox
 autoactivate on
 participant "main : Main" as main
@@ -8,7 +8,8 @@ participant "student : Student" as student
 participant "inventory : Inventory" as inventory
 participant "mask : Mask" as mask
 
-main-> student : addItem(mask)
+main++
+main -> student : addItem(mask)
 	student -> inventory : add(mask)
 	return success : bool
 	opt success

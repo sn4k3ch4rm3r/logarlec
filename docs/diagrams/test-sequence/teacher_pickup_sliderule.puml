@@ -6,9 +6,12 @@ hide footbox
 participant "main : Main" as main
 participant "teacher : Teacher" as teacher
 participant "slideRule : SlideRule" as slide
+participant "inventory : Inventory" as inv
 activate main
 
 main-> teacher ++: addItem(slideRule)
+    teacher -> inv ++: add(slide)
+    return true
     teacher -> slide ++: setPerson(teacher) 
 	    slide -> teacher ++: pickedUpSlideRule()
         return

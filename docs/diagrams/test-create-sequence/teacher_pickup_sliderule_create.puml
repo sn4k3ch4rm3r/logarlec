@@ -1,0 +1,19 @@
+@startuml teacher_slide_create
+
+title Teacher Pick up Slide Rule Create
+hide footbox
+
+participant "main : Main" as main
+participant "teacher : Teacher" as teach
+participant "slide : SlideRule" as slide
+participant "inventory : Inventory" as inv
+
+create teach
+main-> teach  : <<create>>
+create inv
+teach -> inv : <<create>>
+create slide
+main -> slide : <<create>>
+
+
+@enduml

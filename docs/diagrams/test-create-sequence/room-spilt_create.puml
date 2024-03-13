@@ -8,15 +8,14 @@ participant "room : Room" as r1
 participant "otherRoom : Room" as r0
 participant "door : Door" as d
 
-autoactivate on
-
+main++
 create r1
 main --> r1 : <<create>>
 create r0
 main --> r0 : <<create>>
 create d
 main --> d : <<create>>
-main -> d : move(r1, r0)
+main -> d ++ : move(r1, r0)
 return
 
 @enduml

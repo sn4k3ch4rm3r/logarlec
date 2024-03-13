@@ -8,6 +8,7 @@ participant "room1 : Room" as r1
 participant "room2 : Room" as r2
 participant "door : Door" as door
 
+main++
 main -> r1 ++: merge(room2)
     r1 -> r2 ++: moveContents(room1)
     loop effect in effects

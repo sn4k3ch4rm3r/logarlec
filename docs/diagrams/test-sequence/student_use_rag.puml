@@ -1,0 +1,13 @@
+@startuml item-rag-use
+
+title Use Rag
+hide footbox
+
+participant "main : Main" as main
+participant "rag : WetRag" as rag
+
+main++
+main-> rag ++ : use()
+return
+
+@enduml

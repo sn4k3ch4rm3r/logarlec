@@ -6,11 +6,12 @@ participant "main : Main" as main
 participant "student : Student" as student
 participant "camembert : Camembert" as camembert
 
+main++
 create student
 main -> student : <<create>>
 create camembert
 main --> camembert : <<create>>
-main -> student : addItem(beer)
-student --> main :
+main -> student ++ : addItem(beer)
+return
 
 @enduml

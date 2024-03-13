@@ -7,17 +7,18 @@ participant "from : Room" as from
 participant "next : Room" as next
 participant "door : Door" as door
 
+main++
 create student
 main --> student: <<create>>
 create from
 main --> from: <<create>>
-main -> student: enterRoom(from)
-main <-- student:
+main -> student ++ : enterRoom(from)
+return
 create next
 main --> next: <<create>>
 create door
 main --> door: <<create>>
-main -> door: move(from, next)
-main <-- door:
+main -> door ++ : move(from, next)
+return
 
 @enduml

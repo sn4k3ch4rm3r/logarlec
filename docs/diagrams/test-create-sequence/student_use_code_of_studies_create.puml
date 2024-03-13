@@ -8,13 +8,14 @@ participant "student : Student" as student
 participant "target : Teacher" as target
 participant "codeOfStudies : CodeOfStudies" as codeOfStudies
 
+main++
 create student
 main --> student : <<create>>
 create target
 main --> target : <<create>>
 create codeOfStudies
 main --> codeOfStudies : <<create>>
-main -> student : addItem(codeOfStudies)
+main -> student ++ : addItem(codeOfStudies)
 student --> main
 
 @enduml

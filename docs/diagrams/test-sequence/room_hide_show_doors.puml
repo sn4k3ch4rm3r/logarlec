@@ -8,6 +8,7 @@ participant "room : Room" as room
 participant "door : Door" as door
 participant "door2 : Door" as door2
 
+main++
 main -> room : hideDoors() 
     room -> door : hide()
     return

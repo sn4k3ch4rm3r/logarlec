@@ -8,13 +8,14 @@ participant "room1 : Room" as r1
 participant "room2 : Room" as r2
 participant "door : Door" as door
 
+main++
 create r1
 main -> r1 : <<create>>
 create r2
 main -> r2 : <<create>>
 create door
 main -> door : <<create>>
-main -> door : move(r1, r2)
+main -> door ++ : move(r1, r2)
 return
 
 @enduml
