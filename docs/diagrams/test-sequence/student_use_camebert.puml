@@ -1,11 +1,11 @@
-@startuml student-use-camembert
+@startuml item-camembert-use
 
 title Camembert Use
 hide footbox
 
 participant Main
 participant "camembert : Camembert" as camembert
-participant "student : Student" as student
+participant "person : Person" as person
 participant "room : Room" as room
 
 activate Main
@@ -15,8 +15,9 @@ Main -> camembert ++: use()
 	camembert -> gasEffect : <<create>>
 	camembert -> room ++: addEffect(gasEffect)
 	return
-	camembert -> student ++: removeItem(camembert)
+	camembert -> person ++: removeItem(camembert)
 	return
 return
 
 @enduml
+

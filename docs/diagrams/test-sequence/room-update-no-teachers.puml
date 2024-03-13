@@ -9,20 +9,11 @@ participant "room : Room" as room
 participant "student1 : Student" as s1
 participant "student2 : Student" as s2
 
-Main -> room : update(deltaTime)
-	loop effect in effects
-		room -> effect : update(deltaTime)
-		return
-	end
-	loop person in people
-		loop effect in effects
-			room -> person ++: applyEffect(effect)
-				ref over person: Apply Effect
-			return
-		end
-		room -> person : update(deltaTime)
-		return
-	end
+Main -> room : update(1)
+    room -> s1 : update(1)
+    return
+    room -> s2 : update(1)
+    return
 return
 
 @enduml
