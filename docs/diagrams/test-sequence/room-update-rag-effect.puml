@@ -1,0 +1,31 @@
+@startuml room-update
+title Update Room with Rag Effect
+hide footbox
+autoactivate on
+skinparam SequenceReferenceBackgroundColor white
+
+participant Main
+participant "room : Room" as room
+participant "teacher : Teacher" as teacher
+participant "ragEffect : RagEffect" as rag
+
+activate Main
+Main -> room : update(1)
+    room -> teacher : update (1)
+    return
+	 room -> rag : update(1)
+        alt timeRemaining <= 0
+		    rag -> room ++: removeEffect(effect)
+		    return
+	    end
+        alt timeRemaining > 0
+        rag -> teacher : applyEffect(rag)
+            teacher -> rag : applyToTeacher(teacher)
+                rag -> teacher : setPeaceFul(true)
+                return
+       return
+       return
+        end
+	
+    return
+return

@@ -9,7 +9,9 @@ participant "slideRule : SlideRule" as slide
 activate main
 
 main-> teacher ++: addItem(slideRule)
-	slide -> teacher ++: pickedUpSlideRule()
+    teacher -> slide ++: setPerson(teacher) 
+	    slide -> teacher ++: pickedUpSlideRule()
+        return
     return
 return
 

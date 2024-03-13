@@ -9,11 +9,12 @@ participant "slideRule : SlideRule" as slide
 activate main
 
 main-> student ++: addItem(slideRule)
-	slide -> student ++: pickedUpSlideRule()
-        student -> main ++: victory()
-        return
+    student -> slide ++: setPerson(student)
+	    slide -> student ++: pickedUpSlideRule()
+            student -> main ++: victory()
+            return
         return
 	return
-
+return
 
 @enduml
