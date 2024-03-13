@@ -1,0 +1,16 @@
+@startuml item-beer-use-create
+title Create "Wet Rag" test
+hide footbox
+
+participant "main : Main" as main
+participant "student : Student" as student
+participant "wetRag : WetRag" as rag
+
+create student
+main -> student : <<create>>
+create rag
+main --> rag : <<create>>
+main -> student : addItem(beer)
+student --> main :
+
+@enduml

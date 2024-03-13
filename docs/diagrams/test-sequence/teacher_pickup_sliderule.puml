@@ -1,0 +1,17 @@
+@startuml item-code-of-studies-use
+
+title Teacher picks up SlideRule
+hide footbox
+
+participant "main : Main" as main
+participant "teacher : Teacher" as teacher
+participant "slideRule : SlideRule" as slide
+activate main
+
+main-> teacher ++: addItem(slideRule)
+	slide -> teacher ++: pickedUpSlideRule()
+    return
+return
+
+
+@enduml

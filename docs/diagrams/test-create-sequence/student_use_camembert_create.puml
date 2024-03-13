@@ -1,0 +1,16 @@
+@startuml item-beer-use-create
+title Create "Camembert" test
+hide footbox
+
+participant "main : Main" as main
+participant "student : Student" as student
+participant "camembert : Camembert" as camembert
+
+create student
+main -> student : <<create>>
+create camembert
+main --> camembert : <<create>>
+main -> student : addItem(beer)
+student --> main :
+
+@enduml

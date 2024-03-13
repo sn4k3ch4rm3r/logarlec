@@ -1,0 +1,18 @@
+@startuml item-beer-use
+title Use Beer
+hide footbox
+
+participant "main : Main" as main
+participant "beer : Beer" as beer
+participant "student : Student" as person
+
+main-> beer ++: use()
+	create "beerEffect : BeerEffect" as beerEffect
+	beer -> beerEffect : <<create>>
+	beer -> person ++: addEffect(beerEffect)
+	return
+	beer -> person ++ : removeItem(beer)
+	return
+return
+
+@enduml

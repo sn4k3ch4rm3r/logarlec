@@ -1,0 +1,46 @@
+@startuml transistor
+
+title Link Transistor
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "main : Main" as main
+participant "transistor : Transistor" as transistor
+participant "other : Transistor" as other
+participant "target : Room" as target
+participant "person : Person" as person
+participant "room : Room" as room
+
+autoactivate on
+
+main-> transistor ++: useItem(other)
+	transistor -> other ++: link(transistor)
+		other -> transistor ++: setTarget(room)
+		return
+		other -> transistor ++: setPair(other)
+		return
+	return
+return
+
+main-> transistor : use()
+	alt linked
+		transistor -> person : dropItem(transistor)
+		return
+		transistor -> other : setTarget(room)
+		return
+	else active
+		transistor -> person : dropItem(transistor)
+		return
+		transistor -> target : enter(person)
+		opt has capacity
+			target -> person : enterRoom(target)
+			return
+		end
+        return
+		opt success
+			transistor -> room ++: leave(person)
+			return
+		end
+	end
+return
+@enduml

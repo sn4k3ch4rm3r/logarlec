@@ -1,0 +1,24 @@
+@startuml room-hide-doors-create
+
+title Create "Hide/Show Doors" test
+hide footbox
+participant "main : Main" as main
+participant "room : Room" as room
+participant "otherRoom : Room" as other
+participant "door : Door" as door
+participant "door2 : Door" as door2
+
+create room
+main -> room : <<create>>
+create other
+main -> other : <<create>>
+create door
+main -> door : <<create>>
+main -> door : move(room, other)
+return
+create door2
+main -> door2 : <<create>>
+main -> door2 : move(room, other)
+return
+
+@enduml

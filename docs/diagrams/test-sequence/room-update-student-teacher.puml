@@ -1,0 +1,30 @@
+@startuml room-update
+title Update Room with a Student and a Teacher
+hide footbox
+autoactivate on
+skinparam SequenceReferenceBackgroundColor white
+
+participant Main
+participant "room : Room" as room
+participant "student : Student" as s
+participant "teacher : Teacher" as t
+participant "inventory : Inventory" as inv
+
+activate Main
+Main -> room : update(1)
+	room -> s : update(1)
+	return
+	room -> t : update(1)
+    t -> room : getPeople()
+    return student
+    t -> s : interactTeacher(teacher)
+        s -> s : setEliminated(true)
+        return
+        s -> inv ++: protectFrom(teacher)
+        return
+        
+	return
+return
+return
+
+@enduml
