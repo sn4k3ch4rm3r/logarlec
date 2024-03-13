@@ -34,3 +34,7 @@ replay_pid*
 
 # Build files
 build
+docs/projlab.fdb_latexmk
+docs/projlab.fls
+docs/projlab.pdf
+docs/projlab.synctex.gz
