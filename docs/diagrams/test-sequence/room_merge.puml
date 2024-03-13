@@ -9,6 +9,9 @@ participant "room2 : Room" as r2
 participant "room3 : Room" as r3
 participant "door1 : Door" as door1
 participant "door2 : Door" as door2
+participant "room3 : Room" as r3
+participant "door1 : Door" as door1
+participant "door2 : Door" as door2
 
 main++
 main-> r1 ++: merge(room2)
@@ -23,6 +26,8 @@ main-> r1 ++: merge(room2)
         return
         r2 -> r2 ++ : removeDoor(door1)
         return
+    return
+    r1 -> r1 ++: removeDoor(door1)
     return
 destroy r2
 return
