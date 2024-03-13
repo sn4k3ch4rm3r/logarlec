@@ -1,0 +1,17 @@
+@startuml inventory-set-room
+
+title Update Room for Items in the Inventory
+hide footbox
+autoactivate on
+
+participant "inventory : Inventory" as inventory
+participant "item : Item" as item
+
+[-> inventory : setRoom(room)
+    loop item in items
+        inventory -> item : setRoom(room)
+        return
+    end
+return
+
+@enduml

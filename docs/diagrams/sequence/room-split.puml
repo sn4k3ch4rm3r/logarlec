@@ -1,18 +1,26 @@
 @startuml room-split
 title Split Room
 hide footbox
+skinparam SequenceReferenceBackgroundColor white
 
 participant "room : Room" as r1
+
 [-> r1 ++: split()
 	create "newRoom : Room" as r2
-	r1 -> r2: effects, capcity
+	r1 -> r2: <<create>> (effects, capcity)
 	create  "door: Door" as d
-	r1 -> d ++: room, newRoom
+	r1 -> d ++: <<create>> (room, newRoom)
 		d -> r1 ++ : addDoor(door)
 		return
 		d -> r2 ++ : addDoor(door)
 		return
 	return
+	participant "oldDoor : Door" as oldDoor
+	loop some door in doors
+		r1 -> oldDoor ++: move(room, newRoom)
+		ref over oldDoor : Move Door
+		return
+	end
 return newRoom
 
 @enduml

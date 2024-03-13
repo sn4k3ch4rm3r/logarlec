@@ -1,0 +1,15 @@
+@startuml effect-gas-apply
+
+title Poison Target
+hide footbox
+
+participant "effect : GasEffect" as effect
+participant "target : Student" as target
+
+[-> effect ++: applyToStudent(target)
+note right: Same for teacher
+	effect -> target ++: setKnockOut(5)
+	return
+return
+
+@enduml

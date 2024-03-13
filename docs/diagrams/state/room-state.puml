@@ -1,13 +1,9 @@
 @startuml room
 title Room State Diagram
-[*] --> Neutral
-Neutral --> Poisioned: poison()
+hide empty description
+left to right direction
 
-Neutral --> [*]: merge() && smaller
-Poisioned --> [*]: merge() && smaller
-Poisioned --> Poisioned: update(deltaTime) \n poisonTime -= deltaTime
-Poisioned --> Neutral: poisonTime <= 0
-
-Poisioned: entry/ poisonTime = 5
-
+[*] --> NotFull
+NotFull --> Full : capacity-personCount == 0
+Full --> NotFull : capacity-personCount > 0 
 @enduml

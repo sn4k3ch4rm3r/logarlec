@@ -1,7 +1,9 @@
 @startuml door
+left to right direction
 title Door State Diagram
+hide empty description
 
 [*] --> Visible
-Visible --> Open : reveal()
-Open --> Visible : hide()
+Visible --> Hidden : hide()
+Hidden --> Visible : show()
 @enduml

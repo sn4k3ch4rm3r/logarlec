@@ -1,0 +1,19 @@
+@startuml transistor-link
+
+title Link Transistor
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "transistor : Transistor" as transistor
+participant "other : Transistor" as other
+
+[-> transistor ++: useItem(other)
+	transistor -> other ++: link(transistor)
+		other -> transistor ++: setTarget(room)
+		return
+		other -> transistor ++: setPair(other)
+		return
+	return
+return
+
+@enduml

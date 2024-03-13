@@ -1,0 +1,20 @@
+@startuml student-interact-teacher
+
+title Soul Theft
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "student : Student" as student
+participant "inventory : Inventory" as inventory
+participant "item : Item" as item
+
+[-> student ++: interactTeacher(teacher)
+	student -> inventory ++: protectFrom(teacher)
+		loop item in items
+			inventory -> item ++: useAgaints(teacher)
+			return
+		end
+	return
+return
+
+@enduml

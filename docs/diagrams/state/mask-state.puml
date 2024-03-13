@@ -1,9 +1,9 @@
 @startuml mask
+left to right direction
 title Mask State Diagram
-
-[*] --> Operable
-Operable --> Operable: Mask still has durability
-Operable --> Inoperable: Mask has been overused
-Inoperable --> [*]
-
+hide empty description
+ 
+[*] --> Usable
+Usable --> Usable : usePassive()\n/uses=uses-1
+Usable --> [*] : uses = 0
 @enduml

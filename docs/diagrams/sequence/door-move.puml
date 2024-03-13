@@ -1,0 +1,18 @@
+@startuml door-move
+
+title Move Door
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "door : Door" as door
+participant "from : Room" as from
+participant "to : Room" as to
+
+[-> door ++: move(from, to)
+	door -> from ++: removeDoor(door)
+	return
+	door -> to ++: addDoor(door)
+	return
+return
+
+@enduml

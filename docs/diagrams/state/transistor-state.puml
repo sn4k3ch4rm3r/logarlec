@@ -1,8 +1,11 @@
 @startuml transistor
 title Transistor State Diagram
+hide empty description
+left to right direction
 
-[*] --> NotConnected
-NotConnected --> Connected : Succesful connection
-Connected --> NotConnected : Disconnection
+[*] --> NotLinked
+NotLinked --> Linked : link(other)
+Linked --> Active : use()
+Active --> Linked : use()
 
 @enduml

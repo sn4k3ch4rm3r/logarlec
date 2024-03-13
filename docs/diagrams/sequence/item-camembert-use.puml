@@ -7,12 +7,12 @@ participant "camembert : Camembert" as camembert
 participant "person : Person" as person
 participant "room : Room" as room
 
-[-> camembert ++: use(person)
-	camembert -> person ++: getRoom()
-	return room
+[-> camembert ++: use()
 	create "gasEffect : GasEffect" as gasEffect
 	camembert -> gasEffect : <<create>>
-	camembert -> room ++: applyEffect(gasEffect)
+	camembert -> room ++: addEffect(gasEffect)
+	return
+	camembert -> person ++: removeItem(camembert)
 	return
 return
 
