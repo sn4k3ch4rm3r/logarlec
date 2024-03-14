@@ -14,11 +14,10 @@ Main -> room : update(1)
     room -> teacher : update (1)
     return
 	 room -> rag : update(1)
-        alt timeRemaining <= 0
+        alt Effect over (user input)
 		    rag -> room ++: removeEffect(effect)
 		    return
-	    end
-        alt timeRemaining > 0
+        else Effect not over (user input)
         rag -> teacher : applyEffect(rag)
             teacher -> rag : applyToTeacher(teacher)
                 rag -> teacher : setPeaceFul(true)
@@ -29,3 +28,4 @@ Main -> room : update(1)
 	
     return
 return
+@enduml

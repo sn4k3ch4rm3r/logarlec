@@ -14,10 +14,10 @@ Main -> room : update(1)
 	room -> student : update(1)
 	    return
 	    room -> gas : update(1)
-        alt timeRemaining <= 0
+        alt Effect over (user input)
 		    gas -> room ++: removeEffect(effect)
 		    return
-	    else timeRemaining > 0
+	    else Effect not over (user input)
         gas -> student : applyEffect(gas)
             student -> gas : applyToStudent(student)
                 gas -> student : setKnockout(5)
