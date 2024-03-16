@@ -1,6 +1,6 @@
 @startuml student-use-transistor
 
-title Link Transistor
+title Use Transistor
 hide footbox
 skinparam SequenceReferenceBackgroundColor white
 
@@ -12,15 +12,6 @@ participant "person : Person" as person
 participant "room : Room" as room
 
 autoactivate on
-
-main-> transistor ++: useItem(other)
-	transistor -> other ++: link(transistor)
-		other -> transistor ++: setTarget(room)
-		return
-		other -> transistor ++: setPair(other)
-		return
-	return
-return
 
 main-> transistor : use()
 	alt linked

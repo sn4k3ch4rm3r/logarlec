@@ -1,5 +1,5 @@
 @startuml room-merge-with-effect
-title Merge Room
+title Merge Room with Effect
 hide footbox
 skinparam SequenceReferenceBackgroundColor white
 
@@ -15,7 +15,7 @@ main-> r1 ++: merge(room2)
         r2 -> r1 ++: applyEffect(gasEffect)
         return
         r2 -> r2 ++ : removeDoor(door)
-        return
+        deactivate 
     return
     r1 -> r1 ++: removeDoor(door)
     return

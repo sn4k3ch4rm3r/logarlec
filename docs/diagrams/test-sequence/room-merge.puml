@@ -6,10 +6,6 @@ skinparam SequenceReferenceBackgroundColor white
 participant "main : Main" as main
 participant "room1 : Room" as r1
 participant "room2 : Room" as r2
-participant "room3 : Room" as r3
-participant "door1 : Door" as door1
-participant "door2 : Door" as door2
-participant "room3 : Room" as r3
 participant "door1 : Door" as door1
 participant "door2 : Door" as door2
 
@@ -22,10 +18,10 @@ main-> r1 ++: merge(room2)
         r2 -> r1 ++ : addItem(mask)
         return
 
-        r2 -> door2 ++: move(room1, room3)
+        door2 -> door2 ++: move(room1, room3)
         return
         r2 -> r2 ++ : removeDoor(door1)
-        return
+        deactivate
     return
     r1 -> r1 ++: removeDoor(door1)
     return

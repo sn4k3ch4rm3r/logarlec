@@ -20,7 +20,7 @@ create room
 main --> room : <<create>>
 create targetRoom
 main --> targetRoom : <<create>>
-main -> student ++ : addItem(beer)
+main -> student ++ : addItem(transistor)
 return
 
 

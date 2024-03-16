@@ -10,7 +10,7 @@ participant "inventory : Inventory" as inv
 activate main
 
 main-> student ++: addItem(slideRule)
-    student -> inv ++: add(slide)
+    student -> inv ++: add(slideRule)
     return true
     student -> slide ++: setPerson(student)
 	    slide -> student ++: pickedUpSlideRule()
