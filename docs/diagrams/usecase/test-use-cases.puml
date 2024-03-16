@@ -1,0 +1,86 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+!procedure $extend($extendee, $extender)
+$extendee <.. $extender : <<extends>>
+!endprocedure
+
+!procedure $capacityScenarios($usecase_with_capacity)
+$extend($usecase_with_capacity,full)
+$extend($usecase_with_capacity,not_full)
+!endprocedure
+
+:Felhasználó: as User
+
+left to right direction
+
+package Kapacitás {
+    usecase "Van hely" as not_full
+    usecase "Nincs_hely" as full
+}
+package Ajtó{
+	usecase Ajtóhasználat as use_door
+	usecase "Jó irány" as right_dir
+	usecase "Rossz irány" as wrong_dir
+}
+package "Tárgy lerakás/felvétel"{
+
+    usecase Maszkeldobás as drop_mask
+    usecase Maszkfelvétel as pick_mask
+    usecase "Hallgató felveszi a logarlécet" as student_pick_slide
+    usecase "Oktató felveszi a logarlécet" as teacher_pick_slide
+}
+
+package "Tárgy használat"{
+
+    usecase Maszkhasználat as use_mask
+    usecase "TVSZ használat" as use_code
+    usecase "Söröspohár használat" as use_beer
+    usecase "Nedves táblatörlő rongy használat" as use_rag
+    usecase "Camembert használat" as use_camambert
+    usecase "Tranzisztor használat" as use_trans
+    usecase "Összekapcsolás" as linking
+    usecase "Teleportálás" as tp
+}
+
+package "Szoba manipuláció"{
+    usecase "Sima szobák összeolvadása" as merge_room_normal
+    usecase "Szobák összeolvadása" as merge_room
+    usecase "Elátkozott szoba" as cursed_room
+    usecase "Szoba osztódás" as split_room
+
+}
+
+'TODO Room updatek
+
+
+User -- use_door
+$extend(use_door, right_dir)
+$capacityScenarios(right_dir)
+$extend(use_door, wrong_dir)
+
+User -- pick_mask
+$capacityScenarios(pick_mask)
+User -- drop_mask
+User -- student_pick_slide
+$capacityScenarios(student_pick_slide)
+User --teacher_pick_slide
+$capacityScenarios(teacher_pick_slide)
+
+User --- use_mask
+User --- use_beer
+User --- use_code
+User --- use_camambert
+User --- use_rag
+User --- use_trans
+$extend(use_trans, linking)
+$extend(use_trans, tp)
+$capacityScenarios(tp)
+
+User -up-- merge_room
+User -up-- merge_room_normal
+User -up-- cursed_room
+User --- split_room
+
+
+@enduml
