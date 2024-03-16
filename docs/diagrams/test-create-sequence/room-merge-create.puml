@@ -3,13 +3,12 @@ title Create "Merge Room" test
 hide footbox
 skinparam SequenceReferenceBackgroundColor white
 
-participant "main : Main" as main
+participant "Main" as main
 participant "room1 : Room" as r1
 participant "room2 : Room" as r2
 participant "room3 : Room" as r3
 participant "door1 : Door" as door1
 participant "door2 : Door" as door2
-participant "student : Student" as student
 participant "teacher : Teacher" as teacher
 participant "mask : Mask" as mask
 
@@ -21,17 +20,9 @@ main --> r2 : <<create>>
 create r3
 main --> r3 : <<create>>
 create door1
-main --> door1 : <<create>>
-main -> door1 ++ : move(r1, r2)
-return
+main --> door1 : Door(room1, room2)
 create door2
-main --> door2 : <<create>>
-main -> door2 ++ : move(r2, r3)
-return
-create student
-main --> student : <<create>>
-main -> r1 ++ : enter(student)
-return
+main --> door2 : Door(room2, room3)
 create teacher
 main --> teacher : <<create>>
 main -> r2 ++ : enter(teacher)

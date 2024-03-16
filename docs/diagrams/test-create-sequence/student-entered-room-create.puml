@@ -1,7 +1,7 @@
 @startuml student-entered-room-create
 title Create "Use Door" test
 hide footbox
-participant "main : Main" as main
+participant "Main" as main
 participant "student : Student" as student
 participant "from : Room" as from
 participant "next : Room" as next
@@ -12,13 +12,11 @@ create student
 main --> student: <<create>>
 create from
 main --> from: <<create>>
-main -> student ++ : enterRoom(from)
+main -> from ++ : enter(student)
 return
 create next
 main --> next: <<create>>
 create door
-main --> door: <<create>>
-main -> door ++ : move(from, next)
-return
+main --> door: Door(from, next)
 
 @enduml

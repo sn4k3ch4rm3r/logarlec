@@ -1,8 +1,8 @@
 @startuml student-use-transistor-create
-title Create "Use Transistor" teszt
+title Create "Use Transistor" test
 hide footbox
 
-participant "main : Main" as main
+participant "Main" as main
 participant "student : Student" as student
 participant "transistor1 : Transistor" as tr
 participant "transistor2 : Transistor" as tr2
@@ -11,7 +11,7 @@ participant "targetRoom : Room" as targetRoom
 
 main++
 create student
-main -> student : <<create>>
+main --> student : <<create>>
 create tr
 main --> tr : <<create>>
 create tr2

@@ -1,7 +1,7 @@
 @startuml room-update-gas-and-mask-create
 title Create "Update Room with Student with Mask and Gas effect" test
 hide footbox
-participant "main : Main" as main
+participant "Main" as main
 participant "room : Room" as room
 participant "student : Student" as stu1
 participant "gasEffect : GasEffect" as gas

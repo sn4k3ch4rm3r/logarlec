@@ -2,7 +2,7 @@
 title Create "Camembert" test
 hide footbox
 
-participant "main : Main" as main
+participant "Main" as main
 participant "student : Student" as student
 participant "room : Room" as room
 participant "camembert : Camembert" as camembert

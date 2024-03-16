@@ -1,17 +1,17 @@
-@startuml student-use-mask
+@startuml student-use-mask-create
 
 title Create "Use Mask" test
 hide footbox
 
-participant "main : Main" as main
+participant "Main" as main
 participant "mask : Mask" as mask
 participant "student : Student" as student
 
 main++
 create mask
-main-> mask : <<create>>
+main --> mask : <<create>>
 create student
-main-> student : <<create>>
+main --> student : <<create>>
 main -> mask ++: setPerson(student)
 return
 

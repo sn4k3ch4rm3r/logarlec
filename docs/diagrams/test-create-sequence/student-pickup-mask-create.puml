@@ -1,20 +1,20 @@
 @startuml student-pickup-mask-create
 
-title Pick up Mask
+title Create "Pick up Mask" test
 hide footbox
 
-participant "main : Main" as main
+participant "Main" as main
 participant "student : Student" as stu
-participant "mask : Mask" as mask
 participant "inventory : Inventory" as inv
+participant "mask : Mask" as mask
 
 main++
 create stu
-main-> stu  : <<create>>
+main --> stu  : <<create>>
 create inv
-stu -> inv : <<create>>
+stu --> inv : <<create>>
 create mask
-main -> mask : <<create>>
+main --> mask : <<create>>
 
 
 @enduml

@@ -11,13 +11,13 @@ participant "ragEffect : RagEffect" as rag
 
 Main++
 create room
-Main -> room : <<create>>
+Main --> room : <<create>>
 create teacher
-Main -> teacher : <<create>>
+Main --> teacher : <<create>>
 create rag
-Main -> rag : <<create>>
+Main --> rag : <<create>>
 
-Main -> room ++: addEffect(rag)
+Main -> room ++ : addEffect(ragEffect)
 return
 
 @enduml

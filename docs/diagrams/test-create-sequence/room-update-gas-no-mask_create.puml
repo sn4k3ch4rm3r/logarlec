@@ -1,21 +1,21 @@
 @startuml room-update-gas-no-mask-create
 title Create "Update Room with Gas effect" test
 hide footbox
-participant "main : Main" as main
+participant "Main" as main
 participant "room : Room" as room
 participant "student : Student" as stu1
-participant "gas : GasEffect" as gas
+participant "gasEffect : GasEffect" as gas
 
 main++
 create room
-main -> room : <<create>>
+main --> room : <<create>>
 create stu1
-main -> stu1 : <<create>>
+main --> stu1 : <<create>>
 create gas
-main -> gas : <<create>>
-main -> room ++: enterPerson(student)
+main --> gas : <<create>>
+main -> room ++: enter(student)
 return
-main -> room ++: addEffect(gas)
+main -> room ++: addEffect(gasEffect)
 return
 
 @enduml

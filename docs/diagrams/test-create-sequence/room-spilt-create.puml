@@ -3,7 +3,7 @@ title Create "Split Room" test
 hide footbox
 skinparam SequenceReferenceBackgroundColor white
 
-participant "main : Main" as main
+participant "Main" as main
 participant "room : Room" as r1
 participant "otherRoom : Room" as r0
 participant "door : Door" as d
@@ -14,8 +14,6 @@ main --> r1 : <<create>>
 create r0
 main --> r0 : <<create>>
 create d
-main --> d : <<create>>
-main -> d ++ : move(r1, r0)
-return
+main --> d : Door(room, otherRoom)
 
 @enduml

@@ -3,7 +3,7 @@
 title Create "Code Of Studies Protection" test
 hide footbox
 
-participant "main : Main" as main
+participant "Main" as main
 participant "student : Student" as student
 participant "target : Teacher" as target
 participant "codeOfStudies : CodeOfStudies" as codeOfStudies

@@ -1,9 +1,9 @@
-@startuml room-merge-toic-create
-title Create "Merge Toxic Room BOLDI NÉZD ÁT! add/apply??" test
+@startuml room-merge-toxic-create
+title Create "Merge Toxic Room" test
 hide footbox
 skinparam SequenceReferenceBackgroundColor white
 
-participant "main : Main" as main
+participant "Main" as main
 participant "room1 : Room" as r1
 participant "room2 : Room" as r2
 participant "door : Door" as door
@@ -15,12 +15,10 @@ main --> r1 : <<create>>
 create r2
 main --> r2 : <<create>>
 create door
-main --> door : <<create>>
-main -> door ++ : move(r1, r2)
-return
+main --> door : Door(room1, room2)
 create gasEffect
 main --> gasEffect : <<create>>
-main -> r2 ++ : applyEffect(gasEffect)
+main -> r2 ++ : addEffect(gasEffect)
 return
 
 

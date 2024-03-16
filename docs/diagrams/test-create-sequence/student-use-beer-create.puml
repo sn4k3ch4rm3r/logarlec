@@ -2,13 +2,13 @@
 title Create "Use Beer" test
 hide footbox
 
-participant "main : Main" as main
+participant "Main" as main
 participant "student : Student" as student
 participant "beer : Beer" as beer
 
 main++
 create student
-main -> student : <<create>>
+main --> student : <<create>>
 create beer
 main --> beer : <<create>>
 main -> student ++ : addItem(beer)
