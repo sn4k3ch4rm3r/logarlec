@@ -1,46 +1,12 @@
-@startuml
-'https://plantuml.com/use-case-diagram
-
-!procedure $extend($extendee, $extender)
-$extendee <.. $extender : <<extends>>
-!endprocedure
-
-!procedure $roomCapacityScenarios($usecase_with_capacity)
-$extend($usecase_with_capacity,room_not_full)
-$extend($usecase_with_capacity,room_full)
-!endprocedure
-
-!procedure $inventoryCapacityScenarios($usecase_with_capacity)
-$extend($usecase_with_capacity,inventory_not_full)
-$extend($usecase_with_capacity,inventory_full)
-!endprocedure
-
-!procedure $effectScenarios($usecase_with_effect)
-$extend($usecase_with_effect,effect_over)
-$extend($usecase_with_effect,effect_not_over)
-!endprocedure
-
-!procedure $scenario($name, $param_name)
-($param_name) <<forgatókönyv>>
-usecase "$name" as $param_name
-!endprocedure
+@startuml test-use-cases
 
 :Felhasználó: as User
 
 left to right direction
 
-    $scenario("Van hely a szobában", room_not_full)
-    $scenario("Nincs hely a szobában", room_full)
-    $scenario("Van hely a felszerelésben", inventory_not_full)
-    $scenario("Nincs hely a felszerelésben", inventory_full)
+usecase Ajtóhasználat as use_door
 
-package Ajtó{
-	usecase Ajtóhasználat as use_door
-	usecase "Jó irány" as right_dir
-	usecase "Rossz irány" as wrong_dir
-}
 package "Tárgy lerakás/felvétel"{
-
     usecase Maszkeldobás as drop_mask
     usecase Maszkfelvétel as pick_mask
     usecase "Hallgató felveszi a logarlécet" as student_pick_slide
@@ -48,73 +14,63 @@ package "Tárgy lerakás/felvétel"{
 }
 
 package "Tárgy használat"{
-
     usecase Maszkhasználat as use_mask
     usecase "TVSZ használat" as use_code
     usecase "Söröspohár használat" as use_beer
     usecase "Nedves táblatörlő rongy használat" as use_rag
     usecase "Camembert használat" as use_camambert
     usecase "Tranzisztor használat" as use_trans
-    usecase "Összekapcsolás" as linking
-    usecase "Teleportálás" as tp
+    usecase "Tranzisztor\nösszekapcsolása" as linking
 }
+
+usecase "Sör hatása" as beer_effect
+usecase "Rongy hatása" as rag_effect
 
 package "Szoba manipuláció"{
     usecase "Sima szobák összeolvadása" as merge_room_normal
     usecase "Szobák összeolvadása" as merge_room
-    usecase "Elátkozott szoba" as cursed_room
+    usecase "Elátkozott szoba\najtók elrejtése" as cursed_room_hide
+    usecase "Elátkozott szoba\najtók megjelenítése" as cursed_room_show
     usecase "Szoba osztódás" as split_room
-
 }
 
 package "Szoba frissítése"{
-    usecase "Szoba frissítése: hallgató és hallgató" as upd_room_students
+    usecase "Szoba frissítése: hallgatók" as upd_room_students
     usecase "Szoba frissítése: hallgató és oktató" as upd_room_student_teacher
     usecase "Szoba frissítése: hallgató és gáz effect" as upd_room_student_gas
     usecase "Szoba frissítése: hallgató maszkkal és gáz effect" as upd_room_student_mask_gas
     usecase "Szoba frissítése: oktató és rongy effect" as upd_room_teacher_rag
 }
-    $scenario("Effekt lejár", effect_over)
-    $scenario("Effekt nem jár le",effect_not_over)
 
 
-
-User -up- use_door
-$extend(use_door, right_dir)
-$roomCapacityScenarios(right_dir)
-$extend(use_door, wrong_dir)
+User -- use_door
 
 User -- pick_mask
-$inventoryCapacityScenarios(pick_mask)
 User -- drop_mask
 User -- student_pick_slide
-$inventoryCapacityScenarios(student_pick_slide)
-User --teacher_pick_slide
-$inventoryCapacityScenarios(teacher_pick_slide)
+User -- teacher_pick_slide
 
-User -- use_mask
-User -- use_beer
-User -- use_code
-User -- use_camambert
-User -- use_rag
-User -- use_trans
-$extend(use_trans, linking)
-$extend(use_trans, tp)
-$roomCapacityScenarios(tp)
+User -up- use_mask
+User -up- use_beer
+User -up- use_code
+User -up- use_camambert
+User -up- use_rag
+User -up- use_trans
+use_trans .> linking : <<include>>
 
 User -up- merge_room
 User -up- merge_room_normal
-User -up- cursed_room
+User -up- cursed_room_show
+User -up- cursed_room_hide
 User -up- split_room
 
 User -- upd_room_students
 User -- upd_room_student_teacher
 User -- upd_room_student_gas
-$effectScenarios(upd_room_student_gas)
 User -- upd_room_student_mask_gas
-$effectScenarios(upd_room_student_mask_gas)
-$effectScenarios(upd_room_student_mask_gas)
 User -- upd_room_teacher_rag
-$effectScenarios(upd_room_teacher_rag)
+
+User -- beer_effect
+User -- rag_effect
 
 @enduml
