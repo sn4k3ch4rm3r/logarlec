@@ -5,9 +5,14 @@
 $extendee <.. $extender : <<extends>>
 !endprocedure
 
-!procedure $capacityScenarios($usecase_with_capacity)
-$extend($usecase_with_capacity,full)
-$extend($usecase_with_capacity,not_full)
+!procedure $roomCapacityScenarios($usecase_with_capacity)
+$extend($usecase_with_capacity,room_not_full)
+$extend($usecase_with_capacity,room_full)
+!endprocedure
+
+!procedure $inventoryCapacityScenarios($usecase_with_capacity)
+$extend($usecase_with_capacity,inventory_not_full)
+$extend($usecase_with_capacity,inventory_full)
 !endprocedure
 
 !procedure $effectScenarios($usecase_with_effect)
@@ -15,14 +20,20 @@ $extend($usecase_with_effect,effect_over)
 $extend($usecase_with_effect,effect_not_over)
 !endprocedure
 
+!procedure $scenario($name, $param_name)
+($param_name) <<forgatókönyv>>
+usecase "$name" as $param_name
+!endprocedure
+
 :Felhasználó: as User
 
 left to right direction
 
-package Kapacitás {
-    usecase "Van hely" as not_full
-    usecase "Nincs_hely" as full
-}
+    $scenario("Van hely a szobában", room_not_full)
+    $scenario("Nincs hely a szobában", room_full)
+    $scenario("Van hely a felszerelésben", inventory_not_full)
+    $scenario("Nincs hely a felszerelésben", inventory_full)
+
 package Ajtó{
 	usecase Ajtóhasználat as use_door
 	usecase "Jó irány" as right_dir
@@ -63,39 +74,38 @@ package "Szoba frissítése"{
     usecase "Szoba frissítése: hallgató maszkkal és gáz effect" as upd_room_student_mask_gas
     usecase "Szoba frissítése: oktató és rongy effect" as upd_room_teacher_rag
 }
-package Effekt {
-    usecase "Effekt lejár" as effect_over
-    usecase "Effekt nem jár le" as effect_not_over
-}
+    $scenario("Effekt lejár", effect_over)
+    $scenario("Effekt nem jár le",effect_not_over)
+
 
 
 User -up- use_door
 $extend(use_door, right_dir)
-$capacityScenarios(right_dir)
+$roomCapacityScenarios(right_dir)
 $extend(use_door, wrong_dir)
 
 User -- pick_mask
-$capacityScenarios(pick_mask)
+$inventoryCapacityScenarios(pick_mask)
 User -- drop_mask
 User -- student_pick_slide
-$capacityScenarios(student_pick_slide)
+$inventoryCapacityScenarios(student_pick_slide)
 User --teacher_pick_slide
-$capacityScenarios(teacher_pick_slide)
+$inventoryCapacityScenarios(teacher_pick_slide)
 
-User --- use_mask
-User --- use_beer
-User --- use_code
-User --- use_camambert
-User --- use_rag
-User --- use_trans
+User -- use_mask
+User -- use_beer
+User -- use_code
+User -- use_camambert
+User -- use_rag
+User -- use_trans
 $extend(use_trans, linking)
 $extend(use_trans, tp)
-$capacityScenarios(tp)
+$roomCapacityScenarios(tp)
 
-User -up-- merge_room
-User -up-- merge_room_normal
-User -up-- cursed_room
-User --- split_room
+User -up- merge_room
+User -up- merge_room_normal
+User -up- cursed_room
+User -up- split_room
 
 User -- upd_room_students
 User -- upd_room_student_teacher
