@@ -15,16 +15,17 @@ Main -> room : update(1)
 	room -> s : update(1)
 	return
 	room -> t : update(1)
-    t -> room : getPeople()
-    return student
-    t -> s : interactTeacher(teacher)
-        s -> s : setEliminated(true)
-        return
-        s -> inv ++: protectFrom(teacher)
-        return
-        
-	return
+	alt Peaceful (user input)
+	else Not peaceful (user input)
+        t -> room : interactTeacher(teacher)
+            room -> s : interactTeacher(teacher)
+                s -> inv ++: protectFrom(teacher)
+                return
+            return
+	    return
+    end
+    return
 return
-return
+
 
 @enduml

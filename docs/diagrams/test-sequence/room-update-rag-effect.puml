@@ -11,21 +11,28 @@ participant "ragEffect : RagEffect" as rag
 
 activate Main
 Main -> room : update(1)
-    room -> teacher : update (1)
+    alt Effect over (user input)
+    room -> rag : update(1)
+        rag -> room : removeEffect(ragEffect)
+        return
     return
-	 room -> rag : update(1)
-        alt Effect over (user input)
-		    rag -> room ++: removeEffect(effect)
-		    return
-        else Effect not over (user input)
-        rag -> teacher : applyEffect(rag)
-            teacher -> rag : applyToTeacher(teacher)
-                rag -> teacher : setPeaceFul(true)
-                return
-       return
-       return
-        end
-	
+    room -> teacher : update(1)
+         teacher -> room : interactTeacher(teacher)
+         return
     return
+    else Effect not over (user input)
+    room -> rag : update(1)
+    return
+    room -> teacher : applyEffect(ragEffect)
+        teacher -> rag : applyToTeacher(teacher)
+            rag -> teacher : setPeaceful(true)
+            return
+        return
+    return
+    room -> teacher : update(1)
+    return
+
+    end
+
 return
 @enduml

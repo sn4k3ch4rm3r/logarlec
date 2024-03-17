@@ -11,21 +11,27 @@ participant "gasEffect : GasEffect" as gas
 
 activate Main
 Main -> room : update(1)
-	room -> student : update(1)
-	    return
-	    room -> gas : update(1)
-        alt Effect over (user input)
-		    gas -> room ++: removeEffect(effect)
-		    return
-	    else Effect not over (user input)
-        gas -> student : applyEffect(gas)
-            student -> gas : applyToStudent(student)
-                gas -> student : setKnockout(5)
-                return
+    alt Effect over (user input)
+    room -> gas : update(1)
+        gas -> room : removeEffect(gasEffect)
+        return
+    return
+    room -> student : update(1)
+    return
+    else Effect not over (user input)
+    room -> gas : update(1)
+    return
+    room -> student : applyEffect(gasEffect)
+        student -> gas : applyToStudent(student)
+            gas -> student : setKnockout(5)
             return
         return
-        end
-	return
+    return
+    room -> student : update(1)
+    return
+
+    end
+
 return
 
 @enduml

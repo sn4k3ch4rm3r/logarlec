@@ -12,29 +12,47 @@ participant "maskEffect : MaskEffect" as mask
 
 activate Main
 Main -> room : update(1)
-	room -> student : update(1)
-	    student -> mask : update(1)
-	        mask -> student : applyEffect(mask)
-	            student -> mask : applyToStudent(student)
-	                mask -> student : setKnockout(0)
-	                return
-	            return
-	        return
-	    return
-	return
-	room -> gas : update(1)
-    alt effect over (user input)
-	gas -> room ++: removeEffect(effect)
-	return
-    else effect not over (user input)
-    gas -> student : applyEffect(gas)
+    alt Effect over (user input)
+    room -> gas : update(1)
+        gas -> room : removeEffect(gasEffect)
+        return
+    return
+    room -> student : update(1)
+        student -> mask : update(1)
+            alt Effect over (user input)
+                mask -> student : removeEffect(maskEffect)
+                return
+            else Effect not over (user input)
+            end
+        return
+    return
+    else Effect not over (user input)
+    room -> gas : update(1)
+    return
+    room -> student : applyEffect(gasEffect)
         student -> gas : applyToStudent(student)
             gas -> student : setKnockout(5)
             return
         return
     return
+    room -> student : applyEffect(maskEffect)
+            student -> mask : applyToStudent(student)
+                mask -> student : setKnockout(0)
+                return
+            return
+        return
+    room -> student : update(1)
+        student -> mask : update(1)
+            alt Effect over (user input)
+                mask -> student : removeEffect(maskEffect)
+                return
+            else Effect not over (user input)
+            end
+       return
+    return
+
     end
-	return
+
 return
 
 @enduml
