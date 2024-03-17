@@ -8,23 +8,32 @@ participant "room1 : Room" as r1
 participant "room2 : Room" as r2
 participant "door1 : Door" as door1
 participant "door2 : Door" as door2
+participant "teacher : Teacher" as teacher
+participant "mask : Mask" as mask
 
 main++
 main-> r1 ++: merge(room2)
     r1 -> r2 ++: moveContents(room1)
         r2 -> r1 ++ : enter(teacher)
+            r1 -> teacher ++: enterRoom(room1)
+            return
         return
     
         r2 -> r1 ++ : addItem(mask)
+            r1 -> mask ++: setRoom(room1)
+            return
         return
-
-        door2 -> door2 ++: move(room1, room3)
+        r2 -> door1 ++: move(room2, room1)
+            door1 -> r1 ++: removeDoor(door1)
+            return
         return
-        r2 -> r2 ++ : removeDoor(door1)
-        deactivate
+        r2 -> door2 ++: move(room2, room1)
+            door2 -> r2 ++: removeDoor(door2)
+            return
+            door2 -> r1 ++: addDoor(door2)
+            return
+        return
     return
-    r1 -> r1 ++: removeDoor(door1)
-    return
-destroy r2
+    destroy r2
 return
 @enduml

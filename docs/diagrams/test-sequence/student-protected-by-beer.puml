@@ -3,14 +3,18 @@ title Student Gets Protected by Beer
 hide footbox
 skinparam SequenceReferenceBackgroundColor white
 
-participant "student : Student" as student
-participant "inventory : Inventory" as inventory
-participant "beer : Beer" as beer
+participant "main : Main" as main
 
-[-> student ++: interactTeacher(teacher)
-	student -> inventory ++: protectFrom(teacher)
-        inventory -> beer ++: useAgaints(teacher)
-        return
+participant "student : Student" as student
+participant "beerEffect : BeerEffect" as beer
+
+main++
+main -> student ++: update(1)
+	student -> beer ++: update(1)
+	return
+	student -> beer ++: applyToStudent(student)
+		beer -> student ++: setEliminated(false)
+		return
 	return
 return
 

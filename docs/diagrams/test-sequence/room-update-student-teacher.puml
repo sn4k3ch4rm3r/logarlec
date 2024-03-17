@@ -15,8 +15,7 @@ Main -> room : update(1)
 	room -> s : update(1)
 	return
 	room -> t : update(1)
-	alt Peaceful (user input)
-	else Not peaceful (user input)
+	opt Teacher Is Not Peaceful
         t -> room : interactTeacher(teacher)
             room -> s : interactTeacher(teacher)
                 s -> inv ++: protectFrom(teacher)

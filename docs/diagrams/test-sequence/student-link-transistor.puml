@@ -10,6 +10,7 @@ participant "other : Transistor" as other
 
 autoactivate on
 
+main++
 main-> transistor ++: useItem(other)
 	transistor -> other ++: link(transistor)
 		other -> transistor ++: setTarget(room)

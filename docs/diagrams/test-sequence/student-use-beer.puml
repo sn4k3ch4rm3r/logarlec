@@ -1,4 +1,4 @@
-@startuml student-beer-use
+@startuml student-use-beer
 title Use Beer
 hide footbox
 
@@ -6,6 +6,7 @@ participant "main : Main" as main
 participant "beer : Beer" as beer
 participant "student : Student" as person
 
+main++
 main-> beer ++: use()
 	create "beerEffect : BeerEffect" as beerEffect
 	beer -> beerEffect : <<create>>

@@ -11,7 +11,7 @@ participant "ragEffect : RagEffect" as rag
 
 activate Main
 Main -> room : update(1)
-    alt Effect over (user input)
+    alt Rag Effect Is Over
     room -> rag : update(1)
         rag -> room : removeEffect(ragEffect)
         return
@@ -20,7 +20,7 @@ Main -> room : update(1)
          teacher -> room : interactTeacher(teacher)
          return
     return
-    else Effect not over (user input)
+    else Rag Effect Is Active
     room -> rag : update(1)
     return
     room -> teacher : applyEffect(ragEffect)

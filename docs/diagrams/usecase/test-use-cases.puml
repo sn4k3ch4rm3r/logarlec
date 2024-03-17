@@ -17,14 +17,12 @@ package "Tárgy használat"{
     usecase Maszkhasználat as use_mask
     usecase "TVSZ használat" as use_code
     usecase "Söröspohár használat" as use_beer
-    usecase "Nedves táblatörlő rongy használat" as use_rag
     usecase "Camembert használat" as use_camambert
     usecase "Tranzisztor használat" as use_trans
     usecase "Tranzisztor\nösszekapcsolása" as linking
 }
 
 usecase "Sör hatása" as beer_effect
-usecase "Rongy hatása" as rag_effect
 
 package "Szoba manipuláció"{
     usecase "Sima szobák összeolvadása" as merge_room_normal
@@ -37,7 +35,6 @@ package "Szoba manipuláció"{
 package "Szoba frissítése"{
     usecase "Szoba frissítése: hallgatók" as upd_room_students
     usecase "Szoba frissítése: hallgató és oktató" as upd_room_student_teacher
-    usecase "Szoba frissítése: hallgató és gáz effect" as upd_room_student_gas
     usecase "Szoba frissítése: hallgató maszkkal és gáz effect" as upd_room_student_mask_gas
     usecase "Szoba frissítése: oktató és rongy effect" as upd_room_teacher_rag
 }
@@ -54,7 +51,6 @@ User -up- use_mask
 User -up- use_beer
 User -up- use_code
 User -up- use_camambert
-User -up- use_rag
 User -up- use_trans
 use_trans .> linking : <<include>>
 
@@ -66,11 +62,9 @@ User -up- split_room
 
 User -- upd_room_students
 User -- upd_room_student_teacher
-User -- upd_room_student_gas
 User -- upd_room_student_mask_gas
 User -- upd_room_teacher_rag
 
 User -- beer_effect
-User -- rag_effect
 
 @enduml
