@@ -17,6 +17,8 @@ main-> student : dropItem(mask)
 	student -> mask ++ : drop()
 		mask -> room ++: addItem(mask)
 		return
+		mask -> student : removeEffect(maskEffect)
+		return
 	return
 return
 

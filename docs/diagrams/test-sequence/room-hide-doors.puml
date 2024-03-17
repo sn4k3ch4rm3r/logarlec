@@ -1,6 +1,6 @@
-@startuml room-hide-show-doors
+@startuml room-hide-doors
 
-title Hide/Show Doors
+title Hide Doors
 hide footbox
 autoactivate on
 participant "main : Main" as main
@@ -13,13 +13,6 @@ main -> room : hideDoors()
     room -> door : hide()
     return
     room -> door2 : hide()
-    return
-return
-
-main -> room : showDoors()
-    room -> door : show()
-    return
-    room -> door2 : show()
     return
 return
 
