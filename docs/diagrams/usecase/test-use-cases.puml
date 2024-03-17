@@ -10,6 +10,11 @@ $extend($usecase_with_capacity,full)
 $extend($usecase_with_capacity,not_full)
 !endprocedure
 
+!procedure $effectScenarios($usecase_with_effect)
+$extend($usecase_with_effect,effect_over)
+$extend($usecase_with_effect,effect_not_over)
+!endprocedure
+
 :Felhasználó: as User
 
 left to right direction
@@ -51,10 +56,20 @@ package "Szoba manipuláció"{
 
 }
 
-'TODO Room updatek
+package "Szoba frissítése"{
+    usecase "Szoba frissítése: hallgató és hallgató" as upd_room_students
+    usecase "Szoba frissítése: hallgató és oktató" as upd_room_student_teacher
+    usecase "Szoba frissítése: hallgató és gáz effect" as upd_room_student_gas
+    usecase "Szoba frissítése: hallgató maszkkal és gáz effect" as upd_room_student_mask_gas
+    usecase "Szoba frissítése: oktató és rongy effect" as upd_room_teacher_rag
+}
+package Effekt {
+    usecase "Effekt lejár" as effect_over
+    usecase "Effekt nem jár le" as effect_not_over
+}
 
 
-User -- use_door
+User -up- use_door
 $extend(use_door, right_dir)
 $capacityScenarios(right_dir)
 $extend(use_door, wrong_dir)
@@ -82,5 +97,14 @@ User -up-- merge_room_normal
 User -up-- cursed_room
 User --- split_room
 
+User -- upd_room_students
+User -- upd_room_student_teacher
+User -- upd_room_student_gas
+$effectScenarios(upd_room_student_gas)
+User -- upd_room_student_mask_gas
+$effectScenarios(upd_room_student_mask_gas)
+$effectScenarios(upd_room_student_mask_gas)
+User -- upd_room_teacher_rag
+$effectScenarios(upd_room_teacher_rag)
 
 @enduml
