@@ -15,7 +15,9 @@ create inv
 stu --> inv : <<create>>
 create mask
 main --> mask : <<create>>
-main -> stu : addItem(mask)
+main -> stu ++: addItem(mask)
+return
+main -> stu ++: usePassive(mask)
 return
 
 

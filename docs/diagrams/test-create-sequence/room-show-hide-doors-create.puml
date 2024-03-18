@@ -1,6 +1,6 @@
-@startuml room-hide-doors-create
+@startuml room-show-hide-doors-create
 
-title Create "Hide Doors" test
+title Create "Show/Hide Doors" test
 hide footbox
 participant "Main" as main
 participant "room : Room" as room
