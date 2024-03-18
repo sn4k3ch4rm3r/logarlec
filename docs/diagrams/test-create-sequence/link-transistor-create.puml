@@ -10,6 +10,7 @@ participant "inventory : Inventory" as inventory
 participant "transistor1 : Transistor" as transistor1
 participant "transistor2 : Transistor" as transistor2
 
+main++
 create student
 main --> student : <<create>>
 

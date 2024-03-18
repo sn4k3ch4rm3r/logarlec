@@ -13,6 +13,7 @@ participant "room : Room" as room
 
 autoactivate on
 
+main++
 main-> transistor : use()
 	alt linked
 		transistor -> person : dropItem(transistor)

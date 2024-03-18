@@ -9,6 +9,7 @@ participant "room : Room" as room
 participant "student1 : Student" as s1
 participant "student2 : Student" as s2
 
+Main++
 Main -> room : update(1)
     room -> s1 : update(1)
     return
