@@ -2,36 +2,326 @@
 
 
 \section{A szkeleton modell valóságos use-case-ei}
-\comment{A szkeletonnak, mint önálló programnak a működésével kapcsolatos use-case-ek.}
-
 \subsection{Use-case diagram}
-\diagram{img/BMElogo}{Demó}{4cm}
-
+\diagram{img/diagrams/usecase/test-use-cases.png}{Use-case diagram}{11cm}
+\clearpage
 \subsection{Use-case leírások}
-\comment{Minden use-case-hez külön}
 \begin{use-case}
     %név
-    {Use-case Neve}
+    {Ajtóhasználat}
     %rövid leírás
-    {Az eset rövid leírása}
+    {Egy hallgató megkísérel átlépni az ajtón. (Oktató esetében a lefolyás hasonló.)}
     %aktorok
-    {Aktorok}
+    {A felhasználó}
     %forgatókönyv
-    Forgatókönyv \newline 
-    \textbf{A.1} Alternatíva
+    \textbf{A.1} Az ajtó jó irányba átjárható.
+    \newline\textbf{A.1.1} Van elég hely, az átlépés sikeres.
+    \newline\textbf{A.1.2} Nincs elég hely, az átlépés megtagadva.
+    \newline\textbf{A.2} Az ajtó rossz irányba átjárható, az átlépés megtagadva.
 \end{use-case}
 
-\section{A szkeleton kezelői felületének terve, dialógusok}
-\comment{A szkeleton által elfogadott bemenetek , valamint a szöveges konzolon megjelenő kimenetek. A kiemenet formátuma olyan kell legyen, ami alapján a működés összevethető a korábbi szekvencia-diagramokkal.}
+\begin{use-case}
+    %név
+    {Maszkfelvétel}
+    %rövid leírás
+    {Egy hallgató felvesz egy tárgyat. (A lefolyás az oktatók és minden tárgy esetében hasonló).}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    \textbf{A.1} A hallgató tárgykészeltében még van hely, így felveszi a maszkot. \newline
+    \textbf{A.2} A hallgató tárgykészeltében már nincs hely, így nem veszi fel a maszkot.    
+\end{use-case}
 
-\comment{Konzol input/output szemléltetésre:}
+\begin{use-case}
+    %név
+    {Maszkhasználat}
+    %rövid leírás
+    {Egy hallgató használ egy maszkot.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    Mérgező szobába lépve a hallgatónál van maszk, így az kifejti a hatását.    
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {TVSZ használat}
+    %rövid leírás
+    {Egy hallgató használ egy TVSZ-t.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    Olyan szobába lépve, ahol van oktató, a hallgatónál van TVSZ, így az kifejti a hatását.    
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Söröspohár használat}
+    %rövid leírás
+    {Egy hallgató használ egy söröspoharat.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    {A hallgató aktiválja a nála lévő söröspoharat, ami egy időre védettséget biztosít számára az oktatókkal szemben.}
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Camembert használat}
+    %rövid leírás
+    {Egy hallgató használ egy Camembert-t.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv 
+    A hallgató döntésére a a Camembert mérgezővé teszi a szoba levegőjét.
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Tranzisztor összekapcsolása}
+    %rövid leírás
+    {Egy hallgató összekapcsol két tranzisztort.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    \textbf{A.1} A hallgatónak van két tranzisztora. Ekkor a hallgató döntésére összekapcsolja a kettőt.  
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Tranzisztor használat}
+    %rövid leírás
+    {Egy hallgató használ két Tranzisztort.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    \textbf{A.1} Ha van két összekapcsolt tranzisztora megpróbál átlépni a kijelölt szobába.
+    \newline \textbf{A.1.1} A célszobában van hely, a hallgató átlép.
+    \newline \textbf{A.1.2} A célszobában nincs hely, a hallgató nem tud átlépni.      
+\end{use-case}
+
+\begin{use-case}
+    {Sör hatása}
+    {Aktív sör hatás megvédi a hallgatót}
+    {A felhasználó}
+    {A hallgató aktiválta a söröspoharat, ezért védett az oktatókkal szemben.}
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Sima szobák összeolvadása}
+    %rövid leírás
+    {Két szoba összeolvad, egyik sem különleges.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    Két szoba, room1 és room2 összeolvadnak. room2 tárgyai és a benne lévő emberek átkerülnek a room1-be, az ajtó ami eddig a room2 és room3 között volt, most már a room1 és room3 között lesz. 
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Szobák összeolvadása}
+    %rövid leírás
+    {Két szoba összeolvad, legalább az egyik különleges.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    Két szoba, room1 és room2 összeolvadnak. room2 tárgyai és a benne lévő emberek átkerülnek. A közöttük lévő ajtó megszűnik. Az új szobában érvényesül a hatás, amelyik az eredeti szobákon volt.
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Elátkozott szoba ajtók eltűnése}
+    %rövid leírás
+    {Elátkozott szoba ajtajai eltűnnek.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    A room elrejti a door és door2 ajtajait.
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Elátkozott szoba ajtók megjelnítése}
+    %rövid leírás
+    {Elátkozott szoba ajtajai megjelennek.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    A room megjeleníti a door és door2 ajtajait.
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Maszkeldobás}
+    %rövid leírás
+    {Hallgató eldob egy maszkot (a lefutás az összes tárgy esetében azonos).}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    A hallgató eltávolítja a maszkot a tárgykészletéből, ami hozzáadódik a szoba tárgyaihoz.
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Hallgató felveszi a logarlécet.}
+    %rövid leírás
+    {A hallgató felveszi a logarlécet.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    Amennyiben a hallgatónál van még hely, felveszi a Logarlécet és a játék véget ér.
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Oktató felveszi a logarlécet.}
+    %rövid leírás
+    {Az oktató felveszi a logarlécet.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    Az oktató felveszi a Logalécet és addig magánál tartja, amíg pl. el nem ájul.
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Szoba osztódás}
+    %rövid leírás
+    {Egy szoba osztódik.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+   Új szoba keletkezik - newRoom. A két szoba közé egy új ajtó kerül: door. Az oldDoor eltávolításra kerül a régi szobából és az új szobához adódik hozzá. 
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Szoba frissítése: hallgatók}
+    %rövid leírás
+    {Egy szoba frissül, amiben kettő hallgató található.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    A szoba frissül, és frissíti a benne található hallgatókat.
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Szoba frissítése: hallgató és oktató}
+    %rövid leírás
+    {Egy szoba frissül, amiben egy hallgató és egy oktató található.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    A szoba frissül, és frissíti a benne található hallgatót és oktatót. Az oktató elveszi a hallgató lelkét.
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Szoba frissítése: hallgató maszkkal és gáz effekt}
+    %rövid leírás
+    {Egy szoba frissül, amiben egy hallgató és egy gáz effekt található. A hallgatón van egy maszk effekt.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    A szoba frissül, és frissíti a benne található hallgatót és gáz hatást. A hallgató frissíti a maszk hatást. A felhasználó döntése alapján:
+    \newline \textbf{A.1} A gáz hatás megszűnik.
+    \newline    \textbf{A.1.1} A maszk hatás megszűnik.
+    \newline    \textbf{A.1.1} A maszk hatás nem szűnik meg.
+    \newline \textbf{A.2} A gáz hatás nem szűnik meg és elkábítja a hallgatót.
+    \newline    \textbf{A.2.1} A maszk hatás megszűnik.
+    \newline    \textbf{A.2.2} A maszk hatás nem szűnik meg és megszünteti a hallgató kábult állapotát.
+\end{use-case}
+
+\begin{use-case}
+    %név
+    {Szoba frissítése: oktató és rongy effekt}
+    %rövid leírás
+    {Egy szoba frissül, amiben egy oktató és egy rongy effekt található.}
+    %aktorok
+    {A felhasználó}
+    %forgatókönyv
+    A szoba frissül, és frissíti a benne található oktatót és rongy hatást. A felhasználó döntése alapján:
+    \newline \textbf{A.1} A rongy hatás megszűnik.
+    \newline \textbf{A.2} A rongy hatás nem szűnik meg és megbékíti az oktatót.
+\end{use-case}
+\clearpage
+\section{A szkeleton kezelői felületének terve, dialógusok}
+
+A szkeleton egy konzol alapú menüvezérelt program lesz. Ez a program standard bementeről fog teszteseteket beolvasni, majd ezekre egy egyszerű szekvenciát kiírni a terminálablakba. Ezeket a szekvencia kiírásokat az érintett osztályok meghívásának segítségével oldja meg.
+
+A program indításakor egy főmenű jelenik meg. Ebben a főmenűben sorszámozva jelennek meg a különböző tesztelhető use-cse-ek. Egy use-case-t a sorszámának begépelésével lehet kiválasztani. A főmenű első pár sora így fog megjelenni:
+\space
+
 \begin{verbatim}
-    move 1 to 3
-    get item
+    1.  Room: hide and show doors
+    2.  Room: merge with an effect on
+    3.  Room: merge
+    ...
+    The chosen test number: 
+\end{verbatim}
+\space
+
+A kiválasztást követően a következő példa szerint ábrázoljuk a függvényhívásokat:
+
+ 
+\begin{verbatim}
+    ┌ Object()
+    └ obj
+    ┌ obj.fn()
+    │  ┌ obj.fn2()
+    │  └ void
+    └ ret_val
 \end{verbatim}
 
-\section{Szekvencia diagramok a belső működésre}
-\comment{A szkeletonban implementált szekvenciadiagramok. Tipikusan egy use-case egy diagram. Ezek megegyezhetnek a korábban specifikált diagramokkal, de az egyes életvonalakat (lifeline) egyértelműen a szkeletonban példányosított objektumokhoz kell tudni kötni. Azt kell megjeleníteni, hogy a szkeletonban létrehozott objektumok egymással hogyan fognak kommunikálni.}
+Az egymásba ágyazott hívásokat beljebb húzva ábrázoljuk. A kiírásnál a konstruktorhívások visszatérési érétke az objektum neve lesz. 
 
-\section{Kommunikációs diagramok}
-\comment{A szkeletonban, az egyes szkeleton-use-case-ek futása során létrehozott objektumok és kapcsolataik bemutatására szolgáló diagramok. Ezek alapján valósítják meg a szkeleton fejlesztői az inicializáló kódrészleteket.}
+Ha szükséges egyes tesztesetek lefutása közben a program felhasználó inputokat is kérhet egy-egy prompt formájában.
+\clearpage
+
+\section{Szekvencia diagramok a belső működésre}
+\diagram{img/diagrams/test-sequence/door-use}{}{14cm}
+\diagram{img/diagrams/test-sequence/room-hide-doors}{}{14cm}
+\diagram{img/diagrams/test-sequence/room-merge-with-effect}{}{14cm}
+\diagram{img/diagrams/test-sequence/room-merge}{}{14cm}
+\diagram{img/diagrams/test-sequence/room-show-doors}{}{14cm}
+\diagram{img/diagrams/test-sequence/room-split}{}{14cm}
+\diagram{img/diagrams/test-sequence/room-update-gas-and-mask}{}{14cm}
+\diagram{img/diagrams/test-sequence/room-update-no-teachers}{}{14cm}
+\diagram{img/diagrams/test-sequence/room-update-rag-effect}{}{14cm}
+\diagram{img/diagrams/test-sequence/room-update-student-teacher}{}{14cm}
+\diagram{img/diagrams/test-sequence/student-drop-mask}{}{14cm}
+\diagram{img/diagrams/test-sequence/student-link-transistor}{}{14cm}
+\diagram{img/diagrams/test-sequence/student-pickup-mask}{}{14cm}
+\diagram{img/diagrams/test-sequence/student-pickup-sliderule}{}{14cm}
+\diagram{img/diagrams/test-sequence/student-protected-by-beer}{}{14cm}
+\diagram{img/diagrams/test-sequence/student-use-beer}{}{14cm}
+\diagram{img/diagrams/test-sequence/student-use-camebert}{}{14cm}
+\diagram{img/diagrams/test-sequence/student-use-code-of-studies}{}{14cm}
+\diagram{img/diagrams/test-sequence/student-use-mask}{}{14cm}
+\diagram{img/diagrams/test-sequence/student-use-transistor}{}{14cm}
+\diagram{img/diagrams/test-sequence/teacher-pickup-sliderule}{}{14cm}
+
+\clearpage
+\section{Szekvencia diagramok inicializációra}
+\diagram{img/diagrams/test-create-sequence/link-transistor-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/room-merge-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/room-merge-toxic-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/room-show-hide-doors-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/room-split-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/room-update-gas-and-mask-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/room-update-no-teachers-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/room-update-rag-effect}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/room-update-student-teacher-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/student-drop-mask-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/student-entered-room-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/student-pickup-mask-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/student-pickup-sliderule-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/student-protected-by-beer-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/student-use-beer-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/student-use-camembert-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/student-use-code-of-studies-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/student-use-mask-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/student-use-transistor-create}{}{14cm}
+\diagram{img/diagrams/test-create-sequence/teacher-pickup-sliderule-create}{}{14cm}
