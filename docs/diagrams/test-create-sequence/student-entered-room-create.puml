@@ -1,0 +1,22 @@
+@startuml student-entered-room-create
+title Create "Use Door" test
+hide footbox
+participant "Main" as main
+participant "student : Student" as student
+participant "from : Room" as from
+participant "next : Room" as next
+participant "door : Door" as door
+
+main++
+create student
+main --> student: <<create>>
+create from
+main --> from: <<create>>
+main -> from ++ : enter(student)
+return
+create next
+main --> next: <<create>>
+create door
+main --> door: Door(from, next)
+
+@enduml

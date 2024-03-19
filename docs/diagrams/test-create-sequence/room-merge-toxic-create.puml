@@ -1,0 +1,25 @@
+@startuml room-merge-toxic-create
+title Create "Merge Toxic Room" test
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "Main" as main
+participant "room1 : Room" as r1
+participant "room2 : Room" as r2
+participant "door : Door" as door
+participant "gasEffect : GasEffect" as gasEffect
+
+main++
+create r1
+main --> r1 : <<create>>
+create r2
+main --> r2 : <<create>>
+create door
+main --> door : Door(room1, room2)
+create gasEffect
+main --> gasEffect : <<create>>
+main -> r2 ++ : addEffect(gasEffect)
+return
+
+
+@enduml

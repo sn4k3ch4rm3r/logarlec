@@ -1,0 +1,20 @@
+@startuml room-update-no-teachers
+title Update Room with no teachers
+hide footbox
+autoactivate on
+skinparam SequenceReferenceBackgroundColor white
+
+participant Main
+participant "room : Room" as room
+participant "student1 : Student" as s1
+participant "student2 : Student" as s2
+
+Main++
+Main -> room : update(1)
+    room -> s1 : update(1)
+    return
+    room -> s2 : update(1)
+    return
+return
+
+@enduml

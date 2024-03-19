@@ -1,0 +1,25 @@
+@startuml door-use
+title Use Door
+hide footbox
+participant "main : Main" as main
+participant "door : Door" as door
+participant "next : Room" as next
+participant "student : Student" as student
+participant "from : Room" as from
+
+main++
+main -> door ++: use(student : Student, from: Room) 
+	opt correct direction
+		door -> next ++: enter(student)
+			opt has capacity
+				next -> student ++: enterRoom(next)
+				return
+			end
+		return success : bool
+	end
+	opt success
+		door -> from ++: leave(student)
+		return
+	end
+return
+@enduml

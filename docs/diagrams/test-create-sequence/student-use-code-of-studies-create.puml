@@ -1,0 +1,21 @@
+@startuml student-use-code-of-studies-create
+
+title Create "Code Of Studies Protection" test
+hide footbox
+
+participant "Main" as main
+participant "student : Student" as student
+participant "target : Teacher" as target
+participant "codeOfStudies : CodeOfStudies" as codeOfStudies
+
+main++
+create student
+main --> student : <<create>>
+create target
+main --> target : <<create>>
+create codeOfStudies
+main --> codeOfStudies : <<create>>
+main -> student ++ : addItem(codeOfStudies)
+student --> main
+
+@enduml

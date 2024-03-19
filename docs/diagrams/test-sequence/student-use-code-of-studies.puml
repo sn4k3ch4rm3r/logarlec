@@ -1,0 +1,21 @@
+@startuml student-use-code-of-studies
+
+title Code Of Studies Protection
+hide footbox
+
+participant "main : Main" as main
+participant "student : Student" as student
+participant "inventory : Inventory" as inventory
+participant "codeOfStudies : CodeOfStudies" as codeOfStudies
+
+main++
+main -> student ++: interactTeacher(teacher)
+	student -> inventory ++: protectFrom(teacher)
+		inventory -> codeOfStudies ++: useAgainst(teacher)
+			codeOfStudies -> student ++: protectFromTeacher(teacher)
+			return
+		return
+	return
+return
+
+@enduml

@@ -1,0 +1,23 @@
+@startuml student-use-camebert
+
+title Camembert Use
+hide footbox
+
+participant Main
+participant "camembert : Camembert" as camembert
+participant "person : Person" as person
+participant "room : Room" as room
+
+activate Main
+Main -> camembert ++: use()
+
+	create "gasEffect : GasEffect" as gasEffect
+	camembert -> gasEffect : <<create>>
+	camembert -> room ++: addEffect(gasEffect)
+	return
+	camembert -> person ++: removeItem(camembert)
+	return
+return
+
+@enduml
+

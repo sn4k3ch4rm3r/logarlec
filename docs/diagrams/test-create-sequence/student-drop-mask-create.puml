@@ -1,0 +1,24 @@
+@startuml student-drop-mask-create
+
+title Create "Drop Mask" test 
+hide footbox
+
+participant "Main" as main
+participant "student : Student" as stu
+participant "inventory : Inventory" as inv
+participant "mask : Mask" as mask
+
+main++
+create stu
+main --> stu  : <<create>>
+create inv
+stu --> inv : <<create>>
+create mask
+main --> mask : <<create>>
+main -> stu ++: addItem(mask)
+return
+main -> stu ++: usePassive(mask)
+return
+
+
+@enduml

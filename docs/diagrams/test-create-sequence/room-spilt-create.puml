@@ -1,0 +1,19 @@
+@startuml room-split-create
+title Create "Split Room" test
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "Main" as main
+participant "room : Room" as r1
+participant "otherRoom : Room" as r0
+participant "door : Door" as d
+
+main++
+create r1
+main --> r1 : <<create>>
+create r0
+main --> r0 : <<create>>
+create d
+main --> d : Door(room, otherRoom)
+
+@enduml

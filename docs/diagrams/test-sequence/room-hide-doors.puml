@@ -1,0 +1,19 @@
+@startuml room-hide-doors
+
+title Hide Doors
+hide footbox
+autoactivate on
+participant "main : Main" as main
+participant "room : Room" as room
+participant "door : Door" as door
+participant "door2 : Door" as door2
+
+main++
+main -> room : hideDoors() 
+    room -> door : hide()
+    return
+    room -> door2 : hide()
+    return
+return
+
+@enduml

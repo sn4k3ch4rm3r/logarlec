@@ -1,0 +1,21 @@
+@startuml student-pickup-mask
+
+title Student picks up mask
+hide footbox
+autoactivate on
+participant "main : Main" as main
+participant "student : Student" as student
+participant "inventory : Inventory" as inventory
+participant "mask : Mask" as mask
+
+main++
+main -> student : addItem(mask)
+	student -> inventory : add(mask)
+	return success : bool
+	opt success
+		student -> mask ++: setPerson(student)
+		return
+	end
+return success
+
+@enduml

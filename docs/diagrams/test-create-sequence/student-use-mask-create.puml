@@ -1,0 +1,22 @@
+@startuml student-use-mask-create
+
+title Create "Use Mask" test
+hide footbox
+
+participant "Main" as main
+participant "student : Student" as student
+participant "mask : Mask" as mask
+participant "inventory : Inventory" as inventory
+
+
+main++
+create student
+main --> student : <<create>>
+create inventory
+student --> inventory : <<create>>
+create mask
+main --> mask : <<create>>
+main -> student ++: addItem(mask)
+return
+
+@enduml

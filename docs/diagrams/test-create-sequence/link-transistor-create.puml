@@ -1,0 +1,31 @@
+@startuml link-transistor-create
+
+title Create "Link Transistor" test
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "main : Main" as main
+participant "student : Student" as student
+participant "inventory : Inventory" as inventory
+participant "transistor1 : Transistor" as transistor1
+participant "transistor2 : Transistor" as transistor2
+
+main++
+create student
+main --> student : <<create>>
+
+create inventory
+student --> inventory : <<create>>
+
+create transistor1
+main --> transistor1 : <<create>>
+
+create transistor2
+main --> transistor2 : <<create>>
+
+main -> student ++: addItem(transistor1)
+return
+main -> student ++: addItem(transistor2)
+return
+
+@enduml

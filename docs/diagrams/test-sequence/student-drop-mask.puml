@@ -1,0 +1,25 @@
+@startuml student-drop-mask
+
+title Drop Mask
+hide footbox
+autoactivate on
+
+participant "main : Main" as main
+participant "student : Student" as student
+participant "inventory : Inventory" as inventory
+participant "mask : Mask" as mask
+participant "room : Room" as room
+
+main++
+main-> student : dropItem(mask)
+	student -> inventory : remove(mask)
+	return
+	student -> mask ++ : drop()
+		mask -> room ++: addItem(mask)
+		return
+		mask -> student : removeEffect(maskEffect)
+		return
+	return
+return
+
+@enduml

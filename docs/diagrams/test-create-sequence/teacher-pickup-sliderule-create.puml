@@ -1,0 +1,20 @@
+@startuml teacher-pickup-sliderule-create
+
+title Create "Teacher Picks up SlideRule" test 
+hide footbox
+
+participant "Main" as main
+participant "teacher : Teacher" as teach
+participant "inventory : Inventory" as inv
+participant "slide : SlideRule" as slide
+
+main ++
+create teach
+main --> teach  : <<create>>
+create inv
+teach --> inv : <<create>>
+create slide
+main --> slide : <<create>>
+
+
+@enduml

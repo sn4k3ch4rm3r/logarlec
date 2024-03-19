@@ -1,0 +1,21 @@
+@startuml room-update-no-teachers-create
+title Create "Update Room with no Teachers" test
+hide footbox
+participant "Main" as main
+participant "room : Room" as room
+participant "student1 : Student" as stu1
+participant "student2 : Student" as stu2
+
+main++
+create room
+main --> room : <<create>>
+create stu1
+main --> stu1 : <<create>>
+create stu2
+main --> stu2 : <<create>>
+main -> room ++: enterPerson(student1)
+return
+main -> room ++: enterPerson(student2)
+return
+
+@enduml

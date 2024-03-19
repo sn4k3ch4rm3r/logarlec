@@ -1,0 +1,21 @@
+@startuml student-protected-by-beer
+title Student Gets Protected by Beer
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "main : Main" as main
+
+participant "student : Student" as student
+participant "beerEffect : BeerEffect" as beer
+
+main++
+main -> student ++: update(1)
+	student -> beer ++: update(1)
+	return
+	student -> beer ++: applyToStudent(student)
+		beer -> student ++: setEliminated(false)
+		return
+	return
+return
+
+@enduml

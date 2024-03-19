@@ -1,0 +1,21 @@
+@startuml student-link-transistor
+
+title Link Transistor
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "main : Main" as main
+participant "transistor : Transistor" as transistor
+participant "other : Transistor" as other
+
+autoactivate on
+
+main++
+main-> transistor ++: useItem(other)
+	transistor -> other ++: link(transistor)
+		other -> transistor ++: setPair(other)
+		return
+	return
+return
+
+@enduml
