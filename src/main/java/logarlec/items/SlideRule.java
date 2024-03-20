@@ -1,5 +1,6 @@
 package logarlec.items;
 
+import logarlec.gameobjects.Person;
 import logarlec.gameobjects.Teacher;
 
 public class SlideRule extends Item {
@@ -32,5 +33,11 @@ public class SlideRule extends Item {
 	public void link(Transistor other) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'link'");
+	}
+
+	@Override
+	public void setPerson(Person person) {
+		this.person = person;
+		person.pickedUpSlideRule();
 	}
 }
