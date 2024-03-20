@@ -4,18 +4,23 @@ import logarlec.items.Item;
 
 public class Student extends Person {
 	boolean eliminated;
+
+	Teacher immuneToTeacher;
+
 	public void setEliminated(boolean value) {
 		eliminated = value;
 	}
 
 	@Override
 	public void protectFromTeacher(Teacher target) {
-		inventory.protectFrom(target);
+		immuneToTeacher = target;
 	}
 
 	@Override
 	public void interactTeacher(Teacher teacher) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'interactTeacher'");
+		if (immuneToTeacher == teacher) {
+			return;
+		}
+		inventory.protectFrom(teacher);
 	}
 }
