@@ -3,8 +3,6 @@ package logarlec.items;
 import logarlec.gameobjects.Teacher;
 
 public class CodeOfStudies extends Item {
-	int uses;
-
 	@Override
 	public void use() {
 		// TODO Auto-generated method stub
@@ -13,8 +11,8 @@ public class CodeOfStudies extends Item {
 
 	@Override
 	public void useAgainst(Teacher target) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'useAgainst'");
+		person.protectFromTeacher(target);
+		return;
 	}
 
 	@Override

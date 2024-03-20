@@ -5,8 +5,10 @@ import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Teacher;
 
 public abstract class Item {
-	Room room;
-	Person person;
+	
+	protected
+		Room room;
+		Person person;
 
 	Item(){}
 	

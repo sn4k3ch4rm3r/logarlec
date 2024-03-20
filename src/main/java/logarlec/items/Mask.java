@@ -4,13 +4,12 @@ import logarlec.effects.MaskEffect;
 import logarlec.gameobjects.Teacher;
 
 public class Mask extends Item {
-	MaskEffect effect;
-	int uses;
+	MaskEffect maskEffect;
 
 	@Override
 	public void use() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'use'");
+		maskEffect = new MaskEffect();
+		person.addEffect(maskEffect);
 	}
 
 	@Override
@@ -21,15 +20,16 @@ public class Mask extends Item {
 
 	@Override
 	public boolean usePassive() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'usePassive'");
+		maskEffect = new MaskEffect();
+		person.addEffect(maskEffect);
+		return true;
 	}
 
 	@Override
 	public void useItem(Item item) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'useItem'");
-	}
+	} 
 
 	@Override
 	public void link(Transistor other) {
@@ -40,6 +40,6 @@ public class Mask extends Item {
 	@Override
 	public void drop(){
 		room.addItem(this);
-		person.removeEffect(effect);
+		person.removeEffect(maskEffect);
 	}
 }

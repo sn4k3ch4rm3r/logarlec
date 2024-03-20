@@ -1,17 +1,15 @@
 package logarlec.items;
 
-import logarlec.gameobjects.Teacher;
 import logarlec.effects.GasEffect;
+import logarlec.gameobjects.Teacher;
 
 public class Camembert extends Item {
-	GasEffect gasEffect;
 
 	@Override
 	public void use() {
-
-		
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'use'");
+		GasEffect gasEffect = new GasEffect();
+		room.addEffect(gasEffect);
+		person.removeItem(this);
 	}
 
 	@Override
