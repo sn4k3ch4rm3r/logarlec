@@ -15,6 +15,12 @@ public class Door {
 		Skeleton.logReturn(null);
 	}
 
+	/**
+	 * Using door
+	 *
+	 * @param person The person using the door
+	 * @param from The room the person is currently in
+	 */
 	public void use(Person person, Room from) {
 		Skeleton.logFunctionCall(this,"use",person,from);
 		if (!oneWay || from == room1) {
@@ -26,6 +32,12 @@ public class Door {
 		Skeleton.logReturn(null);
 	}
 
+	/**
+	 * Moving one end of the door from one room to another
+	 *
+	 * @param to The room the new end goes to
+	 * @param from The room the door doesn't go to anymore
+	 */
 	public void move(Room from, Room to) {
 		Skeleton.logFunctionCall(this,"move");
 		if (from == room1) {
@@ -37,11 +49,17 @@ public class Door {
 		Skeleton.logReturn(null);
 	}
 
+	/**
+	 * The door won't be visible anymore.
+	 */
 	public void hide() {
 		Skeleton.logFunctionCall(this,"hide");
 		Skeleton.logReturn(null);
 	}
 
+	/**
+	 * The door will be visible again.
+	 */
 	public void show() {
 		Skeleton.logFunctionCall(this,"show");
 		Skeleton.logReturn(null);
