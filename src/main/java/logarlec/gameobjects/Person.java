@@ -39,14 +39,12 @@ public abstract class Person extends GameObject {
 
 	@Override
 	public void removeItem(Item item) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'removeItem'");
+		inventory.remove(item);
 	}
 
 	@Override
 	public void applyEffect(Effect effect) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'applyEffect'");
+		effects.add(effect);
 	}
 	public void pickedUpSlideRule() {
 

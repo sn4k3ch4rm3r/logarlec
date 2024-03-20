@@ -1,5 +1,7 @@
 package logarlec.gameobjects;
 
+import logarlec.items.Item;
+
 public class Student extends Person {
 	boolean eliminated;
 	public void setEliminated(boolean value) {
@@ -8,8 +10,7 @@ public class Student extends Person {
 
 	@Override
 	public void protectFromTeacher(Teacher target) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'protectFromTeacher'");
+		inventory.protectFrom(target);
 	}
 
 	@Override
