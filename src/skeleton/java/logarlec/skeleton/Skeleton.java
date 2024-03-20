@@ -43,4 +43,20 @@ public class Skeleton {
 		logger.logReturn(value);
 	}
 
+	/**
+	 * Bemenet beolvasása standard bemenetről
+	 * 
+	 * @param <T> A kívánt bemenet típusa
+	 * @param type A kívánt bemenet típusa. Támogatott értékek:
+	 *        <ul>
+	 *        <li>{@code Integer.class}</li>
+	 *        <li>{@code Double.class}</li>
+	 *        <li>{@code Boolean.class}</li>
+	 *        </ul>
+	 * @param message A konzolon beolvasásnál megjelenő üzenet
+	 * @return A beolvasott érték
+	 */
+	public static <T> T getInput(Class<T> type, String message) {
+		return logger.getInput(type, message);
+	}
 }

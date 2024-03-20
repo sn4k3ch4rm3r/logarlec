@@ -3,14 +3,16 @@ package logarlec.skeleton;
 import java.util.Map;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Logger {
 	private int indentationLevel;
 	private Map<Object, String> objectNames;
+	private Scanner scanner;
 
 	private void indent(StringBuilder stringBuilder) {
 		for (int i = 0; i < indentationLevel; i++) {
-			stringBuilder.insert(0, "│  ");
+			stringBuilder.insert(0, "│ ");
 		}
 	}
 
@@ -35,6 +37,7 @@ public class Logger {
 	public Logger() {
 		indentationLevel = 0;
 		objectNames = new HashMap<Object, String>();
+		scanner = new Scanner(System.in);
 	}
 
 	/**
@@ -110,4 +113,38 @@ public class Logger {
 		System.out.println(message.toString());
 	}
 
+	/**
+	 * Bemenet beolvasása standard bemenetről
+	 * 
+	 * @param <T> A kívánt bemenet típusa
+	 * @param type A kívánt bemenet típusa. Támogatott értékek:
+	 *        <ul>
+	 *        <li>{@code Integer.class}</li>
+	 *        <li>{@code Double.class}</li>
+	 *        <li>{@code Boolean.class}</li>
+	 *        </ul>
+	 * @param message A konzolon beolvasásnál megjelenő üzenet
+	 * @return A beolvasott érték
+	 */
+	public <T> T getInput(Class<T> type, String message) {
+		StringBuilder messageBuilder = new StringBuilder();
+		messageBuilder.append("├ ");
+		messageBuilder.append(message);
+		indentationLevel--;
+		indent(messageBuilder);
+		indentationLevel++;
+		System.out.print(messageBuilder.toString());
+		T value;
+		if (type == Integer.class) {
+			value = type.cast(scanner.nextInt());
+		} else if (type == Boolean.class) {
+			value = type.cast(scanner.nextBoolean());
+		} else if (type == Double.class) {
+			value = type.cast(scanner.nextDouble());
+		} else {
+			throw new IllegalArgumentException("Type not supported");
+		}
+
+		return value;
+	}
 }
