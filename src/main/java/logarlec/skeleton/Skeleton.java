@@ -11,6 +11,8 @@ public class Skeleton {
         testCollection.addTestCase(new DoorUseTest());
         testCollection.addTestCase(new RoomHideDoorsTest());
         testCollection.addTestCase(new RoomShowDoorsTest());
+        testCollection.addTestCase(new RoomMergeTest());
+        testCollection.addTestCase(new RoomMergeWithEffectTest());
 
         testCollection.printSelector();
 
