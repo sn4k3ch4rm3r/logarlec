@@ -10,14 +10,14 @@ public class DoorUseTest extends TestCase {
     private Door door;
 
     public DoorUseTest() {
-        super("Test door use");
+        super("Door: use");
     }
 
     public void init() {
         student = new Student();
         from = new Room();
         to = new Room();
-        door = new Door();
+        door = new Door(from, to);
     }
 
     public void run() {

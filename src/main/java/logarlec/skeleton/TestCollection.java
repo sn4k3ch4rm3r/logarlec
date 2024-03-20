@@ -10,7 +10,6 @@ public class TestCollection {
     }
 
     public void printSelector() {
-        System.out.println("Select a testcase to run: ");
         for (int i = 0; i < testCases.size(); i++) {
             System.out.println((i + 1) + ". " + testCases.get(i).name);
         }
