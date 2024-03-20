@@ -34,8 +34,7 @@ public abstract class Person extends GameObject {
 
 	@Override
 	public void addItem(Item item) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'addItem'");
+		inventory.add(item);
 	}
 
 	@Override
@@ -49,7 +48,7 @@ public abstract class Person extends GameObject {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'applyEffect'");
 	}
-	public void PickUpSideRule(Item item) {
-		inventory.add(item);
+	public void PickUpSideRule() {
+
 	}
 }
