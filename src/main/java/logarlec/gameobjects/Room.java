@@ -4,7 +4,12 @@ import logarlec.effects.Effect;
 import logarlec.items.Item;
 import logarlec.util.Door;
 
+import java.util.List;
+
 public class Room extends GameObject {
+
+	List<Person> people;
+
 	public boolean enter(Person person) {
 		return false;
 	}
