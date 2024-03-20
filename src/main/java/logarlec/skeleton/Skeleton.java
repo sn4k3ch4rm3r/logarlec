@@ -20,6 +20,8 @@ public class Skeleton {
         testCollection.addTestCase(new RoomUpdateStudentTeacherTest());
         testCollection.addTestCase(new StudentDropMaskTest());
         testCollection.addTestCase(new StudentLinkTransistorTest());
+        testCollection.addTestCase(new StudentPickupMaskTest());
+        testCollection.addTestCase(new StudentPickupSlideRuleTest());
 
         testCollection.printSelector();
 
