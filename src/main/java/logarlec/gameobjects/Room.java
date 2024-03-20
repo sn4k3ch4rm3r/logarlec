@@ -13,10 +13,13 @@ public class Room extends GameObject {
 	int personCount;
 	List<Person> people;
 
-	List<Door> doors;
-	List<Item> items;
+	public List<Door> doors;
+	public List<Item> items;
 
-	//Person trying to enter the room. Gets rejected if the room is full.
+	/**
+	 * Valaki kéri, hogy beléphet-e a szobába. Ha a szoba nincs tele, akkor belépteti a személyt.
+	 * @param person a személy, aki belépne a szobába
+	 */
 	public boolean enter(Person person) {
 		//if the room is not full, add the person to the room and return true
 		if (personCount < capacity) {
@@ -27,7 +30,10 @@ public class Room extends GameObject {
 		return false;
 	}
 
-	//Person leaving the room
+	/**
+	 * A személy távozik a szobából.
+	 * @param person a személy, aki távozik
+	 */
 	public void leave(Person person) {
 		people.remove(person);
 		personCount--;
