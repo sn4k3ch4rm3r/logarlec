@@ -3,6 +3,7 @@ package logarlec.items;
 import logarlec.gameobjects.Teacher;
 
 public class CodeOfStudies extends Item {
+	int uses;
 
 	@Override
 	public void use() {

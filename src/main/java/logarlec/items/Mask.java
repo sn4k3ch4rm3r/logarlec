@@ -1,8 +1,11 @@
 package logarlec.items;
 
+import logarlec.effects.MaskEffect;
 import logarlec.gameobjects.Teacher;
 
 public class Mask extends Item {
+	MaskEffect effect;
+	int uses;
 
 	@Override
 	public void use() {
@@ -32,5 +35,11 @@ public class Mask extends Item {
 	public void link(Transistor other) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'link'");
+	}
+
+	@Override
+	public void drop(){
+		room.addItem(this);
+		person.removeEffect(effect);
 	}
 }

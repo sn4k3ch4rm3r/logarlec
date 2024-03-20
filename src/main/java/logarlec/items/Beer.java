@@ -1,13 +1,15 @@
 package logarlec.items;
 
+import logarlec.effects.BeerEffect;
 import logarlec.gameobjects.Teacher;
 
 public class Beer extends Item {
+	BeerEffect beerEffect;
 
 	@Override
 	public void use() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'use'");
+		person.addEffect(beerEffect);
+		person.removeItem(this);
 	}
 
 	@Override
@@ -32,5 +34,11 @@ public class Beer extends Item {
 	public void link(Transistor other) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'link'");
+	}
+
+	@Override
+	public void drop(){
+		room.addItem(this);
+		person.removeEffect(beerEffect);
 	}
 }
