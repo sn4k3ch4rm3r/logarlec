@@ -7,8 +7,8 @@ skinparam SequenceReferenceBackgroundColor white
 participant "main : Main" as main
 participant "student : Student" as student
 participant "inventory : Inventory" as inventory
-participant "transistor1 : Transistor" as transistor1
-participant "transistor2 : Transistor" as transistor2
+participant "transistor : Transistor" as transistor
+participant "other : Transistor" as other
 
 main++
 create student
@@ -17,15 +17,15 @@ main --> student : <<create>>
 create inventory
 student --> inventory : <<create>>
 
-create transistor1
-main --> transistor1 : <<create>>
+create transistor
+main --> transistor : <<create>>
 
-create transistor2
-main --> transistor2 : <<create>>
+create other
+main --> other : <<create>>
 
-main -> student ++: addItem(transistor1)
+main -> student ++: addItem(transistor)
 return
-main -> student ++: addItem(transistor2)
+main -> student ++: addItem(other)
 return
 
 @enduml
