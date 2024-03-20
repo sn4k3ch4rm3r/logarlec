@@ -2,7 +2,12 @@ package logarlec.skeleton;
 
 public class Skeleton {
 
-	public static void main() {}
+	private static Logger logger;
+
+
+	public static void main() {
+		logger = new Logger();
+	}
 
 
 	/**
@@ -12,7 +17,9 @@ public class Skeleton {
 	 * @param function A függvény neve
 	 * @param params A függvény paraméterei, ha vannak.
 	 */
-	public static void logFunctionCall(Object object, String function, Object... params) {}
+	public static void logFunctionCall(Object object, String function, Object... params) {
+		logger.logFunctionCall(object, function, params);
+	}
 
 	/**
 	 * Objektum létrehozása naplózással
@@ -24,7 +31,7 @@ public class Skeleton {
 	 * @return Az elkészült objektum
 	 */
 	public static <T> T createObject(String name, Class<T> type, Object... params) {
-		return null;
+		return logger.createObject(name, type, params);
 	}
 
 	/**
@@ -32,6 +39,8 @@ public class Skeleton {
 	 * 
 	 * @param value Viszzatérési érték.
 	 */
-	public static void logReturn(Object value) {}
+	public static void logReturn(Object value) {
+		logger.logReturn(value);
+	}
 
 }
