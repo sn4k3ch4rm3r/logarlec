@@ -13,6 +13,11 @@ public class Skeleton {
         testCollection.addTestCase(new RoomShowDoorsTest());
         testCollection.addTestCase(new RoomMergeTest());
         testCollection.addTestCase(new RoomMergeWithEffectTest());
+        testCollection.addTestCase(new RoomSplitTest());
+        testCollection.addTestCase(new RoomUpdateGasAndMaskTest());
+        testCollection.addTestCase(new RoomUpdateNoTeachersTest());
+        testCollection.addTestCase(new RoomUpdateRagEffectTest());
+        testCollection.addTestCase(new RoomUpdateStudentTeacherTest());
 
         testCollection.printSelector();
 
