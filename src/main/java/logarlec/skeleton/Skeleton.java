@@ -22,6 +22,13 @@ public class Skeleton {
         testCollection.addTestCase(new StudentLinkTransistorTest());
         testCollection.addTestCase(new StudentPickupMaskTest());
         testCollection.addTestCase(new StudentPickupSlideRuleTest());
+        testCollection.addTestCase(new StudentProtectedByBeerTest());
+        testCollection.addTestCase(new TeacherPickupSlideruleTest());
+        testCollection.addTestCase(new StudentUseBeerTest());
+        testCollection.addTestCase(new StudentUseCamembertTest());
+        testCollection.addTestCase(new StudentUseCodeOfStudiesTest());
+        testCollection.addTestCase(new StudentUseMaskTest());
+        testCollection.addTestCase(new StudentUseTransistorTest());
 
         testCollection.printSelector();
 
