@@ -14,8 +14,7 @@ public class Mask extends Item {
 
 	@Override
 	public void useAgainst(Teacher target) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'useAgainst'");
+		// Do nothing
 	}
 
 	@Override
@@ -27,14 +26,12 @@ public class Mask extends Item {
 
 	@Override
 	public void useItem(Item item) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'useItem'");
+		// Do nothing
 	} 
 
 	@Override
 	public void link(Transistor other) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'link'");
+		// Do nothing
 	}
 
 	@Override

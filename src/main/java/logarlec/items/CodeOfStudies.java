@@ -5,32 +5,28 @@ import logarlec.gameobjects.Teacher;
 public class CodeOfStudies extends Item {
 	@Override
 	public void use() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'use'");
+		// Do nothing
 	}
 
 	@Override
 	public void useAgainst(Teacher target) {
 		person.protectFromTeacher(target);
-		return;
 	}
 
 	@Override
 	public boolean usePassive() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'usePassive'");
+		//Do nothing
+		return false;
 	}
 
 	@Override
 	public void useItem(Item item) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'useItem'");
+		//Do nothing
 	}
 
 	@Override
 	public void link(Transistor other) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'link'");
+		//Do nothing
 	}
 
 }

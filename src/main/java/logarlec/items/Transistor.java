@@ -28,14 +28,13 @@ public class Transistor extends Item {
 
 	@Override
 	public void useAgainst(Teacher target) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'useAgainst'");
+		// Do nothing
 	}
 
 	@Override
 	public boolean usePassive() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'usePassive'");
+		// Do nothing
+		return false;
 	}
 
 	@Override
