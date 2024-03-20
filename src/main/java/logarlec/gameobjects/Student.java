@@ -1,7 +1,10 @@
 package logarlec.gameobjects;
 
 public class Student extends Person {
-	public void setEliminated(boolean value) {}
+	boolean eliminated;
+	public void setEliminated(boolean value) {
+		eliminated = value;
+	}
 
 	@Override
 	public void protectFromTeacher(Teacher target) {
