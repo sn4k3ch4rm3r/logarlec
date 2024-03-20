@@ -1,6 +1,6 @@
 package logarlec;
 
-import logarlec.skeleton.Skeleton;
+import logarlec.items.Skeleton;
 
 public class Main {
 	public static void main(String[] args) {

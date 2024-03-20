@@ -2,10 +2,15 @@ package logarlec.effects;
 
 import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
-import logarlec.skeleton.Skeleton;
+import logarlec.items.Skeleton;
 
 public class BeerEffect extends Effect {
 	double timeRemaining = 15.0;
+	/**
+	 * Uneliminate a student.
+	 *
+	 * @param target Student to be applied to.
+	 */
 	public void applyToStudent(Student target) {
 		Skeleton.logFunctionCall(this,"applyToStudent",target);
 		target.setEliminated(false);
@@ -14,6 +19,11 @@ public class BeerEffect extends Effect {
 
 	public void applyToTeacher(Teacher target) {}
 
+	/**
+	 * If time is up, it self destructs
+	 *
+	 * @param deltaTime
+	 */
 	@Override
 	public void update(double deltaTime) {
 		Skeleton.logFunctionCall(this,"update",deltaTime);
