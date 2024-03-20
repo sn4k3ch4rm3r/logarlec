@@ -4,13 +4,16 @@ import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
 
 public class MaskEffect extends Effect {
-	public void applyToStudent(Student target) {}
+	public void applyToStudent(Student target) {
+		target.setKnockOut(0);
+	}
 
-	public void applyToTeacher(Teacher target) {}
+	public void applyToTeacher(Teacher target) {
+		target.setKnockOut(0);
+	}
 
 	@Override
 	public void update(double deltaTime) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'update'");
+
 	}
 }
