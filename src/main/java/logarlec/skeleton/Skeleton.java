@@ -9,6 +9,8 @@ public class Skeleton {
     public static void main() {
         TestCollection testCollection = new TestCollection();
         testCollection.addTestCase(new DoorUseTest());
+        testCollection.addTestCase(new RoomHideDoorsTest());
+        testCollection.addTestCase(new RoomShowDoorsTest());
 
         testCollection.printSelector();
 
