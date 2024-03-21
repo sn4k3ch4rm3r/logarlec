@@ -75,12 +75,14 @@ public class Room extends GameObject {
 
 	@Override
 	public void update(double deltaTime) {
-		for(Person person : people) {
-			person.update(deltaTime);
-		}
-
 		for(Effect effect : effects) {
 			effect.update(deltaTime);
+		}
+		for(Person person : people) {
+			for(Effect effect : this.effects) {
+				person.applyEffect(effect);
+			}
+			person.update(deltaTime);
 		}
 	}
 
