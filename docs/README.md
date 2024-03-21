@@ -1,6 +1,7 @@
 # Dokumentáció
-| Feladat                              | Pontszám | Megjegyzés                                               |
-| ------------------------------------ | -------- | -------------------------------------------------------- |
-| Követelmény, projekt, funkcionalitás | 9/10     | Szótárból hiányzik néhány szó                            |
-| Analízis modell I.                   | 10/20    | Ne mindent visitorok csináljanak, néhány inkonzisztencia |
-| Analízis modell II.                  | 28/30    | Néhány metódus hiányzik az osztályok leírásából          |
+| Feladat                                                                                                                                                         | Pontszám | Megjegyzés                                               |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------- |
+| [Követelmény, projekt, funkcionalitás](https://github.com/sn4k3ch4rm3r/logarlec/blob/main/docs/weekly/02_K%C3%B6vetelm%C3%A9ny_projekt_funkcionalit%C3%A1s.pdf) | 9/10     | Szótárból hiányzik néhány szó                            |
+| [Analízis modell I.](https://github.com/sn4k3ch4rm3r/logarlec/blob/main/docs/weekly/03_Anal%C3%ADzis_modell_I.pdf)                                              | 10/20    | Ne mindent visitorok csináljanak, néhány inkonzisztencia |
+| [Analízis modell II.](https://github.com/sn4k3ch4rm3r/logarlec/blob/main/docs/weekly/04_Anal%C3%ADzis_modell_II.pdf)                                            | 28/30    | Néhány metódus hiányzik az osztályok leírásából          |
+| [Szkeleton tervezése](https://github.com/sn4k3ch4rm3r/logarlec/blob/main/docs/weekly/05_Szkeleton_tervez%C3%A9se.pdf)                                           | 15/20    | Vannak inkonzisztenciák a diagrammok közt                |
