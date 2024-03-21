@@ -18,7 +18,7 @@ public class Inventory {
 	 */
 	public boolean add(Item item) {
 		Skeleton.logFunctionCall(this,"add",item);
-		if (itemCount < 5) {
+		if (Skeleton.getInput(Boolean.class, "Can more items fit the inventory? Enter a boolean: ")) {
 			items.add(item);
 			Skeleton.logReturn(true);
 			return true;
@@ -35,7 +35,7 @@ public class Inventory {
 	public void remove(Item item) {
 		Skeleton.logFunctionCall(this,"remove",item);
 		items.remove(item);
-		Skeleton.logReturn(null);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class Inventory {
 	public void setRoom(Room room) {
 		Skeleton.logFunctionCall(this,"setRoom",room);
 		items.forEach(i -> i.setRoom(room));
-		Skeleton.logReturn(null);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -57,6 +57,6 @@ public class Inventory {
 	public void protectFrom(Teacher teacher) {
 		Skeleton.logFunctionCall(this,"protectFrom",teacher);
 		items.forEach(i -> i.useAgainst(teacher));
-		Skeleton.logReturn(null);
+		Skeleton.logReturn(void.class);
 	}
 }

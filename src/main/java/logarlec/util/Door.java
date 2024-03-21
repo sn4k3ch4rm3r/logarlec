@@ -2,7 +2,6 @@ package logarlec.util;
 
 import logarlec.gameobjects.Person;
 import logarlec.gameobjects.Room;
-import logarlec.skeleton.Skeleton;
 
 public class Door {
 	private Room room1, room2; // can be used from room1 if one-way
@@ -12,7 +11,7 @@ public class Door {
 		Skeleton.createObject("door",Door.class,room1,room2);
 		this.room1 = room1;
 		this.room2 = room2;
-		Skeleton.logReturn(null);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -29,7 +28,7 @@ public class Door {
 				from.leave(person);
 			}
 		}
-		Skeleton.logReturn(null);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -46,7 +45,7 @@ public class Door {
 		if (from == room2) {
 			room2 = to;
 		}
-		Skeleton.logReturn(null);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -54,7 +53,7 @@ public class Door {
 	 */
 	public void hide() {
 		Skeleton.logFunctionCall(this,"hide");
-		Skeleton.logReturn(null);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -62,6 +61,6 @@ public class Door {
 	 */
 	public void show() {
 		Skeleton.logFunctionCall(this,"show");
-		Skeleton.logReturn(null);
+		Skeleton.logReturn(void.class);
 	}
 }
