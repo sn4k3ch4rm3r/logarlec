@@ -1,6 +1,5 @@
 package logarlec.gameobjects;
 
-import logarlec.items.Item;
 
 public class Student extends Person {
 	private boolean eliminated;
