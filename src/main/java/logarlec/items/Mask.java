@@ -6,6 +6,10 @@ import logarlec.gameobjects.Teacher;
 public class Mask extends Item {
 	MaskEffect maskEffect;
 
+	/**
+	 * A Mask osztály use metódusa
+	 * A metódus a MaskEffect-et adja hozzá a personhoz
+	 */
 	@Override
 	public void use() {
 		maskEffect = new MaskEffect();
@@ -17,6 +21,11 @@ public class Mask extends Item {
 		// Do nothing
 	}
 
+	/**
+	 * A Mask osztály usePassive metódusa
+	 * A metódus a MaskEffect-et adja hozzá a personhoz
+	 * @return true
+	 */
 	@Override
 	public boolean usePassive() {
 		maskEffect = new MaskEffect();

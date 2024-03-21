@@ -31,6 +31,12 @@ public class SlideRule extends Item {
 		// Do nothing
 	}
 
+	/**
+	 * A SlideRule osztály setPerson metódusa
+	 * A metódus beállítja, hogy az adott SlideRule-t melyik Person inventory-jában tároljuk
+	 * @param person - a SlideRulet felvevő Person
+	 * A metódus meghívja a person pickedUpSlideRule metódusát
+	 */
 	@Override
 	public void setPerson(Person person) {
 		this.person = person;

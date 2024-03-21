@@ -4,7 +4,10 @@ import logarlec.effects.GasEffect;
 import logarlec.gameobjects.Teacher;
 
 public class Camembert extends Item {
-
+	/**
+	 * A Camembert osztály use metódusa
+	 * A metódus a GasEffect-et adja hozzá a room-hoz, majd eltávolítja a person inventory-jából a Camembert-t
+	 */
 	@Override
 	public void use() {
 		GasEffect gasEffect = new GasEffect();

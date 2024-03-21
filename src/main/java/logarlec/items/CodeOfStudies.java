@@ -8,6 +8,11 @@ public class CodeOfStudies extends Item {
 		// Do nothing
 	}
 
+	/**
+	 * A CodeOfStudies osztály useAgainst metódusa
+	 * A metódus a person (student) protectFromTeacher metódusát hívja meg a paraméterként kapott target-el (teacher)
+	 * @param target - a teacher, aki ellen a CodeOfStudies-t használjuk
+	 */
 	@Override
 	public void useAgainst(Teacher target) {
 		person.protectFromTeacher(target);
