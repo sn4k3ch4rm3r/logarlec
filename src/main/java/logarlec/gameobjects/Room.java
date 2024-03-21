@@ -47,7 +47,9 @@ public class Room extends GameObject {
 	}
 
 	public void moveContents(Room room) {
-		room.people.addAll(people);
+		for(Person person : people) {
+			room.enter(person);
+		}
 		room.personCount += personCount;
 	}
 
