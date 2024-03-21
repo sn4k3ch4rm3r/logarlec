@@ -2,7 +2,6 @@ package logarlec.effects;
 
 import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
-import logarlec.items.Skeleton;
 
 public class GasEffect extends Effect {
 	double timeRemaining = 15.0;
@@ -14,7 +13,7 @@ public class GasEffect extends Effect {
 	public void applyToStudent(Student target) {
 		Skeleton.logFunctionCall(this,"applyToStudent",target);
 		target.setKnockOut(5);
-		Skeleton.logReturn(null);
+		Skeleton.logReturn(void.class);
 	}
 	/**
 	 * unknockout target
@@ -25,7 +24,7 @@ public class GasEffect extends Effect {
 	public void applyToTeacher(Teacher target) {
 		Skeleton.logFunctionCall(this,"applyToTeacher",target);
 		target.setKnockOut(5);
-		Skeleton.logReturn(null);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -36,10 +35,11 @@ public class GasEffect extends Effect {
 	@Override
 	public void update(double deltaTime) {
 		Skeleton.logFunctionCall(this,"update",deltaTime);
-		timeRemaining -= deltaTime;
-		if (timeRemaining <= 0) {
-			holder.removeEffect(this);
-		}
-		Skeleton.logReturn(null);
+		super.update(deltaTime);
+		Skeleton.logReturn(void.class);
+	}
+	@Override
+	public String toString() {
+		return "Gas effect";
 	}
 }

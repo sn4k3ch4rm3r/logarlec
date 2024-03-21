@@ -2,7 +2,9 @@ package logarlec.effects;
 
 import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
-import logarlec.items.Skeleton;
+
+
+import java.rmi.server.Skeleton;
 
 public class MaskEffect extends Effect {
 	private int uses = 5;
@@ -15,7 +17,7 @@ public class MaskEffect extends Effect {
 	public void applyToStudent(Student target) {
 		Skeleton.logFunctionCall(this,"applyToStudent",target);
 		target.setKnockOut(0);
-		Skeleton.logReturn(null);
+		Skeleton.logReturn(void.class);
 	}
 	/**
 	 * knockout target
@@ -24,9 +26,9 @@ public class MaskEffect extends Effect {
 	 */
 
 	public void applyToTeacher(Teacher target) {
-		Skeleton.logFunctionCall(this,"applyToStudent",target);
+		Skeleton.logFunctionCall(this,"applyToTeacher",target);
 		target.setKnockOut(0);
-		Skeleton.logReturn(null);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -37,9 +39,12 @@ public class MaskEffect extends Effect {
 	@Override
 	public void update(double deltaTime) {
 		Skeleton.logFunctionCall(this,"update",deltaTime);
-		if (uses < 1) {
-			holder.removeEffect(this);
-		}
-		Skeleton.logReturn(null);
+		super.update(deltaTime);
+		Skeleton.logReturn(void.class);
+	}
+
+	@Override
+	public String toString() {
+		return "Mask effect";
 	}
 }
