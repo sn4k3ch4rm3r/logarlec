@@ -8,13 +8,13 @@ import java.util.List;
 
 public class Room extends GameObject {
 
-	int capacity;
+	private int capacity;
 
-	int personCount;
-	List<Person> people;
+	private int personCount;
+	private List<Person> people;
 
-	public List<Door> doors;
-	public List<Item> items;
+	private List<Door> doors;
+	private List<Item> items;
 
 	/**
 	 * Valaki kéri, hogy beléphet-e a szobába. Ha a szoba nincs tele, akkor belépteti a személyt.

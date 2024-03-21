@@ -3,9 +3,9 @@ package logarlec.gameobjects;
 import logarlec.items.Item;
 
 public class Student extends Person {
-	boolean eliminated;
+	private boolean eliminated;
 
-	Teacher immuneToTeacher;
+	private Teacher immuneToTeacher;
 
 	public void setEliminated(boolean value) {
 		eliminated = value;

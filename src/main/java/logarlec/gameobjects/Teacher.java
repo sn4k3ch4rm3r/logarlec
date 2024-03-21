@@ -1,7 +1,7 @@
 package logarlec.gameobjects;
 
 public class Teacher extends Person {
-	boolean peaceful;
+	private boolean peaceful;
 	public void setPeaceful(boolean value) {
 		peaceful = value;
 	}

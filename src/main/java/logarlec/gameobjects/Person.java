@@ -5,8 +5,8 @@ import logarlec.items.Item;
 import logarlec.util.Inventory;
 
 public abstract class Person extends GameObject {
-	String name;
-	double knockOutTime;
+	private String name;
+	private double knockOutTime;
 	Inventory inventory = new Inventory();
 
 	Room currentRoom;
