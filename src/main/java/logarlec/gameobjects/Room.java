@@ -24,6 +24,7 @@ public class Room extends GameObject {
 		//if the room is not full, add the person to the room and return true
 		if (personCount < capacity) {
 			people.add(person);
+			person.enterRoom(this);
 			personCount++;
 			return true;
 		}
