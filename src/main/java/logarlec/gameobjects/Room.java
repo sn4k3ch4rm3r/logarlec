@@ -98,7 +98,7 @@ public class Room extends GameObject {
 
 	@Override
 	public void applyEffect(Effect effect) {
-		effects.add(effect);
+		effect.setHolder(this);
 	}
 
 	@Override
