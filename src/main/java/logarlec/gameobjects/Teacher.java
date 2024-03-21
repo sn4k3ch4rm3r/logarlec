@@ -8,7 +8,6 @@ public class Teacher extends Person {
 
 	@Override
 	public void protectFromTeacher(Teacher target) {
-		setPeaceful(true);
 
 	}
 

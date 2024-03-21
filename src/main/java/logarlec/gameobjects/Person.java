@@ -15,10 +15,12 @@ public abstract class Person extends GameObject {
 
 	public void enterRoom(Room room) {
 		room.enter(this);
+		inventory.setRoom(room);
 	}
 
 	public void dropItem(Item item) {
 		inventory.remove(item);
+		item.drop();
 	}
 
 	public void setKnockOut(double value) {
@@ -35,6 +37,7 @@ public abstract class Person extends GameObject {
 	@Override
 	public void addItem(Item item) {
 		inventory.add(item);
+		item.setPerson(this);
 	}
 
 	@Override
@@ -45,6 +48,7 @@ public abstract class Person extends GameObject {
 	@Override
 	public void applyEffect(Effect effect) {
 		effects.add(effect);
+		effect.setHolder(this);
 	}
 	public void pickedUpSlideRule() {
 
