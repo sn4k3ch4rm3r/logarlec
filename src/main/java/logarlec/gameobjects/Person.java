@@ -36,13 +36,15 @@ public abstract class Person extends GameObject {
 
 	@Override
 	public void addItem(Item item) {
-		inventory.add(item);
-		item.setPerson(this);
+		if(inventory.add(item)) {
+			item.setPerson(this);
+		}
 	}
 
 	@Override
 	public void removeItem(Item item) {
 		inventory.remove(item);
+		item.drop();
 	}
 
 	@Override
