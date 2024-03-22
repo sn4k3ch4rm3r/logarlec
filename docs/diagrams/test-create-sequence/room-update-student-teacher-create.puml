@@ -3,16 +3,16 @@ title Create "Update Room with a Student and a Teacher" test
 hide footbox
 participant "Main" as main
 participant "room : Room" as room
-participant "student : Student" as stu1
-participant "teacher : Teacher" as stu2
+participant "student : Student" as student
+participant "teacher : Teacher" as teacher
 
 main++
 create room
 main --> room : <<create>>
-create stu1
-main --> stu1 : <<create>>
-create stu2
-main --> stu2 : <<create>>
+create student
+main --> student : <<create>>
+create teacher
+main --> teacher : <<create>>
 main -> room ++: enterPerson(student)
 return
 main -> room ++: enterPerson(teacher)

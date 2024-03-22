@@ -1,5 +1,5 @@
 @startuml student-use-camembert-create
-title Create "Camembert" test
+title Create "Use Camembert" test
 hide footbox
 
 participant "Main" as main
@@ -14,7 +14,9 @@ create room
 main --> room : <<create>>
 create camembert
 main --> camembert : <<create>>
-main -> student ++ : addItem(camebert)
+main -> room ++ : enter(student)
+return
+main -> student ++ : addItem(camembert)
 return
 
 @enduml

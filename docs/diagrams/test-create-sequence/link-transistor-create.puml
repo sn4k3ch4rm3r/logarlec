@@ -5,27 +5,15 @@ hide footbox
 skinparam SequenceReferenceBackgroundColor white
 
 participant "main : Main" as main
-participant "student : Student" as student
-participant "inventory : Inventory" as inventory
 participant "transistor : Transistor" as transistor
 participant "other : Transistor" as other
 
 main++
-create student
-main --> student : <<create>>
-
-create inventory
-student --> inventory : <<create>>
 
 create transistor
 main --> transistor : <<create>>
 
 create other
 main --> other : <<create>>
-
-main -> student ++: addItem(transistor)
-return
-main -> student ++: addItem(other)
-return
 
 @enduml
