@@ -5,8 +5,8 @@ hide footbox
 
 participant "Main" as main
 participant "student : Student" as student
-participant "mask : Mask" as mask
 participant "inventory : Inventory" as inventory
+participant "mask : Mask" as mask
 
 
 main++
