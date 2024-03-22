@@ -1,8 +1,9 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Teacher;
 import logarlec.items.Mask;
+import logarlec.skeleton.Skeleton;
 import logarlec.util.Door;
 
 public class RoomMergeTest extends TestCase {
@@ -20,14 +21,14 @@ public class RoomMergeTest extends TestCase {
 
     @Override
     public void init() {
-        room1 = new Room();
-        room2 = new Room();
-        room3 = new Room();
-        door1 = new Door(room1, room2);
-        door2 = new Door(room2, room3);
-        teacher = new Teacher();
+        room1 = Skeleton.createObject("room1", Room.class);
+        room2 = Skeleton.createObject("room2", Room.class);
+        room3 = Skeleton.createObject("room3", Room.class);
+        door1 = Skeleton.createObject("door1", Door.class, room1, room2);
+        door2 = Skeleton.createObject("door2", Door.class, room2, room3);
+        teacher = Skeleton.createObject("teacher", Teacher.class);
         room2.enter(teacher);
-        mask = new Mask();
+        mask = Skeleton.createObject("mask", Mask.class);
         room2.addItem(mask);
     }
 

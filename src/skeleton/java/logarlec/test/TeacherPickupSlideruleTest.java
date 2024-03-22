@@ -1,7 +1,8 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import logarlec.gameobjects.Teacher;
 import logarlec.items.SlideRule;
+import logarlec.skeleton.Skeleton;
 
 public class TeacherPickupSlideruleTest extends TestCase {
     Teacher teacher;
@@ -12,8 +13,8 @@ public class TeacherPickupSlideruleTest extends TestCase {
 
     @Override
     public void init() {
-        teacher = new Teacher();
-        slideRule = new SlideRule();
+        teacher = Skeleton.createObject("teacher", Teacher.class);
+        slideRule = Skeleton.createObject("slideRule", SlideRule.class);
     }
 
     @Override

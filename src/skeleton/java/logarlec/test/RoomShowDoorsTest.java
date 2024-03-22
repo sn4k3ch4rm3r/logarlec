@@ -1,4 +1,4 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import logarlec.gameobjects.*;
 import logarlec.util.*;
@@ -6,7 +6,7 @@ import logarlec.util.*;
 public class RoomShowDoorsTest extends TestCase {
     Room room;
     Room otherRoom;
-    Door door1;
+    Door door;
     Door door2;
 
     public RoomShowDoorsTest() {
@@ -17,7 +17,7 @@ public class RoomShowDoorsTest extends TestCase {
     public void init() {
         room = new Room();
         otherRoom = new Room();
-        door1 = new Door(room, otherRoom);
+        door = new Door(room, otherRoom);
         door2 = new Door(otherRoom, room);
         room.hideDoors();
     }

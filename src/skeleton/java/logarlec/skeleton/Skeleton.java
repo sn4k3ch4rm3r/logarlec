@@ -1,5 +1,9 @@
 package logarlec.skeleton;
 
+import logarlec.test.*;
+
+import java.util.Scanner;
+
 public class Skeleton {
 
 	private static Logger logger;

@@ -1,8 +1,9 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Student;
 import logarlec.items.Mask;
+import logarlec.skeleton.Skeleton;
 
 public class StudentDropMaskTest extends TestCase {
     Room room;
@@ -15,10 +16,10 @@ public class StudentDropMaskTest extends TestCase {
 
     @Override
     public void init() {
-        room = new Room();
-        student = new Student();
+        room = Skeleton.createObject("room", Room.class);
+        student = Skeleton.createObject("student", Student.class);
         room.enter(student);
-        mask = new Mask();
+        mask = Skeleton.createObject("mask", Mask.class);
         student.addItem(mask);
     }
 

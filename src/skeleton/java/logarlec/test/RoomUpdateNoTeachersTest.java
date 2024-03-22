@@ -1,7 +1,8 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Student;
+import logarlec.skeleton.Skeleton;
 
 public class RoomUpdateNoTeachersTest extends TestCase {
     Room room;
@@ -13,9 +14,9 @@ public class RoomUpdateNoTeachersTest extends TestCase {
 
     @Override
     public void init() {
-        room = new Room();
-        student1 = new Student();
-        student2 = new Student();
+        room = Skeleton.createObject("room", Room.class);
+        student1 = Skeleton.createObject("student1", Student.class);
+        student2 = Skeleton.createObject("student2", Student.class);
         room.enter(student1);
         room.enter(student2);
     }

@@ -1,8 +1,9 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import logarlec.effects.RagEffect;
 import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Teacher;
+import logarlec.skeleton.Skeleton;
 
 public class RoomUpdateRagEffectTest extends TestCase {
     Room room;
@@ -14,9 +15,9 @@ public class RoomUpdateRagEffectTest extends TestCase {
 
     @Override
     public void init() {
-        room = new Room();
-        teacher = new Teacher();
-        ragEffect = new RagEffect();
+        room = Skeleton.createObject("room", Room.class);
+        teacher = Skeleton.createObject("teacher", Teacher.class);
+        ragEffect = Skeleton.createObject("ragEffect", RagEffect.class);
         room.enter(teacher);
         room.addEffect(ragEffect);
     }

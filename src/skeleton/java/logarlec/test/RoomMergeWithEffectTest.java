@@ -1,7 +1,8 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import logarlec.effects.GasEffect;
 import logarlec.gameobjects.Room;
+import logarlec.skeleton.Skeleton;
 import logarlec.util.Door;
 
 public class RoomMergeWithEffectTest extends TestCase {
@@ -15,10 +16,10 @@ public class RoomMergeWithEffectTest extends TestCase {
 
     @Override
     public void init() {
-        room1 = new Room();
-        room2 = new Room();
-        door = new Door(room1, room2);
-        gasEffect = new GasEffect();
+        room1 = Skeleton.createObject("room1", Room.class);
+        room2 = Skeleton.createObject("room2", Room.class);
+        door = Skeleton.createObject("door", Door.class, room1, room2);
+        gasEffect = Skeleton.createObject("gasEffect", GasEffect.class);
         room2.addEffect(gasEffect);
     }
 

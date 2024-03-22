@@ -1,6 +1,7 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import logarlec.gameobjects.*;
+import logarlec.skeleton.Skeleton;
 import logarlec.util.*;
 
 /**
@@ -9,7 +10,7 @@ import logarlec.util.*;
 public class DoorUseTest extends TestCase {
     private Student student; // The student who will use the door
     private Room from; // The room in which the student currently is
-    private Room to; // The room to which the student will go
+    private Room next; // The room to which the student will go
     private Door door; // The door that the student will use
 
     /**
@@ -24,10 +25,11 @@ public class DoorUseTest extends TestCase {
      * It creates the necessary objects for the test
      */
     public void init() {
-        student = new Student();
-        from = new Room();
-        to = new Room();
-        door = new Door(from, to);
+        student = Skeleton.createObject("student", Student.class);
+        from = Skeleton.createObject("from", Room.class);
+        from.enter(student);
+        next = Skeleton.createObject("next", Room.class);
+        door = Skeleton.createObject("door", Door.class, from, next);
     }
 
     /**

@@ -1,4 +1,4 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 /**
  * Abstract class for test cases

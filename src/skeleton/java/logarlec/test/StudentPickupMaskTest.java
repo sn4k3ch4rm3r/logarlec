@@ -1,7 +1,8 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import logarlec.gameobjects.Student;
 import logarlec.items.Mask;
+import logarlec.skeleton.Skeleton;
 
 public class StudentPickupMaskTest extends TestCase {
     Student student;
@@ -12,8 +13,8 @@ public class StudentPickupMaskTest extends TestCase {
 
     @Override
     public void init() {
-        student = new Student();
-        mask = new Mask();
+        student = Skeleton.createObject("student", Student.class);
+        mask = Skeleton.createObject("mask", Mask.class);
     }
 
     @Override

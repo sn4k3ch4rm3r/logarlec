@@ -1,6 +1,7 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import logarlec.gameobjects.Room;
+import logarlec.skeleton.Skeleton;
 import logarlec.util.Door;
 
 public class RoomSplitTest extends TestCase {
@@ -13,9 +14,9 @@ public class RoomSplitTest extends TestCase {
 
     @Override
     public void init() {
-        room = new Room();
-        otherRoom = new Room();
-        Door door = new Door(room, otherRoom);
+        room = Skeleton.createObject("room", Room.class);
+        otherRoom = Skeleton.createObject("otherRoom", Room.class);
+        door = Skeleton.createObject("door", Door.class, room, otherRoom);
     }
 
     @Override

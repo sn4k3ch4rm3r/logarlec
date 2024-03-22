@@ -1,8 +1,9 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Student;
 import logarlec.items.Transistor;
+import logarlec.skeleton.Skeleton;
 
 public class StudentUseTransistorTest extends TestCase {
     Student student;
@@ -16,12 +17,13 @@ public class StudentUseTransistorTest extends TestCase {
 
     @Override
     public void init() {
-        student = new Student();
-        transistor1 = new Transistor();
-        transistor2 = new Transistor();
-        room = new Room();
-        targetRoom = new Room();
+        student = Skeleton.createObject("student", Student.class);
+        transistor1 = Skeleton.createObject("transistor1", Transistor.class);
+        transistor2 = Skeleton.createObject("transistor2", Transistor.class);
+        room = Skeleton.createObject("room", Room.class);
+        targetRoom = Skeleton.createObject("targetRoom", Room.class);
         student.addItem(transistor1);
+        student.addItem(transistor2);
     }
 
     @Override

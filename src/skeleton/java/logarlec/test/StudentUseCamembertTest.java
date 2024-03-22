@@ -1,8 +1,9 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Student;
 import logarlec.items.Camembert;
+import logarlec.skeleton.Skeleton;
 
 public class StudentUseCamembertTest extends TestCase {
     Student student;
@@ -14,9 +15,9 @@ public class StudentUseCamembertTest extends TestCase {
 
     @Override
     public void init() {
-        student = new Student();
-        room = new Room();
-        camembert = new Camembert();
+        student = Skeleton.createObject("student", Student.class);
+        room = Skeleton.createObject("room", Room.class);
+        camembert = Skeleton.createObject("camembert", Camembert.class);
         student.addItem(camembert);
         room.enter(student);
     }

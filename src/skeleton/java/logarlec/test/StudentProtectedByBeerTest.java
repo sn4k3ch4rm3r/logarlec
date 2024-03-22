@@ -1,7 +1,8 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import logarlec.effects.BeerEffect;
 import logarlec.gameobjects.Student;
+import logarlec.skeleton.Skeleton;
 
 public class StudentProtectedByBeerTest extends TestCase {
     Student student;
@@ -12,8 +13,8 @@ public class StudentProtectedByBeerTest extends TestCase {
 
     @Override
     public void init() {
-        student = new Student();
-        beerEffect = new BeerEffect();
+        student = Skeleton.createObject("student", Student.class);
+        beerEffect = Skeleton.createObject("beerEffect", BeerEffect.class);
         student.addEffect(beerEffect);
         student.setEliminated(true);
     }

@@ -1,9 +1,10 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import logarlec.effects.GasEffect;
 import logarlec.effects.MaskEffect;
 import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Student;
+import logarlec.skeleton.Skeleton;
 
 public class RoomUpdateGasAndMaskTest extends TestCase {
     Room room;
@@ -16,10 +17,10 @@ public class RoomUpdateGasAndMaskTest extends TestCase {
 
     @Override
     public void init() {
-        room = new Room();
-        student = new Student();
-        gasEffect = new GasEffect();
-        maskEffect = new MaskEffect();
+        room = Skeleton.createObject("room", Room.class);
+        student = Skeleton.createObject("student", Student.class);
+        gasEffect = Skeleton.createObject("gasEffect", GasEffect.class);
+        maskEffect = Skeleton.createObject("maskEffect", MaskEffect.class);
         room.enter(student);
         room.addEffect(gasEffect);
         room.addEffect(maskEffect);

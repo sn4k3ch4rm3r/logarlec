@@ -1,7 +1,8 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import logarlec.gameobjects.Student;
 import logarlec.items.Beer;
+import logarlec.skeleton.Skeleton;
 
 public class StudentUseBeerTest extends TestCase {
     Student student;
@@ -12,8 +13,8 @@ public class StudentUseBeerTest extends TestCase {
 
     @Override
     public void init() {
-        student = new Student();
-        beer = new Beer();
+        student = Skeleton.createObject("student", Student.class);
+        beer = Skeleton.createObject("beer", Beer.class);
     }
 
     @Override

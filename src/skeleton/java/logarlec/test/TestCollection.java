@@ -1,9 +1,9 @@
-package logarlec.skeleton;
+package logarlec.test;
 
 import java.util.*;
 
 public class TestCollection {
-    List<TestCase> testCases = new ArrayList<TestCase>();
+    List<TestCase> testCases = new ArrayList<>();
 
     public void addTestCase(TestCase testCase) {
         testCases.add(testCase);
