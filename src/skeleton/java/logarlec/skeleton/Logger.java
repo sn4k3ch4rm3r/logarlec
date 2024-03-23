@@ -148,3 +148,4 @@ public class Logger {
 		return value;
 	}
 }
+
