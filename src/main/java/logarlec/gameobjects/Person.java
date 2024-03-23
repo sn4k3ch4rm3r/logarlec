@@ -40,7 +40,7 @@ public abstract class Person extends GameObject {
 	 */
 	public void enterRoom(Room room) {
 		Skeleton.logFunctionCall(this, "enterRoom", room);
-		room.enter(this);
+		currentRoom = room;
 		inventory.setRoom(room);
 		Skeleton.logReturn(void.class);
 	}
