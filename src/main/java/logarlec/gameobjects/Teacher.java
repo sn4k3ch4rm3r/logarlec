@@ -15,7 +15,9 @@ public class Teacher extends Person {
 	 * @param value az új békés állapot
 	 */
 	public void setPeaceful(boolean value) {
+		logarlec.skeleton.Skeleton.logFunctionCall(this, "setPeaceful", value);
 		peaceful = value;
+		logarlec.skeleton.Skeleton.logReturn(void.class);
 	}
 
 	/**

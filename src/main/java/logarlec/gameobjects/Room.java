@@ -5,6 +5,7 @@ import logarlec.items.Item;
 import logarlec.util.Door;
 
 import java.util.List;
+import logarlec.skeleton.Skeleton;
 
 /**
  * Egy játékban szereplő szoba.
@@ -47,12 +48,14 @@ public class Room extends GameObject {
 	 * @param person a személy, aki belépne a szobába
 	 */
 	public boolean enter(Person person) {
-		//if the room is not full, add the person to the room and return true
+		Skeleton.logFunctionCall(this, "enter", person);
 		if (people.size() < capacity) {
 			people.add(person);
 			person.enterRoom(this);
+			Skeleton.logReturn(true);
 			return true;
 		}
+		Skeleton.logReturn(false);
 		return false;
 	}
 
@@ -61,7 +64,9 @@ public class Room extends GameObject {
 	 * @param person a személy, aki távozik
 	 */
 	public void leave(Person person) {
+		Skeleton.logFunctionCall(this, "leave", person);
 		people.remove(person);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -69,9 +74,9 @@ public class Room extends GameObject {
 	 * @param room a másik szoba
 	 */
 	public void merge(Room room) {
+		Skeleton.logFunctionCall(this, "merge", room);
 		room.moveContents(this);
-
-
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -79,11 +84,12 @@ public class Room extends GameObject {
 	 * @return az új szoba
 	 */
 	public Room split() {
+		Skeleton.logFunctionCall(this, "split");
 		Room newRoom = new Room(effects, capacity);
 		Door door = new Door(this, newRoom);
 		this.addDoor(door);
 		newRoom.addDoor(door);
-
+		Skeleton.logReturn(newRoom.getClass());
 		return newRoom;
 	}
 
@@ -92,6 +98,7 @@ public class Room extends GameObject {
 	 * @param room a másik szoba
 	 */
 	public void moveContents(Room room) {
+		Skeleton.logFunctionCall(this, "moveContents", room);
 		for(Person person : people) {
 			room.enter(person);
 		}
@@ -101,6 +108,7 @@ public class Room extends GameObject {
 		for(Effect effect : effects) {
 			room.addEffect(effect);
 		}
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -108,7 +116,9 @@ public class Room extends GameObject {
 	 * @param door az ajtó
 	 */
 	public void addDoor(Door door) {
+		Skeleton.logFunctionCall(this, "addDoor", door);
 		doors.add(door);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -116,25 +126,31 @@ public class Room extends GameObject {
 	 * @param door az ajtó
 	 */
 	public void removeDoor(Door door) {
+		Skeleton.logFunctionCall(this, "removeDoor", door);
 		doors.remove(door);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
 	 * Az összes ajtó elrejtése.
 	 */
 	public void hideDoors() {
+		Skeleton.logFunctionCall(this, "hideDoors");
 		for (Door door : doors) {
 			door.hide();
 		}
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
 	 * Az összes ajtó megjelenítése.
 	 */
 	public void showDoors() {
+		Skeleton.logFunctionCall(this, "showDoors");
 		for (Door door : doors) {
 			door.show();
 		}
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -143,6 +159,7 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void update(double deltaTime) {
+		Skeleton.logFunctionCall(this, "update", deltaTime);
 		for(Effect effect : effects) {
 			effect.update(deltaTime);
 		}
@@ -152,6 +169,7 @@ public class Room extends GameObject {
 			}
 			person.update(deltaTime);
 		}
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -160,7 +178,9 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void addItem(Item item) {
+		Skeleton.logFunctionCall(this, "addItem", item);
 		items.add(item);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -169,7 +189,9 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void removeItem(Item item) {
+		Skeleton.logFunctionCall(this, "removeItem", item);
 		items.remove(item);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -178,7 +200,9 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void applyEffect(Effect effect) {
+		Skeleton.logFunctionCall(this, "applyEffect", effect);
 		effect.setHolder(this);
+		effects.add(effect);
 	}
 
 	/**
@@ -187,8 +211,10 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void interactTeacher(Teacher teacher) {
+		Skeleton.logFunctionCall(this, "interactTeacher", teacher);
 		for(Person person : people) {
 			person.interactTeacher(teacher);
 		}
+		Skeleton.logReturn(void.class);
 	}
 }

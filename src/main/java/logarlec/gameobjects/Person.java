@@ -4,6 +4,9 @@ import logarlec.effects.Effect;
 import logarlec.items.Item;
 import logarlec.util.Inventory;
 
+import logarlec.skeleton.Skeleton;
+
+
 /**
  * A pályán mozogni képes entitások ősosztálya.
  */
@@ -36,8 +39,10 @@ public abstract class Person extends GameObject {
 	 * @param room a szoba, melybe a személy belép
 	 */
 	public void enterRoom(Room room) {
+		Skeleton.logFunctionCall(this, "enterRoom", room);
 		room.enter(this);
 		inventory.setRoom(room);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -45,8 +50,10 @@ public abstract class Person extends GameObject {
 	 * @param item az eldobandó tárgy
 	 */
 	public void dropItem(Item item) {
+		Skeleton.logFunctionCall(this, "dropItem", item);
 		inventory.remove(item);
 		item.drop();
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -54,18 +61,22 @@ public abstract class Person extends GameObject {
 	 * @param value az ájulás ideje
 	 */
 	public void setKnockOut(double value) {
+		Skeleton.logFunctionCall(this, "setKnockOut", value);
 		knockOutTime = value;
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
 	 * A személy belső állapotát frissítő metódus.
-	 * @param deltaTime
+	 * @param deltaTime az eltelt idő
 	 */
 	@Override
 	public void update(double deltaTime) {
+		Skeleton.logFunctionCall(this, "update", deltaTime);
 		if (knockOutTime > 0) {
 			knockOutTime -= deltaTime;
 		}
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -74,9 +85,11 @@ public abstract class Person extends GameObject {
 	 */
 	@Override
 	public void addItem(Item item) {
+		Skeleton.logFunctionCall(this, "addItem", item);
 		if(inventory.add(item)) {
 			item.setPerson(this);
 		}
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -85,8 +98,10 @@ public abstract class Person extends GameObject {
 	 */
 	@Override
 	public void removeItem(Item item) {
+		Skeleton.logFunctionCall(this, "removeItem", item);
 		inventory.remove(item);
 		item.drop();
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -95,8 +110,10 @@ public abstract class Person extends GameObject {
 	 */
 	@Override
 	public void applyEffect(Effect effect) {
+		Skeleton.logFunctionCall(this, "applyEffect", effect);
 		effects.add(effect);
 		effect.setHolder(this);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
