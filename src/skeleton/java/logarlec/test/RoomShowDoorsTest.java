@@ -1,6 +1,7 @@
 package logarlec.test;
 
 import logarlec.gameobjects.*;
+import logarlec.skeleton.Skeleton;
 import logarlec.util.*;
 
 public class RoomShowDoorsTest extends TestCase {
@@ -15,10 +16,10 @@ public class RoomShowDoorsTest extends TestCase {
 
     @Override
     public void init() {
-        room = new Room();
-        otherRoom = new Room();
-        door = new Door(room, otherRoom);
-        door2 = new Door(otherRoom, room);
+        room = Skeleton.createObject("room", Room.class);
+        otherRoom = Skeleton.createObject("otherRoom", Room.class);
+        door = Skeleton.createObject("door", Door.class, room, otherRoom);
+        door2 = Skeleton.createObject("door2", Door.class, otherRoom, room);
         room.hideDoors();
     }
 

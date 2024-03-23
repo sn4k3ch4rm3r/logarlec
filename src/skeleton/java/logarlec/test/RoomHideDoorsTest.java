@@ -17,8 +17,8 @@ public class RoomHideDoorsTest extends TestCase {
     public void init() {
         room = Skeleton.createObject("room", Room.class);
         otherRoom = Skeleton.createObject("otherRoom", Room.class);
-        door = Skeleton.createObject("door1", Door.class, room, otherRoom);
-        door2 = Skeleton.createObject("door2", Door.class, room, otherRoom);
+        door = Skeleton.createObject("door", Door.class, room, otherRoom);
+        door2 = Skeleton.createObject("door2", Door.class, otherRoom, room);
     }
 
     public void run() {
