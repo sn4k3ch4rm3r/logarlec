@@ -13,9 +13,8 @@ public class RagEffect extends Effect {
 	}
 
 	/**
-	 * Pacify target
+	 * Oktató megbékítése.
 	 *
-	 * @param target Teacher to be applied to.
 	 */
 	public void applyToTeacher(Teacher target) {
 		Skeleton.logFunctionCall(this,"applyToTeacher",target);
@@ -23,11 +22,6 @@ public class RagEffect extends Effect {
 		Skeleton.logReturn(void.class);
 	}
 
-	/**
-	 * If time is up, it self destructs
-	 *
-	 * @param deltaTime
-	 */
 	@Override
 	public void update(double deltaTime) {
 		Skeleton.logFunctionCall(this,"update",deltaTime);

@@ -10,9 +10,8 @@ public class MaskEffect extends Effect {
 	private int uses = 5;
 
 	/**
-	 * knockout target
+	 * Diák megbénítása
 	 *
-	 * @param target Student to be applied to.
 	 */
 	public void applyToStudent(Student target) {
 		Skeleton.logFunctionCall(this,"applyToStudent",target);
@@ -20,9 +19,8 @@ public class MaskEffect extends Effect {
 		Skeleton.logReturn(void.class);
 	}
 	/**
-	 * knockout target
+	 * Oktató megbénítása
 	 *
-	 * @param target Teacher to be applied to.
 	 */
 
 	public void applyToTeacher(Teacher target) {
@@ -31,11 +29,6 @@ public class MaskEffect extends Effect {
 		Skeleton.logReturn(void.class);
 	}
 
-	/**
-	 * If number of uses up, it self destructs
-	 *
-	 * @param deltaTime
-	 */
 	@Override
 	public void update(double deltaTime) {
 		Skeleton.logFunctionCall(this,"update",deltaTime);

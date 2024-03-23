@@ -9,22 +9,22 @@ public abstract class Effect implements Updatable {
 	protected GameObject holder;
 
 	/**
-	 * The effect is applied to a student
+	 * A hatás diákra alkalmazódik
 	 *
-	 * @param target Student to be applied to.
+	 * @param target A diák, akire alkalmazódik a hatás.
 	 */
 	public abstract void applyToStudent(Student target);
-	/**
-	 * The effect is applied to a teacher
-	 *
-	 * @param target Teacher to be applied to.
-	 */
 
+	/**
+	 * A hatás oktatóra alkalmazódik
+	 *
+	 * @param target Az oktató, akire alkalmazódik a hatás.
+	 */
 	public abstract void applyToTeacher(Teacher target);
 	/**
-	 * Change the holder of this effect
+	 * Ezen hatás tulajdonosának megváltoztatása.
 	 *
-	 * @param holder The new holder.
+	 * @param holder Az új tulajdonos.
 	 */
 
 	public void setHolder(GameObject holder) {
@@ -33,6 +33,11 @@ public abstract class Effect implements Updatable {
 		Skeleton.logReturn(void.class);
 	}
 
+	/**
+	 * Ha lejárt az idő, önmegsemmisít az objektum.
+	 *
+	 * @param deltaTime Lásd: Updatable.
+	 */
 	@Override
 	public void update(double deltaTime) {
 		boolean moreTime = Skeleton.getInput(Boolean.class, "Does the " + this + " have more time left? Enter a boolean: ");
