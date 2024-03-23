@@ -2,6 +2,7 @@ package logarlec.items;
 
 import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Teacher;
+import logarlec.skeleton.Skeleton;
 import logarlec.effects.RagEffect;
 
 public class WetRag extends Item {
@@ -39,8 +40,10 @@ public class WetRag extends Item {
 	 */
 	@Override
 	public void drop(){
+		Skeleton.logFunctionCall(this, "drop");
 		room.addItem(this);
 		person.removeEffect(ragEffect);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -50,8 +53,10 @@ public class WetRag extends Item {
 	 */
 	@Override
 	public void setRoom(Room newRoom) {
+		Skeleton.logFunctionCall(this, "setRoom", newRoom);
 		room.removeEffect(ragEffect);
 		newRoom.addEffect(ragEffect);
 		room = newRoom;
+		Skeleton.logReturn(void.class);
 	}
 }

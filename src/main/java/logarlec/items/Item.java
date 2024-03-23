@@ -3,6 +3,7 @@ package logarlec.items;
 import logarlec.gameobjects.Person;
 import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Teacher;
+import logarlec.skeleton.Skeleton;
 
 public abstract class Item {
 	
@@ -30,7 +31,9 @@ public abstract class Item {
 	 * A metódus a room addItem metódusát hívja meg a paraméterként kapott Item-mel
 	 */
 	public void drop() {
+		Skeleton.logFunctionCall(this, "drop");
 		room.addItem(this);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -40,7 +43,9 @@ public abstract class Item {
 	 */
 
 	public void setRoom(Room room) {
+		Skeleton.logFunctionCall(this, "setRoom", room);
 		this.room = room;
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -49,6 +54,8 @@ public abstract class Item {
 	 * @param person - a beállítandó Person
 	 */
 	public void setPerson(Person person) {
+		Skeleton.logFunctionCall(this, "setPerson", person);
 		this.person = person;
+		Skeleton.logReturn(void.class);
 	}
 }

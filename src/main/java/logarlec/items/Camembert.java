@@ -2,6 +2,7 @@ package logarlec.items;
 
 import logarlec.effects.GasEffect;
 import logarlec.gameobjects.Teacher;
+import logarlec.skeleton.Skeleton;
 
 public class Camembert extends Item {
 	/**
@@ -10,9 +11,11 @@ public class Camembert extends Item {
 	 */
 	@Override
 	public void use() {
+		Skeleton.logFunctionCall(this, "use");
 		GasEffect gasEffect = new GasEffect();
 		room.addEffect(gasEffect);
 		person.removeItem(this);
+		Skeleton.logReturn(void.class);
 	}
 
 	@Override

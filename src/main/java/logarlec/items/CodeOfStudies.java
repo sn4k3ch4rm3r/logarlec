@@ -1,6 +1,7 @@
 package logarlec.items;
 
 import logarlec.gameobjects.Teacher;
+import logarlec.skeleton.Skeleton;
 
 public class CodeOfStudies extends Item {
 	@Override
@@ -15,7 +16,9 @@ public class CodeOfStudies extends Item {
 	 */
 	@Override
 	public void useAgainst(Teacher target) {
+		Skeleton.logFunctionCall(this, "useAgainst", target);
 		person.protectFromTeacher(target);
+		Skeleton.logReturn(void.class);
 	}
 
 	@Override

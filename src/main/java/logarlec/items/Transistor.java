@@ -1,6 +1,7 @@
 package logarlec.items;
 
 import logarlec.gameobjects.Teacher;
+import logarlec.skeleton.Skeleton;
 import logarlec.gameobjects.Room;
 
 public class Transistor extends Item {
@@ -13,7 +14,9 @@ public class Transistor extends Item {
 	 * @param room - a beállítandó Room
 	 */
 	void setTarget(Room room){
+		Skeleton.logFunctionCall(this, "setTarget", room);
 		target = room;
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -24,6 +27,7 @@ public class Transistor extends Item {
 	 */	
 	@Override
 	public void use() {
+		Skeleton.logFunctionCall(this, "use");
 		if(other != null){
 			person.dropItem(this);
 			other.setTarget(room);
@@ -35,6 +39,7 @@ public class Transistor extends Item {
 				room.leave(person);
 			}
 		}
+		Skeleton.logReturn(void.class);
 	}
 
 	@Override
@@ -55,7 +60,9 @@ public class Transistor extends Item {
 	 */
 	@Override
 	public void useItem(Item item) {
+		Skeleton.logFunctionCall(this, "useItem", item);
 		other.link(this);
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -65,8 +72,10 @@ public class Transistor extends Item {
 	 */
 	@Override
 	public void link(Transistor other) {
+		Skeleton.logFunctionCall(this, "link", other);
 		other.setPair(this);
 		this.other = other;
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -75,7 +84,9 @@ public class Transistor extends Item {
 	 * @param other - a beállítandó Transistor
 	 */
 	public void setPair(Transistor other) {
+		Skeleton.logFunctionCall(this, "setPair", other);
 		this.other = other;
+		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -84,6 +95,8 @@ public class Transistor extends Item {
 	 */
 	@Override
 	public void drop(){
+		Skeleton.logFunctionCall(this, "drop");
 		room.addItem(this);	
+		Skeleton.logReturn(void.class);
 	}
 }

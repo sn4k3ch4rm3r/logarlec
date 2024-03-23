@@ -2,6 +2,7 @@ package logarlec.items;
 
 import logarlec.effects.MaskEffect;
 import logarlec.gameobjects.Teacher;
+import logarlec.skeleton.Skeleton;
 
 public class Mask extends Item {
 	MaskEffect maskEffect;
@@ -12,8 +13,10 @@ public class Mask extends Item {
 	 */
 	@Override
 	public void use() {
+		Skeleton.logFunctionCall(this, "use");
 		maskEffect = new MaskEffect();
 		person.addEffect(maskEffect);
+		Skeleton.logReturn(void.class);
 	}
 
 	@Override
@@ -28,8 +31,11 @@ public class Mask extends Item {
 	 */
 	@Override
 	public boolean usePassive() {
+		Skeleton.logFunctionCall(this, "usePassive");
 		maskEffect = new MaskEffect();
 		person.addEffect(maskEffect);
+		
+		Skeleton.logReturn(true);
 		return true;
 	}
 
@@ -45,7 +51,9 @@ public class Mask extends Item {
 
 	@Override
 	public void drop(){
+		Skeleton.logFunctionCall(this, "drop");
 		room.addItem(this);
 		person.removeEffect(maskEffect);
+		Skeleton.logReturn(void.class);
 	}
 }

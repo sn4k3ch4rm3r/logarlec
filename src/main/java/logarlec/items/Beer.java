@@ -2,6 +2,7 @@ package logarlec.items;
 
 import logarlec.effects.BeerEffect;
 import logarlec.gameobjects.Teacher;
+import logarlec.skeleton.Skeleton;
 
 public class Beer extends Item {
 	
@@ -11,9 +12,11 @@ public class Beer extends Item {
 	 */
 	@Override
 	public void use() {
+		Skeleton.logFunctionCall(this, "use");
 		BeerEffect beerEffect = new BeerEffect();
 		person.addEffect(beerEffect);
 		person.removeItem(this);
+		Skeleton.logReturn(void.class);
 	}
 
 	@Override
