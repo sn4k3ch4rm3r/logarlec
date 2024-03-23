@@ -12,9 +12,9 @@ public class Inventory {
 	private List<Item> items = new ArrayList<>();
 	private int itemCount = 0;
 	/**
-	 * If there are less than 5 items in the inventory add item.
+	 * Tárgy hozzáadása a felszereléshez, ha kevesebb, mint 5 van benne.
 	 *
-	 * @param item Item to add.
+	 * @param item Hozzáadandó tárgy.
 	 */
 	public boolean add(Item item) {
 		Skeleton.logFunctionCall(this,"add",item);
@@ -28,9 +28,9 @@ public class Inventory {
 	}
 
 	/**
-	 * Remove item from inventory if it is in there.
+	 * Tárgy eltávolítása a felszerelésből, ha benne van.
 	 *
-	 * @param item Item to remove.
+	 * @param item Eltávolítandó tárgy.
 	 */
 	public void remove(Item item) {
 		Skeleton.logFunctionCall(this,"remove",item);
@@ -39,9 +39,9 @@ public class Inventory {
 	}
 
 	/**
-	 * Telling the items, that they have moved to a new room
+	 * A tárgyak értesítése, hogy más szobába kerültek.
 	 *
-	 * @param room The room they moved to.
+	 * @param room A szoba, ahova kerültek.
 	 */
 	public void setRoom(Room room) {
 		Skeleton.logFunctionCall(this,"setRoom",room);
@@ -50,9 +50,9 @@ public class Inventory {
 	}
 
 	/**
-	 * Telling the items, that the holder of this inventory needs to be protected against a teacher
+	 * A tárgyak értesítése, hogy a felszerelés tulajdonosát megtámadta egy oktató.
 	 *
-	 * @param teacher The teacher they need to protect against.
+	 * @param teacher A támadó oktató.
 	 */
 	public void protectFrom(Teacher teacher) {
 		Skeleton.logFunctionCall(this,"protectFrom",teacher);

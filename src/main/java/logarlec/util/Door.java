@@ -15,10 +15,10 @@ public class Door {
 	}
 
 	/**
-	 * Using door
+	 * Ajtó használata: a személy átlép a másik szobába, ha teheti.
 	 *
-	 * @param person The person using the door
-	 * @param from The room the person is currently in
+	 * @param person Az ajtót használó személy
+	 * @param from A szoba ahol van a személy jelenleg
 	 */
 	public void use(Person person, Room from) {
 		Skeleton.logFunctionCall(this,"use",person,from);
@@ -32,10 +32,10 @@ public class Door {
 	}
 
 	/**
-	 * Moving one end of the door from one room to another
+	 * Az ajtó egy végét egy szobáról egy másikra helyezünk
 	 *
-	 * @param to The room the new end goes to
-	 * @param from The room the door doesn't go to anymore
+	 * @param to A szoba, ahol újonnan megtalálható lesz az ajtó
+	 * @param from A szoba, ahol eddig megtalálható volt az ajtó
 	 */
 	public void move(Room from, Room to) {
 		Skeleton.logFunctionCall(this,"move");
@@ -49,7 +49,7 @@ public class Door {
 	}
 
 	/**
-	 * The door won't be visible anymore.
+	 * Az ajtó nem lesz többé látható
 	 */
 	public void hide() {
 		Skeleton.logFunctionCall(this,"hide");
@@ -57,7 +57,7 @@ public class Door {
 	}
 
 	/**
-	 * The door will be visible again.
+	 * Az ajtó újra látható lesz
 	 */
 	public void show() {
 		Skeleton.logFunctionCall(this,"show");

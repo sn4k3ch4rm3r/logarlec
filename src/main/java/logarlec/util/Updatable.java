@@ -2,9 +2,9 @@ package logarlec.util;
 
 public interface Updatable {
 	/**
-	 * Times has passed and the object reacts to that.
+	 * Telt az idő, és erre reagál az objektum.
 	 *
-	 * @param deltaTime The time passed since the last update.
+	 * @param deltaTime A legutóbbi update óta eltelt idő.
 	 */
 	public void update(double deltaTime);
 }
