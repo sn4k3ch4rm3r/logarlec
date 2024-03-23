@@ -54,6 +54,7 @@ public class Mask extends Item {
 		Skeleton.logFunctionCall(this, "drop");
 		room.addItem(this);
 		person.removeEffect(maskEffect);
+		setPerson(null);
 		Skeleton.logReturn(void.class);
 	}
 }

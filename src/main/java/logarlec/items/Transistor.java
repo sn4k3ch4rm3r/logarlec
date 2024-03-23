@@ -97,6 +97,7 @@ public class Transistor extends Item {
 	public void drop(){
 		Skeleton.logFunctionCall(this, "drop");
 		room.addItem(this);	
+		setPerson(null);
 		Skeleton.logReturn(void.class);
 	}
 }

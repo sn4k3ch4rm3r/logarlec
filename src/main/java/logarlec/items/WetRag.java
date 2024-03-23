@@ -43,6 +43,7 @@ public class WetRag extends Item {
 		Skeleton.logFunctionCall(this, "drop");
 		room.addItem(this);
 		person.removeEffect(ragEffect);
+		setPerson(null);
 		Skeleton.logReturn(void.class);
 	}
 
