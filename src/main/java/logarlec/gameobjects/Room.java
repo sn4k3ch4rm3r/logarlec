@@ -32,6 +32,17 @@ public class Room extends GameObject {
 	private List<Item> items;
 
 	/**
+	 * Konstruktor a szoba létrehozásához.
+	 * @param effects a szoba hatásai
+	 * @param capacity a szoba kapacitása
+	 */
+	public Room(List<Effect> effects, int capacity) {
+		this.effects = effects;
+		this.capacity = capacity;
+
+	}
+
+	/**
 	 * Valaki kéri, hogy beléphet-e a szobába. Ha a szoba nincs tele, akkor belépteti a személyt.
 	 * @param person a személy, aki belépne a szobába
 	 */
@@ -58,6 +69,9 @@ public class Room extends GameObject {
 	 * @param room a másik szoba
 	 */
 	public void merge(Room room) {
+		room.moveContents(this);
+
+
 	}
 
 	/**
@@ -65,7 +79,12 @@ public class Room extends GameObject {
 	 * @return az új szoba
 	 */
 	public Room split() {
-		return null;
+		Room newRoom = new Room(effects, capacity);
+		Door door = new Door(this, newRoom);
+		this.addDoor(door);
+		newRoom.addDoor(door);
+
+		return newRoom;
 	}
 
 	/**
@@ -75,6 +94,12 @@ public class Room extends GameObject {
 	public void moveContents(Room room) {
 		for(Person person : people) {
 			room.enter(person);
+		}
+		for(Item item : items) {
+			room.addItem(item);
+		}
+		for(Effect effect : effects) {
+			room.addEffect(effect);
 		}
 	}
 
