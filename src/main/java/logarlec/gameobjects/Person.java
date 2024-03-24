@@ -114,7 +114,6 @@ public abstract class Person extends GameObject {
 	@Override
 	public void applyEffect(Effect effect) {
 		Skeleton.logFunctionCall(this, "applyEffect", effect);
-		effects.add(effect);
 		effect.setHolder(this);
 		Skeleton.logReturn(void.class);
 	}
