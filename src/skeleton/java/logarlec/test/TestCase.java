@@ -1,30 +1,29 @@
 package logarlec.test;
 
 /**
- * Abstract class for test cases
+ * Absztrakt osztály, amely a teszteseteket reprezentálja
  */
 public abstract class TestCase {
     /**
-     * Name of the test case
-
+     * A teszteset neve
      */
     public String name;
 
     /**
-     * Constructor for the test case
-     * @param name Name of the test case
+     * Konstruktor, amely beállítja a teszteset nevét
+     * @param name a teszteset neve
      */
     public TestCase(String name) {
         this.name = name;
     }
 
     /**
-     * Abstract method to initialize the test case
+     * Absztrakt metódus a teszteset inicializálására
      */
     public abstract void init();
 
     /**
-     * Abstract method to run the test case
+     * Absztrakt metódus a teszteset futtatására
      */
     public abstract void run();
 
