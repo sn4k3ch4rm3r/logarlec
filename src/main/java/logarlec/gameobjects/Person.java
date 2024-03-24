@@ -76,6 +76,9 @@ public abstract class Person extends GameObject {
 		if (knockOutTime > 0) {
 			knockOutTime -= deltaTime;
 		}
+		for (Effect effect : effects) {
+			effect.update(deltaTime);
+		}
 		Skeleton.logReturn(void.class);
 	}
 
