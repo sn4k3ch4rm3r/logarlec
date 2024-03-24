@@ -10,10 +10,11 @@ public class Door {
 	private boolean oneWay;
 
 	public Door(Room room1, Room room2) {
-		Skeleton.createObject("door", Door.class, room1, room2);
 		this.room1 = room1;
 		this.room2 = room2;
-		Skeleton.logReturn(void.class);
+
+		room1.addDoor(this);
+		room2.addDoor(this);
 	}
 
 	/**

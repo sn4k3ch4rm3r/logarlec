@@ -46,7 +46,6 @@ public class Room extends GameObject {
 	 */
 	public Room(List<Effect> effects, int capacity) {
 		this.effects = effects;
-		this.capacity = capacity;
 		doors = new LinkedList<>();
 		items = new LinkedList<>();
 	}
@@ -58,7 +57,7 @@ public class Room extends GameObject {
 	 */
 	public boolean enter(Person person) {
 		Skeleton.logFunctionCall(this, "enter", person);
-		if (people.size() < capacity) {
+		if (Skeleton.getInput(Boolean.class, "Van-e elég hely a szobában [true|false]: ")) {
 			people.add(person);
 			person.enterRoom(this);
 			Skeleton.logReturn(true);

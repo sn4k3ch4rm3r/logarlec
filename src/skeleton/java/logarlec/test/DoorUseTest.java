@@ -17,9 +17,10 @@ public class DoorUseTest extends TestCase {
     public void init() {
         student = Skeleton.createObject("student", Student.class);
         from = Skeleton.createObject("from", Room.class);
-        from.enter(student);
         next = Skeleton.createObject("next", Room.class);
         door = Skeleton.createObject("door", Door.class, from, next);
+
+        from.enter(student);
     }
 
     public void run() {

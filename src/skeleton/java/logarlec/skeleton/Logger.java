@@ -73,6 +73,7 @@ public class Logger {
 		message.append("┌ ");
 		message.append(type.getSimpleName());
 		addParams(message, params);
+		indent(message);
 		System.out.println(message.toString());
 		indentationLevel++;
 

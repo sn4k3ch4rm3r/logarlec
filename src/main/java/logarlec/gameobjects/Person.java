@@ -22,12 +22,16 @@ public abstract class Person extends GameObject {
 	/**
 	 * A személy által birtokolt tárgyak.
 	 */
-	Inventory inventory = new Inventory();
+	Inventory inventory;
 
 	/**
 	 * A szoba melyben a személy jelenleg tartózkodik.
 	 */
 	Room currentRoom;
+
+	public Person() {
+		inventory = Skeleton.createObject("inventory", Inventory.class);
+	}
 
 	/**
 	 * Absztrakt osztály, mely a tanárok védelmét valósítja meg.
@@ -36,6 +40,7 @@ public abstract class Person extends GameObject {
 
 	/**
 	 * A személy szobába való beleépeésének adminisztrációját megvalósító metódus.
+	 * 
 	 * @param room a szoba, melybe a személy belép
 	 */
 	public void enterRoom(Room room) {
@@ -47,6 +52,7 @@ public abstract class Person extends GameObject {
 
 	/**
 	 * Egy adott tárgy eldobását megvalósító metódus.
+	 * 
 	 * @param item az eldobandó tárgy
 	 */
 	public void dropItem(Item item) {
@@ -58,6 +64,7 @@ public abstract class Person extends GameObject {
 
 	/**
 	 * Ájulást megvalósító metódus.
+	 * 
 	 * @param value az ájulás ideje
 	 */
 	public void setKnockOut(double value) {
@@ -68,6 +75,7 @@ public abstract class Person extends GameObject {
 
 	/**
 	 * A személy belső állapotát frissítő metódus.
+	 * 
 	 * @param deltaTime az eltelt idő
 	 */
 	@Override
@@ -84,12 +92,13 @@ public abstract class Person extends GameObject {
 
 	/**
 	 * Egy tágy hozzáadása a személyhez.
+	 * 
 	 * @param item a hozzáadandó tárgy
 	 */
 	@Override
 	public void addItem(Item item) {
 		Skeleton.logFunctionCall(this, "addItem", item);
-		if(inventory.add(item)) {
+		if (inventory.add(item)) {
 			item.setPerson(this);
 		}
 		Skeleton.logReturn(void.class);
@@ -97,6 +106,7 @@ public abstract class Person extends GameObject {
 
 	/**
 	 * Egy tárgy eltávolítása a személytől.
+	 * 
 	 * @param item a eltávolítandó tárgy
 	 */
 	@Override
@@ -109,6 +119,7 @@ public abstract class Person extends GameObject {
 
 	/**
 	 * Egy hatás alkalmazása a személyre.
+	 * 
 	 * @param effect a hatás
 	 */
 	@Override
@@ -121,6 +132,5 @@ public abstract class Person extends GameObject {
 	/**
 	 * A logarléc megtalálást kezelő metódus.
 	 */
-	public void pickedUpSlideRule() {
-	}
+	public void pickedUpSlideRule() {}
 }

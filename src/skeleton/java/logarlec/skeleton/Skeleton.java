@@ -39,8 +39,8 @@ public class Skeleton {
 
 		Scanner scanner = new Scanner(System.in);
 		int index = scanner.nextInt();
-		scanner.close();
 		testCollection.runTestCase(index - 1);
+		scanner.close();
 	}
 
 
