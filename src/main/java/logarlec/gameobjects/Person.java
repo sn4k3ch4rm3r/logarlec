@@ -49,6 +49,5 @@ public abstract class Person extends GameObject {
 		throw new UnsupportedOperationException("Unimplemented method 'applyEffect'");
 	}
 	public void pickedUpSlideRule() {
-
 	}
 }

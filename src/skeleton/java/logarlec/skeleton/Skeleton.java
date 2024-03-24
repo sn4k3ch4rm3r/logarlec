@@ -60,3 +60,4 @@ public class Skeleton {
 		return logger.getInput(type, message);
 	}
 }
+
