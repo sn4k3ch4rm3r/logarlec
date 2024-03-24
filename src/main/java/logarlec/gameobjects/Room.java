@@ -36,6 +36,7 @@ public class Room extends GameObject {
 		people = new LinkedList<>();
 		doors = new LinkedList<>();
 		items = new LinkedList<>();
+		effects = new LinkedList<>();
 	}
 
 	/**
@@ -45,9 +46,13 @@ public class Room extends GameObject {
 	 * @param capacity a szoba kapacitása
 	 */
 	public Room(List<Effect> effects, int capacity) {
-		this.effects = effects;
+		this.effects = new LinkedList<>();
+		for(Effect effect : effects) {
+			this.effects.add(effect);
+		}
 		doors = new LinkedList<>();
 		items = new LinkedList<>();
+		people = new LinkedList<>();
 	}
 
 	/**
