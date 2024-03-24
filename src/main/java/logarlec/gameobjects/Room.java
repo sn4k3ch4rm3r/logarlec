@@ -36,7 +36,6 @@ public class Room extends GameObject {
 		people = new LinkedList<>();
 		doors = new LinkedList<>();
 		items = new LinkedList<>();
-		effects = new LinkedList<>();
 	}
 
 	/**
@@ -46,8 +45,7 @@ public class Room extends GameObject {
 	 * @param capacity a szoba kapacitása
 	 */
 	public Room(List<Effect> effects, int capacity) {
-		this.effects = new LinkedList<>();
-		for(Effect effect : effects) {
+		for (Effect effect : effects) {
 			this.effects.add(effect);
 		}
 		doors = new LinkedList<>();
@@ -101,11 +99,9 @@ public class Room extends GameObject {
 	 */
 	public Room split() {
 		Skeleton.logFunctionCall(this, "split");
-		Room newRoom = new Room(effects, capacity);
-		Door door = new Door(this, newRoom);
-		this.addDoor(door);
-		newRoom.addDoor(door);
-		Skeleton.logReturn(newRoom.getClass());
+		Room newRoom = Skeleton.createObject("newRoom", Room.class);
+		Skeleton.createObject("door", Door.class, this, newRoom);
+		Skeleton.logReturn(newRoom);
 		return newRoom;
 	}
 

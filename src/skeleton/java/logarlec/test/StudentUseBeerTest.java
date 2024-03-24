@@ -7,6 +7,7 @@ import logarlec.skeleton.Skeleton;
 public class StudentUseBeerTest extends TestCase {
     Student student;
     Beer beer;
+
     public StudentUseBeerTest() {
         super("Student: use beer");
     }
@@ -15,6 +16,7 @@ public class StudentUseBeerTest extends TestCase {
     public void init() {
         student = Skeleton.createObject("student", Student.class);
         beer = Skeleton.createObject("beer", Beer.class);
+        student.addItem(beer);
     }
 
     @Override

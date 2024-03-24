@@ -31,6 +31,9 @@ public class Logger {
 		if (objectNames.containsKey(object)) {
 			return objectNames.get(object);
 		}
+		if (object == null) {
+			return "null";
+		}
 		return object.toString();
 	}
 

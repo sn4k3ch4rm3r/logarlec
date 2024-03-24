@@ -6,13 +6,13 @@ import logarlec.skeleton.Skeleton;
 
 public class Camembert extends Item {
 	/**
-	 * A Camembert osztály use metódusa
-	 * A metódus a GasEffect-et adja hozzá a room-hoz, majd eltávolítja a person inventory-jából a Camembert-t
+	 * A Camembert osztály use metódusa A metódus a GasEffect-et adja hozzá a room-hoz, majd
+	 * eltávolítja a person inventory-jából a Camembert-t
 	 */
 	@Override
 	public void use() {
 		Skeleton.logFunctionCall(this, "use");
-		GasEffect gasEffect = new GasEffect();
+		GasEffect gasEffect = Skeleton.createObject("gasEffect", GasEffect.class);
 		room.addEffect(gasEffect);
 		person.removeItem(this);
 		Skeleton.logReturn(void.class);

@@ -18,10 +18,10 @@ public class StudentDropMaskTest extends TestCase {
     public void init() {
         room = Skeleton.createObject("room", Room.class);
         student = Skeleton.createObject("student", Student.class);
-        room.enter(student);
         mask = Skeleton.createObject("mask", Mask.class);
+        room.enter(student);
+        mask.setRoom(room);
         student.addItem(mask);
-        mask.usePassive();
     }
 
     @Override

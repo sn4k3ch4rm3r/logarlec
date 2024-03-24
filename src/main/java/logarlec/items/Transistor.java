@@ -9,33 +9,33 @@ public class Transistor extends Item {
 	Room target;
 
 	/**
-	 * A Transistor osztály setTarget metódusa
-	 * A metódus beállítja, hogy az adott Transistor melyik Room-ba mutasson
+	 * A Transistor osztály setTarget metódusa A metódus beállítja, hogy az adott Transistor melyik
+	 * Room-ba mutasson
+	 * 
 	 * @param room - a beállítandó Room
 	 */
-	void setTarget(Room room){
+	void setTarget(Room room) {
 		Skeleton.logFunctionCall(this, "setTarget", room);
 		target = room;
 		Skeleton.logReturn(void.class);
 	}
 
 	/**
-	 * A Transistor osztály use metódusa
-	 * Ha a Transistor-nak van párja, de mindkettő nála van, akkor az egyiket leteszi és a másiknak beálítja a targetjét.
-	 * Ha van már targetje, akkor a person-t átteszi a target Room-ba
-	 * Ha sikerült átmenni a Room-ba, akkor a person-t kiveszi a jelenlegi Room-ból
-	 */	
+	 * A Transistor osztály use metódusa Ha a Transistor-nak van párja, de mindkettő nála van, akkor
+	 * az egyiket leteszi és a másiknak beálítja a targetjét. Ha van már targetje, akkor a person-t
+	 * átteszi a target Room-ba Ha sikerült átmenni a Room-ba, akkor a person-t kiveszi a jelenlegi
+	 * Room-ból
+	 */
 	@Override
 	public void use() {
 		Skeleton.logFunctionCall(this, "use");
-		if(other != null){
+		if (other != null) {
 			person.dropItem(this);
 			other.setTarget(room);
-		}
-		else if(target != null){
+		} else if (target != null) {
 			person.dropItem(this);
 			boolean entered = target.enter(person);
-			if(entered){
+			if (entered) {
 				room.leave(person);
 			}
 		}
@@ -54,20 +54,22 @@ public class Transistor extends Item {
 	}
 
 	/**
-	 * A Transistor osztály useItem metódusa
-	 * A metódus meghívja a link metódust a paraméterként kapott Item-re
+	 * A Transistor osztály useItem metódusa A metódus meghívja a link metódust a paraméterként
+	 * kapott Item-re
+	 * 
 	 * @param item - a beállítandó Item
 	 */
 	@Override
 	public void useItem(Item item) {
 		Skeleton.logFunctionCall(this, "useItem", item);
-		other.link(this);
+		item.link(this);
 		Skeleton.logReturn(void.class);
 	}
 
 	/**
-	 * A Transistor osztály link metódusa
-	 * A metódus beállítja a Transistor párját a paraméterként kapott Transistor-ra
+	 * A Transistor osztály link metódusa A metódus beállítja a Transistor párját a paraméterként
+	 * kapott Transistor-ra
+	 * 
 	 * @param other - a beállítandó Transistor
 	 */
 	@Override
@@ -79,8 +81,8 @@ public class Transistor extends Item {
 	}
 
 	/**
-	 * A Transistor osztály setPair metódusa
-	 * A metódus beállítja a Transistor párját a param
+	 * A Transistor osztály setPair metódusa A metódus beállítja a Transistor párját a param
+	 * 
 	 * @param other - a beállítandó Transistor
 	 */
 	public void setPair(Transistor other) {
@@ -90,13 +92,13 @@ public class Transistor extends Item {
 	}
 
 	/**
-	 * A Transistor osztály drop metódusa
-	 * A metódus a room addItem metódusát hívja meg a paraméterként kapott Item-mel
+	 * A Transistor osztály drop metódusa A metódus a room addItem metódusát hívja meg a
+	 * paraméterként kapott Item-mel
 	 */
 	@Override
-	public void drop(){
+	public void drop() {
 		Skeleton.logFunctionCall(this, "drop");
-		room.addItem(this);	
+		room.addItem(this);
 		setPerson(null);
 		Skeleton.logReturn(void.class);
 	}

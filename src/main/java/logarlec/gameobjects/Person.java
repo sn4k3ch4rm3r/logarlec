@@ -113,7 +113,6 @@ public abstract class Person extends GameObject {
 	public void removeItem(Item item) {
 		Skeleton.logFunctionCall(this, "removeItem", item);
 		inventory.remove(item);
-		item.drop();
 		Skeleton.logReturn(void.class);
 	}
 

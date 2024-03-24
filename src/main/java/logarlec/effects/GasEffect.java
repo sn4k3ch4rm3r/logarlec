@@ -28,14 +28,6 @@ public class GasEffect extends Effect {
 		Skeleton.logReturn(void.class);
 	}
 
-
-	@Override
-	public void update(double deltaTime) {
-		Skeleton.logFunctionCall(this, "update", deltaTime);
-		super.update(deltaTime);
-		Skeleton.logReturn(void.class);
-	}
-
 	@Override
 	public String toString() {
 		return "Gas effect";

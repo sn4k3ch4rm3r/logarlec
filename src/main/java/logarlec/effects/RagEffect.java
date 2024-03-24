@@ -25,13 +25,6 @@ public class RagEffect extends Effect {
 	}
 
 	@Override
-	public void update(double deltaTime) {
-		Skeleton.logFunctionCall(this, "update", deltaTime);
-		super.update(deltaTime);
-		Skeleton.logReturn(void.class);
-	}
-
-	@Override
 	public String toString() {
 		return "Rag effect";
 	}

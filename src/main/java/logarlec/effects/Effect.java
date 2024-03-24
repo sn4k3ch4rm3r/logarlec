@@ -36,16 +36,15 @@ public abstract class Effect implements Updatable {
 		Skeleton.logReturn(void.class);
 	}
 
-	/**
-	 * Ha lejárt az idő, önmegsemmisít az objektum.
-	 *
-	 * @param deltaTime Lásd: Updatable.
-	 */
+
 	@Override
 	public void update(double deltaTime) {
+		Skeleton.logFunctionCall(this, "update", deltaTime);
 		boolean moreTime = Skeleton.getInput(Boolean.class,
 				"Does the " + this + " have more time left? Enter a boolean: ");
-		if (!moreTime)
+		if (!moreTime) {
 			holder.removeEffect(this);
+		}
+		Skeleton.logReturn(void.class);
 	}
 }

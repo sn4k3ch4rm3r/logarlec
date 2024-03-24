@@ -1,6 +1,7 @@
 package logarlec.gameobjects;
 
 
+import java.util.LinkedList;
 import java.util.List;
 import logarlec.skeleton.Skeleton;
 
@@ -19,8 +20,13 @@ public class Student extends Person {
 	 */
 	private List<Teacher> immuneToTeacher;
 
+	public Student() {
+		immuneToTeacher = new LinkedList<>();
+	}
+
 	/**
 	 * Setter a vesztés állapotának beállítására.
+	 * 
 	 * @param value az elmimnated új értéke
 	 */
 	public void setEliminated(boolean value) {
@@ -31,6 +37,7 @@ public class Student extends Person {
 
 	/**
 	 * Tanárral szembeni védelem hozzáadása.
+	 * 
 	 * @param target a tanár, akitől a diák védekezni szeretne
 	 */
 	@Override
@@ -42,6 +49,7 @@ public class Student extends Person {
 
 	/**
 	 * A diák interakciója egy tanárral.
+	 * 
 	 * @param teacher a tanár, akivel a diák interakcióba lép
 	 */
 	@Override

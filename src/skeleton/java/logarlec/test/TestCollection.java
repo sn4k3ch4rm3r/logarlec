@@ -37,7 +37,10 @@ public class TestCollection {
      * @param index a futtatandó teszteset indexe
      */
     public void runTestCase(int index) {
+        System.out.println(testCases.get(index).name);
+        System.out.println("============[Initialization]============");
         testCases.get(index).init();
+        System.out.println("===============[Running]================");
         testCases.get(index).run();
     }
 }
