@@ -1,17 +1,56 @@
 package logarlec.gameobjects;
 
-public class Student extends Person {
-	public void setEliminated(boolean value) {}
 
-	@Override
-	public void protectFromTeacher(Teacher target) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'protectFromTeacher'");
+import java.util.List;
+import logarlec.skeleton.Skeleton;
+
+/**
+ * Egy játékban szereplő diák.
+ */
+public class Student extends Person {
+
+	/**
+	 * Igaz ha a diák vesztett.
+	 */
+	private boolean eliminated;
+
+	/**
+	 * Az ignorálható tanárok listája.
+	 */
+	private List<Teacher> immuneToTeacher;
+
+	/**
+	 * Setter a vesztés állapotának beállítására.
+	 * @param value az elmimnated új értéke
+	 */
+	public void setEliminated(boolean value) {
+		Skeleton.logFunctionCall(this, "setEliminated", value);
+		eliminated = value;
+		Skeleton.logReturn(void.class);
 	}
 
+	/**
+	 * Tanárral szembeni védelem hozzáadása.
+	 * @param target a tanár, akitől a diák védekezni szeretne
+	 */
+	@Override
+	public void protectFromTeacher(Teacher target) {
+		Skeleton.logFunctionCall(this, "protectFromTeacher", target);
+		immuneToTeacher.add(target);
+		Skeleton.logReturn(void.class);
+	}
+
+	/**
+	 * A diák interakciója egy tanárral.
+	 * @param teacher a tanár, akivel a diák interakcióba lép
+	 */
 	@Override
 	public void interactTeacher(Teacher teacher) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'interactTeacher'");
+		Skeleton.logFunctionCall(this, "interactTeacher", teacher);
+		if (immuneToTeacher.contains(teacher)) {
+			return;
+		}
+		inventory.protectFrom(teacher);
+		Skeleton.logReturn(void.class);
 	}
 }

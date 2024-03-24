@@ -9,7 +9,7 @@ participant "student : Student" as person
 main++
 main-> beer ++: use()
 	create "beerEffect : BeerEffect" as beerEffect
-	beer -> beerEffect : <<create>>
+	beer --> beerEffect : <<create>>
 	beer -> person ++: addEffect(beerEffect)
 	return
 	beer -> person ++ : removeItem(beer)

@@ -14,6 +14,8 @@ create room
 Main --> room : <<create>>
 create teacher
 Main --> teacher : <<create>>
+Main -> room ++ : enter(teacher)
+return
 create rag
 Main --> rag : <<create>>
 

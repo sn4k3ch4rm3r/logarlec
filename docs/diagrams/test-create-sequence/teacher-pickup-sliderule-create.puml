@@ -6,7 +6,7 @@ hide footbox
 participant "Main" as main
 participant "teacher : Teacher" as teach
 participant "inventory : Inventory" as inv
-participant "slide : SlideRule" as slide
+participant "slideRule : SlideRule" as slide
 
 main ++
 create teach

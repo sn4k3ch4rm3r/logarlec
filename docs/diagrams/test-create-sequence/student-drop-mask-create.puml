@@ -4,15 +4,20 @@ title Create "Drop Mask" test
 hide footbox
 
 participant "Main" as main
+participant "room : Room" as room
 participant "student : Student" as stu
 participant "inventory : Inventory" as inv
 participant "mask : Mask" as mask
 
 main++
+create room
+main --> room : <<create>>
 create stu
 main --> stu  : <<create>>
 create inv
 stu --> inv : <<create>>
+main -> room ++: enter(student)
+return
 create mask
 main --> mask : <<create>>
 main -> stu ++: addItem(mask)

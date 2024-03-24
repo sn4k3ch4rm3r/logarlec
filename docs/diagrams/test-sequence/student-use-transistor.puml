@@ -5,32 +5,32 @@ hide footbox
 skinparam SequenceReferenceBackgroundColor white
 
 participant "main : Main" as main
-participant "transistor : Transistor" as transistor
-participant "other : Transistor" as other
-participant "target : Room" as target
+participant "transistor1 : Transistor" as transistor1
+participant "transistor2 : Transistor" as transistor2
+participant "targetRoom : Room" as target
 participant "person : Person" as person
 participant "room : Room" as room
 
 autoactivate on
 
 main++
-main-> transistor : use()
+main-> transistor1 : use()
 	alt linked
-		transistor -> person : dropItem(transistor)
+		transistor1 -> person : dropItem(transistor1)
 		return
-		transistor -> other : setTarget(room)
+		transistor1 -> transistor2 : setTarget(room)
 		return
 	else active
-		transistor -> person : dropItem(transistor)
+		transistor1 -> person : dropItem(transistor1)
 		return
-		transistor -> target : enter(person)
+		transistor1 -> target : enter(person)
 		opt has capacity
 			target -> person : enterRoom(target)
 			return
 		end
         return
 		opt success
-			transistor -> room ++: leave(person)
+			transistor1 -> room ++: leave(person)
 			return
 		end
 	end

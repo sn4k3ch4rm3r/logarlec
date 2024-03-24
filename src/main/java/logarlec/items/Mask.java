@@ -1,36 +1,60 @@
 package logarlec.items;
 
+import logarlec.effects.MaskEffect;
 import logarlec.gameobjects.Teacher;
+import logarlec.skeleton.Skeleton;
 
 public class Mask extends Item {
+	MaskEffect maskEffect;
 
+	/**
+	 * A Mask osztály use metódusa
+	 * A metódus a MaskEffect-et adja hozzá a personhoz
+	 */
 	@Override
 	public void use() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'use'");
+		Skeleton.logFunctionCall(this, "use");
+		maskEffect = new MaskEffect();
+		person.addEffect(maskEffect);
+		Skeleton.logReturn(void.class);
 	}
 
 	@Override
 	public void useAgainst(Teacher target) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'useAgainst'");
+		// Do nothing
 	}
 
+	/**
+	 * A Mask osztály usePassive metódusa
+	 * A metódus a MaskEffect-et adja hozzá a personhoz
+	 * @return true
+	 */
 	@Override
 	public boolean usePassive() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'usePassive'");
+		Skeleton.logFunctionCall(this, "usePassive");
+		maskEffect = new MaskEffect();
+		person.addEffect(maskEffect);
+		
+		Skeleton.logReturn(true);
+		return true;
 	}
 
 	@Override
 	public void useItem(Item item) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'useItem'");
-	}
+		// Do nothing
+	} 
 
 	@Override
 	public void link(Transistor other) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'link'");
+		// Do nothing
+	}
+
+	@Override
+	public void drop(){
+		Skeleton.logFunctionCall(this, "drop");
+		room.addItem(this);
+		person.removeEffect(maskEffect);
+		setPerson(null);
+		Skeleton.logReturn(void.class);
 	}
 }

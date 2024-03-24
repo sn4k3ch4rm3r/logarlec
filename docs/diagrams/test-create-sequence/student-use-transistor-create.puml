@@ -21,9 +21,13 @@ create tr2
 main --> tr2 : <<create>>
 create room
 main --> room : <<create>>
+main -> room ++ : enter(student)
+return
 create targetRoom
 main --> targetRoom : <<create>>
-main -> student ++ : addItem(transistor)
+main -> student ++ : addItem(transistor1)
+return
+main -> student ++ : addItem(transistor2)
 return
 
 
