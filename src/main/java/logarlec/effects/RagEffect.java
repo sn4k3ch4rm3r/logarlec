@@ -3,14 +3,33 @@ package logarlec.effects;
 import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
 
-public class RagEffect extends Effect {
-	public void applyToStudent(Student target) {}
 
-	public void applyToTeacher(Teacher target) {}
+public class RagEffect extends Effect {
+	private double timeRemaining = 15;
+
+	public void applyToStudent(Student target) {
+		Skeleton.logFunctionCall(this,"applyToStudent",target);
+		Skeleton.logReturn(void.class);
+	}
+
+	/**
+	 * Oktató megbékítése.
+	 *
+	 */
+	public void applyToTeacher(Teacher target) {
+		Skeleton.logFunctionCall(this,"applyToTeacher",target);
+		target.setPeaceful(true);
+		Skeleton.logReturn(void.class);
+	}
 
 	@Override
 	public void update(double deltaTime) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'update'");
+		Skeleton.logFunctionCall(this,"update",deltaTime);
+		super.update(deltaTime);
+		Skeleton.logReturn(void.class);
+	}
+	@Override
+	public String toString() {
+		return "Rag effect";
 	}
 }

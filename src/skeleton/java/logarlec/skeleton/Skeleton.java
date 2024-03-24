@@ -1,4 +1,4 @@
-package logarlec.skeleton;
+package logarlec.items;
 
 import logarlec.test.*;
 
