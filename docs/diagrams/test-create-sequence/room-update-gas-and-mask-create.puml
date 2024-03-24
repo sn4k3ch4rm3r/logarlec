@@ -16,7 +16,7 @@ create gas
 main --> gas : <<create>>
 create mask
 main --> mask : <<create>>
-main -> room ++: enterPerson(student)
+main -> room ++: enter(student)
 return
 main -> room ++: addEffect(gasEffect)
 return

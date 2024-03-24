@@ -1,36 +1,48 @@
 package logarlec.items;
 
+import logarlec.gameobjects.Person;
 import logarlec.gameobjects.Teacher;
+import logarlec.skeleton.Skeleton;
 
 public class SlideRule extends Item {
 
 	@Override
 	public void use() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'use'");
+		// Do nothing
 	}
 
 	@Override
 	public void useAgainst(Teacher target) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'useAgainst'");
+		// Do nothing
 	}
 
 	@Override
 	public boolean usePassive() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'usePassive'");
+		// Do nothing
+		return false;
 	}
 
 	@Override
 	public void useItem(Item item) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'useItem'");
+		// Do nothing
 	}
 
 	@Override
 	public void link(Transistor other) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'link'");
+		// Do nothing
+	}
+
+	/**
+	 * A SlideRule osztály setPerson metódusa
+	 * A metódus beállítja, hogy az adott SlideRule-t melyik Person inventory-jában tároljuk
+	 * @param person - a SlideRulet felvevő Person
+	 * A metódus meghívja a person pickedUpSlideRule metódusát
+	 */
+	@Override
+	public void setPerson(Person person) {
+		Skeleton.logFunctionCall(this, "setPerson", person);
+		this.person = person;
+		person.pickedUpSlideRule();
+		Skeleton.logReturn(void.class);
 	}
 }

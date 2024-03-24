@@ -5,8 +5,8 @@ hide footbox
 
 participant "main : Main" as main
 participant "student : Student" as student
-participant "slideRule : SlideRule" as slide
 participant "inventory : Inventory" as inv
+participant "slideRule : SlideRule" as slide
 activate main
 
 main-> student ++: addItem(slideRule)

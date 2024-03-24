@@ -5,14 +5,14 @@ hide footbox
 
 participant "Main" as main
 participant "student : Student" as student
-participant "target : Teacher" as target
+participant "teacher : Teacher" as teacher
 participant "codeOfStudies : CodeOfStudies" as codeOfStudies
 
 main++
 create student
 main --> student : <<create>>
-create target
-main --> target : <<create>>
+create teacher
+main --> teacher : <<create>>
 create codeOfStudies
 main --> codeOfStudies : <<create>>
 main -> student ++ : addItem(codeOfStudies)

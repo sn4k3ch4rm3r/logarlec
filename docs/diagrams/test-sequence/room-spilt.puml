@@ -6,6 +6,7 @@ skinparam SequenceReferenceBackgroundColor white
 participant Main
 participant "room : Room" as r1
 
+
 activate Main
 Main -> r1 ++: split()
 	create "newRoom : Room" as r2
@@ -17,6 +18,7 @@ Main -> r1 ++: split()
 		d -> r2 ++ : addDoor(door)
 		return
 	return
+	participant "door : oldDoor" as oldDoor
 	r1 -> oldDoor ++: move(room, newRoom)
 		oldDoor -> r1 ++: removeDoor(oldDoor)
 		return
