@@ -1,9 +1,10 @@
 package logarlec.util;
 
+import logarlec.skeleton.Skeleton;
+
 import logarlec.gameobjects.Teacher;
 import logarlec.items.Item;
 import logarlec.gameobjects.Room;
-import logarlec.skeleton.Skeleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +12,16 @@ import java.util.List;
 public class Inventory {
 	private List<Item> items = new ArrayList<>();
 	private int itemCount = 0;
+
 	/**
 	 * Tárgy hozzáadása a felszereléshez, ha kevesebb, mint 5 van benne.
 	 *
 	 * @param item Hozzáadandó tárgy.
 	 */
 	public boolean add(Item item) {
-		Skeleton.logFunctionCall(this,"add",item);
-		if (Skeleton.getInput(Boolean.class, "Can more items fit the inventory? Enter a boolean: ")) {
+		Skeleton.logFunctionCall(this, "add", item);
+		if (Skeleton.getInput(Boolean.class,
+				"Can more items fit the inventory? Enter a boolean: ")) {
 			items.add(item);
 			Skeleton.logReturn(true);
 			return true;
@@ -33,7 +36,7 @@ public class Inventory {
 	 * @param item Eltávolítandó tárgy.
 	 */
 	public void remove(Item item) {
-		Skeleton.logFunctionCall(this,"remove",item);
+		Skeleton.logFunctionCall(this, "remove", item);
 		items.remove(item);
 		Skeleton.logReturn(void.class);
 	}
@@ -44,7 +47,7 @@ public class Inventory {
 	 * @param room A szoba, ahova kerültek.
 	 */
 	public void setRoom(Room room) {
-		Skeleton.logFunctionCall(this,"setRoom",room);
+		Skeleton.logFunctionCall(this, "setRoom", room);
 		items.forEach(i -> i.setRoom(room));
 		Skeleton.logReturn(void.class);
 	}
@@ -55,7 +58,7 @@ public class Inventory {
 	 * @param teacher A támadó oktató.
 	 */
 	public void protectFrom(Teacher teacher) {
-		Skeleton.logFunctionCall(this,"protectFrom",teacher);
+		Skeleton.logFunctionCall(this, "protectFrom", teacher);
 		items.forEach(i -> i.useAgainst(teacher));
 		Skeleton.logReturn(void.class);
 	}

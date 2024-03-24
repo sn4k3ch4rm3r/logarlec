@@ -7,8 +7,6 @@ import logarlec.util.*;
 public class RoomHideDoorsTest extends TestCase {
     private Room room;
     private Room otherRoom;
-    private Door door;
-    private Door door2;
 
     public RoomHideDoorsTest() {
         super("Room: hide doors");
@@ -17,8 +15,8 @@ public class RoomHideDoorsTest extends TestCase {
     public void init() {
         room = Skeleton.createObject("room", Room.class);
         otherRoom = Skeleton.createObject("otherRoom", Room.class);
-        door = Skeleton.createObject("door", Door.class, room, otherRoom);
-        door2 = Skeleton.createObject("door2", Door.class, otherRoom, room);
+        Skeleton.createObject("door", Door.class, room, otherRoom);
+        Skeleton.createObject("door2", Door.class, otherRoom, room);
     }
 
     public void run() {

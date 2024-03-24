@@ -1,6 +1,6 @@
 package logarlec;
 
-import logarlec.items.Skeleton;
+import logarlec.skeleton.Skeleton;
 
 
 public class Main {

@@ -3,7 +3,7 @@ package logarlec.gameobjects;
 import logarlec.effects.Effect;
 import logarlec.items.Item;
 import logarlec.util.Door;
-
+import java.util.LinkedList;
 import java.util.List;
 import logarlec.skeleton.Skeleton;
 
@@ -32,19 +32,28 @@ public class Room extends GameObject {
 	 */
 	private List<Item> items;
 
+	public Room() {
+		people = new LinkedList<>();
+		doors = new LinkedList<>();
+		items = new LinkedList<>();
+	}
+
 	/**
 	 * Konstruktor a szoba létrehozásához.
+	 * 
 	 * @param effects a szoba hatásai
 	 * @param capacity a szoba kapacitása
 	 */
 	public Room(List<Effect> effects, int capacity) {
 		this.effects = effects;
 		this.capacity = capacity;
-
+		doors = new LinkedList<>();
+		items = new LinkedList<>();
 	}
 
 	/**
 	 * Valaki kéri, hogy beléphet-e a szobába. Ha a szoba nincs tele, akkor belépteti a személyt.
+	 * 
 	 * @param person a személy, aki belépne a szobába
 	 */
 	public boolean enter(Person person) {
@@ -61,6 +70,7 @@ public class Room extends GameObject {
 
 	/**
 	 * A személy távozik a szobából.
+	 * 
 	 * @param person a személy, aki távozik
 	 */
 	public void leave(Person person) {
@@ -71,6 +81,7 @@ public class Room extends GameObject {
 
 	/**
 	 * Két szoba összevonása.
+	 * 
 	 * @param room a másik szoba
 	 */
 	public void merge(Room room) {
@@ -81,6 +92,7 @@ public class Room extends GameObject {
 
 	/**
 	 * A szoba kettévágása.
+	 * 
 	 * @return az új szoba
 	 */
 	public Room split() {
@@ -95,17 +107,18 @@ public class Room extends GameObject {
 
 	/**
 	 * A szoba tartalmának áthelyezése egy másik szobába.
+	 * 
 	 * @param room a másik szoba
 	 */
 	public void moveContents(Room room) {
 		Skeleton.logFunctionCall(this, "moveContents", room);
-		for(Person person : people) {
+		for (Person person : people) {
 			room.enter(person);
 		}
-		for(Item item : items) {
+		for (Item item : items) {
 			room.addItem(item);
 		}
-		for(Effect effect : effects) {
+		for (Effect effect : effects) {
 			room.addEffect(effect);
 		}
 		Skeleton.logReturn(void.class);
@@ -113,6 +126,7 @@ public class Room extends GameObject {
 
 	/**
 	 * Ajtó hozzáadása a szobához.
+	 * 
 	 * @param door az ajtó
 	 */
 	public void addDoor(Door door) {
@@ -123,6 +137,7 @@ public class Room extends GameObject {
 
 	/**
 	 * Ajtó eltávolítása a szobából.
+	 * 
 	 * @param door az ajtó
 	 */
 	public void removeDoor(Door door) {
@@ -155,16 +170,17 @@ public class Room extends GameObject {
 
 	/**
 	 * A szoba frissítése.
+	 * 
 	 * @param deltaTime az eltelt idő
 	 */
 	@Override
 	public void update(double deltaTime) {
 		Skeleton.logFunctionCall(this, "update", deltaTime);
-		for(Effect effect : effects) {
+		for (Effect effect : effects) {
 			effect.update(deltaTime);
 		}
-		for(Person person : people) {
-			for(Effect effect : this.effects) {
+		for (Person person : people) {
+			for (Effect effect : this.effects) {
 				person.applyEffect(effect);
 			}
 			person.update(deltaTime);
@@ -174,6 +190,7 @@ public class Room extends GameObject {
 
 	/**
 	 * Tárgy hozzáadása a szobához.
+	 * 
 	 * @param item a hozzáadandó tárgy
 	 */
 	@Override
@@ -185,6 +202,7 @@ public class Room extends GameObject {
 
 	/**
 	 * Tárgy eltávolítása a szobából.
+	 * 
 	 * @param item a eltávolítandó tárgy
 	 */
 	@Override
@@ -196,6 +214,7 @@ public class Room extends GameObject {
 
 	/**
 	 * Hatás alkalmazása a szobára.
+	 * 
 	 * @param effect a hatás
 	 */
 	@Override
@@ -207,12 +226,13 @@ public class Room extends GameObject {
 
 	/**
 	 * A szoba interakciója egy tanárral.
+	 * 
 	 * @param teacher a tanár
 	 */
 	@Override
 	public void interactTeacher(Teacher teacher) {
 		Skeleton.logFunctionCall(this, "interactTeacher", teacher);
-		for(Person person : people) {
+		for (Person person : people) {
 			person.interactTeacher(teacher);
 		}
 		Skeleton.logReturn(void.class);

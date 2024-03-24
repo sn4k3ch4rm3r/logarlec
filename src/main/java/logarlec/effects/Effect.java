@@ -1,5 +1,7 @@
 package logarlec.effects;
 
+import logarlec.skeleton.Skeleton;
+
 import logarlec.gameobjects.GameObject;
 import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
@@ -21,6 +23,7 @@ public abstract class Effect implements Updatable {
 	 * @param target Az oktató, akire alkalmazódik a hatás.
 	 */
 	public abstract void applyToTeacher(Teacher target);
+
 	/**
 	 * Ezen hatás tulajdonosának megváltoztatása.
 	 *
@@ -28,7 +31,7 @@ public abstract class Effect implements Updatable {
 	 */
 
 	public void setHolder(GameObject holder) {
-		Skeleton.logFunctionCall(this,"setHolder",holder);
+		Skeleton.logFunctionCall(this, "setHolder", holder);
 		this.holder = holder;
 		Skeleton.logReturn(void.class);
 	}
@@ -40,7 +43,8 @@ public abstract class Effect implements Updatable {
 	 */
 	@Override
 	public void update(double deltaTime) {
-		boolean moreTime = Skeleton.getInput(Boolean.class, "Does the " + this + " have more time left? Enter a boolean: ");
+		boolean moreTime = Skeleton.getInput(Boolean.class,
+				"Does the " + this + " have more time left? Enter a boolean: ");
 		if (!moreTime)
 			holder.removeEffect(this);
 	}
