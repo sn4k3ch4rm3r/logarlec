@@ -13,11 +13,6 @@ import logarlec.skeleton.Skeleton;
 public class Room extends GameObject {
 
 	/**
-	 * A szoba kapacitása.
-	 */
-	private int capacity;
-
-	/**
 	 * A szoba jelenlegi lakói.
 	 */
 	private List<Person> people;
@@ -60,7 +55,7 @@ public class Room extends GameObject {
 	 */
 	public boolean enter(Person person) {
 		Skeleton.logFunctionCall(this, "enter", person);
-		if (Skeleton.getInput(Boolean.class, "Van-e elég hely a szobában [true|false]: ")) {
+		if (Skeleton.getInput(Boolean.class, "Is there enough space in the room [true|false]: ")) {
 			people.add(person);
 			person.enterRoom(this);
 			Skeleton.logReturn(true);
@@ -120,6 +115,9 @@ public class Room extends GameObject {
 		}
 		for (Effect effect : effects) {
 			room.addEffect(effect);
+		}
+		for (Door door : doors) {
+			door.move(this, room);
 		}
 		Skeleton.logReturn(void.class);
 	}
@@ -197,6 +195,7 @@ public class Room extends GameObject {
 	public void addItem(Item item) {
 		Skeleton.logFunctionCall(this, "addItem", item);
 		items.add(item);
+		item.setRoom(this);
 		Skeleton.logReturn(void.class);
 	}
 

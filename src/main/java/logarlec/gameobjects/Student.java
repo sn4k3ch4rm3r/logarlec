@@ -3,18 +3,13 @@ package logarlec.gameobjects;
 
 import java.util.LinkedList;
 import java.util.List;
+import logarlec.effects.Effect;
 import logarlec.skeleton.Skeleton;
 
 /**
  * Egy játékban szereplő diák.
  */
 public class Student extends Person {
-
-	/**
-	 * Igaz ha a diák vesztett.
-	 */
-	private boolean eliminated;
-
 	/**
 	 * Az ignorálható tanárok listája.
 	 */
@@ -31,7 +26,7 @@ public class Student extends Person {
 	 */
 	public void setEliminated(boolean value) {
 		Skeleton.logFunctionCall(this, "setEliminated", value);
-		eliminated = value;
+		// Set eliminated value
 		Skeleton.logReturn(void.class);
 	}
 
@@ -59,6 +54,13 @@ public class Student extends Person {
 			return;
 		}
 		inventory.protectFrom(teacher);
+		Skeleton.logReturn(void.class);
+	}
+
+	@Override
+	public void applyEffect(Effect effect) {
+		Skeleton.logFunctionCall(this, "applyEffect", effect);
+		effect.applyToStudent(this);
 		Skeleton.logReturn(void.class);
 	}
 }

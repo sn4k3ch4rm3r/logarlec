@@ -11,6 +11,7 @@ public class RoomUpdateGasAndMaskTest extends TestCase {
     Student student;
     GasEffect gasEffect;
     MaskEffect maskEffect;
+
     public RoomUpdateGasAndMaskTest() {
         super("Room: update gas and mask");
     }
@@ -23,7 +24,7 @@ public class RoomUpdateGasAndMaskTest extends TestCase {
         maskEffect = Skeleton.createObject("maskEffect", MaskEffect.class);
         room.enter(student);
         room.addEffect(gasEffect);
-        room.addEffect(maskEffect);
+        student.addEffect(maskEffect);
     }
 
     @Override

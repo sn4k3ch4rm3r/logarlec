@@ -2,6 +2,7 @@ package logarlec.items;
 
 import logarlec.gameobjects.Teacher;
 import logarlec.skeleton.Skeleton;
+import logarlec.gameobjects.Person;
 import logarlec.gameobjects.Room;
 
 public class Transistor extends Item {
@@ -14,7 +15,7 @@ public class Transistor extends Item {
 	 * 
 	 * @param room - a beállítandó Room
 	 */
-	void setTarget(Room room) {
+	public void setTarget(Room room) {
 		Skeleton.logFunctionCall(this, "setTarget", room);
 		target = room;
 		Skeleton.logReturn(void.class);
@@ -29,15 +30,17 @@ public class Transistor extends Item {
 	@Override
 	public void use() {
 		Skeleton.logFunctionCall(this, "use");
-		if (other != null) {
+		if (Skeleton.getInput(Boolean.class, "Is the transistor active [true|false]: ")) {
+			Person p = person;
+			person.dropItem(this);
+			boolean entered = target.enter(p);
+			if (entered) {
+				room.leave(p);
+			}
+		} else if (Skeleton.getInput(Boolean.class,
+				"Does the transistor have a pair [true|false]: ")) {
 			person.dropItem(this);
 			other.setTarget(room);
-		} else if (target != null) {
-			person.dropItem(this);
-			boolean entered = target.enter(person);
-			if (entered) {
-				room.leave(person);
-			}
 		}
 		Skeleton.logReturn(void.class);
 	}
@@ -88,18 +91,6 @@ public class Transistor extends Item {
 	public void setPair(Transistor other) {
 		Skeleton.logFunctionCall(this, "setPair", other);
 		this.other = other;
-		Skeleton.logReturn(void.class);
-	}
-
-	/**
-	 * A Transistor osztály drop metódusa A metódus a room addItem metódusát hívja meg a
-	 * paraméterként kapott Item-mel
-	 */
-	@Override
-	public void drop() {
-		Skeleton.logFunctionCall(this, "drop");
-		room.addItem(this);
-		setPerson(null);
 		Skeleton.logReturn(void.class);
 	}
 }

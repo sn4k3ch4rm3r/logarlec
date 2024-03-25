@@ -35,21 +35,9 @@ public class WetRag extends Item {
 	}
 
 	/**
-	 * A WetRag osztály drop metódusa
-	 * A metódus a room addItem metódusát hívja meg, és eltávolítja a personról a ragEffectet
-	 */
-	@Override
-	public void drop(){
-		Skeleton.logFunctionCall(this, "drop");
-		room.addItem(this);
-		person.removeEffect(ragEffect);
-		setPerson(null);
-		Skeleton.logReturn(void.class);
-	}
-
-	/**
-	 * A WetRag osztály setRoom metódusa
-	 * A metódus eltávolítja a ragEffectet a régi szobáról és hozzáadja az újhoz
+	 * A WetRag osztály setRoom metódusa A metódus eltávolítja a ragEffectet a régi szobáról és
+	 * hozzáadja az újhoz
+	 * 
 	 * @param newRoom - az új Room
 	 */
 	@Override

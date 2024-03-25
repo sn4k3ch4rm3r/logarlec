@@ -12,22 +12,14 @@ import logarlec.skeleton.Skeleton;
  */
 public abstract class Person extends GameObject {
 	/**
-	 * A személy neve.
-	 */
-	private String name;
-	/**
-	 * A személy ájulásban töltendő ideje.
-	 */
-	private double knockOutTime;
-	/**
 	 * A személy által birtokolt tárgyak.
 	 */
-	Inventory inventory;
+	protected Inventory inventory;
 
 	/**
 	 * A szoba melyben a személy jelenleg tartózkodik.
 	 */
-	Room currentRoom;
+	protected Room currentRoom;
 
 	public Person() {
 		inventory = Skeleton.createObject("inventory", Inventory.class);
@@ -69,7 +61,7 @@ public abstract class Person extends GameObject {
 	 */
 	public void setKnockOut(double value) {
 		Skeleton.logFunctionCall(this, "setKnockOut", value);
-		knockOutTime = value;
+		// Set knockout value
 		Skeleton.logReturn(void.class);
 	}
 
@@ -81,11 +73,9 @@ public abstract class Person extends GameObject {
 	@Override
 	public void update(double deltaTime) {
 		Skeleton.logFunctionCall(this, "update", deltaTime);
-		if (knockOutTime > 0) {
-			knockOutTime -= deltaTime;
-		}
 		for (Effect effect : effects) {
 			effect.update(deltaTime);
+			applyEffect(effect);
 		}
 		Skeleton.logReturn(void.class);
 	}
@@ -117,19 +107,10 @@ public abstract class Person extends GameObject {
 	}
 
 	/**
-	 * Egy hatás alkalmazása a személyre.
-	 * 
-	 * @param effect a hatás
-	 */
-	@Override
-	public void applyEffect(Effect effect) {
-		Skeleton.logFunctionCall(this, "applyEffect", effect);
-		effect.setHolder(this);
-		Skeleton.logReturn(void.class);
-	}
-
-	/**
 	 * A logarléc megtalálást kezelő metódus.
 	 */
-	public void pickedUpSlideRule() {}
+	public void pickedUpSlideRule() {
+		Skeleton.logFunctionCall(this, "pickedUpSlideRule");
+		Skeleton.logReturn(void.class);
+	}
 }

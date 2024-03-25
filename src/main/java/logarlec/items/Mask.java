@@ -8,15 +8,11 @@ public class Mask extends Item {
 	MaskEffect maskEffect;
 
 	/**
-	 * A Mask osztály use metódusa
-	 * A metódus a MaskEffect-et adja hozzá a personhoz
+	 * A Mask osztály use metódusa A metódus a MaskEffect-et adja hozzá a personhoz
 	 */
 	@Override
 	public void use() {
-		Skeleton.logFunctionCall(this, "use");
-		maskEffect = new MaskEffect();
-		person.addEffect(maskEffect);
-		Skeleton.logReturn(void.class);
+		// Do nothing
 	}
 
 	@Override
@@ -25,16 +21,16 @@ public class Mask extends Item {
 	}
 
 	/**
-	 * A Mask osztály usePassive metódusa
-	 * A metódus a MaskEffect-et adja hozzá a personhoz
+	 * A Mask osztály usePassive metódusa A metódus a MaskEffect-et adja hozzá a personhoz
+	 * 
 	 * @return true
 	 */
 	@Override
 	public boolean usePassive() {
 		Skeleton.logFunctionCall(this, "usePassive");
-		maskEffect = new MaskEffect();
+		maskEffect = Skeleton.createObject("maskEffect", MaskEffect.class);
 		person.addEffect(maskEffect);
-		
+
 		Skeleton.logReturn(true);
 		return true;
 	}
@@ -42,7 +38,7 @@ public class Mask extends Item {
 	@Override
 	public void useItem(Item item) {
 		// Do nothing
-	} 
+	}
 
 	@Override
 	public void link(Transistor other) {
@@ -50,11 +46,17 @@ public class Mask extends Item {
 	}
 
 	@Override
-	public void drop(){
+	public void drop() {
 		Skeleton.logFunctionCall(this, "drop");
-		room.addItem(this);
-		person.removeEffect(maskEffect);
-		setPerson(null);
+
+
+		if (Skeleton.getInput(Boolean.class,
+				"Is there an active effect caused by this item [true|false]: ")) {
+			person.removeEffect(maskEffect);
+		}
+		Skeleton.setLogging(false);
+		super.drop();
+		Skeleton.setLogging(true);
 		Skeleton.logReturn(void.class);
 	}
 }

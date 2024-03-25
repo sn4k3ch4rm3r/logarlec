@@ -11,7 +11,6 @@ import java.util.List;
 
 public class Inventory {
 	private List<Item> items = new ArrayList<>();
-	private int itemCount = 0;
 
 	/**
 	 * Tárgy hozzáadása a felszereléshez, ha kevesebb, mint 5 van benne.
@@ -20,8 +19,7 @@ public class Inventory {
 	 */
 	public boolean add(Item item) {
 		Skeleton.logFunctionCall(this, "add", item);
-		if (Skeleton.getInput(Boolean.class,
-				"Can more items fit the inventory? Enter a boolean: ")) {
+		if (Skeleton.getInput(Boolean.class, "Can more items fit the inventory [true|false]: ")) {
 			items.add(item);
 			Skeleton.logReturn(true);
 			return true;

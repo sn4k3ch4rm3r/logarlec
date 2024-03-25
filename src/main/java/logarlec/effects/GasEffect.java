@@ -9,7 +9,7 @@ public class GasEffect extends Effect {
 	double timeRemaining = 15.0;
 
 	/**
-	 * Diák bénított állapotának megszüntetése.
+	 * Diák megbénítása
 	 *
 	 */
 	public void applyToStudent(Student target) {
@@ -19,7 +19,7 @@ public class GasEffect extends Effect {
 	}
 
 	/**
-	 * Oktató bénított állapotának megszüntetése.
+	 * Oktató megbénítása
 	 *
 	 */
 	public void applyToTeacher(Teacher target) {

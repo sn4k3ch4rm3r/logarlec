@@ -56,6 +56,7 @@ public abstract class GameObject implements Updatable {
 	public void addEffect(Effect effect) {
 		Skeleton.logFunctionCall(this, "addEffect", effect);
 		effects.add(effect);
+		effect.setHolder(this);
 		Skeleton.logReturn(void.class);
 	}
 

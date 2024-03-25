@@ -41,7 +41,7 @@ public abstract class Effect implements Updatable {
 	public void update(double deltaTime) {
 		Skeleton.logFunctionCall(this, "update", deltaTime);
 		boolean moreTime = Skeleton.getInput(Boolean.class,
-				"Does the " + this + " have more time left? Enter a boolean: ");
+				"Does the " + this + " have more time left [true|false]: ");
 		if (!moreTime) {
 			holder.removeEffect(this);
 		}

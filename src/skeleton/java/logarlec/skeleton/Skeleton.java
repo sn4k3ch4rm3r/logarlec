@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Skeleton {
 
+	private static boolean isLogging = true;
 	private static Logger logger;
 
 
@@ -52,7 +53,9 @@ public class Skeleton {
 	 * @param params A függvény paraméterei, ha vannak.
 	 */
 	public static void logFunctionCall(Object object, String function, Object... params) {
-		logger.logFunctionCall(object, function, params);
+		if (isLogging) {
+			logger.logFunctionCall(object, function, params);
+		}
 	}
 
 	/**
@@ -74,7 +77,9 @@ public class Skeleton {
 	 * @param value Viszzatérési érték.
 	 */
 	public static void logReturn(Object value) {
-		logger.logReturn(value);
+		if (isLogging) {
+			logger.logReturn(value);
+		}
 	}
 
 	/**
@@ -92,6 +97,15 @@ public class Skeleton {
 	 */
 	public static <T> T getInput(Class<T> type, String message) {
 		return logger.getInput(type, message);
+	}
+
+	/**
+	 * Beállítja, hogy a logger kiírja-e a függvényhívásokat.
+	 * 
+	 * @param value Igaz ha naplózzon, hamis ha ne.
+	 */
+	public static void setLogging(boolean value) {
+		isLogging = value;
 	}
 }
 

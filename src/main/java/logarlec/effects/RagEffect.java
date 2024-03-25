@@ -7,7 +7,6 @@ import logarlec.gameobjects.Teacher;
 
 
 public class RagEffect extends Effect {
-	private double timeRemaining = 15;
 
 	public void applyToStudent(Student target) {
 		Skeleton.logFunctionCall(this, "applyToStudent", target);

@@ -6,10 +6,9 @@ import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
 
 public class MaskEffect extends Effect {
-	private int uses = 5;
 
 	/**
-	 * Diák megbénítása
+	 * Diák bénított állapotának megszüntetése.
 	 *
 	 */
 	public void applyToStudent(Student target) {
@@ -19,8 +18,7 @@ public class MaskEffect extends Effect {
 	}
 
 	/**
-	 * Oktató megbénítása
-	 *
+	 * Oktató bénított állapotának megszüntetése.
 	 */
 
 	public void applyToTeacher(Teacher target) {

@@ -11,6 +11,7 @@ public class StudentUseTransistorTest extends TestCase {
     Transistor transistor2;
     Room room;
     Room targetRoom;
+
     public StudentUseTransistorTest() {
         super("Student: use transistor");
     }
@@ -24,6 +25,9 @@ public class StudentUseTransistorTest extends TestCase {
         targetRoom = Skeleton.createObject("targetRoom", Room.class);
         student.addItem(transistor1);
         student.addItem(transistor2);
+        room.enter(student);
+        transistor1.link(transistor2);
+        transistor1.setTarget(room);
     }
 
     @Override

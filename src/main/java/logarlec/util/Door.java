@@ -7,7 +7,6 @@ import logarlec.gameobjects.Room;
 
 public class Door {
 	private Room room1, room2; // can be used from room1 if one-way
-	private boolean oneWay;
 
 	public Door(Room room1, Room room2) {
 		this.room1 = room1;
@@ -25,7 +24,7 @@ public class Door {
 	 */
 	public void use(Person person, Room from) {
 		Skeleton.logFunctionCall(this, "use", person, from);
-		if (!oneWay || from == room1) {
+		if (Skeleton.getInput(Boolean.class, "Is this the correct direction [true|false]: ")) {
 			Room to = from == room1 ? room2 : room1;
 			if (to.enter(person)) {
 				from.leave(person);
@@ -41,12 +40,18 @@ public class Door {
 	 * @param from A szoba, ahol eddig megtalálható volt az ajtó
 	 */
 	public void move(Room from, Room to) {
-		Skeleton.logFunctionCall(this, "move");
-		if (from == room1) {
-			room1 = to;
-		}
-		if (from == room2) {
-			room2 = to;
+		Skeleton.logFunctionCall(this, "move", from, to);
+		if (to == room1 || to == room2) {
+			to.removeDoor(this);
+		} else {
+			from.removeDoor(this);
+			if (from == room1) {
+				room1 = to;
+				room1.addDoor(this);
+			} else if (from == room2) {
+				room2 = to;
+				room2.addDoor(this);
+			}
 		}
 		Skeleton.logReturn(void.class);
 	}
