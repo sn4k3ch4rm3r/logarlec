@@ -1,4 +1,4 @@
-@startuml room-merge-toxic-create
+@startuml room-merge-with-effect-create
 title Create "Merge Toxic Room" test
 hide footbox
 skinparam SequenceReferenceBackgroundColor white

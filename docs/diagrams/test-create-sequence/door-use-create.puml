@@ -1,4 +1,4 @@
-@startuml student-entered-room-create
+@startuml door-use-create
 title Create "Use Door" test
 hide footbox
 participant "Main" as main

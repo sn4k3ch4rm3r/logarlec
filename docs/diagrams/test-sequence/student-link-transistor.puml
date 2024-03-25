@@ -5,15 +5,15 @@ hide footbox
 skinparam SequenceReferenceBackgroundColor white
 
 participant "main : Main" as main
-participant "transistor : Transistor" as transistor
-participant "other : Transistor" as other
+participant "transistor1 : Transistor" as transistor1
+participant "transistor2 : Transistor" as transistor2
 
 autoactivate on
 
 main++
-main-> transistor ++: useItem(other)
-	transistor -> other ++: link(transistor)
-		other -> transistor ++: setPair(other)
+main-> transistor1 ++: useItem(transistor2)
+	transistor1 -> transistor2 ++: link(transistor1)
+		transistor2 -> transistor1 ++: setPair(transistor2)
 		return
 	return
 return
