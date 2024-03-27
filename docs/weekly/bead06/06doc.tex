@@ -1,36 +1,79 @@
 \chapter{Szkeleton beadás}
 
 \section{Fordítási és futtatási útmutató}
-\comment{A feltöltött program fordításával és futtatásával kapcsolatos útmutatás. Ennek tartalmaznia kell leltárszerűen az egyes fájlok pontos nevét, méretét byte-ban, keletkezési idejét, valamint azt, hogy a fájlban mi került megvalósításra.}
 
 \subsection{Fájllista}
 
 \begin{fajllista}
-	\fajl
-	{Demo.java} % Kezdet
-	{353 byte} % Méret
-	{2020.03.26~21:05~} % Keletkezés ideje
-	{Demo programosztály} % Leírás
+	\fajl{src/main/java/logarlec/effects/BeerEffect.java}{702 byte}{2024-03-25 11:22}{Sör hatás osztálya}
+	\fajl{src/main/java/logarlec/effects/Effect.java}{1252 byte}{2024-03-25 11:22}{Hatások ősosztálya}
+	\fajl{src/main/java/logarlec/effects/GasEffect.java}{729 byte}{2024-03-25 11:22}{Gáz hatás osztálya}
+	\fajl{src/main/java/logarlec/effects/MaskEffect.java}{751 byte}{2024-03-25 11:22}{Maszk hatás osztálya}
+	\fajl{src/main/java/logarlec/effects/RagEffect.java}{635 byte}{2024-03-25 11:22}{Nedves rongy hatás osztálya}
+	\fajl{src/main/java/logarlec/gameobjects/GameObject.java}{1660 byte}{2024-03-25 11:22}{A játékban található objektumok ősosztálya}
+	\fajl{src/main/java/logarlec/gameobjects/Person.java}{2739 byte}{2024-03-25 11:22}{Emberek ősosztálya}
+	\fajl{src/main/java/logarlec/gameobjects/Room.java}{5318 byte}{2024-03-25 11:22}{Szoba osztálya}
+	\fajl{src/main/java/logarlec/gameobjects/Student.java}{1602 byte}{2024-03-25 11:22}{Hallgató osztálya}
+	\fajl{src/main/java/logarlec/gameobjects/Teacher.java}{1360 byte}{2024-03-25 11:22}{Oktató osztálya}
+	\fajl{src/main/java/logarlec/items/Beer.java}{902 byte}{2024-03-25 11:22}{Sör osztálya}
+	\fajl{src/main/java/logarlec/items/Camembert.java}{907 byte}{2024-03-25 11:22}{Camembert osztálya}
+	\fajl{src/main/java/logarlec/items/CodeOfStudies.java}{879 byte}{2024-03-25 11:22}{TVSZ osztálya}
+	\fajl{src/main/java/logarlec/items/Item.java}{1506 byte}{2024-03-25 11:22}{Tárgyak ősosztálya}
+	\fajl{src/main/java/logarlec/items/Mask.java}{1313 byte}{2024-03-25 11:22}{Maszk osztálya}
+	\fajl{src/main/java/logarlec/items/SlideRule.java}{1020 byte}{2024-03-25 11:22}{Logarléc osztálya}
+	\fajl{src/main/java/logarlec/items/Transistor.java}{2635 byte}{2024-03-25 11:22}{Tranzisztor osztálya}
+	\fajl{src/main/java/logarlec/items/WetRag.java}{1011 byte}{2024-03-25 11:22}{Nedves rongy osztálya}
+	\fajl{src/main/java/logarlec/Main.java}{152 byte}{2024-03-25 11:22}{A program belépési pontja}
+	\fajl{src/main/java/logarlec/util/Door.java}{1825 byte}{2024-03-25 11:22}{Ajtó osztálya}
+	\fajl{src/main/java/logarlec/util/Inventory.java}{1630 byte}{2024-03-25 11:22}{Eszköztár osztálya}
+	\fajl{src/main/java/logarlec/util/Updatable.java}{225 byte}{2024-03-25 11:22}{Interfész azon objektumok számára, amelyekre hat az idő telése}
+	\fajl{src/skeleton/java/logarlec/skeleton/Logger.java}{4374 byte}{2024-03-25 11:22}{Szkeleton naplózó osztálya}
+	\fajl{src/skeleton/java/logarlec/skeleton/Skeleton.java}{3557 byte}{2024-03-25 11:22}{Skeleton program}
+	\fajl{src/skeleton/java/logarlec/test/DoorUseTest.java}{731 byte}{2024-03-25 11:22}{Ajtó használat teszt}
+	\fajl{src/skeleton/java/logarlec/test/RoomHideDoorsTest.java}{672 byte}{2024-03-25 11:22}{Ajtó elrejtés teszt}
+	\fajl{src/skeleton/java/logarlec/test/RoomMergeTest.java}{1086 byte}{2024-03-25 11:22}{Szobák összeolvadásának tesztelése}
+	\fajl{src/skeleton/java/logarlec/test/RoomMergeWithEffectTest.java}{823 byte}{2024-03-25 11:22}{Szobák összeolvadásának tesztelése, hatással}
+	\fajl{src/skeleton/java/logarlec/test/RoomShowDoorsTest.java}{759 byte}{2024-03-25 11:22}{Ajtó megjelenítés teszt}
+	\fajl{src/skeleton/java/logarlec/test/RoomSplitTest.java}{624 byte}{2024-03-25 11:22}{Szoba osztódás teszt}
+	\fajl{src/skeleton/java/logarlec/test/RoomUpdateGasAndMaskTest.java}{966 byte}{2024-03-25 11:22}{Szoba frissítése teszt gáz és maszk esetében}
+	\fajl{src/skeleton/java/logarlec/test/RoomUpdateNoTeachersTest.java}{737 byte}{2024-03-25 11:22}{Szoba frissítése teszt csak hallgatók esetében}
+	\fajl{src/skeleton/java/logarlec/test/RoomUpdateRagEffectTest.java}{778 byte}{2024-03-25 11:22}{Szoba frissítése teszt nedves rongy esetében}
+	\fajl{src/skeleton/java/logarlec/test/RoomUpdateStudentTeacherTest.java}{783 byte}{2024-03-25 11:22}{Szoba frissítése teszt oktató és hallgató esetében}
+	\fajl{src/skeleton/java/logarlec/test/StudentDropMaskTest.java}{768 byte}{2024-03-25 11:22}{Maszk eldobása teszt}
+	\fajl{src/skeleton/java/logarlec/test/StudentLinkTransistorTest.java}{612 byte}{2024-03-25 11:22}{Tranzisztor összekapcsolása teszt}
+	\fajl{src/skeleton/java/logarlec/test/StudentPickupMaskTest.java}{570 byte}{2024-03-25 11:22}{Mask felvétele teszt}
+	\fajl{src/skeleton/java/logarlec/test/StudentPickupSlideRuleTest.java}{620 byte}{2024-03-25 11:22}{Hallgató logarléc felvétele teszt}
+	\fajl{src/skeleton/java/logarlec/test/StudentProtectedByBeerTest.java}{698 byte}{2024-03-25 11:22}{Sör hatás védelme teszt}
+	\fajl{src/skeleton/java/logarlec/test/StudentUseBeerTest.java}{584 byte}{2024-03-25 11:22}{Sör használat teszt}
+	\fajl{src/skeleton/java/logarlec/test/StudentUseCamembertTest.java}{777 byte}{2024-03-25 11:22}{Camembert használat teszt}
+	\fajl{src/skeleton/java/logarlec/test/StudentUseCodeOfStudiesTest.java}{824 byte}{2024-03-25 11:22}{TVSZ használat teszt}
+	\fajl{src/skeleton/java/logarlec/test/StudentUseMaskTest.java}{589 byte}{2024-03-25 11:22}{Maszk használat teszt}
+	\fajl{src/skeleton/java/logarlec/test/StudentUseTransistorTest.java}{1113 byte}{2024-03-25 11:22}{Tranzisztor használat teszt}
+	\fajl{src/skeleton/java/logarlec/test/TeacherPickupSlideruleTest.java}{620 byte}{2024-03-25 11:22}{Oktató lograléc felvétele teszt}
+	\fajl{src/skeleton/java/logarlec/test/TestCollection.java}{1172 byte}{2024-03-25 11:22}{Tesztesetek gyűjteménye}
 \end{fajllista}
 
-\subsection{Fordítás}
-\comment{A fenti listában szereplő forrásfájlokból milyen műveletekkel lehet a bináris, futtatható kódot előállítani. Az előállításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
 
+\subsection{Fordítás}
+
+Indítsunk Windows CMD vagy Powershell-t és lépjünk a projektet tartalmazó mappába. Ezután adjuk ki a következő parancsot:
 \begin{verbatim}
-    javac -d bin *.java
+    .\build.bat
 \end{verbatim}
 
 \subsection{Futtatás}
-\comment{A futtatható kód elindításával kapcsolatos teendők leírása. Az indításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
 
+Indítsunk Windows CMD vagy Powershell-t és lépjünk a projektet tartalmazó mappába. Ezután adjuk ki a következő parancsot:
 \begin{verbatim}
-    cd bin
-    java Main.java
+    java -cp build/bin logarlec.Main
 \end{verbatim}
 
 \clearpage
 \section{Értékelés}
-\comment{A projekt kezdete óta az értékelésig eltelt időben tagokra bontva, százalékban.}
 \begin{ertekeles}
-	  \ertekelestag{Teszt János}{ ?????? }{100\%}
+    \ertekelestag{Balla Gergely}{ [NEPTUN] }{20\%}
+    \ertekelestag{Joób Zalán Miklós}{ [NEPTUN] }{20\%}
+    \ertekelestag{Nagy Alexandra}{ [NEPTUN] }{20\%}
+    \ertekelestag{Tóth Boldizsár}{ [NEPTUN] }{20\%}
+    \ertekelestag{Zelei Mátyás}{ [NEPTUN] }{20\%}
 \end{ertekeles}
