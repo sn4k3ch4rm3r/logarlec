@@ -34,6 +34,7 @@ abstract GameObject {
 	+ {abstract} removeItem(item : Item) : void
 	+ {abstract} applyEffect(effect : Effect) : void
 	+ {abstract} interactTeacher(teacher : Teacher) : void
+	+ {abstract} interactJanitor(janitor : Janitor) : void
 	+ addEffect(effect : Effect) : void
 	+ removeEffect(effect : Effect) : void
 }

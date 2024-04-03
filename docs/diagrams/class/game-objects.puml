@@ -32,6 +32,8 @@ package GameObjects {
 		+ setPeaceful(value : bool) : void
 	}
 
+	class Janitor
+
 	class Room {
 		- capacity : int
 		- personCount : int
@@ -91,6 +93,7 @@ GameObject <|-- Person
 GameObject <|-- Room
 Person <|-- Teacher
 Person <|-- Student
+Person <|-- Janitor
 
 Room "people" *-left- Person
 Person "room" o-right- Room

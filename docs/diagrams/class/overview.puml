@@ -19,6 +19,7 @@ class Inventory {
 	+ remove(item : Item) : void
 	+ setRoom(room : Room) : void
 	+ protectFrom(teacher : Teacher) : void
+	+ dropRandomItem() : void
 }
 
 package Items {
@@ -34,6 +35,8 @@ package Items {
 	}
 	
 	class SlideRule
+
+	class FakeSlideRule
 	
 	class Transistor {
 		+ setTarget(target : Room) : void
@@ -43,7 +46,9 @@ package Items {
 	class CodeOfStudies {
 		- uses : int
 	}
-	
+
+	class FakeCodeOfStudies
+
 	class Beer 
 	
 	class WetRag 
@@ -52,7 +57,11 @@ package Items {
 		- uses : int
 	}
 
+	class FakeMask
+
 	class Camembert
+
+	class AirFreshener
 
 	together {
 		Item <|-- SlideRule
@@ -62,6 +71,11 @@ package Items {
 		Item <|-- WetRag
 		Item <|-- Mask
 		Item <|-- Camembert
+		Item <|-- AirFreshener
+		SlideRule <|-- FakeSlideRule
+		CodeOfStudies <|-- FakeCodeOfStudies
+		Mask <|-- FakeMask
+
 	}
 
 	Transistor "pair" o- Transistor
@@ -96,6 +110,7 @@ package GameObjects {
 		+ {abstract} removeItem(item : Item) : void
 		+ {abstract} applyEffect(effect : Effect) : void
 		+ {abstract} interactTeacher(teacher : Teacher) : void
+		+ {abstract} interactJanitor(janitor : Janitor) : void
 		+ addEffect(effect : Effect) : void
 		+ removeEffect(effect : Effect) : void
 	}
@@ -112,11 +127,13 @@ package GameObjects {
 	class Student {
 		- eliminated : bool
 		+ setEliminated(value : bool) : void
+		+ dropRandomItem() : void
 	}
 	class Teacher {
 		- peaceful : bool
 		+ setPeaceful(value : bool) : void
 	}
+	class Janitor
 
 	class Room {
 		- capacity : int
@@ -137,6 +154,7 @@ package GameObjects {
 	GameObject <|-- Room
 	Person <|-- Teacher
 	Person <|-- Student
+	Person <|-- Janitor
 
 	Room "people" *- Person
 	Person "room" o- Room
