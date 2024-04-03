@@ -9,12 +9,13 @@ public class BeerEffect extends Effect {
 	double timeRemaining = 15.0;
 
 	/**
-	 * Egy diák játékból kiejtett állapotát megszünteti.
+	 * Egy diák játékból kiejtett állapotát megszünteti, és eldobatja
 	 *
 	 */
 	public void applyToStudent(Student target) {
 		Skeleton.logFunctionCall(this, "applyToStudent", target);
 		target.setEliminated(false);
+		target.dropRandomItem();
 		Skeleton.logReturn(void.class);
 	}
 
