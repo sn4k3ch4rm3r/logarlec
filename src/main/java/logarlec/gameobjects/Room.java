@@ -1,5 +1,6 @@
 package logarlec.gameobjects;
 
+import logarlec.effects.CleanEffect;
 import logarlec.effects.Effect;
 import logarlec.items.Item;
 import logarlec.util.Door;
@@ -233,6 +234,14 @@ public class Room extends GameObject {
 		Skeleton.logFunctionCall(this, "interactTeacher", teacher);
 		for (Person person : people) {
 			person.interactTeacher(teacher);
+		}
+		Skeleton.logReturn(void.class);
+	}
+
+	public void interactCleanEffect(CleanEffect effect) {
+		Skeleton.logFunctionCall(this, "interactCleanEffect", effect);
+		for (Effect e : effects) {
+			e.interactCleanEffect(effect);
 		}
 		Skeleton.logReturn(void.class);
 	}

@@ -47,4 +47,9 @@ public abstract class Effect implements Updatable {
 		}
 		Skeleton.logReturn(void.class);
 	}
+
+	public void interactCleanEffect(CleanEffect cleanEffect) {
+		Skeleton.logFunctionCall(this, "interactCleanEffect", cleanEffect);
+		Skeleton.logReturn(void.class);
+	}
 }

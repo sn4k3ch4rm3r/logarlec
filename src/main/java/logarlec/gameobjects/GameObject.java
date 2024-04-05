@@ -1,5 +1,6 @@
 package logarlec.gameobjects;
 
+import logarlec.effects.CleanEffect;
 import logarlec.effects.Effect;
 import logarlec.items.Item;
 import logarlec.skeleton.Skeleton;
@@ -47,6 +48,11 @@ public abstract class GameObject implements Updatable {
 	 * @param teacher a tanár
 	 */
 	public abstract void interactTeacher(Teacher teacher);
+
+	public void interactCleanEffect(CleanEffect cleanEffect) {
+		Skeleton.logFunctionCall(this, "interactCleanEffect", cleanEffect);
+		Skeleton.logReturn(void.class);
+	}
 
 	/**
 	 * Effect hozzáadása az objektumhoz.

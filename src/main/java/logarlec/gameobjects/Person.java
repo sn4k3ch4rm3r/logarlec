@@ -90,6 +90,7 @@ public abstract class Person extends GameObject {
 		Skeleton.logFunctionCall(this, "addItem", item);
 		if (inventory.add(item)) {
 			item.setPerson(this);
+			item.setRoom(currentRoom);
 		}
 		Skeleton.logReturn(void.class);
 	}

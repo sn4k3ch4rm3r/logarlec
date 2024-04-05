@@ -1,0 +1,20 @@
+@startuml student-use-air-freshener
+title Use Air Freshener
+hide footbox
+
+participant "main : Main" as main
+participant "airFreshener : AirFreshener" as airFreshener
+participant "student : Student" as person
+participant "room : Room" as room
+
+main++
+main -> airFreshener ++: use()
+	create "cleanEffect : CleanEffect" as cleanEffect
+	airFreshener --> cleanEffect: <<create>>
+	airFreshener -> room ++ : addEffect(cleanEffect)
+	return
+	airFreshener -> person ++ : removeItem(airFreshener)
+	return
+return
+
+@enduml
