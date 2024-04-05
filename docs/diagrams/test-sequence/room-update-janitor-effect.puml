@@ -13,9 +13,11 @@ participant "janitorEffect : JanitorEffect" as janitorEffect
 activate Main
 Main -> room ++ : update(1)
     room -> janitorEffect ++ : update(1)
+    return
+    room -> janitorEffect ++ : applyToRoom(room)
         janitorEffect -> room ++ : interactCleanEffect(janitorEffect)
-            room -> janitorEffect ++ : interactCleanEffect(janitorEffect)
-            return
+        return
+        janitorEffect -> room ++ : clean()
         return
     return
     room -> student ++ : applyEffect(janitorEffect)

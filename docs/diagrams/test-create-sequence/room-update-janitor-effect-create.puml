@@ -1,5 +1,5 @@
 @startuml room-update-janitor-effect-create
-title Create "Update Room with Janitor Effect" est
+title Create "Update Room with Janitor Effect" test
 hide footbox
 skinparam SequenceReferenceBackgroundColor white
 

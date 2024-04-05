@@ -88,10 +88,13 @@ public abstract class Person extends GameObject {
 	@Override
 	public void addItem(Item item) {
 		Skeleton.logFunctionCall(this, "addItem", item);
-		if (inventory.add(item)) {
-			item.setPerson(this);
-			item.setRoom(currentRoom);
+		if (currentRoom == null || currentRoom.isClean()) {
+			if (inventory.add(item)) {
+				item.setPerson(this);
+				item.setRoom(currentRoom);
+			}
 		}
+
 		Skeleton.logReturn(void.class);
 	}
 

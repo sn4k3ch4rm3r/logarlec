@@ -1,5 +1,6 @@
 package logarlec.effects;
 
+import logarlec.gameobjects.Room;
 import logarlec.skeleton.Skeleton;
 
 import logarlec.gameobjects.GameObject;
@@ -23,6 +24,10 @@ public abstract class Effect implements Updatable {
 	 * @param target Az oktató, akire alkalmazódik a hatás.
 	 */
 	public abstract void applyToTeacher(Teacher target);
+
+	public void applyToRoom(Room target) {
+
+	}
 
 	/**
 	 * Ezen hatás tulajdonosának megváltoztatása.

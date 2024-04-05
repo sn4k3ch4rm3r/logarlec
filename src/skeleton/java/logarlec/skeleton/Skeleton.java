@@ -38,6 +38,7 @@ public class Skeleton {
 		testCollection.addTestCase(new RoomUpdateCleanEffectTest());
 		testCollection.addTestCase(new StudentUseAirFreshenerTest());
 		testCollection.addTestCase(new RoomUpdateJanitorEffectTest());
+		testCollection.addTestCase(new StudentPickupCamembertTest());
 
 		testCollection.printSelector();
 

@@ -177,6 +177,7 @@ public class Room extends GameObject {
 		Skeleton.logFunctionCall(this, "update", deltaTime);
 		for (Effect effect : effects) {
 			effect.update(deltaTime);
+			effect.applyToRoom(this);
 		}
 		for (Person person : people) {
 			for (Effect effect : this.effects) {
@@ -255,5 +256,18 @@ public class Room extends GameObject {
 			}
 		}
 		Skeleton.logReturn(void.class);
+	}
+
+	public void clean() {
+		Skeleton.logFunctionCall(this, "clean");
+		// Reset visitorsSinceClean
+		Skeleton.logReturn(void.class);
+	}
+
+	public boolean isClean() {
+		Skeleton.logFunctionCall(this, "isClean");
+		boolean clean = Skeleton.getInput(Boolean.class, "Is the room clean [true|false]: ");
+		Skeleton.logReturn(clean);
+		return clean;
 	}
 }
