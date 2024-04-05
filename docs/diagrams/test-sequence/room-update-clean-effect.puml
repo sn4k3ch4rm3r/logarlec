@@ -11,6 +11,8 @@ participant "gasEffect : GasEffect" as gasEffect
 activate Main
 Main -> room ++ : update(1)
     room -> cleanEffect ++ : update(1)
+    return
+    room -> cleanEffect ++ : applyToRoom(room)
         cleanEffect -> room ++ : interactCleanEffect(cleanEffect)
             room -> gasEffect ++ : interactCleanEffect(cleanEffect)
                 gasEffect -> room ++ : removeEffect(gasEffect)
