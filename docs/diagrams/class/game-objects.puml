@@ -20,6 +20,7 @@ package GameObjects {
 		+ enterRoom(room : Room) : void
 		+ dropItem(item : Item) : void
 		+ setKnockOut(value : double) : void
+		+ getOut() : void
 	}
 
 	class Student {

@@ -86,6 +86,8 @@ package Effects {
 		- timeRemaining : double
 		+ {abstract} applyToStudent(target : Student) : void
 		+ {abstract} applyToTeacher(target : Teacher) : void
+		+ applyToRoom(room : Room) : void
+		+ interactCleanEffect(cleanEffect : CleanEffect) : void
 		+ setHolder(holder : GameObject) : void
 	}
 
@@ -102,7 +104,7 @@ package Effects {
 		Effect <|-- GasEffect
 		Effect <|-- MaskEffect
 		Effect <|-- CleanEffect
-		Effect <|-- JanitorEffect
+		CleanEffect <|-- JanitorEffect
 	}
 	
 	Updatable <|.- Effect
@@ -114,7 +116,6 @@ package GameObjects {
 		+ {abstract} removeItem(item : Item) : void
 		+ {abstract} applyEffect(effect : Effect) : void
 		+ {abstract} interactTeacher(teacher : Teacher) : void
-		+ {abstract} interactJanitor(janitor : Janitor) : void
 		+ addEffect(effect : Effect) : void
 		+ removeEffect(effect : Effect) : void
 	}
@@ -126,6 +127,7 @@ package GameObjects {
 		+ enterRoom(room : Room) : void
 		+ dropItem(item : Item) : void
 		+ setKnockOut(value : double) : void
+		+ getOut() : void
 	}
 
 	class Student {
@@ -142,6 +144,7 @@ package GameObjects {
 	class Room {
 		- capacity : int
 		- personCount : int
+		- visitorsSinceClean : int
 		+ enter(person : Person) : boolean
 		+ leave(person : Person) : void
 		+ merge(room : Room) : void
@@ -151,6 +154,10 @@ package GameObjects {
 		+ removeDoor(door : Door) : void 
 		+ hideDoors() : void
 		+ showDoors() : void
+		+ interactCleanEffect(cleanEffect : CleanEffect) : void
+		+ getOut(person : Person) : void
+		+ clean() : void
+		+ isClean() : bool
 	}
 	
 	Updatable <|.- GameObject

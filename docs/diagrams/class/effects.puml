@@ -8,6 +8,8 @@ package Effects {
 		- timeRemaining : double
 		+ {abstract} applyToStudent(target : Student) : void
 		+ {abstract} applyToTeacher(target : Teacher) : void
+		+ applyToRoom(room : Room) : void
+		+ interactCleanEffect(cleanEffect : CleanEffect) : void
 		+ setHolder(holder : GameObject) : void
 	}
 
@@ -24,7 +26,7 @@ package Effects {
 		Effect <|-- GasEffect
 		Effect <|-- MaskEffect
 		Effect <|-- CleanEffect
-		Effect <|-- JanitorEffect
+		CleanEffect <|-- JanitorEffect
 	}
 	
 }
@@ -38,7 +40,6 @@ abstract GameObject {
 	+ {abstract} removeItem(item : Item) : void
 	+ {abstract} applyEffect(effect : Effect) : void
 	+ {abstract} interactTeacher(teacher : Teacher) : void
-	+ {abstract} interactJanitor(janitor : Janitor) : void
 	+ addEffect(effect : Effect) : void
 	+ removeEffect(effect : Effect) : void
 }

@@ -49,11 +49,6 @@ public abstract class GameObject implements Updatable {
 	 */
 	public abstract void interactTeacher(Teacher teacher);
 
-	public void interactCleanEffect(CleanEffect cleanEffect) {
-		Skeleton.logFunctionCall(this, "interactCleanEffect", cleanEffect);
-		Skeleton.logReturn(void.class);
-	}
-
 	/**
 	 * Effect hozzáadása az objektumhoz.
 	 * 
