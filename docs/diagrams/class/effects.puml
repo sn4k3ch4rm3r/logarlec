@@ -15,12 +15,16 @@ package Effects {
 	class RagEffect
 	class GasEffect
 	class MaskEffect
+	class CleanEffect
+	class JanitorEffect
 
 	together {
 		Effect <|-- BeerEffect
 		Effect <|-- RagEffect
 		Effect <|-- GasEffect
 		Effect <|-- MaskEffect
+		Effect <|-- CleanEffect
+		Effect <|-- JanitorEffect
 	}
 	
 }

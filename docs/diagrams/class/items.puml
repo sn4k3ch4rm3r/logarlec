@@ -88,7 +88,8 @@ class Room {
 Item "room" o-up- Room
 Item "person" o-up- Person
 
+AirFreshener "effect" o-- CleanEffect
 WetRag "effect" o-- RagEffect
-Mask "effect" o-- MaskEffect
+Mask "effect" <-- MaskEffect
 
 @enduml
