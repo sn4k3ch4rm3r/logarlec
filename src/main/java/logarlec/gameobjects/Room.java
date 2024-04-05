@@ -245,4 +245,15 @@ public class Room extends GameObject {
 		}
 		Skeleton.logReturn(void.class);
 	}
+
+	public void getOut(Person person) {
+		Skeleton.logFunctionCall(this, "getOut", person);
+		for (Door door : doors) {
+			door.use(person, this);
+			if (!people.contains(person)) {
+				break;
+			}
+		}
+		Skeleton.logReturn(void.class);
+	}
 }

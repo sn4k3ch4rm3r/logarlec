@@ -114,4 +114,10 @@ public abstract class Person extends GameObject {
 		Skeleton.logFunctionCall(this, "pickedUpSlideRule");
 		Skeleton.logReturn(void.class);
 	}
+
+	public void getOut() {
+		Skeleton.logFunctionCall(this, "getOut");
+		currentRoom.getOut(this);
+		Skeleton.logReturn(void.class);
+	}
 }

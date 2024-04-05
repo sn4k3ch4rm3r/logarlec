@@ -1,0 +1,33 @@
+@startuml room-update-janitor-effect
+title Update Room with Janitor Effect
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant Main
+participant "room : Room" as room
+participant "door : Door" as door
+participant "room2 : Room" as room2
+participant "student : Student" as student
+participant "janitorEffect : JanitorEffect" as janitorEffect
+
+activate Main
+Main -> room ++ : update(1)
+    room -> janitorEffect ++ : update(1)
+        janitorEffect -> room ++ : interactCleanEffect(janitorEffect)
+            room -> janitorEffect ++ : interactCleanEffect(janitorEffect)
+            return
+        return
+    return
+    room -> student ++ : applyEffect(janitorEffect)
+        student -> janitorEffect ++ : applyToStudent(student)
+            janitorEffect -> student ++ : getOut()
+                student -> room ++ : getOut()
+                    room -> door ++ : use(student, room)
+                        ref over door : Use Door
+                    return
+                return
+            return
+        return
+    return
+return
+@enduml

@@ -1,0 +1,28 @@
+@startuml room-update-janitor-effect-create
+title Create "Update Room with Janitor Effect" est
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant Main
+participant "room : Room" as room
+participant "room2 : Room" as room2
+participant "door : Door" as door
+participant "student : Student" as student
+participant "janitorEffect : JanitorEffect" as janitorEffect
+
+activate Main
+create room
+Main --> room : <<create>>
+create room2
+Main --> room2 : <<create>>
+create door
+Main --> door : Door(room, room2)
+create student
+Main --> student : <<create>>
+Main -> room ++ : room.enter(student)
+return
+create janitorEffect
+Main --> janitorEffect : <<create>>
+Main -> room ++ : room.addEffect(janitorEffect)
+return
+@enduml
