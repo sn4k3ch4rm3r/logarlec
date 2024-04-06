@@ -63,10 +63,4 @@ public class Student extends Person {
 		effect.applyToStudent(this);
 		Skeleton.logReturn(void.class);
 	}
-
-	public void dropRandomItem() {
-		Skeleton.logFunctionCall(this, "dropRandomItem");
-		inventory.dropRandomItem();
-		Skeleton.logReturn(void.class);
-	}
 }

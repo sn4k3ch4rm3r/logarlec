@@ -123,4 +123,10 @@ public abstract class Person extends GameObject {
 		currentRoom.getOut(this);
 		Skeleton.logReturn(void.class);
 	}
+
+	public void dropRandomItem() {
+		Skeleton.logFunctionCall(this, "dropRandomItem");
+		inventory.dropRandomItem();
+		Skeleton.logReturn(void.class);
+	}
 }

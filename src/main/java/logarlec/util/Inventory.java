@@ -64,7 +64,9 @@ public class Inventory {
 	public void dropRandomItem() {
 		Skeleton.logFunctionCall(this, "dropRandomItem");
 		if (!items.isEmpty()) {
-			items.remove((int) (Math.random() * items.size()));
+			Item item = items.get((int) (Math.random() * items.size()));
+			item.drop();
+			remove(item);
 		}
 		Skeleton.logReturn(void.class);
 	}
