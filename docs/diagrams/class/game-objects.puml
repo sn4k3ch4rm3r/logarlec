@@ -47,6 +47,10 @@ package GameObjects {
 		+ removeDoor(door : Door) : void 
 		+ hideDoors() : void
 		+ showDoors() : void
+		+ interactCleanEffect(cleanEffect : CleanEffect) : void
+		+ getOut(person : Person) : void
+		+ clean() : void
+		+ isClean() : bool
 	}
 	
 }
@@ -75,6 +79,8 @@ abstract Effect {
 	- timeRemaining : double
 	+ {abstract} applyToStudent(target : Student) : void
 	+ {abstract} applyToTeacher(target : Teacher) : void
+    + applyToRoom(room : Room) : void
+    + interactCleanEffect(cleanEffect : CleanEffect) : void
 	+ setHolder(holder : GameObject) : void
 }
 
