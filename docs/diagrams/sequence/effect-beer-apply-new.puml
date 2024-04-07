@@ -1,14 +1,20 @@
-@startuml effect-beer-apply
+@startuml effect-beer-apply-new
 
 title Beer Protection
 hide footbox
 
 participant "effect : BeerEffect" as effect
 participant "target : Student" as target
+participant "inventory : Inventory" as inventory
 
 [-> effect ++: applyToStudent(target)
 	effect -> target ++: setEliminated(false)
 	return
+    effect -> target ++: dropRandomItem()
+        target -> inventory ++: dropRandomItem()
+        return
+    return
+
 return
 
 @enduml
