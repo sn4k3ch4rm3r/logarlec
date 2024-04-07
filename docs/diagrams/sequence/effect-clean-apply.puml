@@ -1,0 +1,18 @@
+@startuml effect-clean-apply
+title Apply CleanEffect to Room
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "cleanEffect : CleanEffect" as cleanEffect
+participant "room : Room" as room
+participant "effect : Effect" as effect
+
+ -> cleanEffect ++ : applyToRoom(room)
+        cleanEffect -> room ++ : interactCleanEffect(cleanEffect)
+            loop effect in effects
+                room -> effect ++ : interactCleanEffect(cleanEffect)
+                return
+            end
+        return
+    return
+@enduml

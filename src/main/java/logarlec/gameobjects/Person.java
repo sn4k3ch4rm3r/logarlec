@@ -120,7 +120,11 @@ public abstract class Person extends GameObject {
 
 	public void getOut() {
 		Skeleton.logFunctionCall(this, "getOut");
-		currentRoom.getOut(this);
+		// If not knocked out
+		boolean isKnockedOut = Skeleton.getInput(Boolean.class, "Is the person knocked out?");
+		if (!isKnockedOut) {
+			currentRoom.getOut(this);
+		}
 		Skeleton.logReturn(void.class);
 	}
 

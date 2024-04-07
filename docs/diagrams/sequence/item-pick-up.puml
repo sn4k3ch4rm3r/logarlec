@@ -1,0 +1,12 @@
+@startuml item-pick-up
+'https://plantuml.com/sequence-diagram
+
+title Pick up item
+hide footbox
+
+participant "person : Person" as person
+participant "item : Item" as item
+participant "room : Room" as room
+
+-> person: addItem(item)
+@enduml
