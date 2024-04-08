@@ -18,8 +18,8 @@ public class StudentUseCamembertTest extends TestCase {
         student = Skeleton.createObject("student", Student.class);
         room = Skeleton.createObject("room", Room.class);
         camembert = Skeleton.createObject("camembert", Camembert.class);
-        student.addItem(camembert);
         room.enter(student);
+        student.addItem(camembert);
     }
 
     @Override

@@ -1,0 +1,23 @@
+@startuml item-air-freshener-use
+'https://plantuml.com/sequence-diagram
+
+title Use Air Freshener
+hide footbox
+
+participant "airFreshener : AirFreshener" as airFreshener
+participant "room : Room" as room
+participant "student : Student" as student
+participant "cleanEffect : CleanEffect" as cleanEffect
+
+
+[-> airFreshener ++ : use()
+create cleanEffect
+airFreshener --> cleanEffect : <<create>>
+airFreshener -> room ++ : addEffect(cleanEffect)
+return
+airFreshener -> student ++ : removeItem(airFreshener)
+return
+
+
+
+@enduml

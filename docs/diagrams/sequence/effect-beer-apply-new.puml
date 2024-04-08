@@ -1,0 +1,30 @@
+@startuml effect-beer-apply-new
+
+title Beer Protection
+hide footbox
+
+participant "effect : BeerEffect" as effect
+participant "target : Student" as target
+participant "inventory : Inventory" as inventory
+participant "item : Item" as item
+
+note right of item
+    Randomly selected item
+    from inventory
+end note
+
+[-> effect ++: applyToStudent(target)
+	effect -> target ++: setEliminated(false)
+	return
+    effect -> target ++: dropRandomItem()
+        target -> inventory ++: dropRandomItem()
+            inventory -> item ++: drop()
+            return
+            inventory -> inventory ++: remove(item)
+            return
+        return
+    return
+
+return
+
+@enduml

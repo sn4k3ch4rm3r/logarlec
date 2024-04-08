@@ -1,0 +1,21 @@
+@startuml room-update-clean-effect-create
+title Create "Update Room with Clean Effect" test
+hide footbox
+participant "Main" as main
+participant "room : Room" as room
+participant "cleanEffect : CleanEffect" as clean
+participant "gasEffect : GasEffect" as gas
+
+main++
+create room
+main --> room : <<create>>
+create clean
+main --> clean : <<create>>
+main -> room ++: addEffect(cleanEffect)
+return
+create gas
+main --> gas : <<create>>
+main -> room ++: addEffect(gasEffect)
+return
+
+@enduml

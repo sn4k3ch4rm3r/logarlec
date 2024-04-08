@@ -1,0 +1,24 @@
+@startuml room-update-clean-effect
+title Update Room with Clean Effect
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant Main
+participant "room : Room" as room
+participant "cleanEffect : CleanEffect" as cleanEffect
+participant "gasEffect : GasEffect" as gasEffect
+
+activate Main
+Main -> room ++ : update(1)
+    room -> cleanEffect ++ : update(1)
+    return
+    room -> cleanEffect ++ : applyToRoom(room)
+        cleanEffect -> room ++ : interactCleanEffect(cleanEffect)
+            room -> gasEffect ++ : interactCleanEffect(cleanEffect)
+                gasEffect -> room ++ : removeEffect(gasEffect)
+                return
+            return
+        return
+    return
+return
+@enduml

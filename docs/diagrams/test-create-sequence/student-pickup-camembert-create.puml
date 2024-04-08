@@ -1,0 +1,25 @@
+@startuml student-pickup-camembert-create
+
+title Create "Pick up Camembert" test
+hide footbox
+
+participant "Main" as main
+participant "room : Room" as room
+participant "student : Student" as stu
+participant "inventory : Inventory" as inv
+participant "camembert : Camembert" as camembert
+
+main++
+create room
+main --> room : <<create>>
+create stu
+main --> stu  : <<create>>
+main -> room ++ : enter(student)
+return
+create inv
+stu --> inv : <<create>>
+create camembert
+main --> camembert : <<create>>
+
+
+@enduml

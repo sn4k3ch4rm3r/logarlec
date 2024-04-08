@@ -1,0 +1,26 @@
+@startuml student-pickup-camembert
+
+title Student picks up camembert
+hide footbox
+autoactivate on
+participant "Main" as main
+participant "room : Room" as room
+participant "student : Student" as student
+participant "inventory : Inventory" as inventory
+participant "mask : Mask" as mask
+
+main++
+main -> student : addItem(mask)
+student -> room : isClean()
+return clean : bool
+opt clean
+	student -> inventory : add(mask)
+	return success : bool
+	opt success
+		student -> mask ++: setPerson(student)
+		return
+	end
+end
+return success
+
+@enduml

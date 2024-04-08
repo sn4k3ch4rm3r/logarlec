@@ -1,5 +1,6 @@
 package logarlec.gameobjects;
 
+import logarlec.effects.CleanEffect;
 import logarlec.effects.Effect;
 import logarlec.items.Item;
 import logarlec.skeleton.Skeleton;

@@ -1,0 +1,26 @@
+@startuml effect-janitor-apply-student
+title Apply JanitorEffect to Student
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "janitorEffect : JanitorEffect" as janitorEffect
+participant "student : Student" as student
+participant "room : Room" as room
+participant "door : Door" as door
+
+note right of student
+    The same would apply to a teacher
+end note
+
+ -> janitorEffect ++ : applyToStudent(student)
+        janitorEffect -> student ++ : getOut()
+        student -> room ++ : getOut()
+            loop door in doors, while student \n still in the same room
+                room -> door ++ : use(student, room)
+                ref over door : Use Door
+                return
+            end
+        return
+        return
+    return
+@enduml

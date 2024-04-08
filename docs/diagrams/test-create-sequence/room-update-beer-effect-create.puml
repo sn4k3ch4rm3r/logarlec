@@ -1,0 +1,27 @@
+@startuml room-update-beer-effect
+title Create "Update Room with Beer Effect" test
+hide footbox
+
+skinparam SequenceReferenceBackgroundColor white
+
+participant Main
+participant "room : Room" as room
+participant "student : Student" as student
+participant "beerEffect : BeerEffect" as beerEffect
+participant "camembert : Camembert" as camembert
+
+Main++
+create room
+Main --> room : <<create>>
+create student
+Main --> student : <<create>>
+create beerEffect
+Main --> beerEffect : <<create>>
+Main -> student ++ : addEffect(beerEffect)
+return
+create camembert
+Main --> camembert : <<create>>
+Main -> student ++ : addItem(camembert)
+return
+
+@enduml

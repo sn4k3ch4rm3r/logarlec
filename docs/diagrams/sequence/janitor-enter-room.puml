@@ -1,0 +1,18 @@
+@startuml janitor-enter-room
+title Janitor Enter Room
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "room : Room" as room
+participant "janitor : Janitor" as janitor
+participant "janitorEffect : JanitorEffect" as janitorEffect
+
+[-> room ++ : enter(janitor)
+    room -> janitor ++ : enterRoom(room)
+        create janitorEffect
+        janitor -> janitorEffect : <<create>>
+        janitor -> room ++ : addEffect(janitorEffect)
+        return
+    return
+return
+@enduml

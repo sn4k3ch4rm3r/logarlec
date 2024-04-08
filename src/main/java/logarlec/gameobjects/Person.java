@@ -88,9 +88,13 @@ public abstract class Person extends GameObject {
 	@Override
 	public void addItem(Item item) {
 		Skeleton.logFunctionCall(this, "addItem", item);
-		if (inventory.add(item)) {
-			item.setPerson(this);
+		if (currentRoom == null || currentRoom.isClean()) {
+			if (inventory.add(item)) {
+				item.setPerson(this);
+				item.setRoom(currentRoom);
+			}
 		}
+
 		Skeleton.logReturn(void.class);
 	}
 
@@ -111,6 +115,22 @@ public abstract class Person extends GameObject {
 	 */
 	public void pickedUpSlideRule() {
 		Skeleton.logFunctionCall(this, "pickedUpSlideRule");
+		Skeleton.logReturn(void.class);
+	}
+
+	public void getOut() {
+		Skeleton.logFunctionCall(this, "getOut");
+		// If not knocked out
+		boolean isKnockedOut = Skeleton.getInput(Boolean.class, "Is the person knocked out?");
+		if (!isKnockedOut) {
+			currentRoom.getOut(this);
+		}
+		Skeleton.logReturn(void.class);
+	}
+
+	public void dropRandomItem() {
+		Skeleton.logFunctionCall(this, "dropRandomItem");
+		inventory.dropRandomItem();
 		Skeleton.logReturn(void.class);
 	}
 }

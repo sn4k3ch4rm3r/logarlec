@@ -60,4 +60,14 @@ public class Inventory {
 		items.forEach(i -> i.useAgainst(teacher));
 		Skeleton.logReturn(void.class);
 	}
+
+	public void dropRandomItem() {
+		Skeleton.logFunctionCall(this, "dropRandomItem");
+		if (!items.isEmpty()) {
+			Item item = items.get((int) (Math.random() * items.size()));
+			item.drop();
+			remove(item);
+		}
+		Skeleton.logReturn(void.class);
+	}
 }

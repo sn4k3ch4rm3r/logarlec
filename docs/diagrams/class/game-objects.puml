@@ -8,6 +8,7 @@ package GameObjects {
 		+ {abstract} removeItem(item : Item) : void
 		+ {abstract} applyEffect(effect : Effect) : void
 		+ {abstract} interactTeacher(teacher : Teacher) : void
+		+ {abstract} interactJanitor(janitor : Janitor) : void
 		+ addEffect(effect : Effect) : void
 		+ removeEffect(effect : Effect) : void
 	}
@@ -19,16 +20,20 @@ package GameObjects {
 		+ enterRoom(room : Room) : void
 		+ dropItem(item : Item) : void
 		+ setKnockOut(value : double) : void
+		+ getOut() : void
 	}
 
 	class Student {
 		- eliminated : bool
 		+ setEliminated(value : bool) : void
+		+ dropRandomItem() : void
 	}
 	class Teacher {
 		- peaceful : bool
 		+ setPeaceful(value : bool) : void
 	}
+
+	class Janitor
 
 	class Room {
 		- capacity : int
@@ -42,6 +47,10 @@ package GameObjects {
 		+ removeDoor(door : Door) : void 
 		+ hideDoors() : void
 		+ showDoors() : void
+		+ interactCleanEffect(cleanEffect : CleanEffect) : void
+		+ getOut(person : Person) : void
+		+ clean() : void
+		+ isClean() : bool
 	}
 	
 }
@@ -63,12 +72,15 @@ class Inventory {
 	+ remove(item : Item) : void
 	+ setRoom(room : Room) : void
 	+ protectFrom(teacher : Teacher) : void
+	+ dropRandomItem() : void
 }
 
 abstract Effect {
 	- timeRemaining : double
 	+ {abstract} applyToStudent(target : Student) : void
 	+ {abstract} applyToTeacher(target : Teacher) : void
+    + applyToRoom(room : Room) : void
+    + interactCleanEffect(cleanEffect : CleanEffect) : void
 	+ setHolder(holder : GameObject) : void
 }
 
@@ -88,6 +100,7 @@ GameObject <|-- Person
 GameObject <|-- Room
 Person <|-- Teacher
 Person <|-- Student
+Person <|-- Janitor
 
 Room "people" *-left- Person
 Person "room" o-right- Room

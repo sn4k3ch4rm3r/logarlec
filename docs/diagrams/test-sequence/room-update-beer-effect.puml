@@ -1,0 +1,39 @@
+@startuml room-update-beer-effect
+title Update Room with Beer Effect
+hide footbox
+autoactivate on
+skinparam SequenceReferenceBackgroundColor white
+
+participant Main
+participant "room : Room" as room
+participant "student : student" as student
+participant "inventory : Inventory" as inventory
+participant "beerEffect : beerEffect" as beer
+participant "camembert : Camembert" as camembert
+
+activate Main
+Main -> room : update(1)
+    room -> student : update(1)
+        student -> student : applyEffect(beerEffect)
+            student -> beer : applyToStudent(student)
+                beer -> student : setEliminated(false)
+                return
+                beer -> student : dropRandomItem()
+                    student -> inventory : dropRandomItem()
+                        inventory -> camembert : drop()
+                            camembert -> room : addItem(camembert)
+                                room -> camembert : setRoom(room)
+                                return
+                            return
+                            camembert -> camembert : setPerson(null)
+                            return
+                        return
+                        inventory -> inventory : remove(camembert)
+                        return
+                    return
+                return
+            return
+        return
+    return
+return
+@enduml

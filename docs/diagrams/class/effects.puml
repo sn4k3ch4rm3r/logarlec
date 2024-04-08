@@ -8,6 +8,8 @@ package Effects {
 		- timeRemaining : double
 		+ {abstract} applyToStudent(target : Student) : void
 		+ {abstract} applyToTeacher(target : Teacher) : void
+		+ applyToRoom(room : Room) : void
+		+ interactCleanEffect(cleanEffect : CleanEffect) : void
 		+ setHolder(holder : GameObject) : void
 	}
 
@@ -15,12 +17,16 @@ package Effects {
 	class RagEffect
 	class GasEffect
 	class MaskEffect
+	class CleanEffect
+	class JanitorEffect
 
 	together {
 		Effect <|-- BeerEffect
 		Effect <|-- RagEffect
 		Effect <|-- GasEffect
 		Effect <|-- MaskEffect
+		Effect <|-- CleanEffect
+		CleanEffect <|-- JanitorEffect
 	}
 	
 }

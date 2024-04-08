@@ -1,0 +1,25 @@
+package logarlec.effects;
+
+import logarlec.gameobjects.Room;
+import logarlec.gameobjects.Student;
+import logarlec.gameobjects.Teacher;
+import logarlec.skeleton.Skeleton;
+
+public class CleanEffect extends Effect {
+    @Override
+    public void applyToStudent(Student target) {
+
+    }
+
+    @Override
+    public void applyToTeacher(Teacher target) {
+
+    }
+
+    @Override
+    public void applyToRoom(Room target) {
+        Skeleton.logFunctionCall(this, "applyToRoom", target);
+        target.interactCleanEffect(this);
+        Skeleton.logReturn(void.class);
+    }
+}

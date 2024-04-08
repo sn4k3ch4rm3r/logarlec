@@ -1,5 +1,6 @@
 package logarlec.gameobjects;
 
+import logarlec.effects.CleanEffect;
 import logarlec.effects.Effect;
 import logarlec.items.Item;
 import logarlec.util.Door;
@@ -176,6 +177,7 @@ public class Room extends GameObject {
 		Skeleton.logFunctionCall(this, "update", deltaTime);
 		for (Effect effect : effects) {
 			effect.update(deltaTime);
+			effect.applyToRoom(this);
 		}
 		for (Person person : people) {
 			for (Effect effect : this.effects) {
@@ -235,5 +237,37 @@ public class Room extends GameObject {
 			person.interactTeacher(teacher);
 		}
 		Skeleton.logReturn(void.class);
+	}
+
+	public void interactCleanEffect(CleanEffect effect) {
+		Skeleton.logFunctionCall(this, "interactCleanEffect", effect);
+		for (Effect e : effects) {
+			e.interactCleanEffect(effect);
+		}
+		Skeleton.logReturn(void.class);
+	}
+
+	public void getOut(Person person) {
+		Skeleton.logFunctionCall(this, "getOut", person);
+		for (Door door : doors) {
+			door.use(person, this);
+			if (!people.contains(person)) {
+				break;
+			}
+		}
+		Skeleton.logReturn(void.class);
+	}
+
+	public void clean() {
+		Skeleton.logFunctionCall(this, "clean");
+		// Reset visitorsSinceClean
+		Skeleton.logReturn(void.class);
+	}
+
+	public boolean isClean() {
+		Skeleton.logFunctionCall(this, "isClean");
+		boolean clean = Skeleton.getInput(Boolean.class, "Is the room clean [true|false]: ");
+		Skeleton.logReturn(clean);
+		return clean;
 	}
 }

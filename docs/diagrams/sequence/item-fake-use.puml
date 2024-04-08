@@ -1,0 +1,14 @@
+@startuml item-fake-use
+title Use Fake Item
+hide footbox
+
+participant "fakeMask : FakeMask" as fakeMask
+note right of fakeMask
+  The behavior is the same
+  as the other fake items.
+end note
+
+[-> fakeMask ++: use()
+return
+
+@enduml

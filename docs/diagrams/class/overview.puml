@@ -19,6 +19,7 @@ class Inventory {
 	+ remove(item : Item) : void
 	+ setRoom(room : Room) : void
 	+ protectFrom(teacher : Teacher) : void
+	+ dropRandomItem() : void
 }
 
 package Items {
@@ -34,6 +35,8 @@ package Items {
 	}
 	
 	class SlideRule
+
+	class FakeSlideRule
 	
 	class Transistor {
 		+ setTarget(target : Room) : void
@@ -43,7 +46,9 @@ package Items {
 	class CodeOfStudies {
 		- uses : int
 	}
-	
+
+	class FakeCodeOfStudies
+
 	class Beer 
 	
 	class WetRag 
@@ -52,7 +57,11 @@ package Items {
 		- uses : int
 	}
 
+	class FakeMask
+
 	class Camembert
+
+	class AirFreshener
 
 	together {
 		Item <|-- SlideRule
@@ -62,6 +71,11 @@ package Items {
 		Item <|-- WetRag
 		Item <|-- Mask
 		Item <|-- Camembert
+		Item <|-- AirFreshener
+		SlideRule <|-- FakeSlideRule
+		CodeOfStudies <|-- FakeCodeOfStudies
+		Mask <|-- FakeMask
+
 	}
 
 	Transistor "pair" o- Transistor
@@ -72,6 +86,8 @@ package Effects {
 		- timeRemaining : double
 		+ {abstract} applyToStudent(target : Student) : void
 		+ {abstract} applyToTeacher(target : Teacher) : void
+		+ applyToRoom(room : Room) : void
+		+ interactCleanEffect(cleanEffect : CleanEffect) : void
 		+ setHolder(holder : GameObject) : void
 	}
 
@@ -79,12 +95,16 @@ package Effects {
 	class RagEffect
 	class GasEffect
 	class MaskEffect
+	class CleanEffect
+	class JanitorEffect
 
 	together {
 		Effect <|-- BeerEffect
 		Effect <|-- RagEffect
 		Effect <|-- GasEffect
 		Effect <|-- MaskEffect
+		Effect <|-- CleanEffect
+		CleanEffect <|-- JanitorEffect
 	}
 	
 	Updatable <|.- Effect
@@ -107,20 +127,24 @@ package GameObjects {
 		+ enterRoom(room : Room) : void
 		+ dropItem(item : Item) : void
 		+ setKnockOut(value : double) : void
+		+ getOut() : void
 	}
 
 	class Student {
 		- eliminated : bool
 		+ setEliminated(value : bool) : void
+		+ dropRandomItem() : void
 	}
 	class Teacher {
 		- peaceful : bool
 		+ setPeaceful(value : bool) : void
 	}
+	class Janitor
 
 	class Room {
 		- capacity : int
 		- personCount : int
+		- visitorsSinceClean : int
 		+ enter(person : Person) : boolean
 		+ leave(person : Person) : void
 		+ merge(room : Room) : void
@@ -130,6 +154,10 @@ package GameObjects {
 		+ removeDoor(door : Door) : void 
 		+ hideDoors() : void
 		+ showDoors() : void
+		+ interactCleanEffect(cleanEffect : CleanEffect) : void
+		+ getOut(person : Person) : void
+		+ clean() : void
+		+ isClean() : bool
 	}
 	
 	Updatable <|.- GameObject
@@ -137,6 +165,7 @@ package GameObjects {
 	GameObject <|-- Room
 	Person <|-- Teacher
 	Person <|-- Student
+	Person <|-- Janitor
 
 	Room "people" *- Person
 	Person "room" o- Room

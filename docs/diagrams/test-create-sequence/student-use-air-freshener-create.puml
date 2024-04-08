@@ -1,0 +1,23 @@
+@startuml student-use-air-freshener-create
+title Create "Use Air Freshener" test
+hide footbox
+
+participant "Main" as main
+participant "room : Room" as room
+participant "student : Student" as student
+participant "airFreshener : AirFreshener" as airFreshener
+
+main++
+create room
+main --> room : <<create>>
+create student
+main --> student : <<create>>
+main -> room ++ : enter(student)
+return
+create airFreshener
+main --> airFreshener : <<create>>
+main -> student ++ : addItem(airFreshener)
+return
+
+
+@enduml

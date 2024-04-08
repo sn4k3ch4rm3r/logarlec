@@ -1,0 +1,20 @@
+@startuml effect-janitor-apply-room
+title Apply JanitorEffect to Room
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "janitorEffect : JanitorEffect" as janitorEffect
+participant "room : Room" as room
+participant "effect : Effect" as effect
+
+-> janitorEffect ++ : applyToRoom(room)
+    janitorEffect -> room ++ : interactCleanEffect(cleanEffect)
+        loop effect in effects
+            room -> effect ++ : interactCleanEffect(cleanEffect)
+            return
+        end
+    return
+    janitorEffect -> room ++ : clean()
+    return
+return
+@enduml

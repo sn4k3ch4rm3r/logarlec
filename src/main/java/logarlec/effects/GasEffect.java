@@ -32,4 +32,11 @@ public class GasEffect extends Effect {
 	public String toString() {
 		return "Gas effect";
 	}
+
+	@Override
+	public void interactCleanEffect(CleanEffect cleanEffect) {
+		Skeleton.logFunctionCall(this, "interactCleanEffect", cleanEffect);
+		holder.removeEffect(this);
+		Skeleton.logReturn(void.class);
+	}
 }

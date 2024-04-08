@@ -1,5 +1,6 @@
 package logarlec.effects;
 
+import logarlec.gameobjects.Room;
 import logarlec.skeleton.Skeleton;
 
 import logarlec.gameobjects.GameObject;
@@ -24,6 +25,10 @@ public abstract class Effect implements Updatable {
 	 */
 	public abstract void applyToTeacher(Teacher target);
 
+	public void applyToRoom(Room target) {
+
+	}
+
 	/**
 	 * Ezen hatás tulajdonosának megváltoztatása.
 	 *
@@ -45,6 +50,11 @@ public abstract class Effect implements Updatable {
 		if (!moreTime) {
 			holder.removeEffect(this);
 		}
+		Skeleton.logReturn(void.class);
+	}
+
+	public void interactCleanEffect(CleanEffect cleanEffect) {
+		Skeleton.logFunctionCall(this, "interactCleanEffect", cleanEffect);
 		Skeleton.logReturn(void.class);
 	}
 }
