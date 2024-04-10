@@ -30,7 +30,7 @@ public class Mask extends Item {
 		Skeleton.logFunctionCall(this, "usePassive");
 		maskEffect = Skeleton.createObject("maskEffect", MaskEffect.class);
 		person.addEffect(maskEffect);
-
+		person.applyEffect(maskEffect);
 		Skeleton.logReturn(true);
 		return true;
 	}

@@ -16,6 +16,8 @@ public abstract class Person extends GameObject {
 	 */
 	protected Inventory inventory;
 
+	protected double knockOutTime = -5;
+
 	/**
 	 * A szoba melyben a személy jelenleg tartózkodik.
 	 */
@@ -61,7 +63,9 @@ public abstract class Person extends GameObject {
 	 */
 	public void setKnockOut(double value) {
 		Skeleton.logFunctionCall(this, "setKnockOut", value);
-		// Set knockout value
+		if (value > 0 && knockOutTime <= -5) {
+			knockOutTime = value;
+		}
 		Skeleton.logReturn(void.class);
 	}
 
@@ -76,6 +80,9 @@ public abstract class Person extends GameObject {
 		for (Effect effect : effects) {
 			effect.update(deltaTime);
 			applyEffect(effect);
+		}
+		if (knockOutTime > 0) {
+			// call usePassive on all items
 		}
 		Skeleton.logReturn(void.class);
 	}
