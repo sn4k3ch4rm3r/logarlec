@@ -89,6 +89,7 @@ package Items {
 package Effects {
 	abstract Effect {
 		- timeRemaining : double
+		- holder : GameObject
 		+ {abstract} applyToStudent(target : Student) : void
 		+ {abstract} applyToTeacher(target : Teacher) : void
 		+ applyToRoom(room : Room) : void
