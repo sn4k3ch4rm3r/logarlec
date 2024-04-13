@@ -25,6 +25,8 @@ class Inventory {
 
 package Items {
 	abstract Item {
+		# room : Room
+		# person : Person
 		+ {abstract} use() : void
 		+ {abstract} useAgainst(target : Teacher) : void
 		+ {abstract} usePassive() : bool
@@ -40,6 +42,8 @@ package Items {
 	class FakeSlideRule
 	
 	class Transistor {
+		- other : Transistor;
+		- target : Room;
 		+ setTarget(target : Room) : void
 		+ setPair(pair : Transistor) : void
 	}
