@@ -1,0 +1,27 @@
+@startuml RoomSplitActivity
+start
+:Create new room;
+repeat
+    :Get a coinfiip bool value;
+    if (coinflip == true)
+        :Move current item to the other room;
+    endif
+repeat while (there is no non-tried item left)
+repeat
+    :Get a coinfiip bool value;
+    if (coinflip == true)
+        :Move current person to the other room;
+    endif
+repeat while (there is no non-tried people left)
+repeat
+    :Get a coinfiip bool value;
+    if (coinflip == true)
+        :Move current door to the other room;
+    endif
+repeat while (there is no non-tried doors left)
+repeat
+    :Copy current effect to the other room;
+repeat while (copied all the effects)
+:Create door between the two rooms;
+stop
+@enduml
