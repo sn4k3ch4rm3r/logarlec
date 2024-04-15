@@ -1,60 +1,1986 @@
+
 \chapter{Részletes tervek}
-\comment{A dokumentum célja, hogy pontosan specifikálja az implementálandó osztályokat, beleértve a privát attribútumokat és metódusokat, ezek definícióját is.A dokumentum második fele részletesen be kell mutassa a korábban definiált be-és kimeneti nyelv szintakszisát felhasználva, hogy mely tesztekkel lesz a prototípus ellenőrizve.}
+% \comment{A dokumentum célja, hogy pontosan specifikálja az implementálandó osztályokat, beleértve a privát attribútumokat és metódusokat, ezek definícióját is.A dokumentum második fele részletesen be kell mutassa a korábban definiált be-és kimeneti nyelv szintakszisát felhasználva, hogy mely tesztekkel lesz a prototípus ellenőrizve.}
+\setcounter{section}{-1}
+\section{Javítások}
+
+\subsection{Prototípus interface definíciója}
+
+\subsubsection{Bemeneti nyelv}
+% \comment{Definiálni kell a teszteket leíró nyelvet. Külön figyelmet kell fordítani arra, hogy ha a rendszer véletlen elemeket is tartalmaz, akkor a véletlenszerűség ki-bekapcsolható legyen, és a program determinisztikusan is futtatható legyen. A szálkezelést is tesztelhető, irányítható módon kell megoldani. A programot egy adott konfigurációból is el kell tudni indítani, vagyis kell olyan parancs, amivel konkrét előre megadott állapotból indul a rendszer (pl. load).}
+
+Az interfész parancsokat vár a bemenetre. Egy parancs egy egyszavas parancsnévből és egyszavas argumentumokból áll. A parancs a parancsnévvel kezdődik, utána szóközzel elválasztva következnek az argumentumok. A parancsok:
+
+\begin{itemize}
+    \item Add <holder> <object>
+    \begin{itemize}
+        \item Leírás: Hozzáadja az első paraméterül megadott szoba vagy személy megfelelő tárolójához a második paraméterül megadott objektumot.
+        
+        \item Első paraméter: Az első paraméter Person leszármazott, vagy szoba.
+        \begin{itemize}
+            \item Janitor
+            \item Room
+            \item Student
+            \item Teacher
+        \end{itemize}
+        \item Második paraméter: A második paraméter lehet az Effect, Person vagy Item osztályok leszármazottjának példánya.
+        \begin{itemize}
+            \item AirFreshener
+            \item Beer
+            \item BeerEffect
+            \item Camembert
+            \item CleanEffect
+            \item CodeOfStudies
+            \item Door
+            \item FakeCodeOfStudies
+            \item FakeMask
+            \item FakeSlideRule
+            \item GasEffect
+            \item Janitor (Person leszármazott esetén nem)
+            \item JanitorEffect
+            \item Mask
+            \item MaskEffect
+            \item RagEffect
+            \item Slide Rule
+            \item Student (Person leszármazott esetén nem)
+            \item Teacher (Person leszármazott esetén nem) 
+            \item Transistor
+            \item WetRag
+        \end{itemize}
+    \end{itemize}
+    
+    \item Create <class> <name> [<constructor params>]
+    \begin{itemize}
+        \item Leírás: Létrehoz egy objektum példányt a prototípusban megadott osztályból, megadott névvel.
+        \item Első paraméter: Az első paraméter határozza meg, hogy milyen osztályú objektumot hozunk létre. A paraméternek egyeznie kell valamelyik létrehozható osztály nevével:
+        \begin{itemize}
+        \item AirFreshener
+        \item Beer
+        \item BeerEffect
+        \item Camembert
+        \item CleanEffect
+        \item CodeOfStudies
+        \item Door: a konstruktor paraméterekhez oda kell írni a két szoba nevét, amelyeket az ajtó összeköt:
+         \texttt{Create Door d1 r1 r2}
+        \item FakeCodeOfStudies
+        \item FakeMask
+        \item FakeSlideRule
+        \item GasEffect
+        \item Janitor
+        \item JanitorEffect
+        \item Mask
+        \item MaskEffect
+        \item RagEffect
+        \item Room: opcionális paraméter a kapacitás, alapértelmezetten négy.
+        \item Student
+        \item SlideRule
+        \item Teacher
+        \item Transistor
+        \item WetRag
+        \end{itemize}
+
+        \item Második paraméter: A második paraméter az objektum neve a prototípusban. Ilyen néven kell hivatkozni rá további parancsok kiadásakor.
+        
+    \end{itemize}
+
+    \item Drop <person> <item>
+    \begin{itemize}
+        \item Leírás: Az első paraméterként megadott Person leszármazott objektum eldobja a második paraméterként megadott Item leszármazott objektumot, ha az nála van.
+    \end{itemize}
+
+    \item Link <transistor1> <transistor2>
+    \begin{itemize}
+        \item Leírás: Összelinkeli a két megadott Transistor objektumot.
+    \end{itemize}
+
+    \item Merge <room1> <room2>
+    \begin{itemize}
+        \item Leírás: Beleolvasztja az első paraméterül megadott Room objektumba a második paraméterül megadott Room objektumot.
+    \end{itemize}
+    
+    \item Move <person> <door>
+    \begin{itemize}
+        \item Leírás: Az első paraméterként megadott Person leszármazott objektum használja a második paraméterként megadott Door objektumot.
+    \end{itemize}
+    
+    \item Oneway <door> <value>
+    \begin{itemize}
+        \item Leírás: Megadott Door objektum egyirányúra állítása
+        \item Opciók: value egy boolean, lehet true vagy false, hogy egyirányú-e az ajtó.
+    \end{itemize}
+    
+    \item Pickup <person> <item>
+    \begin{itemize}
+        \item Leírás: Egy ember felvesz egy tárgyat.
+        \item Első paraméter: Az első paraméter a Person osztály valamely leszármazottjának, tehát az alábbi osztályok példányának neve. 
+        \begin{itemize}
+            \item Janitor
+            \item Student
+            \item Teacher
+        \end{itemize}
+        \item Második paraméter: A második paraméter lehet az Effect vagy Item osztályok leszármazottjának példánya.
+        \begin{itemize}
+            \item AirFreshener
+            \item Beer
+            \item BeerEffect
+            \item Camembert
+            \item CleanEffect
+            \item CodeOfStudies
+            \item FakeCodeOfStudies
+            \item FakeMask
+            \item FakeSlideRule
+            \item GasEffect
+            \item JanitorEffect
+            \item Mask
+            \item MaskEffect
+            \item RagEffect
+            \item SlideRule
+            \item Transistor
+            \item WetRag
+        \end{itemize}
+    \end{itemize}
+    
+    \item Seed <seed>
+    \begin{itemize}
+        \item Leírás: Véletlen szám generálásához használt seed beállítása. Ezzel determinisztikussá tehető minden véletlen esemény a tesztelés elősegítése érdekében.
+    \end{itemize}
+
+    \item Split <room>
+    \begin{itemize}
+        \item 
+        Leírás: Szétválasztja a paraméterül megadott Room objektumbot.
+    \end{itemize}
+
+    \item Status <object>
+    \begin{itemize}
+        \item Leírás: Kiiratja a megadott objektum aktuális állapotát.
+    \end{itemize}
+    
+    \item Use <person> <item>
+    \begin{itemize}
+        \item Leírás: Az első paraméterként megadott Person leszármazott objektum használja a második paraméterként megadott Item leszármazott objektumot, ha az nála van.
+    \end{itemize}
+    
+    \item Update <deltaTime> [<object>]
+    \begin{itemize}
+        \item Leírás: Meghívja a paraméterül megadott objektum frissítő metódusát.
+        \item Első paraméter: az előző Update óta eltelt idő.
+        \item Második paraméter: Egy Updatable interfészt megvalósító objektum:
+        \begin{itemize}
+            \item BeerEffect
+            \item CleanEffect
+            \item GasEffect
+            \item Janitor
+            \item JanitorEffect
+            \item MaskEffect
+            \item RagEffect
+            \item Room
+            \item Student
+            \item Teacher
+        \end{itemize}
+        \item Opciók: Az object nem kötelező paraméter, ha nincs megadva, akkor minden objektumot frissít (ahogyan ez játék közben is történne).
+    \end{itemize}
+\end{itemize}
+
+Példák a bemeneti nyelvre:
+\begin{verbatim}
+    Create Room r1
+    Create Room r2
+    Create Door d r1 r2
+    Status d
+
+    Create Student s
+    Create Mask m
+    Add s m
+    Update
+\end{verbatim}
+
+% \comment{Ha szükséges, meg kell adni a konfigurációs (pl. pályaképet megadó) fájlok nyelvtanát is.}
+
+\subsubsection{Kimeneti nyelv}
+% \comment{Egyértelműen definiálni kell, hogy az egyes bemeneti parancsok végrehajtása után előálló állapot milyen formában jelenik meg a szabványos kimeneten. A program képes legyen olyan kimenetet előállítani, amellyel az objektumok állapota ellenőrizhető (pl. save). Ebben az alfejezetben is precízen definiálni kell, hogy a kimenet nyelve milyen elemekből és milyen szintakszissal áll elő.}
+
+Az alábbi parancsok végrehajtása során a futtatás sikeressége vagy eredmény a kimeneten megjelenik.
+
+\begin{itemize}
+    \item Merge
+    \begin{itemize}
+        \item Van elég hely az új szobában: Nincs kimenet
+        \item Nincs elég hely az új szobában: Minden olyan emberhez, akinek nincs helye, egy sor fog tartozni a kimenetben. Ha át tudott menni egy szomszédos szobába, az alábbi sor jelenik meg:
+        \begin{verbatim}
+    <person> moved to <room>.
+        \end{verbatim}
+        Amennyiben már nincs szomszédos szoba, melybe át lehet menni, az ember meghal:
+        \begin{verbatim}
+    <person> died.
+        \end{verbatim}
+    \end{itemize}
+
+    \item Move
+    \begin{itemize}
+        \item Van elég hely az ajtó túloldalán, és az ajtó járható erre:
+        \begin{verbatim}
+    <person> moved to <room>.
+        \end{verbatim}
+        \item Nem járható az ajtó ebben az irányban:
+        \begin{verbatim}
+    <person> couldn't use the door.
+        \end{verbatim}
+        \item Járható az ajtó, de nincs hely a túloldalon:
+        \begin{verbatim}
+    The other room is full.
+        \end{verbatim}
+    \end{itemize}
+
+    \item Pickup
+    \begin{itemize}
+        \item Sikerült felvenni: Nincs kimenet.
+        \item Nem sikerült felvenni, tele volt az inventory:
+        \begin{verbatim}
+    Inventory is full.
+        \end{verbatim}
+    \end{itemize}
+
+    \item Update
+    \begin{itemize}
+        \item Paraméter nélküli hívás esetén a kimenet megegyezik azzal, mintha az összes szobára létrehozási sorrendben meghívnánk az Update-et.
+        \item Room típusú paraméter esetén először az effektusokon megy végig, amennyiben az effektus ideje lejárt, azt az alábbi módon kiírja:
+        \begin{verbatim}
+    <effect> ran out of time.
+        \end{verbatim}
+        Ezen kívül a CleanEffect és a JanitorEffect a szobára is alkalmazható, ekkor az alábbi üzenet jelenik meg:
+        \begin{verbatim}
+    <cleanEffect> cleaned the room.
+        \end{verbatim}
+        Ha ezalatt a mérgező gázt is eltávolították, utána ez fog megjelenni:
+        \begin{verbatim}
+    <cleanEffect> removed <gasEffect>.
+        \end{verbatim}
+        Ezután az emberek következnek, rájuk kerülnek a szoba effektusai:
+        \begin{verbatim}
+    <person> got kicked out.
+    <person> got knocked out.
+    <teacher> became peaceful.
+    <student> was saved by beer.
+        \end{verbatim}
+        Majd az effekt rákerülése után az emberek saját maguk is frissülnek:
+        \begin{verbatim}
+    <student> was protected by mask.
+    <teacher> attacked everyone.
+    <student> was eliminated.
+    <student> was revived.
+        \end{verbatim}
+    \end{itemize}
+    
+
+
+    \item Status
+    \begin{itemize}
+        \item A parancs hatására a program kiírja a kért objektum adatatait. Egy sorba kiírja az osztályt és nevet. Ezután a belső állapotának változóit írja ki külön sorokba. Ha egy belső változó egy kollekció akkor ennek elemeit írja ki szóközzel elválasztva. (Ha az elemek objektumok, akkor a prototípusban szereplő nevüket írja ki.) 
+        \newline A kimenet különböző osztályok esetén:
+    \begin{itemize}
+        \item AirFreshener:
+
+        \begin{verbatim}
+        AirFreshener <name>
+        Person: <person>
+        Room: <room>
+        \end{verbatim}
+
+        \item Beer:
+
+        \begin{verbatim}
+        Beer <name>
+        Person: <person>
+        Room: <room>
+        \end{verbatim}
+
+        \item BeerEffect:
+
+        \begin{verbatim}
+        BeerEffect <name>
+        Holder: <holder>
+        Time remaining: <timeRemaining>
+        \end{verbatim}
+
+        \item Camembert:
+
+        \begin{verbatim}
+        Camembert <name>
+        Person: <person>
+        Room: <room>
+        \end{verbatim}
+
+        \item CleanEffect:
+
+        \begin{verbatim}
+        CleanEffect <name>
+        Holder: <holder>
+        \end{verbatim}
+
+        \item CodeOfStudies:
+
+        \begin{verbatim}
+        CodeOfStudies <name>
+        Person: <person>
+        Room: <room>
+        Uses: <uses>
+        \end{verbatim}
+        
+        \item Door:
+        
+        \begin{verbatim}
+        Door <name>
+        Hidden: <hidden>
+        One-way: <oneWay>
+        Room 1: <room1>
+        Room 2: <room2>
+        \end{verbatim}
+
+        \item FakeCodeOfStudies:
+
+        \begin{verbatim}
+        FakeCodeOfStudies <name>
+        Person: <person>
+        Room: <room>
+        \end{verbatim}
+
+        \item FakeMask:
+
+        \begin{verbatim}
+        FakeMask <name>
+        Person: <person>
+        Room: <room>
+        \end{verbatim}
+
+        \item FakeSlideRule:
+
+        \begin{verbatim}
+        FakeSlideRule <name>
+        Person: <person>
+        Room: <room>
+        \end{verbatim}
+
+        \item GasEffect:
+
+        \begin{verbatim}
+        GasEffect <name>
+        Holder: <holder>
+        Time remaining: <timeRemaining>
+        \end{verbatim}
+
+        \item Janitor:
+
+        \begin{verbatim}
+        Janitor <name>
+        Effects: <effects>
+        Inventory: <items in inventory>
+        Knock-out time: <knockOutTime>
+        \end{verbatim}
+
+        \item JanitorEffect:
+
+        \begin{verbatim}
+        JanitorEffect <name>
+        Holder: <holder>
+        \end{verbatim}
+
+        \item Mask:
+
+        \begin{verbatim}
+        Mask <name>
+        Person: <person>
+        Room: <room>
+        Uses: <uses>
+        \end{verbatim}
+
+        \item MaskEffect:
+
+        \begin{verbatim}
+        MaskEffect <name>
+        Holder: <holder>
+        Time remaining: <timeRemaining>
+        \end{verbatim}
+
+        \item RagEffect:
+
+        \begin{verbatim}
+        RagEffect <name>
+        Holder: <holder>
+        Time remaining: <timeRemaining>
+        \end{verbatim}
+
+        \item Room:
+
+        \begin{verbatim}
+        Room <name>
+        Capacity: <capacity>
+        Doors: <doors>
+        Effects: <effects>
+        Items: <items>
+        People: <people>
+        \end{verbatim}
+
+        \item SlideRule:
+
+        \begin{verbatim}
+        SlideRule <name>
+        Person: <person>
+        Room: <room>
+        \end{verbatim}
+
+        \item Student:
+
+        \begin{verbatim}
+        Student: <name>
+        Effects: <effects>
+        Eliminated: <eliminated>
+        Inventory: <items in inventory>
+        Knock-out time: <knockOutTime>
+        Room: <room>
+        \end{verbatim}
+
+        \item Teacher:
+
+        \begin{verbatim}
+        Teacher: <name>
+        Effects: <effects>
+        Inventory: <items in inventory>
+        Knock-out time: <knockOutTime>
+        Room: <room>
+        \end{verbatim}
+
+        \item Transistor:
+
+        \begin{verbatim}
+        Transistor <name>
+        Pair: <other>
+        Person: <person>
+        Room: <room>
+        Target room: <target>
+        \end{verbatim}
+
+        \item WetRag:
+
+        \begin{verbatim}
+        WetRag <name>
+        Person: <person>
+        Room: <room>
+        \end{verbatim}
+
+        
+    \end{itemize}
+
+    \item Egyéb:
+
+    Amikor egy hallgató felvette a logarlécet, az alábbi szöveg jelenik meg:
+
+    \begin{verbatim}
+        The students have won.
+    \end{verbatim}
+
+    \end{itemize}
+
+\end{itemize}
+
+\subsection{A teszttervek}
+Ebbe a dokumentumba csak azokat a tesztterveket raktuk bele, melyeken változtatnunk kellett.
+
+\test{ApplyMaskEffectToStudent}{A teszt létrehoz egy Diákot és egy Maszkot. \newline A Maszkot a diákkal felveteti. \newline Ellenőrzi, hogy a diák rendelkezik-e a megfelelő paraméterű MaskEffect-el.}{A Maszk által hordozott Effect Diákra való terjedésének tesztelése.}
+
+Megjegyzés: A fenti két teszt elvégezhető lenne az összes tárgyra és szereplőre is, de mivel az ősosztályaik közösek és a FakeItem implementációknál metódusok kerülnek törlésre, ezért ezekre külön teszteket nem terveztünk.
+
+\test{UpdateBeerEffect}{A teszt létrehoz egy Diákot és egy Beer effectet. \newline Az effecet a diákra rakja. Meghívja a Diák update függvényét. \newline Ellenőrzi, hogy frissült-e az effect.}{Az effect frissítésének ellenőrzése.}
+
+\test{UpdateRagEffect}{A teszt létrehoz egy Diákot és egy RagEffectet. \newline Az effectet a diákra rakja. Meghívja a Diák update függvényét. \newline Ellenőrzi, hogy frissült-e az effect.}{Az effect frissítésének ellenőrzése.}
+
+\test{UpdateMaskEffect}{A teszt létrehoz egy Diákot és egy Maszkot. \newline A Maszokt a diákkal felveteti. Meghívja a Diák update függvényét. \newline Ellenőrzi, hogy frissült-e az effect.}{Az effect frissítésének ellenőrzése.}
+
+\test{UpdateGasEffect}{A teszt létrehoz egy Szobát, egy Diákot és egy Camember-et. \newline A Camembert-et felveteti és kibontatja a Diákkal. Meghívja a Szoba update függvényét. \newline Ellenőrzi, hogy frissült-e az effect.}{Az effect frissítésének ellenőrzése.}
+
+\test{PickUpItem}{A teszt létrehoz egy szobát, egy hallgatót és egy Sört \newline A hallgatót és a Sört a szobába helyezi. A hallgatóval felveteti a Sört. \newline Ellenőrzi, hogy a Sör a hallgatóhoz került-e.}{A felvétel funkció ellenőrzése.}
+Megjegyzés: Elegendő egy tetszőleges típusú Player-el és egy tetszőleges típusú tárgyal tesztelni, mivel a teszetesethez releváns metódusok az absztrakt osztályokban kerültek definiálásra.
+
+\test{TeleportUsingTransistors}{A teszt létrehoz két szobát(szobaA, szobaB), két tranzisztort(tranzisztorA, tranzisztorB) és egy hallgatót. \newline A hallgatót elhelyezi szobaA-ban. A tranzisztorokat összelinkeli. TranzisztorA-t odaadja a hallagtónak, tranzisztorB-t pedig elhelyezi szobaB-ben. A hallgatót teleportáltatja TranzisztorA segítségével. \newline Ellenőrzi, hogy a diák átkerült-e szobaB-be. }{A teleportálás funkció működésének bizonyítása.}
+
+\test{BeerProtectStudent}{A teszt létrehoz egy szobát, egy Hallgatót és egy Oktatót egy Sört és egy maszkot. \newline A Sört és a maszkot felveteti a Hallgatóval. A Hallgatót és Oktatót a Szobába rakja. \newline Ellenőrzi, hogy az oktató nem támadja meg a Hallgatót.}{A Sör védelemnyújtásának ellenőrzése, miközben a hallgató elejti a nála lévő másik tárgyat.}
+
+\test{KnockOutWithOutMask}{A teszt létrehoz egy Szobát, egy Diákot és egy Camember-et. \newline A Diákot a szobába helyezi. A diákkal felveteti és kibontatja a sajtot \newline Ellenőrzzi, hogy a Diák elájult-e.}{A Cammabret működésének ellenőrzése.}
+Megjegyzés: Ezt a tesztesetet a Teacher és Janitor objektumra is elvégezhetnénk, de a tesztben releváns metódusok a Student és Teacher esetében azonosak, mivel mind a hárman a Person osztály leszármazottai.
+
+\test{KnockOutWithMask}{A teszt létrehoz egy Szobát, egy Diákot, Maszkot és egy Camember-et. \newline A Maszkot a Diákra helyezi. A Camembert-et felveteti és kibontatja a Diákkal. A Diákot a szobába helyezi.\newline Ellenőrzzi, hogy a Diák nem elájult}{A Maszk működésének ellenőrzése.}
+Megjegyzés: Ezt a tesztesetet a Teacher és Janitor objektumra is elvégezhetnénk, de a tesztben releváns metódusok a Student és Teacher esetében azonosak, mivel mind a hárman a Person osztály leszármazottai.
+
+\clearpage
+
 \section{Osztályok és metódusok tervei}
-\subsection{Osztály1}
+
+\subsection{AirFreshener}
 \begin{class-template-responsibility}
-    Felelősség leírása
+    A tárgy használatakor a szoba levegőjét megtisztítja.
 \end{class-template-responsibility}
 \begin{class-template-interface}
-    Megvalósított interfészek felsorolása
+    -
 \end{class-template-interface}
 \begin{class-template-baseclass}
-    Ős-Ősosztály \baseclass Ősosztály... 
+    Item
 \end{class-template-baseclass}
 \begin{class-template-attribute}
-    \classitem{+A [0..*]}{adattag A}
+    -
 \end{class-template-attribute}
-\comment{Milyen publikus, protected és privát  metódusokkal rendelkezik. Metódusonként precíz leírás, ha szükséges, activity diagram is a metódusban megvalósítandó algoritmusról. Minden olyan metódusnak szerepelnie kell, amelyiket az osztály megvalósít vagy felüldefiniál.}
 \begin{class-template-method}
-    \classitem{+B(A a) : void}{metódus B}
+   \classitem{+use() : void}{Létrehoz egy CleanEffectet a szobára, majd önmegsemimisít.}
 \end{class-template-method}
 
-\subsection{Osztály2}
+\subsection{Beer}
 \begin{class-template-responsibility}
-    Felelősség leírása
+    Megvédi a hallgatót az oktatóktól.
 \end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Item
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+use() : void}{Egy BeerEffectet rak a személyre, akinél van, majd önmegsemimisít. Használakor a hallgató elejt egy nála lévő tárgyat.}
+    \begin{verbatim}
+        create beerEffect
+        add beerEffect to holder
+        remove self from the holder
+        make the holder drop a random item
+    \end{verbatim}
+    .
+\end{class-template-method}
+
+\subsection{BeerEffect}
+\begin{class-template-responsibility}
+    A Beer hatásának megvalósítása: védelem az oktatókkal szemben.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Updatable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Effect
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+applyToStudent(target : Student) : void}{Megvédi a  játékost az oktatóktól, közben a játékos elejt egy nála lévő tárgyat.}
+\end{class-template-method}
+
+\subsection{Camembert}
+\begin{class-template-responsibility}
+    A tárgy használatakor a szoba levegőjét mérgzővé teszi.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Item
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+   \classitem{+use() : void}{Egy GasEffectet rak a szobára, ahol van, majd önmegsemimisít.}
+\end{class-template-method}
+
+\subsection{CleanEffect}
+\begin{class-template-responsibility}
+    A mérgező szobák levegőjét megtisztítja.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Updatable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Effect
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+applyToRoom(target : Room) : void}{A szoba levegőjét megtisztíttatja.}
+\end{class-template-method}
+
+\subsection{CodeOfStudies}
+\begin{class-template-responsibility}
+    A hallgató használhatja, hogy megvédje magát egy oktatóval szemben.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Item
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{-uses : int }{A tárgy használatának száma.}
+\end{class-template-attribute}
+\begin{class-template-method}
+   \classitem{+useAgainst(target : Teacher) : void}{Megvédi a birtokosát az oktatótól. Ha a $uses$ 0-ra csökken megsemmisül.}
+\end{class-template-method}
+
+\subsection{Door}
+\begin{class-template-responsibility}
+    Ajtó. Két Room között megy. Lehet egyirányú vagy kétirányú. Rajta keresztül lépnek át a személyek a szobákba.
+\end{class-template-responsibility}
+\begin{class-template-interface} -
+\end{class-template-interface}
+\begin{class-template-baseclass} -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{-from : Room}{Első szoba, ahova az ajtó nyílik.}
+    \classitem{-to : Room}{Második szoba, ahova az ajtó nyílik.}
+    \classitem{-oneWay : boolean}{Ha igaz, egyirányú az ajtó. Ilyen esetben csak\newline$from\longrightarrow to$ irányban lehet átlépni rajta. Alapértelmezetten false.}
+    \classitem{-hidden : boolean}{Ha igaz, rejtve van az ajtó. Ilyen esetben nem lehet rajta átlépni.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+Door(from : Room, to : Room)}{Konstruktor, ami megadja a szobákat. A szobákhoz hozzáadja az ajtót.}
+    \classitem{+use(person : Person, useFrom : Room) : void}{Ajtó használata: a személy átlép a másik szobába, ha teheti. $person$: a személy, aki használja az ajtót. $useFrom$: a szoba ahonnan jön a személy. Rejtett ajtón nem lehet átlépni. A $useFrom$ paraméternek egyeznie kell az ajtóhoz tartozó egyik szobával. Ha az ajtó egyirányú, akkor csak abban az esetben lehet átlépni rajta, ha a $useFrom$ paraméter megegyezik az ajtó $from$ attribútumával. Ha az ajtón át tud lépni, akkor megpróbálja beléptetni a $person$-t a másik szobába. Ha az átlépés sikeres, a person eltávolítódik a kiinduló szobából.}
+    \begin{verbatim}
+        if hidden:
+            return
+        if oneWay and (the direction is not correct)
+            return
+        if entering the other room is successful:
+            leave the previous room
+    \end{verbatim}
+    \classitem{+move(moveFrom : Room, moveTo : Room) : void}{Ajtó mozgatása: Ha a $moveFrom$ paraméter egyezik az ajtó egyik szobájával, akkor ehelyett a szoba helyett a $moveTo$ lesz az a szobája. Ha az áthelyezés miatt az ajtó mindkét szobája ugyan az lenne, akkor az ajtó törlődik.}
+    \begin{verbatim}
+        if moveTo = from or moveTo = to:
+            remove door from moveTo
+        else:
+            remove door from moveFrom
+            if moveFrom = from:
+                from = moveTo
+            else if moveFrom = to
+                to = moveFrom
+            add this door to moveTo
+    \end{verbatim}
+    \classitem{+hide() : void}{A $hidden$ attribútum hamisra állítása. }
+    \classitem{+show() : void}{A $hidden$ attribútum igazra állítása. }
+    \classitem{+setOneWay(oneWay : boolean) : void}{Setter.}
+\end{class-template-method}
 \begin{class-template-statechart}
-    A belső működéshez tartozó állapotgép
-    \diagram{img/BMElogo}{Az osztály állapotváltozásai}{3cm}
+    \diagram{img/diagrams/state/door}{Ajtó állapota}{14cm}
 \end{class-template-statechart}
 
-\section{A tesztek részletes tervei, leírásuk a teszt nyelvén}
-\comment{A tesztek részletes tervei alatt meg kell adni azokat a bemeneti adatsorozatokat, amelyekkel a program működése ellenőrizhető. Minden bemenő adatsorozathoz definiálni kell, hogy az adatsorozat végrehajtásától a program mely részeinek, funkcióinak ellenőrzését várjuk és konkrétan milyen eredményekre számítunk, ezek az eredmények hogyan vethetők össze a bemenetekkel.A tesztek leírásakor az előző dokumentumban (proto koncepciója) megadott szintakszist kell használni.}
+\subsection{Effect}
+\begin{class-template-responsibility}
+    A játék objektumainak hatását megvalósító effectek ősosztálya.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Updatable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    - 
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{- timeRemaining : double}{Mennyi ideig érvényes még a hatás.}
+    \classitem{- holder : GameObject}{Megadja a hatás birtokosát.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+applyToStudent(target : Student) : void}{A hatás alkalmazása a hallgatóra.}
+    \classitem{+applyToTeacher(target : Teacher) : void}{A hatás alkalmazása az oktatóra.}
+    \classitem{+applyToRoom(room : Room) : void}{A hatás alkalmazása a szobára.}
+    \classitem{+interactCleanEffect(cleanEffect : CleanEffect) : void}{A tisztasg hatás.}
+    \classitem{+setHolder(holder : GameObject) : void}{Beállítja a hatás birtokosát.}
+\end{class-template-method}
 
-\subsection{Teszteset1}
+\subsection{FakeCodeOfStudies}
+\begin{class-template-responsibility}
+    A TVSZ hamis megfelelője, a felvételekor nem történik semmi, nem használható semmire.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Item\baseclass CodeOfStudies
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+   \classitem{+useAgainst(target : Teacher) : void}{Nem történik semmi.}
+\end{class-template-method}
+
+\subsection{FakeMask}
+\begin{class-template-responsibility}
+    A Mask hamis megfelelője, a felvételekor nem történik semmi, nem használható semmire.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Item\baseclass Mask
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+usePassive() : void}{Nem történik semmi.}
+\end{class-template-method}
+
+\subsection{FakeSlideRule}
+\begin{class-template-responsibility}
+    A Logarléc hamis megfelelője, a felvételekor nem történik semmi.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Item \baseclass SlideRule
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+   \classitem{+setPerson(person : Person) : void}{Nem történik semmi.}
+\end{class-template-method}
+
+\subsection{GasEffect}
+\begin{class-template-responsibility}
+    A mérgező szobák mérgező levegőjének megvalósítása: emberek elájulását okozza.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Updatable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Effect
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+     \classitem{+applyToStudent(target : Student) : void}{Kiüti a hallgatót meghatározott időre.}
+     \classitem{+applyToTeacher(target : Teacher) : void}{Kiüti az oktatót meghatározott időre.}
+     \classitem{+interactCleanEffect(cleanEffect : CleanEffect) : void}{Eltávolítja az effectet a szobáról.}
+\end{class-template-method}
+
+\subsection{GameObject}
+\begin{class-template-responsibility}
+    Ősosztály az olyan játékban szereplő objektumoknak, amelyek Effecteket és Itemeket tárolnak. 
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Updatable
+\end{class-template-interface}
+\begin{class-template-baseclass} -  
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{\#effects [0..*] : Effect}{Effektek}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+addItem(item : Item) : void}{Tárgy hozzáadása az objektumhoz.}
+    \classitem{+removeItem(item : Item) : void}{Tárgy eltávolítása az objektumról.}
+    \classitem{+addEffect(effect : Effect) : void}{Hatás hozzáadása az objektumhoz.}
+    \classitem{+removeEffect(effect : Effect) : void}{Hatás eltávolítása az objektumról.}
+    \classitem{+applyEffect(effect : Effect) : void}{Hatás alkalmazása az objektumra.}
+    \classitem{+interactTeacher(teacher : Teacher) : void}{Absztrakt. Az objektum interakciója oktatóval.}
+\end{class-template-method}
+
+\subsection{Inventory}
+\begin{class-template-responsibility}
+    Felszerelés. Egy személynél van. Ez tárolja a személy tárgyait.
+\end{class-template-responsibility}
+\begin{class-template-interface}-
+\end{class-template-interface}
+\begin{class-template-baseclass} -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{-items : Item[0..5]}{A személy tárgyai.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+add(item : Item) : boolean}{Az $item$ hozzáadása az $items$-hez, ha az kevesebb, mint 5 tárgyat tartalmaz. Ha a művelet sikeres volt igazat ad vissza, különben hamisat.}
+    \classitem{+remove(item : Item) : void}{Eltávolítja az $item$-et az $items$-ből, ha az benne volt.}
+    \classitem{+setRoom(room : Room) : void}{Az $items$ minden elemére meghívja a $setRoom(room)$ metódust.}
+    \classitem{+protectFrom(teacher : Teacher) : void}{Az $items$ minden elemére meghívja a $useAgainst(teacher)$ metódust.}
+    \classitem{+dropRandomItem() : void}{ Véletlenszerű elem eldobása az $items$-ből. }
+\end{class-template-method}
+
+\subsection{Item}
+\begin{class-template-responsibility}
+    Ősosztály biztosítása a játék tárgyai számára.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+       -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    - 
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{\#room : Room}{A szoba ahol a tárgy van.}
+    \classitem{\#person : Person}{Az ember akinél a tárgy van.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+use() : void}{A tárgyat használja valaki.}
+    \classitem{+useAgainst(target : Teacher) : void}{A tárgyat egy oktató ellen használják.}
+    \classitem{+usePassive() : bool}{A tárgy működését a környezet váltja ki.}
+    \classitem{+useItem(item : Item) : void}{A tárgyy használata egy másik tárggyal.}
+    \classitem{+link(other : Transistor) : void}{Két tranzisztor összekapcsolása}
+    \classitem{+drop() : void}{A tárgy eldobódik.}
+    \classitem{+setRoom(room : Room) : void}{A tárgynak beállítódik a szoba, ahol van.}
+    \classitem{+setPerson(person : Person) : void}{A tárgynak beállítódik az ember, akinél van.}
+\end{class-template-method}
+
+\subsection{Janitor}
+\begin{class-template-responsibility}
+    A mérgező szobák hatását szüntetit meg, a szobákat tisztává teszi és kirakja a Student és Teacher objektumokat. 
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Updatable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    GameObject \baseclass Person
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+enterRoom(room : Room) : void}{Belép a szobába és létrehoz egy JanitorEffectet a szobán.}
+    \classitem{+interactTeacher(teacher : Teacher) : void}{Nem csinál semmit}
+    \classitem{+protectFromTeacher(teacher : Teacher) : void}{Nem csinál semmit}
+    \classitem{+applyEffect(effect : Effect) : void}{Nem csinál semmit}
+    \classitem{+pickedUpSlideRule() : void}{Nem csinál semmit}
+\end{class-template-method}
+
+\subsection{JanitorEffect}
+\begin{class-template-responsibility}
+    A szobákat megtisztítja és kirakja a benne tartózkodókat.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Updatable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Effect\baseclass CleanEffect
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+applyToStudent(target : Student) : void}{Kirakja a szobából a hallgatót}
+    \classitem{+applyToTeacher(target : Teacher) : void}{Kirakja a szobából az oktatót.}
+    \classitem{+applyToRoom(target : Room) : void}{Megtisztítja a szobát.}
+\end{class-template-method}
+
+\subsection{Mask}
+\begin{class-template-responsibility}
+    Megvédi a hallgatót az mérgező levegőjű szobkáktól.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Item
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{-uses : int}{Megadja hányszor használták a maszkot.}
+    \classitem{-effect : MaskEffect}{A tárgy által kifejtett hatás, ha éppen aktív.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+usePassive() : void}{Akkor hívódik meg, ha birtokosa gázzal teli szobában van és épp nincs rajta MaskEffect, ekkor új MaskEffect-et alkalmaz birtokosára. Ha a $uses$ 0-ra csökken, megsemmisül.}
+    \classitem{+drop() : void}{Amikor valaki eldobja a maszkot, ha a hatása éppen aktív volt, az megszűnik.}
+\end{class-template-method}
+
+\subsection{MaskEffect}
+\begin{class-template-responsibility}
+    A Mask hatásának megvalósítása: védelem a mérgező levegővel szemben.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Updatable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Effect
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+applyToStudent(target : Student) : void}{Megvédi a hallgatót a mérgező gáztól.}
+    \classitem{+applyToTeacher(target : Teacher) : void}{Megvédi az oktatót a mérgező gáztól.}
+\end{class-template-method}
+
+\subsection{Person}  
+\begin{class-template-responsibility}
+    A játékban szereplő emberek közös őse.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Updatable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    GameObject
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{-name : String}{A személy neve.}
+    \classitem{-currentRoom : Room}{A szoba, ahol aktuálisan van az ember.}
+    \classitem{-knockOutTime : double}{Mennyi idő van hátra az ájult állapotból. Ha 0, akkor nincs ájult állapot.}
+    \classitem{\#inventory : Inventory}{A felszerelés. Ez tárolja az ember tárgyait.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+protectFromTeacher(target : Teacher) : void}{Absztrakt. Személy reagál arra, hogy oktatóval találkozik.}
+    \classitem{+enterRoom(room : Room) : void}{Frissíti a $currentRoom$-ot és az $inventory$-t is értesíti a szoba váltásról.}
+    \classitem{+dropItem(item : Item) : void}{Tárgy eldobása: az $item$-et eltávolítja az $inventory$-ból, és a $currentRoom$-hoz adja.}
+    \classitem{+setKnockout(value : double) : void}{Setter.}
+    \classitem{+update(deltaTime : double) : void}{Az $effects$ összes elemére: először frissíti, majd alkalmazza magára.}
+    \classitem{+addItem(item : Item) : void}{Az $item$ hozzáadása az $inventory$-hoz és az $item$ person-ja ez az objektum lesz.}
+    \classitem{+removeItem(item : Item) : void}{Az $item$ eltávolítása az $inventory$-ból.}
+    \classitem{+pickedUpSlideRule() : void}{Absztrakt. A személy felvette a logarlécet, és erre reagál.}
+    \classitem{+getOut() : void}{A személynek el kell hagynia a szobát.}
+    \classitem{+dropRandomItem() : void}{Véletlenszerű tárgy eldobása az $inventory$-ból.}
+\end{class-template-method}
+\begin{class-template-statechart}
+    \diagram{img/diagrams/state/person}{Ember állapota}{14cm}
+\end{class-template-statechart}
+
+\subsection{RagEffect}
+\begin{class-template-responsibility}
+    A WetRag hatásának megvalósítása: oktatók megbénítása.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Updatable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Effect
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{applyToTeacher(target : Teacher) : void}{Megbénítja az oktatót.}
+\end{class-template-method}
+
+\subsection{Room}
+\begin{class-template-responsibility}
+    Szoba. Személyek, tárgyak, effektek találhatók benne. Ezek a Room-on keresztül lépnek kapcsolatba, és a Room értesíti őket az idő múlásáról.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Updatable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    GameObject
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{-people [0..*] : Person}{Személyek}
+    \classitem{-items [0..*] : Item}{Tárgyak}
+    \classitem{-doors [0..*] : Door}{Ajtók}
+    \classitem{-capacity : int}{Kapacitás : ennél több személy nem lehet a szobában}
+    \classitem{-visitorsSinceClean : int}{A legutóbbi tisztítás óta mennyien látogatták a szobát. Ha valaki belép a szobába ez eggyel nő.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+Room()}{Konstruktor, ami alapértelmezett kapacitású, üres szobát hoz létre, aminek nincs ajtaja.}
+    \classitem{+Room(effects : Effect[0..*], capacity : int)}{Konstruktor, ami megadja a hatásokat és a kapacitást. }
+    \classitem{+enter(person : Person) : boolean}{Személy megpróbál belépni a szobába. Ha kevesebben vannak a szobában, mint a $capacity$, akkor a művelet sikeres: a $person$ a szobába lép és a visszatérési érték igaz, különben nem történik semmi és a visszatérési érték hamis.}
+    \classitem{+leave(person : Person) : void}{A $person$ elhagyja a szobát.}
+    \classitem{+merge(room : Room) : void}{A $room$ beleolvasztása ebbe a szobába. Ha a két szobának nincs közös ajtaja, vagy a nagyobbik kapacitás kevesebb, mint a két szobában található személyek összesen, akkor nem történik semmi. Különben a $room$ tartalmát ebbe a szobába helyezi át és kapacitását beállítja a kettő közül a nagyobbra.}
+    \classitem{-moveContents(room : Room) : void}{A szoba objektumait (emberek, tárgyak, hatások és azon ajtók, amelyek nem a két szoba köz mennek) a $room$-ba helyezi át.}
+    \classitem{+split() : Room}{Létrehoz egy új szobát. Az $items$ és $people$ tartalmának véletlenszerű részét átadja az új szobának. A $doors$ véletlenszerű részét átmozgatja az új szobára. Az $effects$ minden tagjának másolatát átadja az új szobának. Létrehoz egy új ajtót ami ebből a szobából vezet az újba. Végül vissza adja az új szoba objektumot.}
+    \begin{verbatim}
+        create newRoom
+        for item in items:
+            get a random integer between 0 and 1
+            if random int = 0:
+                move the current item to the newRoom
+        for person in people:
+            get a random integer between 0 and 1
+            if randomInt = 0:
+                move the current person to the newRoom
+        for door in doors:
+            get random integer between 0 and 1
+            if random int = 0:
+                move the current door to the newRoom
+        for effect in effects:
+            copy the current effect to the newRoom
+        create a door between room and newRoom
+        return newRoom
+    \end{verbatim}
+    \classitem{+interactTeacher(teacher : Teacher) : void}{A szobában tartózkodó összes embert értesíti az oktatóval való interakcióról.}
+    \classitem{+addDoor(door : Door) : void}{Ajtó hozzáadása.}
+    \classitem{+removeDoor(door : Door) : void}{Ajtó eltávolítása.}
+    \classitem{+interactCleanEffect(effect : CleanEffect) : void}{Az $effects$ minden elemét értesíti az interakcióról.}
+    \classitem{+isClean() : boolean}{Visszaadja, hogy ragadós-e a szoba. Attól függ, a $visitorsSinceClean$ egy adott értéknél nagyobb-e.}
+    \classitem{+clean() : void}{A $visitorsSinceClean$ értékét 0-ra állítja.}
+    \classitem{+update(deltaTime : double) : void}{Frissíti az $effects$ összes elemét. A $people$ minden elemére először alkalmazza a szoba hatásait, majd frissíti őket.}
+    \classitem{+getOut(person : Person) : void}{A személy a doors minden elemét használja, amíg valamelyiken keresztül el nem hagyja a szobát. Ha egyiken kereszül se tud távozni, akkor marad a szobában. A használat sorrendje az ajtók a szobához adásának sorrendje.}
+\end{class-template-method}
+\begin{class-template-statechart}
+    \diagram{img/diagrams/state/room}{Szoba állapota}{14cm}
+\end{class-template-statechart}
+
+\subsection{SlideRule}
+\begin{class-template-responsibility}
+    A felvételével véget ér a játék.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Item
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+   \classitem{+setPerson(person : Person) : void}{Értesíti a $person$-t, hogy felvette a logarlécet.}
+\end{class-template-method}
+
+\subsection{Student}
+\begin{class-template-responsibility}
+    A játékosok reprezentálása a játékban.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Updatable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    GameObject \baseclass Person
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{-eliminated: boolean}{Azt adja meg, hogy a hallgató játékban van-e még.}
+    \classitem{-immuneToTeacher : Teacher[0..*]}{Oktatók akik ellen TVSZ segítségével védekezett a hallgató.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+setEliminated(value : bool) : void}{Beállítja, hogy a játékos játékban van-e.}
+    \classitem{+interactTeacher(teacher : Teacher) : void}{Interakcióba kerül egy oktatóval, megpróbálja megvédeni magát a rá ható hatások és nála lévő tárgyak segítségével.}
+    \classitem{+protectFromTeacher(target : Teacher) : void}{Sikeresen megvédte magát az oktatóval szemben TVSZ segítségével.}
+    \classitem{+applyEffect(effect : Effect) : void}{Értesíti a hatást, hogy hallgatóra kell alkalmazódnia.}
+    \classitem{+pickedUpSlideRule() : void}{A hallgatók nyertek, vége a játéknak.}
+\end{class-template-method}
+
+\subsection{Teacher}
+\begin{class-template-responsibility}
+    Oktatók, a hallgatók lelkét igyekeznek elvenni.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Updatable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    GameObject\baseclass Person
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{-peaceful : boolean}{Azt adja meg, hogy az oktató bénult állapotban van-e.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+interactTeacher(teacher : Teacher) : void}{Nem csinál semmit}
+    \classitem{+protectFromTeacher(teacher : Teacher) : void}{Nem csinál semmit}
+    \classitem{+setPeaceful(value : boolean) : void}{Az oktatót bénult állapotba helyezi.}
+    \classitem{+applyEffect(effect : Effect) : void}{Értesíti az $effect$-et, hogy oktatóra kell alkalmazódnia.}
+    \classitem{+update(deltaTime : double) : void}{Az ősosztály szerint elvégzi a frissítést, majd értesíti a szobát, ahol éppen tartózkodik, hogy oktató van ott.}
+    \classitem{+pickedUpSlideRule() : void}{Nem csinál semmit}
+\end{class-template-method}
+\begin{class-template-statechart}
+    \diagram{img/diagrams/state/teacher}{Oktató állapota}{14cm}
+\end{class-template-statechart}
+
+\subsection{Transistor}
+\begin{class-template-responsibility}
+    Szobák közötti teleportációra használható.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Item
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{- other : Transistor}{A tranzisztor párja, amivel össze lett kapsolva.}
+    \classitem{- target : Room}{A szoba, ahova a tranzosztorokkal el lehet jutni.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{setTarget(target : Room) : void}{A tranzisztor-teleportáció célszobájának beállítása}
+    \classitem{setPair(pair : Transistor) : void}{A tranzisztor párjának beállítása.}
+    \classitem{+useItem(item : Item) : void}{Megpróbálja párosítani magát a másik tárggyal.}
+    \classitem{+link(other : Transistor) : void}{Párosítja magát a másik tranzisztorral.}
+    \classitem{+use() : void}{A tranzisztor birtokosa használja. Ha nincs párosítva, nem történik semmi. Ha párosítva van, de nem aktív, akkor lehelyeződik és aktiválja párját a cél szoba beállításával. Ha aktív, akkor eldobódik és birtokosát a cél szobába teleportálja.}
+    \begin{verbatim}
+        if not linked:
+            return
+        if linked and not active:
+            set the current room as target for other
+            drop this
+        if linked and active:
+            drop this
+            teleport holder to the target room
+    \end{verbatim}
+    .
+\end{class-template-method}
+\begin{class-template-statechart}
+\diagram{img/diagrams/state/transistor}{Tranzisztor állapota}{14cm}
+\end{class-template-statechart}
+
+\subsection{Updatable}
+\begin{class-template-responsibility}
+    Interfész, mely lehetőséget ad az őt megvalósító objektumok frissítésére.
+\end{class-template-responsibility}
+\begin{class-template-interface} -
+\end{class-template-interface}
+\begin{class-template-baseclass} -
+\end{class-template-baseclass}
+\begin{class-template-method}
+    \classitem{+update(deltaTime : double) : void}{Objektum frissítése: Telt az idő, és erre reagál az objektum. deltaTime: eltelt idő a legutóbbi update óta.}
+\end{class-template-method}
+
+\subsection{WetRag}
+\begin{class-template-responsibility}
+    Megvédi a hallgatót azzal, hogy a szobában lévő oktatókat megbénítja.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Item
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{-effect : RagEffect}{A tárgy által kifejtett hatás.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{+setRoom(room :Room) : void}{Amikor a rongyot használó hallgató átmegy egy másik szobába a hatása vele együtt átvándorol.}
+\end{class-template-method}
+
+\section{A tesztek részletes tervei, leírásuk a teszt nyelvén}
+% \comment{A tesztek részletes tervei alatt meg kell adni azokat a bemeneti adatsorozatokat, amelyekkel a program működése ellenőrizhető. Minden bemenő adatsorozathoz definiálni kell, hogy az adatsorozat végrehajtásától a program mely részeinek, funkcióinak ellenőrzését várjuk és konkrétan milyen eredményekre számítunk, ezek az eredmények hogyan vethetők össze a bemenetekkel.A tesztek leírásakor az előző dokumentumban (proto koncepciója) megadott szintakszist kell használni.}
+\subsection{AddDoor}
 \begin{test-case-description}
-    Szöveges leírás, kb 1-5 mondat
+    A teszt célja megbizonyosodni arról, hogy az ajtó elhelyezés két szoba közt megfelelően működik.
 \end{test-case-description}
 \begin{test-case-function}
-    ...
+    Az ajtó működését vizsgáljuk.
 \end{test-case-function}
 \begin{test-case-input}
-    A proto nyelvén megadva, pl.:
     \begin{verbatim}
-    init world
-    0: S 3
-    ...
-    print
+    Create Room room1
+    Create Room room2
+    Create Door door room1 room2
+    Status door
     \end{verbatim}
 \end{test-case-input}
 \begin{test-case-output}
-    A poro kimeneti nyelvén megadva, pl.:
     \begin{verbatim}
-    worlddata
-    ...
-    creatures 0
+    Door door
+    Hidden: false
+    One-way: false
+    Room 1: room1
+    Room 2: room2
     \end{verbatim}
 \end{test-case-output}
 
+\subsection{ApplyCleanEffectToRoom}
+\begin{test-case-description}
+    A teszt célja a légfrissítő működésének ellenőrzése.
+\end{test-case-description}
+\begin{test-case-function}
+    A GasEffect eltávolítása légfrissítő által.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Student student
+    Create AirFreshener freshener
+    Create Room room
+    Create GasEffect effect
+    Add room freshener
+    Add room effect
+    Add room student
+    Pickup student freshener 
+    Use student freshener
+    Update 1
+    Status room
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    Room room
+    Capacity: 4
+    Doors:
+    Effects:
+    Items:
+    People: student 
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{ApplyBeerEffectToStudent}
+\begin{test-case-description}
+    A teszt célja a BeerEffect Diákra való terjedésének ellenőrzése.
+\end{test-case-description}
+\begin{test-case-function}
+    A BeerEffect terjedését vizsgáljuk
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Student student
+    Create Beer beer
+    Pickup student beer
+    Use student Beer
+    Status student
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    Student student
+    Effects: beerEffect
+    Eliminated: false
+    Inventory:
+    Knock-out time: -5
+    Room:
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{ApplyGasEffectToRoom}
+\begin{test-case-description}
+    A teszt célja a Camembert által hordozott Effect szobára való terjedésének tesztelése.
+\end{test-case-description}
+\begin{test-case-function}
+    Az GasEffect terjedését vizsgáljuk.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Student student
+    Create Camembert cheese
+    Create Room room
+    Add room student 
+    Add room cheese
+    Pickup student cheese
+    Use student cheese
+    Status room
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    Room room
+    Capacity: 4
+    Doors:
+    Effects: gasEffect
+    Items:
+    People: student
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{ApplyMaskEffectToStudent}
+\begin{test-case-description}
+    A teszt célja a MaskEffect Diákra való terjedésének ellenőrzése.
+\end{test-case-description}
+\begin{test-case-function}
+    A MaskEffect terjedését vizsgáljuk
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room room 
+    Create GasEffect effect
+    Create Student student
+    Create Mask mask
+    Add room student
+    Add room effect
+    Add room mask
+    Pickup student mask
+    Update 1
+    Status student
+    Status mask
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    student got knocked out.
+    student was protected by mask.
+    
+    Student student
+    Effects: maskeffect
+    Eliminated: false
+    Inventory: mask
+    Knock-out time: -5
+    Room: room
+
+    Mask mask
+    Person: student
+    Room: room
+    Uses: 4
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{ApplyRagEffectToRoom}
+\begin{test-case-description}
+    A teszt célja a Táblatörlő által hordozott Effect szobára való terjedésének tesztelése.
+\end{test-case-description}
+\begin{test-case-function}
+    Az tárgy Effect terjedése.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create WetRag rag
+    Create Room room 4
+    Add rag room
+    Status room
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    Room room
+    Capacity: 4
+    Effects: wetRagEffect
+    Items:
+    People: student
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{AttackStudent}
+\begin{test-case-description}
+    Az oktató támadásának tesztelése
+\end{test-case-description}
+\begin{test-case-function}
+    A tanár támadása
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room room
+    Create Teacher teacher
+    Create Student student
+    Add room teacher
+    Add room student
+    Update 1
+    Status student
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    teacher attacked everyone.
+    student was eliminated.
+    
+    Student: student
+    Effects: 
+    Eliminated: true
+    Inventory: 
+    Knock-out time: -5
+    Room: room
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{BeerProtectStudent}
+\begin{test-case-description}
+    A Söröspohár védelme a tanárral szemben, közben a hallgató elejt egy tárgyat.
+\end{test-case-description}
+\begin{test-case-function}
+    A tanár támadása
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room room
+    Create Teacher teacher
+    Create Student student
+    Create Mask mask
+    Create Beer beer
+    Add room teacher
+    Add room beer
+    Add room mask
+    Add room student
+    Pickup student beer
+    Pickup student mask
+    Update 1
+    Status student
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    teacher attacked everyone.
+    student was eliminated.
+    student was revived.
+    
+    Student: student
+    Effects: 
+    Eliminated: false
+    Inventory: 
+    Knock-out time: -5
+    Room: room
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{CleanCheese}
+\begin{test-case-description}
+    A teszt célja tesztelni a Camembert által hordozott effect kitisztítását a szobából egy Takarító belépését követően.
+\end{test-case-description}
+\begin{test-case-function}
+    A Takarító tesztelése, a sajt tesztelése, az effect terjedés tesztelése
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room roomA
+    Create Room roomB
+    Create Door door roomA roomB
+    Create Janitor janitor
+    Create Student student
+    Create Camembert cheese
+    Add room cheese
+    Pickup student cheese
+    Add roomA student
+    Add roomB janitor
+    Use student cheese
+    Move janitor door
+    Status roomA
+    Status roomB
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    Room roomA
+    Capacity: 4
+    Effects:
+    Items:
+    People: janitor
+
+    Room roomB
+    Capacity: 4
+    Effects: 
+    Items:
+    People: student
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{DenyStudentMovementDueToCapacity}
+\begin{test-case-description}
+    A teszt célja megbizonyosodni arról, hogy hogy az ajtók rossz irányú mozgást nem
+engednek át.
+\end{test-case-description}
+\begin{test-case-function}
+    Az ajtók működése
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room roomA
+    Create Room roomB 0
+    Create Student student
+    Create door roomA roomB
+    Add roomA student
+    Move person door
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    The other room is full.
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{DenyStudentMovementDueToDirection}
+\begin{test-case-description}
+    A teszt célja megbizonyosodni arról, hogy hogy az ajtók rossz irányú mozgást nem
+engednek át.
+\end{test-case-description}
+\begin{test-case-function}
+    Az ajtók működése
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room roomA
+    Create Room roomB
+    Create Student student
+    Create door roomA roomB
+    Oneway door true
+    Add roomB student
+    Move student door
+    Status roomA
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    student couldn't use the door.
+    Room roomA
+    Capacity: 4
+    Effects:
+    Items: 
+    People:
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{DropItem}
+\begin{test-case-description}
+    A teszt célja az eldobás funkció ellenőrzése
+\end{test-case-description}
+\begin{test-case-function}
+    A tárgyeldobás funkció ellenőrzése.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Student student
+    Create Room room
+    Create Beer beer
+    Add room student
+    Add room beer
+    Pickup student beer
+    Drop student beer
+    Status student
+    Status room
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    Student student
+    Effects:
+    Eliminated: false
+    Inventory: 
+    Knock-out time: -5
+    Room: room
+
+    Room room
+    Capacity: 4
+    Effects:
+    Items: beer
+    People: student
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{InheritGasEffect}
+\begin{test-case-description}
+    A teszt célja megbizonyosodni arról, hogy a szoba által számontartott Effectet
+átveszik-e a benne lévő szereplők
+\end{test-case-description}
+\begin{test-case-function}
+    Az Effcet terjedése.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room room
+    Create Student student
+    Create Camembert cheese
+    Add room student
+    Add student cheese
+    Use student cheese
+    Update 1
+    Status student
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    student got knocked out.
+    
+    Student student
+    Effects:
+    Eliminated: false
+    Inventory: 
+    Knock-out time: 5
+    Room: room
+    \end{verbatim}
+\end{test-case-output}
+
+
+\subsection{KnockOutWithMask}
+\begin{test-case-description}
+    A teszt célja a Camembert működésének ellenőrzése.
+\end{test-case-description}
+\begin{test-case-function}
+    A Camembert működésének ellenőrzése.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room room
+    Create Student student
+    Create Mask mask
+    Create GasEffect effect
+    Add room effect
+    Add room mask
+    Add room student
+    Pickup student mask
+    Update 1 room
+    Status student
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    student got knocked out.
+    student was protected by mask.
+    
+    Student: student
+    Effects: 
+    Eliminated: false
+    Inventory: 
+    Knock-out time: -5
+    Room: room
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{KnockOutWithoutMask}
+\begin{test-case-description}
+    A teszt célja a Camembert működésének ellenőrzése.
+\end{test-case-description}
+\begin{test-case-function}
+    A Camembret működésének ellenőrzése.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room room
+    Create Student student
+    Create GasEffect effect
+    Add room effect
+    Add room student
+    Update 1 room
+    Status student
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    student got knocked out.
+    
+    Student: student
+    Effects: 
+    Eliminated: false
+    Inventory: 
+    Knock-out time: 5
+    Room: room
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{MergeRooms}
+\begin{test-case-description}
+    A teszt célja a szobaösszeolvadás ellenőrzése
+\end{test-case-description}
+\begin{test-case-function}
+    A szobaösszeolvadás ellenőrzése
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room roomA 2
+    Create Room roomB 4
+    Create Student student
+    Add roomB student
+    Merge roomA roomB
+    Status roomA
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    Room roomA
+    Capacity: 4
+    Effects:
+    Items: 
+    People: student
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{MoveStudentFromRoomToRoom}
+\begin{test-case-description}
+    A teszt célja megbizonyosodni arról, hogy a szereplők képesek használni az szobák közti ajtókat.
+\end{test-case-description}
+\begin{test-case-function}
+    Az ajtók működése
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room roomA
+    Create Room roomB
+    Create Student student
+    Create door roomA roomB
+    Add roomA student
+    Move student door
+    Status roomB
+    Status roomA
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    Room roomB
+    Capacity: 4
+    Effects:
+    Items: 
+    People: student
+    Room roomA
+    Capacity: 4
+    Effects:
+    Items: 
+    People:
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{PickUpItemWithInventorySpace}
+\begin{test-case-description}
+    A teszt célja a tárgyfelvétel funkció ellenőrzése.
+\end{test-case-description}
+\begin{test-case-function}
+    A tárgyfelvétel funkció ellenőrzése.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Student student
+    Create Room room
+    Create Beer beer
+    Add room beer
+    Add room student
+    Pickup student beer
+    Status student
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    Student student
+    Effects:
+    Eliminated: false
+    Inventory: beer
+    Knock-out time: -5
+    Room: room
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{PickUpItemWithoutInventorySpace}
+\begin{test-case-description}
+    A teszt célja a tárgyfelvétel funkció ellenőrzése.
+\end{test-case-description}
+\begin{test-case-function}
+    A tárgyfelvétel funkció ellenőrzése.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Student student
+    Create Room room
+    Create Beer beer1
+    Create Beer beer2
+    Create Beer beer3
+    Create Beer beer4
+    Create Beer beer5
+    Create Beer beer6
+    Add room student
+    Add room beer1
+    Add room beer2
+    Add room beer3
+    Add room beer4
+    Add room beer5
+    Pickup student beer1
+    Pickup student beer2
+    Pickup student beer3
+    Pickup student beer4
+    Pickup student beer5
+    Add room beer6
+    Pickup student beer6
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    Inventory is full.
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{PlaceStudent}
+\begin{test-case-description}
+    A teszt célja megbizonyosodni arról, hogy az elvárt belső állapotválltozások mennek végre, amikor egy Person típusú entitást egy szobába rakunk.
+\end{test-case-description}
+\begin{test-case-function}
+    Az elhelezést vizsgáljuk.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room room
+    Create Student student
+    Add room student
+    Status room
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    Room room
+    Capacity: 4
+    Effects:
+    Items:
+    People: student
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{RoomUpdateEffect}
+\begin{test-case-description}
+    A teszt célja az update esemény terjedésének ellenörzése Effectekre.
+\end{test-case-description}
+\begin{test-case-function}
+    Az effect frissülésének terjedésének ellenőrzése.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room room
+    Create BeerEffect effect
+    Add room effect
+    Update 1 room
+    Status effect
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    BeerEffect effect
+    Holder: student 
+    Time remaining: 4
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{SplitRooms}
+\begin{test-case-description}
+    A teszt célja a szobaszétválás elleőrzése
+\end{test-case-description}
+\begin{test-case-function}
+    A szobaszétválás elleőrzése
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room room
+    Split room
+    Status room_S1
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    Room room_s1
+    Capacity: 4
+    Effects:
+    Items: 
+    People:
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{TeleportUsingTransistors}
+\begin{test-case-description}
+    A teszt célja a teleportálás funkció ellenőrzése
+\end{test-case-description}
+\begin{test-case-function}
+    A teleportálás funkció ellenőrzése.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room roomA
+    Create Room roomB
+    Create Door door roomA roomB
+    Create Transistor transistorA
+    Create Transistor transistorB
+    Create Student student
+    Add roomB student
+    Add roomB transistorA
+    Add roomB transistorB
+    Pickup student transistorA
+    Pickup student transistorB
+    Link transistorA transistorB
+    Use student transistorA
+    Move student door
+    Use student transistorB
+    Status roomB
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    Room roomB
+    Capacity: 4
+    Effects:
+    Items:
+    People: student
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{UpdateBeerEffect}
+\begin{test-case-description}
+    A teszt célja az effect frissülésének ellenőrzése.
+\end{test-case-description}
+\begin{test-case-function}
+    Az effect frissülésének ellenőrzése.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Student student
+    Create BeerEffect effect
+    Add student effect
+    Update 1 student
+    Status effect
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    BeerEffect effect
+    Holder: student
+    Time remaining: 4
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{UpdateGasEffect}
+\begin{test-case-description}
+    A teszt célja az effect frissülésének ellenőrzése.
+\end{test-case-description}
+\begin{test-case-function}
+    Az effect frissülésének ellenőrzése.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Room room
+    Create GasEffect effect
+    Add room effect
+    Update 1 room
+    Status effect
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    GasEffect effect
+    Holder: room
+    Time remaining: 4
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{UpdateMaskEffect}
+\begin{test-case-description}
+    A teszt célja az effect frissülésének ellenőrzése.
+\end{test-case-description}
+\begin{test-case-function}
+    Az effect frissülésének ellenőrzése.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Student student
+    Create MaskEffect effect
+    Add student effect
+    Update 1 student
+    Status effect
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    MaskEffect effect
+    Holder: student
+    Time remaining: 14
+    \end{verbatim}
+\end{test-case-output}
+
+\subsection{UpdateRagEffect}
+\begin{test-case-description}
+    A teszt célja az effect frissülésének ellenőrzése.
+\end{test-case-description}
+\begin{test-case-function}
+    Az effect frissülésének ellenőrzése.
+\end{test-case-function}
+\begin{test-case-input}
+    \begin{verbatim}
+    Create Student student
+    Create RagEffect effect
+    Add student effect
+    Update 1 student
+    Status effect
+    \end{verbatim}
+\end{test-case-input}
+\begin{test-case-output}
+    \begin{verbatim}
+    RagEffect effect
+    Holder: student
+    Time remaining: 4
+    \end{verbatim}
+\end{test-case-output}
+
+\clearpage
 \section{A tesztelést támogató programok tervei}
-\comment{A tesztadatok előállítására, a tesztek eredményeinek kiértékelésére szolgáló segédprogramok részletes terveit kell elkészíteni.}
+% \comment{A tesztadatok előállítására, a tesztek eredményeinek kiértékelésére szolgáló segédprogramok részletes terveit kell elkészíteni.}
+A tesztadatok struktúrája:
+\begin{verbatim}
+    tests/
+    ├── test1/
+    │   ├─ info.txt (optional)
+    │   ├─ in.txt
+    │   └─ out.txt
+    │
+    └── test2/
+        ├─ info.txt (optional)
+        ├─ in.txt
+        └─ out.txt
+\end{verbatim}
+Az egyes tesztesetek mappákban helyezkednek el. Minden tesztesethez tartozik egy \texttt{in.txt}, ez tartalmazza a teszt megvalósításához szükséges bemenetet, illetve egy \texttt{out.txt}, ami az elvárt kimenetet tartalmazza. Az \texttt{info.txt}-t nem kötelező megadni, ez tartalmazhatja a teszt programban megjelenő nevét (amennyiben ez eltér a mappa nevétől) illetve a teszt rövid leírását.
+
+A teszt futtató program viselkedése parancssori argumentumok segítségével adható meg: 
+\begin{itemize}
+    \item \texttt{testrunner run <test-case>} - Egy bizonyos tesztesetet futtat és megadja, hogy sikeres volt-e vagy sem. \texttt{test-case} paraméternek az adott teszteset mappáját kell megadni.
+    \item \texttt{testrunner runall <tests>} - Az összes tesztet lefuttatja, mindegyik tesztesetről megadja, hogy sikeres volt-e vagy sem, illetve a végén egy statisztikát ad, hogy hány teszt volt sikeres/sikertelen. \texttt{tests} paraméternek a teszteseteket tartalmazó mappát kell megadni.
+    \item \texttt{testrunner interactive <tests>} - Interaktív mód, megjeleníti az elérhető teszteseteket, ezután a felhasználó megadhatja, hogy melyik tesztesetet szeretné futtatni. \texttt{tests} paraméternek a teszteseteket tartalmazó mappát kell megadni.
+    \item \texttt{testrunner command} - Parancs mód, manuálisan lehet parancsokat begépelni, illetve a program megadja az adott parancshoz tartozó kimenetet.
+\end{itemize}
