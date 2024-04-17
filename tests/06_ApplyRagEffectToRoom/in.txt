@@ -1,0 +1,4 @@
+Create WetRag rag
+Create Room room 4
+Add rag room
+Status room

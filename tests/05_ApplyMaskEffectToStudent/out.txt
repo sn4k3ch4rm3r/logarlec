@@ -1,0 +1,12 @@
+student got knocked out.
+student was protected by mask.
+Student student
+Effects: maskeffect
+Eliminated: false
+Inventory: mask
+Knock-out time: -5
+Room: room
+Mask mask
+Person: student
+Room: room
+Uses: 4

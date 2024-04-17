@@ -1,0 +1,5 @@
+Room room
+Capacity: 4
+Effects: wetRagEffect
+Items:
+People: student

@@ -1,0 +1,10 @@
+Room roomA
+Capacity: 4
+Effects:
+Items:
+People: janitor
+Room roomB
+Capacity: 4
+Effects:
+Items:
+People: student

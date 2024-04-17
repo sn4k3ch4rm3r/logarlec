@@ -1,0 +1,3 @@
+RoomUpdateEffect
+A teszt célja az update esemény terjedésének ellenörzése Effectekre.
+Az effect frissülésének terjedésének ellenőrzése.

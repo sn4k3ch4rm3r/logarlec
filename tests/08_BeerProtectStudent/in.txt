@@ -1,0 +1,13 @@
+Create Room room
+Create Teacher teacher
+Create Student student
+Create Mask mask
+Create Beer beer
+Add room teacher
+Add room beer
+Add room mask
+Add room student
+Pickup student beer
+Pickup student mask
+Update 1
+Status student

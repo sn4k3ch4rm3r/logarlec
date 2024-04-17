@@ -1,0 +1,3 @@
+BeerProtectStudent
+A Söröspohár védelme a tanárral szemben, közben a hallgató elejt egy tárgyat.
+A tanár támadása

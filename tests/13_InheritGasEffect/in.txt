@@ -1,0 +1,8 @@
+Create Room room
+Create Student student
+Create Camembert cheese
+Add room student
+Add student cheese
+Use student cheese
+Update 1
+Status student

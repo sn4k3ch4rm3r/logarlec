@@ -1,0 +1,3 @@
+TeleportUsingTransistors
+A teszt célja a teleportálás funkció ellenőrzése
+A teleportálás funkció ellenőrzése.

@@ -1,0 +1,6 @@
+Create Room roomA 2
+Create Room roomB 4
+Create Student student
+Add roomB student
+Merge roomA roomB
+Status roomA

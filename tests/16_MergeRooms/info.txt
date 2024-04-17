@@ -1,0 +1,3 @@
+MergeRooms
+A teszt célja a szobaösszeolvadás ellenőrzése
+A szobaösszeolvadás ellenőrzése

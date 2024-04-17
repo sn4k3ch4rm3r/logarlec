@@ -1,0 +1,3 @@
+DropItem
+A teszt célja az eldobás funkció ellenőrzése
+A tárgyeldobás funkció ellenőrzése.

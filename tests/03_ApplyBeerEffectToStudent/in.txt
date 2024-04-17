@@ -1,0 +1,5 @@
+Create Student student
+Create Beer beer
+Pickup student beer
+Use student Beer
+Status student

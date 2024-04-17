@@ -1,0 +1,7 @@
+Create Room room
+Create Teacher teacher
+Create Student student
+Add room teacher
+Add room student
+Update 1
+Status student

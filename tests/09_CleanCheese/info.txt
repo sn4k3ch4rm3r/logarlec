@@ -1,0 +1,3 @@
+CleanCheese
+A teszt célja tesztelni a Camembert által hordozott effect kitisztítását a szobából egy Takarító belépését követően.
+A Takarító tesztelése, a sajt tesztelése, az effect terjedés tesztelése

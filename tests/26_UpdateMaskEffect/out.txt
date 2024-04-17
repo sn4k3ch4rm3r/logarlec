@@ -1,0 +1,3 @@
+MaskEffect effect
+Holder: student
+Time remaining: 14

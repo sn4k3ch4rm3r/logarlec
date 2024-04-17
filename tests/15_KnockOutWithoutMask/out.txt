@@ -1,0 +1,7 @@
+student got knocked out.
+Student: student
+Effects:
+Eliminated: false
+Inventory:
+Knock-out time: 5
+Room: room

@@ -1,0 +1,9 @@
+Create Student student
+Create Room room
+Create Beer beer
+Add room student
+Add room beer
+Pickup student beer
+Drop student beer
+Status student
+Status room
