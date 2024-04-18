@@ -7,6 +7,8 @@ import logarlec.skeleton.Skeleton;
  * Egy játékban szereplő tanár.
  */
 public class Teacher extends Person {
+
+	private boolean peaceful;
 	/**
 	 * Setter a békés állapot beállítására.
 	 * 
@@ -14,7 +16,7 @@ public class Teacher extends Person {
 	 */
 	public void setPeaceful(boolean value) {
 		logarlec.skeleton.Skeleton.logFunctionCall(this, "setPeaceful", value);
-		// Set peaceful value
+		peaceful = value;
 		logarlec.skeleton.Skeleton.logReturn(void.class);
 	}
 

@@ -9,7 +9,9 @@ import logarlec.gameobjects.Teacher;
 import logarlec.util.Updatable;
 
 public abstract class Effect implements Updatable {
-	protected GameObject holder;
+	private GameObject holder;
+	private double timeRemaining;	
+
 
 	/**
 	 * A hatás diákra alkalmazódik
@@ -26,7 +28,7 @@ public abstract class Effect implements Updatable {
 	public abstract void applyToTeacher(Teacher target);
 
 	public void applyToRoom(Room target) {
-
+		
 	}
 
 	/**

@@ -11,7 +11,8 @@ public class FakeMask extends Mask {
     @Override
     public boolean usePassive() {
         Skeleton.logFunctionCall(this, "usePassive");
+        this.person = person;
         Skeleton.logReturn(true);
-        return true;
+        return false;
     }
 }

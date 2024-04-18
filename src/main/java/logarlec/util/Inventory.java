@@ -11,13 +11,13 @@ import java.util.List;
 
 public class Inventory {
 	private List<Item> items = new ArrayList<>();
-
 	/**
 	 * Tárgy hozzáadása a felszereléshez, ha kevesebb, mint 5 van benne.
 	 *
 	 * @param item Hozzáadandó tárgy.
 	 */
 	public boolean add(Item item) {
+		/*
 		Skeleton.logFunctionCall(this, "add", item);
 		if (Skeleton.getInput(Boolean.class, "Can more items fit the inventory [true|false]: ")) {
 			items.add(item);
@@ -25,6 +25,12 @@ public class Inventory {
 			return true;
 		}
 		Skeleton.logReturn(false);
+		return false;*/
+
+		if(items.size() < 5){
+			items.add(item);
+			return true;
+		}
 		return false;
 	}
 
@@ -35,7 +41,8 @@ public class Inventory {
 	 */
 	public void remove(Item item) {
 		Skeleton.logFunctionCall(this, "remove", item);
-		items.remove(item);
+		if(items.contains(item))
+			items.remove(item);
 		Skeleton.logReturn(void.class);
 	}
 

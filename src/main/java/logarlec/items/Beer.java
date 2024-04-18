@@ -16,6 +16,7 @@ public class Beer extends Item {
 		BeerEffect beerEffect = Skeleton.createObject("beerEffect", BeerEffect.class);
 		person.addEffect(beerEffect);
 		person.removeItem(this);
+		person.dropRandomItem();
 		Skeleton.logReturn(void.class);
 	}
 

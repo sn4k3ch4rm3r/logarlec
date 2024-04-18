@@ -28,6 +28,16 @@ public class Room extends GameObject {
 	 */
 	private List<Item> items;
 
+	/**
+	 * A szobába elférő emberek száma.
+	 */
+	private int capacity;
+
+	/**
+	 * A szobában ennyi ember fordult meg a takarítás óta.
+	 */
+	private int visitorsSinceClean;
+
 	public Room() {
 		people = new LinkedList<>();
 		doors = new LinkedList<>();
@@ -47,6 +57,7 @@ public class Room extends GameObject {
 		doors = new LinkedList<>();
 		items = new LinkedList<>();
 		people = new LinkedList<>();
+		this.capacity = capacity;
 	}
 
 	/**
@@ -55,11 +66,21 @@ public class Room extends GameObject {
 	 * @param person a személy, aki belépne a szobába
 	 */
 	public boolean enter(Person person) {
+		/*
 		Skeleton.logFunctionCall(this, "enter", person);
 		if (Skeleton.getInput(Boolean.class, "Is there enough space in the room [true|false]: ")) {
 			people.add(person);
 			person.enterRoom(this);
 			Skeleton.logReturn(true);
+			return true;
+		}
+		Skeleton.logReturn(false);
+		return false;*/
+
+		Skeleton.logFunctionCall(this, "enter", person);
+		if(people.size() < capacity){
+			people.add(person);
+			person.enterRoom(this);
 			return true;
 		}
 		Skeleton.logReturn(false);
@@ -84,7 +105,17 @@ public class Room extends GameObject {
 	 */
 	public void merge(Room room) {
 		Skeleton.logFunctionCall(this, "merge", room);
+
+		//ha a két szobának niincs közös ajtaja vagy a nagyobbik kevesebb mint a két szoba összes embere
+		int capac = this.capacity + room.capacity;
+		int peopleCount = this.people.size() + room.people.size();
+		if (doors.stream().noneMatch(door -> room.doors.contains(door)) || peopleCount > capac) {
+			Skeleton.logReturn(void.class);
+			return;
+		}
+	
 		room.moveContents(this);
+		this.capacity = this.capacity > room.capacity ? this.capacity : room.capacity;
 		Skeleton.logReturn(void.class);
 	}
 
@@ -94,11 +125,31 @@ public class Room extends GameObject {
 	 * @return az új szoba
 	 */
 	public Room split() {
+		/*
 		Skeleton.logFunctionCall(this, "split");
 		Room newRoom = Skeleton.createObject("newRoom", Room.class);
 		Skeleton.createObject("door", Door.class, this, newRoom);
 		Skeleton.logReturn(newRoom);
-		return newRoom;
+		return newRoom;*/
+
+		Room newRoom = new Room();
+		Door door = new Door(this, newRoom);
+		
+		foreach(Effect e : effects){
+			newRoom.applyEffect(e);
+		}
+
+		foreach(Person p : people){
+			if(Math.random() < 0.5){
+				newRoom.enter(p);
+			}
+		}
+
+		foreach(Item i : items){
+			if(Math.random() < 0.5){
+				newRoom.addItem(i);
+			}
+		}
 	}
 
 	/**
@@ -260,14 +311,19 @@ public class Room extends GameObject {
 
 	public void clean() {
 		Skeleton.logFunctionCall(this, "clean");
-		// Reset visitorsSinceClean
+		visitorsSinceClean = 0;
 		Skeleton.logReturn(void.class);
 	}
 
 	public boolean isClean() {
-		Skeleton.logFunctionCall(this, "isClean");
+		/*Skeleton.logFunctionCall(this, "isClean");
 		boolean clean = Skeleton.getInput(Boolean.class, "Is the room clean [true|false]: ");
 		Skeleton.logReturn(clean);
-		return clean;
+		return clean;*/
+
+		if(visitorsSinceClean > 10){
+			return false;
+		}
+		return true;
 	}
 }

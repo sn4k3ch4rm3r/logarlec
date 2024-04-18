@@ -13,7 +13,7 @@ public class MaskEffect extends Effect {
 	 */
 	public void applyToStudent(Student target) {
 		Skeleton.logFunctionCall(this, "applyToStudent", target);
-		target.setKnockOut(0);
+		target.setKnockOut(-5);
 		Skeleton.logReturn(void.class);
 	}
 
@@ -23,7 +23,7 @@ public class MaskEffect extends Effect {
 
 	public void applyToTeacher(Teacher target) {
 		Skeleton.logFunctionCall(this, "applyToTeacher", target);
-		target.setKnockOut(0);
+		target.setKnockOut(-5);
 		Skeleton.logReturn(void.class);
 	}
 

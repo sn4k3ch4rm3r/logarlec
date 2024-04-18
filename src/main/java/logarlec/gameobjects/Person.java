@@ -11,20 +11,23 @@ import logarlec.skeleton.Skeleton;
  * A pályán mozogni képes entitások ősosztálya.
  */
 public abstract class Person extends GameObject {
+
+	private String name;
+	private double knockOutTime;
+
 	/**
 	 * A személy által birtokolt tárgyak.
 	 */
 	protected Inventory inventory;
 
-	protected double knockOutTime = -5;
-
 	/**
 	 * A szoba melyben a személy jelenleg tartózkodik.
 	 */
-	protected Room currentRoom;
+	private Room currentRoom;
 
 	public Person() {
 		inventory = Skeleton.createObject("inventory", Inventory.class);
+		knockOutTime = -5;
 	}
 
 	/**
@@ -63,9 +66,7 @@ public abstract class Person extends GameObject {
 	 */
 	public void setKnockOut(double value) {
 		Skeleton.logFunctionCall(this, "setKnockOut", value);
-		if (value > 0 && knockOutTime <= -5) {
-			knockOutTime = value;
-		}
+		knockOutTime = value;
 		Skeleton.logReturn(void.class);
 	}
 
@@ -80,9 +81,6 @@ public abstract class Person extends GameObject {
 		for (Effect effect : effects) {
 			effect.update(deltaTime);
 			applyEffect(effect);
-		}
-		if (knockOutTime > 0) {
-			// call usePassive on all items
 		}
 		Skeleton.logReturn(void.class);
 	}

@@ -5,7 +5,12 @@ import logarlec.gameobjects.Teacher;
 import logarlec.skeleton.Skeleton;
 
 public class Mask extends Item {
-	MaskEffect maskEffect;
+	private MaskEffect maskEffect;
+	private int uses;
+
+	public Mask(){
+		uses = 5;
+	}
 
 	/**
 	 * A Mask osztály use metódusa A metódus a MaskEffect-et adja hozzá a personhoz
@@ -28,9 +33,15 @@ public class Mask extends Item {
 	@Override
 	public boolean usePassive() {
 		Skeleton.logFunctionCall(this, "usePassive");
-		maskEffect = Skeleton.createObject("maskEffect", MaskEffect.class);
-		person.addEffect(maskEffect);
-		person.applyEffect(maskEffect);
+		if(uses > 0){
+			maskEffect = Skeleton.createObject("maskEffect", MaskEffect.class);
+			person.addEffect(maskEffect);
+			uses--;
+		}
+		if(uses == 0){
+			person.removeItem(this);
+		}
+
 		Skeleton.logReturn(true);
 		return true;
 	}

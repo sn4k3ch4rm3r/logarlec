@@ -14,7 +14,6 @@ public class FakeSlideRule extends SlideRule {
     public void setPerson(Person person) {
         Skeleton.logFunctionCall(this, "setPerson", person);
         this.person = person;
-        person.pickedUpSlideRule();
         Skeleton.logReturn(void.class);
     }
 }

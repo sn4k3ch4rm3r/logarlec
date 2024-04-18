@@ -15,7 +15,7 @@ public abstract class GameObject implements Updatable {
 	/**
 	 * Az objektumon lévő hatások listája.
 	 */
-	List<Effect> effects;
+	protected List<Effect> effects;
 
 	public GameObject() {
 		effects = new LinkedList<>();

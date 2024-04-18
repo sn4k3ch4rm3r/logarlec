@@ -11,10 +11,18 @@ import logarlec.skeleton.Skeleton;
  */
 public class Student extends Person {
 	/**
-	 * Az ignorálható tanárok listája.
+	 * Az oktatók listája akikkel szemben a hallgató védve van.
 	 */
 	private List<Teacher> immuneToTeacher;
 
+	/**
+	 * A vesztés állapotát jelző változó.
+	 */
+	private boolean eliminated;
+
+	/**
+	 * Konstruktor a diák létrehozásához.
+	 */
 	public Student() {
 		immuneToTeacher = new LinkedList<>();
 	}
@@ -26,7 +34,7 @@ public class Student extends Person {
 	 */
 	public void setEliminated(boolean value) {
 		Skeleton.logFunctionCall(this, "setEliminated", value);
-		// Set eliminated value
+		eliminated = value;
 		Skeleton.logReturn(void.class);
 	}
 
@@ -63,4 +71,12 @@ public class Student extends Person {
 		effect.applyToStudent(this);
 		Skeleton.logReturn(void.class);
 	}
+
+	/*
+	 * A diák felveszi a logarécet, ezzel a játék véget ér.
+	 */
+	@Override
+	public void pickedUpSlideRule(){
+		//A játék véget ér
+	};
 }
