@@ -29,6 +29,7 @@ public class Transistor extends Item {
 	 */
 	@Override
 	public void use() {
+		/*
 		Skeleton.logFunctionCall(this, "use");
 		if (Skeleton.getInput(Boolean.class, "Is the transistor active [true|false]: ")) {
 			Person p = person;
@@ -42,7 +43,21 @@ public class Transistor extends Item {
 			person.dropItem(this);
 			other.setTarget(room);
 		}
-		Skeleton.logReturn(void.class);
+		Skeleton.logReturn(void.class);*/
+
+		if(this.other == null)
+			return;
+		
+		if(this.other != null && this.target != null) {
+			person.dropItem(this);
+			if(target.enter(person)) {
+				room.leave(person);
+			}
+		}
+		else if(this.other != null && this.target == null) {
+			person.dropItem(this);	
+			other.setTarget(this.room);
+		}
 	}
 
 	@Override
