@@ -66,24 +66,11 @@ public class Room extends GameObject {
 	 * @param person a személy, aki belépne a szobába
 	 */
 	public boolean enter(Person person) {
-		/*
-		Skeleton.logFunctionCall(this, "enter", person);
-		if (Skeleton.getInput(Boolean.class, "Is there enough space in the room [true|false]: ")) {
-			people.add(person);
-			person.enterRoom(this);
-			Skeleton.logReturn(true);
-			return true;
-		}
-		Skeleton.logReturn(false);
-		return false;*/
-
-		Skeleton.logFunctionCall(this, "enter", person);
 		if(people.size() < capacity){
 			people.add(person);
 			person.enterRoom(this);
 			return true;
 		}
-		Skeleton.logReturn(false);
 		return false;
 	}
 
@@ -93,9 +80,7 @@ public class Room extends GameObject {
 	 * @param person a személy, aki távozik
 	 */
 	public void leave(Person person) {
-		Skeleton.logFunctionCall(this, "leave", person);
 		people.remove(person);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -104,19 +89,15 @@ public class Room extends GameObject {
 	 * @param room a másik szoba
 	 */
 	public void merge(Room room) {
-		Skeleton.logFunctionCall(this, "merge", room);
-
 		//ha a két szobának niincs közös ajtaja vagy a nagyobbik kevesebb mint a két szoba összes embere
 		int capac = this.capacity + room.capacity;
 		int peopleCount = this.people.size() + room.people.size();
 		if (doors.stream().noneMatch(door -> room.doors.contains(door)) || peopleCount > capac) {
-			Skeleton.logReturn(void.class);
 			return;
 		}
 	
 		room.moveContents(this);
 		this.capacity = this.capacity > room.capacity ? this.capacity : room.capacity;
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -159,7 +140,6 @@ public class Room extends GameObject {
 	 * @param room a másik szoba
 	 */
 	public void moveContents(Room room) {
-		Skeleton.logFunctionCall(this, "moveContents", room);
 		for (Person person : people) {
 			room.enter(person);
 		}
@@ -172,7 +152,6 @@ public class Room extends GameObject {
 		for (Door door : doors) {
 			door.move(this, room);
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -181,9 +160,7 @@ public class Room extends GameObject {
 	 * @param door az ajtó
 	 */
 	public void addDoor(Door door) {
-		Skeleton.logFunctionCall(this, "addDoor", door);
 		doors.add(door);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -192,31 +169,25 @@ public class Room extends GameObject {
 	 * @param door az ajtó
 	 */
 	public void removeDoor(Door door) {
-		Skeleton.logFunctionCall(this, "removeDoor", door);
 		doors.remove(door);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
 	 * Az összes ajtó elrejtése.
 	 */
 	public void hideDoors() {
-		Skeleton.logFunctionCall(this, "hideDoors");
 		for (Door door : doors) {
 			door.hide();
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
 	 * Az összes ajtó megjelenítése.
 	 */
 	public void showDoors() {
-		Skeleton.logFunctionCall(this, "showDoors");
 		for (Door door : doors) {
 			door.show();
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -226,7 +197,6 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void update(double deltaTime) {
-		Skeleton.logFunctionCall(this, "update", deltaTime);
 		for (Effect effect : effects) {
 			effect.update(deltaTime);
 			effect.applyToRoom(this);
@@ -237,7 +207,6 @@ public class Room extends GameObject {
 			}
 			person.update(deltaTime);
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -247,10 +216,8 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void addItem(Item item) {
-		Skeleton.logFunctionCall(this, "addItem", item);
 		items.add(item);
 		item.setRoom(this);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -260,9 +227,7 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void removeItem(Item item) {
-		Skeleton.logFunctionCall(this, "removeItem", item);
 		items.remove(item);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -272,7 +237,6 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void applyEffect(Effect effect) {
-		Skeleton.logFunctionCall(this, "applyEffect", effect);
 		effect.setHolder(this);
 		effects.add(effect);
 	}
@@ -284,44 +248,31 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void interactTeacher(Teacher teacher) {
-		Skeleton.logFunctionCall(this, "interactTeacher", teacher);
 		for (Person person : people) {
 			person.interactTeacher(teacher);
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	public void interactCleanEffect(CleanEffect effect) {
-		Skeleton.logFunctionCall(this, "interactCleanEffect", effect);
 		for (Effect e : effects) {
 			e.interactCleanEffect(effect);
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	public void getOut(Person person) {
-		Skeleton.logFunctionCall(this, "getOut", person);
 		for (Door door : doors) {
 			door.use(person, this);
 			if (!people.contains(person)) {
 				break;
 			}
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	public void clean() {
-		Skeleton.logFunctionCall(this, "clean");
 		visitorsSinceClean = 0;
-		Skeleton.logReturn(void.class);
 	}
 
 	public boolean isClean() {
-		/*Skeleton.logFunctionCall(this, "isClean");
-		boolean clean = Skeleton.getInput(Boolean.class, "Is the room clean [true|false]: ");
-		Skeleton.logReturn(clean);
-		return clean;*/
-
 		if (visitorsSinceClean > 10){
 			return false;
 		}

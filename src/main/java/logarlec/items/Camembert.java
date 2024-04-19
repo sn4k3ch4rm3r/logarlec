@@ -11,11 +11,9 @@ public class Camembert extends Item {
 	 */
 	@Override
 	public void use() {
-		Skeleton.logFunctionCall(this, "use");
-		GasEffect gasEffect = Skeleton.createObject("gasEffect", GasEffect.class);
+		GasEffect gasEffect = new GasEffect();
 		room.addEffect(gasEffect);
 		person.removeItem(this);
-		Skeleton.logReturn(void.class);
 	}
 
 	@Override

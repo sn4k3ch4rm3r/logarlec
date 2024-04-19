@@ -9,8 +9,6 @@ import logarlec.gameobjects.Teacher;
 public class RagEffect extends Effect {
 
 	public void applyToStudent(Student target) {
-		Skeleton.logFunctionCall(this, "applyToStudent", target);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -18,9 +16,7 @@ public class RagEffect extends Effect {
 	 *
 	 */
 	public void applyToTeacher(Teacher target) {
-		Skeleton.logFunctionCall(this, "applyToTeacher", target);
 		target.setPeaceful(true);
-		Skeleton.logReturn(void.class);
 	}
 
 	@Override

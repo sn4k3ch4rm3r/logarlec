@@ -33,9 +33,7 @@ public class Student extends Person {
 	 * @param value az elmimnated új értéke
 	 */
 	public void setEliminated(boolean value) {
-		Skeleton.logFunctionCall(this, "setEliminated", value);
 		eliminated = value;
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -45,9 +43,7 @@ public class Student extends Person {
 	 */
 	@Override
 	public void protectFromTeacher(Teacher target) {
-		Skeleton.logFunctionCall(this, "protectFromTeacher", target);
 		immuneToTeacher.add(target);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -57,18 +53,14 @@ public class Student extends Person {
 	 */
 	@Override
 	public void interactTeacher(Teacher teacher) {
-		Skeleton.logFunctionCall(this, "interactTeacher", teacher);
 		if (!immuneToTeacher.contains(teacher)) {
 			inventory.protectFrom(teacher);
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	@Override
 	public void applyEffect(Effect effect) {
-		Skeleton.logFunctionCall(this, "applyEffect", effect);
 		effect.applyToStudent(this);
-		Skeleton.logReturn(void.class);
 	}
 
 	/*

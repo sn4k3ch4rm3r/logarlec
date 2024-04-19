@@ -18,16 +18,6 @@ public class Inventory {
 	 * @param item Hozzáadandó tárgy.
 	 */
 	public boolean add(Item item) {
-		/*
-		Skeleton.logFunctionCall(this, "add", item);
-		if (Skeleton.getInput(Boolean.class, "Can more items fit the inventory [true|false]: ")) {
-			items.add(item);
-			Skeleton.logReturn(true);
-			return true;
-		}
-		Skeleton.logReturn(false);
-		return false;*/
-
 		if(items.size() < 5){
 			items.add(item);
 			return true;
@@ -41,9 +31,7 @@ public class Inventory {
 	 * @param item Eltávolítandó tárgy.
 	 */
 	public void remove(Item item) {
-		Skeleton.logFunctionCall(this, "remove", item);
         items.remove(item);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -52,9 +40,7 @@ public class Inventory {
 	 * @param room A szoba, ahova kerültek.
 	 */
 	public void setRoom(Room room) {
-		Skeleton.logFunctionCall(this, "setRoom", room);
 		items.forEach(i -> i.setRoom(room));
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -63,19 +49,15 @@ public class Inventory {
 	 * @param teacher A támadó oktató.
 	 */
 	public void protectFrom(Teacher teacher) {
-		Skeleton.logFunctionCall(this, "protectFrom", teacher);
 		items.forEach(i -> i.useAgainst(teacher));
-		Skeleton.logReturn(void.class);
 	}
 
 	public void dropRandomItem() {
-		Skeleton.logFunctionCall(this, "dropRandomItem");
 		if (!items.isEmpty()) {
 			Random random = new Random();
 			Item item = items.get(random.nextInt(items.size()));
 			item.drop();
 			remove(item);
 		}
-		Skeleton.logReturn(void.class);
 	}
 }

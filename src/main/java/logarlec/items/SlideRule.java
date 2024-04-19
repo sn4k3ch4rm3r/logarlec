@@ -40,9 +40,7 @@ public class SlideRule extends Item {
 	 */
 	@Override
 	public void setPerson(Person person) {
-		Skeleton.logFunctionCall(this, "setPerson", person);
 		this.person = person;
 		person.pickedUpSlideRule();
-		Skeleton.logReturn(void.class);
 	}
 }

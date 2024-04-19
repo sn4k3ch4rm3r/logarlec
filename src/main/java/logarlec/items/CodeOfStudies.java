@@ -26,8 +26,6 @@ public class CodeOfStudies extends Item {
 	 */
 	@Override
 	public void useAgainst(Teacher target) {
-		Skeleton.logFunctionCall(this, "useAgainst", target);
-
 		if(uses > 0){
 			person.protectFromTeacher(target);
 			uses--;
@@ -35,7 +33,6 @@ public class CodeOfStudies extends Item {
 		if(uses ==0)
 			person.removeItem(this);
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	@Override

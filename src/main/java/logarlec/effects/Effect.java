@@ -10,8 +10,11 @@ import logarlec.util.Updatable;
 
 public abstract class Effect implements Updatable {
 	private GameObject holder;
-	private double timeRemaining;	
+	protected double timeRemaining;	
 
+	Effect(){}
+
+	Effect(double time){}
 
 	/**
 	 * A hatás diákra alkalmazódik
@@ -38,25 +41,17 @@ public abstract class Effect implements Updatable {
 	 */
 
 	public void setHolder(GameObject holder) {
-		Skeleton.logFunctionCall(this, "setHolder", holder);
 		this.holder = holder;
-		Skeleton.logReturn(void.class);
 	}
 
 
 	@Override
 	public void update(double deltaTime) {
-		Skeleton.logFunctionCall(this, "update", deltaTime);
-		boolean moreTime = Skeleton.getInput(Boolean.class,
-				"Does the " + this + " have more time left [true|false]: ");
-		if (!moreTime) {
+		if (timeRemaining > 0) {
 			holder.removeEffect(this);
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	public void interactCleanEffect(CleanEffect cleanEffect) {
-		Skeleton.logFunctionCall(this, "interactCleanEffect", cleanEffect);
-		Skeleton.logReturn(void.class);
 	}
 }

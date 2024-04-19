@@ -27,7 +27,7 @@ public class Janitor extends Person {
     @Override
     public void enterRoom(Room room) {
         super.enterRoom(room);
-        JanitorEffect janitorEffect = Skeleton.createObject("janitorEffect", JanitorEffect.class);
+        JanitorEffect janitorEffect = new JanitorEffect();
         room.addEffect(janitorEffect);
     }
 }

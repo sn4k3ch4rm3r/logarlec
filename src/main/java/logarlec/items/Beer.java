@@ -12,12 +12,10 @@ public class Beer extends Item {
 	 */
 	@Override
 	public void use() {
-		Skeleton.logFunctionCall(this, "use");
-		BeerEffect beerEffect = Skeleton.createObject("beerEffect", BeerEffect.class);
+		BeerEffect beerEffect = new BeerEffect();
 		person.addEffect(beerEffect);
 		person.removeItem(this);
 		person.dropRandomItem();
-		Skeleton.logReturn(void.class);
 	}
 
 	@Override

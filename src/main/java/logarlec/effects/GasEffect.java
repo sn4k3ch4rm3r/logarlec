@@ -13,9 +13,7 @@ public class GasEffect extends Effect {
 	 *
 	 */
 	public void applyToStudent(Student target) {
-		Skeleton.logFunctionCall(this, "applyToStudent", target);
 		target.setKnockOut(5);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -23,9 +21,7 @@ public class GasEffect extends Effect {
 	 *
 	 */
 	public void applyToTeacher(Teacher target) {
-		Skeleton.logFunctionCall(this, "applyToTeacher", target);
 		target.setKnockOut(5);
-		Skeleton.logReturn(void.class);
 	}
 
 	@Override
@@ -35,8 +31,6 @@ public class GasEffect extends Effect {
 
 	@Override
 	public void interactCleanEffect(CleanEffect cleanEffect) {
-		Skeleton.logFunctionCall(this, "interactCleanEffect", cleanEffect);
 		holder.removeEffect(this);
-		Skeleton.logReturn(void.class);
 	}
 }

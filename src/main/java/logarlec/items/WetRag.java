@@ -42,10 +42,8 @@ public class WetRag extends Item {
 	 */
 	@Override
 	public void setRoom(Room newRoom) {
-		Skeleton.logFunctionCall(this, "setRoom", newRoom);
 		room.removeEffect(ragEffect);
 		newRoom.addEffect(ragEffect);
 		room = newRoom;
-		Skeleton.logReturn(void.class);
 	}
 }

@@ -18,8 +18,6 @@ public class CleanEffect extends Effect {
 
     @Override
     public void applyToRoom(Room target) {
-        Skeleton.logFunctionCall(this, "applyToRoom", target);
         target.interactCleanEffect(this);
-        Skeleton.logReturn(void.class);
     }
 }

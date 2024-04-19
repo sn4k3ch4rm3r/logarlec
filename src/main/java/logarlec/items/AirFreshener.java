@@ -7,11 +7,9 @@ import logarlec.skeleton.Skeleton;
 public class AirFreshener extends Item {
     @Override
     public void use() {
-        Skeleton.logFunctionCall(this, "use");
-        CleanEffect cleanEffect = Skeleton.createObject("cleanEffect", CleanEffect.class);
+        CleanEffect cleanEffect = new CleanEffect();
         room.addEffect(cleanEffect);
         room.removeItem(this);
-        Skeleton.logReturn(void.class);
     }
 
     @Override

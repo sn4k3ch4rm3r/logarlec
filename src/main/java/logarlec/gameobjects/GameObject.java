@@ -55,10 +55,8 @@ public abstract class GameObject implements Updatable {
 	 * @param effect a hozzáadandó effect
 	 */
 	public void addEffect(Effect effect) {
-		Skeleton.logFunctionCall(this, "addEffect", effect);
 		effects.add(effect);
 		effect.setHolder(this);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -67,8 +65,6 @@ public abstract class GameObject implements Updatable {
 	 * @param effect a eltávolítandó effect
 	 */
 	public void removeEffect(Effect effect) {
-		Skeleton.logFunctionCall(this, "removeEffect", effect);
 		effects.remove(effect);
-		Skeleton.logReturn(void.class);
 	}
 }

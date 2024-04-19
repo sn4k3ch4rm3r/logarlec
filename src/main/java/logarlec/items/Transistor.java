@@ -16,9 +16,7 @@ public class Transistor extends Item {
 	 * @param room - a beállítandó Room
 	 */
 	public void setTarget(Room room) {
-		Skeleton.logFunctionCall(this, "setTarget", room);
 		target = room;
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -29,22 +27,6 @@ public class Transistor extends Item {
 	 */
 	@Override
 	public void use() {
-		/*
-		Skeleton.logFunctionCall(this, "use");
-		if (Skeleton.getInput(Boolean.class, "Is the transistor active [true|false]: ")) {
-			Person p = person;
-			person.dropItem(this);
-			boolean entered = target.enter(p);
-			if (entered) {
-				room.leave(p);
-			}
-		} else if (Skeleton.getInput(Boolean.class,
-				"Does the transistor have a pair [true|false]: ")) {
-			person.dropItem(this);
-			other.setTarget(room);
-		}
-		Skeleton.logReturn(void.class);*/
-
 		if(this.other == null)
 			return;
 		
@@ -79,9 +61,7 @@ public class Transistor extends Item {
 	 */
 	@Override
 	public void useItem(Item item) {
-		Skeleton.logFunctionCall(this, "useItem", item);
 		item.link(this);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -92,10 +72,8 @@ public class Transistor extends Item {
 	 */
 	@Override
 	public void link(Transistor other) {
-		Skeleton.logFunctionCall(this, "link", other);
 		other.setPair(this);
 		this.other = other;
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -104,8 +82,6 @@ public class Transistor extends Item {
 	 * @param other - a beállítandó Transistor
 	 */
 	public void setPair(Transistor other) {
-		Skeleton.logFunctionCall(this, "setPair", other);
 		this.other = other;
-		Skeleton.logReturn(void.class);
 	}
 }

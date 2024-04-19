@@ -32,17 +32,15 @@ public class Mask extends Item {
 	 */
 	@Override
 	public boolean usePassive() {
-		Skeleton.logFunctionCall(this, "usePassive");
 		if(uses > 0){
-			maskEffect = Skeleton.createObject("maskEffect", MaskEffect.class);
+			double time = 5-(5-uses);
+			maskEffect = new MaskEffect(time);
 			person.addEffect(maskEffect);
 			uses--;
 		}
 		if(uses == 0){
 			person.removeItem(this);
 		}
-
-		Skeleton.logReturn(true);
 		return true;
 	}
 
@@ -58,16 +56,9 @@ public class Mask extends Item {
 
 	@Override
 	public void drop() {
-		Skeleton.logFunctionCall(this, "drop");
-
-
-		if (Skeleton.getInput(Boolean.class,
-				"Is there an active effect caused by this item [true|false]: ")) {
+		if (maskEffect != null) {
 			person.removeEffect(maskEffect);
 		}
-		Skeleton.setLogging(false);
 		super.drop();
-		Skeleton.setLogging(true);
-		Skeleton.logReturn(void.class);
 	}
 }

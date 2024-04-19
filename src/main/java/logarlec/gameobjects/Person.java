@@ -26,7 +26,7 @@ public abstract class Person extends GameObject {
 	protected Room currentRoom;
 
 	public Person() {
-		inventory = Skeleton.createObject("inventory", Inventory.class);
+		inventory = new Inventory();
 		knockOutTime = -5;
 	}
 
@@ -41,10 +41,8 @@ public abstract class Person extends GameObject {
 	 * @param room a szoba, melybe a személy belép
 	 */
 	public void enterRoom(Room room) {
-		Skeleton.logFunctionCall(this, "enterRoom", room);
 		currentRoom = room;
 		inventory.setRoom(room);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -53,10 +51,8 @@ public abstract class Person extends GameObject {
 	 * @param item az eldobandó tárgy
 	 */
 	public void dropItem(Item item) {
-		Skeleton.logFunctionCall(this, "dropItem", item);
 		inventory.remove(item);
 		item.drop();
-		Skeleton.logReturn(void.class);
 	}
 
 	/**

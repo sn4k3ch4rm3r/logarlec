@@ -27,24 +27,12 @@ public class Door {
 	 * @param from A szoba ahol van a személy jelenleg
 	 */
 	public void use(Person person, Room from) {
-		/*
-		Skeleton.logFunctionCall(this, "use", person, from);
-		if (Skeleton.getInput(Boolean.class, "Is this the correct direction [true|false]: ")) {
-			Room to = from == room1 ? room2 : room1;
-			if (to.enter(person)) {
-				from.leave(person);
-			}
-		}
-		Skeleton.logReturn(void.class);*/
-
-		Skeleton.logFunctionCall(this, "use", person, from);
 		if (!hidden && !(oneWay && from != this.from)) {
 			Room roomToEnter = from == this.from ? this.to : this.from;
 			if(roomToEnter.enter(person)){
 				from.leave(person);
 			}
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -54,7 +42,6 @@ public class Door {
 	 * @param from A szoba, ahol eddig megtalálható volt az ajtó
 	 */
 	public void move(Room from, Room to) {
-		Skeleton.logFunctionCall(this, "move", from, to);
 		if (to == this.from || to == this.to) {
 			to.removeDoor(this);
 		} else {
@@ -67,25 +54,20 @@ public class Door {
 				this.to.addDoor(this);
 			}
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
 	 * Az ajtó nem lesz többé látható
 	 */
 	public void hide() {
-		Skeleton.logFunctionCall(this, "hide");
 		hidden = true;
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
 	 * Az ajtó újra látható lesz
 	 */
 	public void show() {
-		Skeleton.logFunctionCall(this, "show");
 		hidden = false;
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -93,8 +75,6 @@ public class Door {
 	 * @param oneWay
 	 */
 	public void setOneWay(boolean oneWay) {
-		Skeleton.logFunctionCall(this, "setOneWay", oneWay);
 		this.oneWay = oneWay;
-		Skeleton.logReturn(void.class);
 	}
 }
