@@ -58,10 +58,9 @@ public class Student extends Person {
 	@Override
 	public void interactTeacher(Teacher teacher) {
 		Skeleton.logFunctionCall(this, "interactTeacher", teacher);
-		if (immuneToTeacher.contains(teacher)) {
-			return;
+		if (!immuneToTeacher.contains(teacher)) {
+			inventory.protectFrom(teacher);
 		}
-		inventory.protectFrom(teacher);
 		Skeleton.logReturn(void.class);
 	}
 
@@ -78,5 +77,5 @@ public class Student extends Person {
 	@Override
 	public void pickedUpSlideRule(){
 		//A játék véget ér
-	};
+	}
 }

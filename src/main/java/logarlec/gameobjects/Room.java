@@ -135,21 +135,22 @@ public class Room extends GameObject {
 		Room newRoom = new Room();
 		Door door = new Door(this, newRoom);
 		
-		foreach(Effect e : effects){
+		for (Effect e : effects){
 			newRoom.applyEffect(e);
 		}
 
-		foreach(Person p : people){
+		for (Person p : people){
 			if(Math.random() < 0.5){
 				newRoom.enter(p);
 			}
 		}
 
-		foreach(Item i : items){
+		for (Item i : items){
 			if(Math.random() < 0.5){
 				newRoom.addItem(i);
 			}
 		}
+		return newRoom;
 	}
 
 	/**
@@ -321,7 +322,7 @@ public class Room extends GameObject {
 		Skeleton.logReturn(clean);
 		return clean;*/
 
-		if(visitorsSinceClean > 10){
+		if (visitorsSinceClean > 10){
 			return false;
 		}
 		return true;

@@ -12,7 +12,6 @@ public class FakeCodeOfStudies extends CodeOfStudies {
     @Override
     public void useAgainst(Teacher target) {
         Skeleton.logFunctionCall(this, "useAgainst", target);
-        this.person = person;
         Skeleton.logReturn(void.class);
     }
 }

@@ -8,6 +8,7 @@ import logarlec.gameobjects.Room;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Inventory {
 	private List<Item> items = new ArrayList<>();
@@ -41,8 +42,7 @@ public class Inventory {
 	 */
 	public void remove(Item item) {
 		Skeleton.logFunctionCall(this, "remove", item);
-		if(items.contains(item))
-			items.remove(item);
+        items.remove(item);
 		Skeleton.logReturn(void.class);
 	}
 
@@ -71,7 +71,8 @@ public class Inventory {
 	public void dropRandomItem() {
 		Skeleton.logFunctionCall(this, "dropRandomItem");
 		if (!items.isEmpty()) {
-			Item item = items.get((int) (Math.random() * items.size()));
+			Random random = new Random();
+			Item item = items.get(random.nextInt(items.size()));
 			item.drop();
 			remove(item);
 		}

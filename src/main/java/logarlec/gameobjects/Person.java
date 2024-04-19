@@ -23,7 +23,7 @@ public abstract class Person extends GameObject {
 	/**
 	 * A szoba melyben a személy jelenleg tartózkodik.
 	 */
-	private Room currentRoom;
+	protected Room currentRoom;
 
 	public Person() {
 		inventory = Skeleton.createObject("inventory", Inventory.class);

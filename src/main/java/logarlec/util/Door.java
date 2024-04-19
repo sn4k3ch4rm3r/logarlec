@@ -38,17 +38,11 @@ public class Door {
 		Skeleton.logReturn(void.class);*/
 
 		Skeleton.logFunctionCall(this, "use", person, from);
-		if(hidden)
-			return;
-		else if(oneWay && from != this.from)
-			return;
-		
-		else{
-			Room to = from == this.from ? this.to : this.from;
-			if(to.enter(person)){
+		if (!hidden && !(oneWay && from != this.from)) {
+			Room roomToEnter = from == this.from ? this.to : this.from;
+			if(roomToEnter.enter(person)){
 				from.leave(person);
 			}
-			return;
 		}
 		Skeleton.logReturn(void.class);
 	}
