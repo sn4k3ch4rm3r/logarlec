@@ -6,5 +6,5 @@ public interface Command {
 	 * 
 	 * @return A parancs kimenete, ha van.
 	 */
-	public String execute();
+	public String execute() throws Exception;
 }

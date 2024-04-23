@@ -17,7 +17,8 @@ public class TestBuilder {
 			TestDescription testDescription =
 					new TestDescription(desc.get(0), desc.get(1), desc.get(2));
 
-			return new Test(CommandBuilder.buildAll(input), output, testDescription);
+			return new Test(CommandBuilder.buildAll(input), output.strip().replaceAll("\r\n", "\n"),
+					testDescription);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

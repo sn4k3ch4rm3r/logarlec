@@ -1,7 +1,5 @@
 package logarlec.util;
 
-import logarlec.skeleton.Skeleton;
-
 import logarlec.gameobjects.Person;
 import logarlec.gameobjects.Room;
 
@@ -20,16 +18,16 @@ public class Door {
 	}
 
 	/**
-	 * Ajtó használata: a személy átlép a másik szobába, ha teheti.
-	 * Ha az ajtó egyirányú, akkor csak az ajtó egyik végénél lehet használni.
-	 * Ha az ajtó rejtett, akkor nem lehet használni.
+	 * Ajtó használata: a személy átlép a másik szobába, ha teheti. Ha az ajtó egyirányú, akkor csak
+	 * az ajtó egyik végénél lehet használni. Ha az ajtó rejtett, akkor nem lehet használni.
+	 * 
 	 * @param person Az ajtót használó személy
 	 * @param from A szoba ahol van a személy jelenleg
 	 */
 	public void use(Person person, Room from) {
 		if (!hidden && !(oneWay && from != this.from)) {
 			Room roomToEnter = from == this.from ? this.to : this.from;
-			if(roomToEnter.enter(person)){
+			if (roomToEnter.enter(person)) {
 				from.leave(person);
 			}
 		}
@@ -72,9 +70,16 @@ public class Door {
 
 	/**
 	 * Beállítja az ajtót egyirányúnak vagy kétirányúnak
+	 * 
 	 * @param oneWay
 	 */
 	public void setOneWay(boolean oneWay) {
 		this.oneWay = oneWay;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Door <%d>\nHidden: %b\nOne-way: %b\nRoom 1: <%d>\nRoom 2: <%d>",
+				this.hashCode(), hidden, oneWay, from.hashCode(), to.hashCode());
 	}
 }
