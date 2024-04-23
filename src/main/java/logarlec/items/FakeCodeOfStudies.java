@@ -15,7 +15,7 @@ public class FakeCodeOfStudies extends CodeOfStudies {
 
     @Override
 	public String toString() {
-		return String.format("FakeCodeOfStudies <%d>\nPerson: %b\nRoom: %b\n",
-				this.hashCode(), this.person, this.room);
+		return String.format("FakeCodeOfStudies <%d>\nPerson: <%d>\nRoom: <%d>\n",
+				this.hashCode(), this.person.hashCode(), this.room.hashCode());
 	}
 }

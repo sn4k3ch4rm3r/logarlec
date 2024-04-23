@@ -49,7 +49,8 @@ public class WetRag extends Item {
 
 	@Override
 	public String toString() {
-		return String.format("WetRag <%d>\nPerson: %b\nRoom: %b\n",
-				this.hashCode(), person, room);
+		return String.format("WetRag <%d>\nPerson: <%d>\nRoom: <%d>\n",
+				this.hashCode(), this.person.hashCode(), this.room.hashCode());
 	}
+	
 }

@@ -23,7 +23,7 @@ public class CleanEffect extends Effect {
 
     @Override
 	public String toString() {
-		return String.format("CleanEffect <%d>\nHolder: %b",
-				this.hashCode(), holder);
+		return String.format("CleanEffect <%d>\nHolder: <%d>\n",
+				this.hashCode(), this.holder.hashCode());
 	}
 }

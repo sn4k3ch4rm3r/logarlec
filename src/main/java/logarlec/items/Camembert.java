@@ -39,8 +39,8 @@ public class Camembert extends Item {
 
 	@Override
 	public String toString() {
-		return String.format("Camembert <%d>\nPerson: %b\nRoom: %b\n",
-				this.hashCode(), this.person, this.room);
+		return String.format("Camembert <%d>\nPerson: <%d>\nRoom: <%d>\n",
+				this.hashCode(), this.person.hashCode(), this.room.hashCode());
 	}
 
 }

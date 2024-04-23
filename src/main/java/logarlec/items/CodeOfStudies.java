@@ -53,8 +53,8 @@ public class CodeOfStudies extends Item {
 
 	@Override
 	public String toString() {
-		return String.format("CodeOfStudies <%d>\nPerson: %b\nRoom: %b\nUses: %d\n",
-				this.hashCode(), this.person, this.room, this.uses);
+		return String.format("CodeOfStudies <%d>\nPerson: <%d>\nRoom: <%d>\nUses: %d\n",
+				this.hashCode(), this.person.hashCode(), this.room.hashCode(), this.uses);
 	}
 
 }

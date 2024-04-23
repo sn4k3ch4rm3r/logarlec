@@ -15,7 +15,7 @@ public class FakeMask extends Mask {
 
     @Override
 	public String toString() {
-		return String.format("FakeMask <%d>\nPerson: %b\nRoom: %b\n",
-				this.hashCode(), this.person, this.room);
+		return String.format("FakeMask <%d>\nPerson: <%d>\nRoom: <%d>\n",
+				this.hashCode(), this.person.hashCode(), this.room.hashCode());
 	}
 }

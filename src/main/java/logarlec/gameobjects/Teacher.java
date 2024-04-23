@@ -50,7 +50,7 @@ public class Teacher extends Person {
 
 	@Override
 	public String toString() {
-		return String.format("Teacher <%d>\nEffects: %b\nInventory: %b\nKnock-out time: %b\nRoom: <%d>\n",
+		return String.format("Teacher <%d>\nEffects: %s\nInventory: %s\nKnock-out time: %f\nRoom: <%d>\n",
 				this.hashCode(), effects, inventory.toString(), knockOutTime, this.currentRoom.hashCode());
 	}
 }

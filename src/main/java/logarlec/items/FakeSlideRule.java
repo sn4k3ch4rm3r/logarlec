@@ -17,7 +17,7 @@ public class FakeSlideRule extends SlideRule {
 
     @Override
 	public String toString() {
-		return String.format("FakeSlideRule <%d>\nPerson: %b\nRoom: %b\n",
-				this.hashCode(), this.person, this.room);
+		return String.format("FakeSlideRule <%d>\nPerson: <%d>\nRoom: <%d>\n",
+				this.hashCode(), this.person.hashCode(), this.room.hashCode());
 	}
 }

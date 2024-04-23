@@ -31,7 +31,7 @@ public class GasEffect extends Effect {
 
 	@Override
 	public String toString() {
-		return String.format("GasEffect <%d>\nHolder: %b\nTime remaining: %b\n",
-				this.hashCode(), holder, timeRemaining);
+		return String.format("GasEffect <%d>\nHolder: <%d>\nTime remaining: %d\n",
+				this.hashCode(), this.holder.hashCode(), timeRemaining);
 	}
 }

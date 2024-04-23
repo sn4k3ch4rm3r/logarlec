@@ -41,8 +41,8 @@ public class Beer extends Item {
 
 	@Override
 	public String toString() {
-		return String.format("Beer <%d>\nPerson: %b\nRoom: %b\n",
-				this.hashCode(), this.person, this.room);
+		return String.format("Beer <%d>\nPerson: <%d>\nRoom: <%d>\n",
+				this.hashCode(), this.person.hashCode(), this.room.hashCode());
 	}
 	
 }

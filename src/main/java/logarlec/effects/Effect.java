@@ -54,4 +54,5 @@ public abstract class Effect implements Updatable {
 
 	public void interactCleanEffect(CleanEffect cleanEffect) {
 	}
+
 }

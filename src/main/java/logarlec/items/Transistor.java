@@ -87,7 +87,7 @@ public class Transistor extends Item {
 
 	@Override
 	public String toString() {
-		return String.format("Transistor <%d>\nPair: <%d>\nPerson: %b\nRoom: %b\nTarget room: %b\n",
-				this.hashCode(), other.hashCode(), person, room, target);
+		return String.format("Transistor <%d>\nPair: <%d>\nPerson: <%d>\nRoom: <%d>\nTarget room: <%d>\n",
+				this.hashCode(), other.hashCode(), person.hashCode(), room.hashCode(), target.hashCode());
 	}
 }

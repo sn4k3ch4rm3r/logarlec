@@ -24,7 +24,7 @@ public class JanitorEffect extends CleanEffect {
 
     @Override
 	public String toString() {
-		return String.format("JanitorEffect <%d>\nHolder: %b\n",
-				this.hashCode(), holder);
+		return String.format("JanitorEffect <%d>\nHolder: <%d>\n",
+				this.hashCode(), this.holder.hashCode());
 	}
 }
