@@ -21,6 +21,7 @@ public class RagEffect extends Effect {
 
 	@Override
 	public String toString() {
-		return "Rag effect";
+		return String.format("RagEffect <%d>\nHolder: %b\nTime remaining: %b\n",
+				this.hashCode(), holder, timeRemaining);
 	}
 }

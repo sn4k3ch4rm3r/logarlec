@@ -46,4 +46,10 @@ public class WetRag extends Item {
 		newRoom.addEffect(ragEffect);
 		room = newRoom;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("WetRag <%d>\nPerson: %b\nRoom: %b\n",
+				this.hashCode(), person, room);
+	}
 }

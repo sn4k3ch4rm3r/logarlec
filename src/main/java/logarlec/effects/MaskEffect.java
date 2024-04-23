@@ -28,6 +28,7 @@ public class MaskEffect extends Effect {
 
 	@Override
 	public String toString() {
-		return "Mask effect";
+		return String.format("MaskEffect <%d>\nHolder: %b\nTime remaining: %b\n",
+				this.hashCode(), holder, timeRemaining);
 	}
 }

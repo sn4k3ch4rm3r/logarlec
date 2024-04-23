@@ -22,6 +22,7 @@ public class BeerEffect extends Effect {
 
 	@Override
 	public String toString() {
-		return "Beer effect";
+		return String.format("BeerEffect <%d>\nHolder: %b\nTime remaining: %b\n",
+				this.hashCode(), holder, timeRemaining);
 	}
 }

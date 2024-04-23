@@ -12,4 +12,10 @@ public class FakeCodeOfStudies extends CodeOfStudies {
     @Override
     public void useAgainst(Teacher target) {
     }
+
+    @Override
+	public String toString() {
+		return String.format("FakeCodeOfStudies <%d>\nPerson: %b\nRoom: %b\n",
+				this.hashCode(), this.person, this.room);
+	}
 }

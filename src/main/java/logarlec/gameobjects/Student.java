@@ -70,4 +70,10 @@ public class Student extends Person {
 	public void pickedUpSlideRule(){
 		//A játék véget ér
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Student <%d>\nEffects: %b\nEliminated: %b\nInventory: %b\nKnock-out time: %b\nRoom: <%d>\n",
+				this.hashCode(), effects, eliminated, inventory.toString(), knockOutTime, this.currentRoom.hashCode());
+	}
 }

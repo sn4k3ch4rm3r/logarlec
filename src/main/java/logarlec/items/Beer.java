@@ -38,4 +38,11 @@ public class Beer extends Item {
 	public void link(Transistor other) {
 		// Do nothing
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Beer <%d>\nPerson: %b\nRoom: %b\n",
+				this.hashCode(), this.person, this.room);
+	}
+	
 }

@@ -84,4 +84,10 @@ public class Transistor extends Item {
 	public void setPair(Transistor other) {
 		this.other = other;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Transistor <%d>\nPair: <%d>\nPerson: %b\nRoom: %b\nTarget room: %b\n",
+				this.hashCode(), other.hashCode(), person, room, target);
+	}
 }

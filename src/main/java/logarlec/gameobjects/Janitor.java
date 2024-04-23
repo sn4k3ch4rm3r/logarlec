@@ -30,4 +30,10 @@ public class Janitor extends Person {
         JanitorEffect janitorEffect = new JanitorEffect();
         room.addEffect(janitorEffect);
     }
+
+    @Override
+	public String toString() {
+		return String.format("Janitor <%d>\nEffects: %b\nInventory: %b\nKnock-out time: %b",
+				this.hashCode(), effects, inventory.toString(), knockOutTime);
+	}
 }

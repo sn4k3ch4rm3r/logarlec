@@ -43,4 +43,10 @@ public class SlideRule extends Item {
 		this.person = person;
 		person.pickedUpSlideRule();
 	}
+
+	@Override
+	public String toString() {
+		return String.format("SlideRule <%d>\nPerson: %b\nRoom: %b\n",
+				this.hashCode(), this.person, this.room);
+	}
 }

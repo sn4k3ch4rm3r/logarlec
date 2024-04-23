@@ -31,4 +31,10 @@ public class AirFreshener extends Item {
     public void link(Transistor other) {
 
     }
+
+    @Override
+	public String toString() {
+		return String.format("AirFreshner <%d>\nPerson: %b\nRoom: %b\n",
+				this.hashCode(), this.person, this.room);
+	}
 }

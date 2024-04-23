@@ -47,4 +47,10 @@ public class Teacher extends Person {
 			currentRoom.interactTeacher(this);
 		}
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Teacher <%d>\nEffects: %b\nInventory: %b\nKnock-out time: %b\nRoom: <%d>\n",
+				this.hashCode(), effects, inventory.toString(), knockOutTime, this.currentRoom.hashCode());
+	}
 }

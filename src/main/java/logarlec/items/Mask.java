@@ -61,4 +61,10 @@ public class Mask extends Item {
 		}
 		super.drop();
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Mask <%d>\nPerson: %b\nRoom: %b\nUses: %d\n",
+				this.hashCode(), this.person, this.room, this.uses);
+	}
 }
