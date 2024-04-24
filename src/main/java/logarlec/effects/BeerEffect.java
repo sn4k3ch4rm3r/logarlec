@@ -2,6 +2,7 @@ package logarlec.effects;
 
 import logarlec.gameobjects.Teacher;
 import logarlec.gameobjects.Student;
+import logarlec.prototype.Prototype;
 
 public class BeerEffect extends Effect {
 
@@ -17,6 +18,11 @@ public class BeerEffect extends Effect {
 	 */
 	public void applyToStudent(Student target) {
 		target.setEliminated(false);
+		try {
+			Prototype.out.write(String.format("<%d> was saved by beer.\n", target.hashCode()).getBytes());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		target.dropRandomItem();
 	}
 

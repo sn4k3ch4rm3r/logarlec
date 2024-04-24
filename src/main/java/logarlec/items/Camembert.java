@@ -2,6 +2,7 @@ package logarlec.items;
 
 import logarlec.effects.GasEffect;
 import logarlec.gameobjects.Teacher;
+import logarlec.prototype.Prototype;
 
 public class Camembert extends Item {
 	/**
@@ -11,6 +12,13 @@ public class Camembert extends Item {
 	@Override
 	public void use() {
 		GasEffect gasEffect = new GasEffect();
+		String effectName = gasEffect.getClass().getSimpleName();
+		effectName = effectName.substring(0, 1).toLowerCase() + effectName.substring(1);
+		int i = 0;
+		while (Prototype.getObject(effectName + (i == 0 ? "" : i)) != null) {
+			i++;
+		}
+		Prototype.addObject(effectName + (i == 0 ? "" : i), gasEffect);
 		room.addEffect(gasEffect);
 		person.removeItem(this);
 		room.removeItem(this);

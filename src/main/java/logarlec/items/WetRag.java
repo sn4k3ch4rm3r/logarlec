@@ -3,6 +3,7 @@ package logarlec.items;
 import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Teacher;
 import logarlec.effects.RagEffect;
+import logarlec.prototype.Prototype;
 
 public class WetRag extends Item {
 	RagEffect ragEffect;
@@ -10,6 +11,13 @@ public class WetRag extends Item {
 	@Override
 	public void use() {
 		ragEffect = new RagEffect();
+		String effectName = ragEffect.getClass().getSimpleName();
+		effectName = effectName.substring(0, 1).toLowerCase() + effectName.substring(1);
+		int i = 0;
+		while (Prototype.getObject(effectName + (i == 0 ? "" : i)) != null) {
+			i++;
+		}
+		Prototype.addObject(effectName + (i == 0 ? "" : i), ragEffect);
 		room.addEffect(ragEffect);
 	}
 

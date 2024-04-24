@@ -2,6 +2,7 @@ package logarlec.util;
 
 import logarlec.gameobjects.Person;
 import logarlec.gameobjects.Room;
+import logarlec.prototype.Prototype;
 
 public class Door {
 	private Room from, to;
@@ -29,11 +30,24 @@ public class Door {
 			Room roomToEnter = from == this.from ? this.to : this.from;
 			if (roomToEnter.enter(person)) {
 				from.leave(person);
+				try {
+					Prototype.out.write(String.format("<%d> moved to <%d>.\n", person.hashCode(), roomToEnter.hashCode()).getBytes());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			} else {
-				// TODO Prototype print: The other room is full.
+				try {
+					Prototype.out.write("The other room is full.\n".getBytes());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		} else {
-			// TODO Prototype print: student couldn't use the door.
+			try {
+				Prototype.out.write(String.format("<%d> couldn't use the door.\n", person.hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

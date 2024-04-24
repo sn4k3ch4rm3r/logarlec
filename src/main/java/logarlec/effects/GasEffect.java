@@ -2,6 +2,7 @@ package logarlec.effects;
 
 import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
+import logarlec.prototype.Prototype;
 
 public class GasEffect extends Effect {
 	public GasEffect() {
@@ -28,6 +29,11 @@ public class GasEffect extends Effect {
 	public void interactCleanEffect(CleanEffect cleanEffect) {
 		timeRemaining = 0;
 		update(0);
+		try {
+			Prototype.out.write(String.format("<%d> removed <%d>.\n", cleanEffect.hashCode(), this.hashCode()).getBytes());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String toString() {

@@ -5,6 +5,7 @@ import logarlec.gameobjects.Room;
 import logarlec.gameobjects.GameObject;
 import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
+import logarlec.prototype.Prototype;
 import logarlec.util.Updatable;
 
 public abstract class Effect implements Updatable {
@@ -50,6 +51,11 @@ public abstract class Effect implements Updatable {
 			timeRemaining -= deltaTime;
 		} else {
 			holder.removeEffect(this);
+			try {
+				Prototype.out.write(String.format("<%d> ran out of time.\n", hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

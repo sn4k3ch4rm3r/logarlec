@@ -33,7 +33,7 @@ public class Test {
 					byte[] buffer = new byte[Prototype.in.available()];
 					Prototype.in.read(buffer);
 					String output = new String(buffer, StandardCharsets.UTF_8);
-					actual.append(output);
+					actual.append(replaceObjectNames(output));
 				}
 				if (result != null && result != "") {
 					actual.append(replaceObjectNames(result) + "\n");

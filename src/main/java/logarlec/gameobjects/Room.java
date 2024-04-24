@@ -3,6 +3,7 @@ package logarlec.gameobjects;
 import logarlec.effects.CleanEffect;
 import logarlec.effects.Effect;
 import logarlec.items.Item;
+import logarlec.prototype.Prototype;
 import logarlec.util.Door;
 import java.util.LinkedList;
 import java.util.List;
@@ -252,6 +253,11 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void interactTeacher(Teacher teacher) {
+		try {
+			Prototype.out.write(String.format("<%d> attacked everyone.\n", teacher.hashCode()).getBytes());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		for (Person person : people) {
 			person.interactTeacher(teacher);
 		}

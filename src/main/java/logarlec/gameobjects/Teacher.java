@@ -1,6 +1,7 @@
 package logarlec.gameobjects;
 
 import logarlec.effects.Effect;
+import logarlec.prototype.Prototype;
 
 /**
  * Egy játékban szereplő tanár.
@@ -16,6 +17,13 @@ public class Teacher extends Person {
 	 */
 	public void setPeaceful(boolean value) {
 		peaceful = value;
+		if (peaceful) {
+			try {
+				Prototype.out.write(String.format("<%d> became peaceful.\n", this.hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
