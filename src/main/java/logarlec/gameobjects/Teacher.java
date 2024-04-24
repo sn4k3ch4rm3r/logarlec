@@ -54,7 +54,7 @@ public class Teacher extends Person {
 		for (Effect e : effects) {
 			effectsSB.append(e.hashCode());
 		}
-		return String.format("Teacher <%d>\nEffects: %s\nInventory: %s\nKnock-out time: %f\nRoom: <%d>\n",
-				this.hashCode(), effectsSB.toString(), inventory.toString(), knockOutTime, this.currentRoom.hashCode());
+		return String.format("Teacher <%d>\nEffects: %s\nInventory: <%d>\nKnock-out time: %f\nRoom: <%d>\n",
+				this.hashCode(), effectsSB.toString(), inventory.hashCode(), knockOutTime, this.currentRoom.hashCode());
 	}
 }

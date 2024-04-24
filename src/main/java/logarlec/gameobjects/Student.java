@@ -78,7 +78,7 @@ public class Student extends Person {
 			effectsSB.append(e.hashCode());
 		}
 
-		return String.format("Student <%d>\nEffects: %s\nEliminated: %b\nInventory: %s\nKnock-out time: %f\nRoom: <%d>\n",
-				this.hashCode(), effectsSB.toString(), eliminated, inventory.toString(), knockOutTime, this.currentRoom.hashCode());
+		return String.format("Student <%d>\nEffects: %s\nEliminated: %b\nInventory: <%d>\nKnock-out time: %f\nRoom: <%d>\n",
+				this.hashCode(), effectsSB.toString(), eliminated, inventory.hashCode(), knockOutTime, this.currentRoom.hashCode());
 	}
 }

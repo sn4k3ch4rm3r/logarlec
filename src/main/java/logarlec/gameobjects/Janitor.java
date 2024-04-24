@@ -37,7 +37,7 @@ public class Janitor extends Person {
 		for (Effect e : effects) {
 			effectsSB.append(e.hashCode());
 		}
-		return String.format("Janitor <%d>\nEffects: %b\nInventory: %s\nKnock-out time: %b",
-				this.hashCode(), effectsSB.toString(), this.inventory.toString(), knockOutTime);
+		return String.format("Janitor <%d>\nEffects: %s\nInventory: <%d>\nKnock-out time: %f",
+				this.hashCode(), effectsSB.toString(), this.inventory.hashCode(), knockOutTime);
 	}
 }
