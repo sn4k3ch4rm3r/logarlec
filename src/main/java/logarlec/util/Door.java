@@ -22,7 +22,6 @@ public class Door {
 	 * az ajtó egyik végénél lehet használni. Ha az ajtó rejtett, akkor nem lehet használni.
 	 * 
 	 * @param person Az ajtót használó személy
-	 * @param from A szoba ahol van a személy jelenleg
 	 */
 	public void use(Person person) {
 		Room from = person.getCurrentRoom();
@@ -30,7 +29,11 @@ public class Door {
 			Room roomToEnter = from == this.from ? this.to : this.from;
 			if (roomToEnter.enter(person)) {
 				from.leave(person);
+			} else {
+				// TODO Prototype print: The other room is full.
 			}
+		} else {
+			// TODO Prototype print: student couldn't use the door.
 		}
 	}
 

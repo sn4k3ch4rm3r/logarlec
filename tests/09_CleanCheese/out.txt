@@ -1,10 +1,12 @@
 Room roomA
 Capacity: 4
+Doors: door
 Effects:
 Items:
-People: janitor
+People: student janitor
 Room roomB
 Capacity: 4
+Doors: door
 Effects:
 Items:
-People: student
+People:

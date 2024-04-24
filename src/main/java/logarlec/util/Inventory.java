@@ -60,6 +60,10 @@ public class Inventory {
 		}
 	}
 
+	public List<Item> getItems() {
+		return items;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder itemsString = new StringBuilder();

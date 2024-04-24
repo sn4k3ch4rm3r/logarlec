@@ -7,7 +7,7 @@ import logarlec.effects.Effect;
  */
 public class Teacher extends Person {
 
-	private boolean peaceful;
+	private boolean peaceful = false;
 
 	/**
 	 * Setter a békés állapot beállítására.
@@ -44,6 +44,7 @@ public class Teacher extends Person {
 		super.update(deltaTime);
 
 		if (!peaceful) {
+			// TODO Prototype print: teacher attacked everyone.
 			currentRoom.interactTeacher(this);
 		}
 	}

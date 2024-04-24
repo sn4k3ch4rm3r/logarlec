@@ -13,6 +13,7 @@ public class Camembert extends Item {
 		GasEffect gasEffect = new GasEffect();
 		room.addEffect(gasEffect);
 		person.removeItem(this);
+		room.removeItem(this);
 	}
 
 	@Override

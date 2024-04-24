@@ -52,7 +52,11 @@ public class Student extends Person {
 	 */
 	@Override
 	public void interactTeacher(Teacher teacher) {
-		if (!immuneToTeacher.contains(teacher)) {
+		eliminated = true;
+		// TODO Prototype print: student was eliminated.
+		if (immuneToTeacher.contains(teacher)) {
+			eliminated = false;
+		} else {
 			inventory.protectFrom(teacher);
 		}
 	}
@@ -72,12 +76,11 @@ public class Student extends Person {
 
 	@Override
 	public String toString() {
-		StringBuilder effectsSB = new StringBuilder();
-		for (Effect e : effects) {
-			effectsSB.append(e.hashCode());
+		StringBuilder effectsString = new StringBuilder();
+		for (Effect effect : this.effects) {
+			effectsString.append("<").append(effect.hashCode()).append("> ");
 		}
-
-		return String.format("Student <%d>\nEffects: %s\nEliminated: %b\nInventory: %s\nKnock-out time: %.0f\nRoom: <%d>\n",
-				this.hashCode(), effectsSB.toString(), eliminated, inventory.toString(), knockOutTime, this.currentRoom.hashCode());
+		return String.format("Student <%d>\nEffects: %s\nEliminated: %b\nInventory: %s\nKnock-out time: %.0f\nRoom: %s\n",
+				this.hashCode(), effectsString, eliminated, inventory.toString(), knockOutTime, currentRoom == null ? "" : String.format("<%d>", currentRoom.hashCode()));
 	}
 }

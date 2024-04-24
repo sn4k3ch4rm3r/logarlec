@@ -1,5 +1,6 @@
 package logarlec.prototype.command;
 
+import logarlec.gameobjects.Room;
 import logarlec.prototype.Prototype;
 import logarlec.util.Updatable;
 
@@ -24,7 +25,9 @@ public class Update implements Command {
 			Updatable updatable = (Updatable) Prototype.getObject(object);
 			updatable.update(deltaTime);
 		} else {
-			// TODO
+			for (Room room : Prototype.getRooms()) {
+				room.update(deltaTime);
+			}
 		}
 		return null;
 	}

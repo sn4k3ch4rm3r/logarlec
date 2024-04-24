@@ -9,7 +9,8 @@ public class WetRag extends Item {
 
 	@Override
 	public void use() {
-		// Do nothing
+		ragEffect = new RagEffect();
+		room.addEffect(ragEffect);
 	}
 
 	@Override
@@ -41,8 +42,12 @@ public class WetRag extends Item {
 	 */
 	@Override
 	public void setRoom(Room newRoom) {
-		room.removeEffect(ragEffect);
-		newRoom.addEffect(ragEffect);
+		if (ragEffect != null) {
+			if (room != null) {
+				room.removeEffect(ragEffect);
+			}
+			newRoom.addEffect(ragEffect);
+		}
 		room = newRoom;
 	}
 

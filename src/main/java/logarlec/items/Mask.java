@@ -32,9 +32,10 @@ public class Mask extends Item {
 	@Override
 	public boolean usePassive() {
 		if (uses > 0) {
-			double time = 5 - (5 - uses);
+			double time = uses;
 			maskEffect = new MaskEffect(time);
 			person.addEffect(maskEffect);
+			person.applyEffect(maskEffect);
 			uses--;
 		}
 		if (uses == 0) {

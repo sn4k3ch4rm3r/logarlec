@@ -1,6 +1,6 @@
 Create Room roomA
 Create Room roomB 0
 Create Student student
-Create door roomA roomB
+Create Door door roomA roomB
 Add roomA student
-Move person door
+Move student door

@@ -30,7 +30,7 @@ public class Room extends GameObject {
 	/**
 	 * A szobába elférő emberek száma.
 	 */
-	private int capacity = 4;
+	private int capacity;
 
 	/**
 	 * A szobában ennyi ember fordult meg a takarítás óta.
@@ -38,9 +38,14 @@ public class Room extends GameObject {
 	private int visitorsSinceClean;
 
 	public Room() {
+		this(4);
+	}
+
+	public Room(Integer capacity) {
 		people = new LinkedList<>();
 		doors = new LinkedList<>();
 		items = new LinkedList<>();
+		this.capacity = capacity;
 	}
 
 	/**

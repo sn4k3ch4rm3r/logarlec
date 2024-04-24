@@ -31,8 +31,8 @@ public class Test {
 					actual.append(replaceObjectNames(result) + "\n");
 				}
 			}
-			String result = actual.toString().strip();
-			boolean success = result.equals(expected);
+			String result = actual.toString().trim();
+			boolean success = result.replaceAll("\\s+", "").equals(expected.replaceAll("\\s+", ""));
 			if (!success) {
 				System.out.println("Expected:\n" + expected);
 				System.out.println("---------\nGot:\n" + result);

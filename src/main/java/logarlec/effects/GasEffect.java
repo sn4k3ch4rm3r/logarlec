@@ -4,7 +4,9 @@ import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
 
 public class GasEffect extends Effect {
-	double timeRemaining = 15.0;
+	public GasEffect() {
+		timeRemaining = 15;
+	}
 
 	/**
 	 * Diák megbénítása
@@ -25,6 +27,7 @@ public class GasEffect extends Effect {
 	@Override
 	public void interactCleanEffect(CleanEffect cleanEffect) {
 		timeRemaining = 0;
+		update(0);
 	}
 
 	public String toString() {

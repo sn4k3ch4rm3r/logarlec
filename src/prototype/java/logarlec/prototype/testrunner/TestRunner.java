@@ -1,5 +1,7 @@
 package logarlec.prototype.testrunner;
 
+import logarlec.prototype.Prototype;
+
 import java.util.List;
 
 public class TestRunner {
@@ -20,6 +22,7 @@ public class TestRunner {
 	 */
 	public static void runall(List<Test> tests) {
 		for (Test test : tests) {
+			Prototype.clearObjects();
 			run(test);
 		}
 	}

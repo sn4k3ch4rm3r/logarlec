@@ -47,6 +47,8 @@ public abstract class Effect implements Updatable {
 	@Override
 	public void update(double deltaTime) {
 		if (timeRemaining > 0) {
+			timeRemaining -= deltaTime;
+		} else {
 			holder.removeEffect(this);
 		}
 	}

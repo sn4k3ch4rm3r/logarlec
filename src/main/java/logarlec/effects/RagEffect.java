@@ -5,6 +5,10 @@ import logarlec.gameobjects.Teacher;
 
 
 public class RagEffect extends Effect {
+	public RagEffect() {
+		super();
+		timeRemaining = 15;
+	}
 
 	public void applyToStudent(Student target) {}
 

@@ -72,6 +72,11 @@ public abstract class Person extends GameObject {
 			effect.update(deltaTime);
 			applyEffect(effect);
 		}
+		if (knockOutTime > 0) {
+			for (Item item : inventory.getItems()) {
+				item.usePassive();
+			}
+		}
 	}
 
 	/**
@@ -84,6 +89,7 @@ public abstract class Person extends GameObject {
 		if (currentRoom == null || currentRoom.isClean()) {
 			if (inventory.add(item)) {
 				item.setPerson(this);
+				currentRoom.removeItem(item);
 				item.setRoom(currentRoom);
 			}
 		}
