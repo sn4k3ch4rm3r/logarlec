@@ -13,4 +13,10 @@ public class FakeSlideRule extends SlideRule {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+    @Override
+	public String toString() {
+		return String.format("FakeSlideRule <%d>\nPerson: <%d>\nRoom: <%d>\n",
+				this.hashCode(), this.person.hashCode(), this.room.hashCode());
+	}
 }

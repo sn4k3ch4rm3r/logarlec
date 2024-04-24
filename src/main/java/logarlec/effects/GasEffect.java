@@ -23,12 +23,12 @@ public class GasEffect extends Effect {
 	}
 
 	@Override
-	public String toString() {
-		return "Gas effect";
-	}
-
-	@Override
 	public void interactCleanEffect(CleanEffect cleanEffect) {
 		timeRemaining = 0;
+	}
+
+	public String toString() {
+		return String.format("GasEffect <%d>\nHolder: <%d>\nTime remaining: %d\n", this.hashCode(),
+				this.holder.hashCode(), timeRemaining);
 	}
 }

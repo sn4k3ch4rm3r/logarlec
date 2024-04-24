@@ -19,4 +19,10 @@ public class CleanEffect extends Effect {
     public void applyToRoom(Room target) {
         target.interactCleanEffect(this);
     }
+
+    @Override
+	public String toString() {
+		return String.format("CleanEffect <%d>\nHolder: <%d>\n",
+				this.hashCode(), this.holder.hashCode());
+	}
 }

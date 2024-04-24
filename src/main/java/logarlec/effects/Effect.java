@@ -8,7 +8,7 @@ import logarlec.gameobjects.Teacher;
 import logarlec.util.Updatable;
 
 public abstract class Effect implements Updatable {
-	private GameObject holder;
+	protected GameObject holder;
 	protected double timeRemaining;
 
 	Effect() {}

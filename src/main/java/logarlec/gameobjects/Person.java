@@ -10,7 +10,7 @@ import logarlec.util.Inventory;
 public abstract class Person extends GameObject {
 
 	private String name;
-	private double knockOutTime;
+	protected double knockOutTime;
 
 	/**
 	 * A személy által birtokolt tárgyak.
