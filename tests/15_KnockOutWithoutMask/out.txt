@@ -1,4 +1,3 @@
-student got knocked out.
 Student: student
 Effects:
 Eliminated: false
