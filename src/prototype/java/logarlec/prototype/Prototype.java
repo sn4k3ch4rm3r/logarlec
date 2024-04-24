@@ -1,9 +1,12 @@
 package logarlec.prototype;
 
+import java.io.*;
+import java.nio.Buffer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Stream;
 
 import logarlec.gameobjects.Room;
 import logarlec.prototype.testrunner.TestBuilder;
@@ -11,6 +14,17 @@ import logarlec.prototype.testrunner.TestRunner;
 
 public class Prototype {
 	private static Map<String, Object> objects = new HashMap<>();
+
+	public static PipedOutputStream out;
+	public static PipedInputStream in;
+	static {
+		try {
+			out = new PipedOutputStream();
+			in = new PipedInputStream(out);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * A Prototípus program belépési pontja.

@@ -3,6 +3,7 @@ package logarlec.util;
 import logarlec.gameobjects.Teacher;
 import logarlec.items.Item;
 import logarlec.gameobjects.Room;
+import logarlec.prototype.Prototype;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +21,14 @@ public class Inventory {
 		if (items.size() < 5) {
 			items.add(item);
 			return true;
+		} else {
+			try {
+				Prototype.out.write("Inventory is full.\n".getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
 		}
-		return false;
 	}
 
 	/**
