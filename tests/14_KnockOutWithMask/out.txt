@@ -1,3 +1,5 @@
+student got knocked out.
+student was protected by mask.
 Student: student
 Effects:
 Eliminated: false
