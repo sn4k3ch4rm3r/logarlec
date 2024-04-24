@@ -30,7 +30,7 @@ public class Room extends GameObject {
 	/**
 	 * A szobába elférő emberek száma.
 	 */
-	private int capacity;
+	private int capacity = 4;
 
 	/**
 	 * A szobában ennyi ember fordult meg a takarítás óta.
@@ -280,7 +280,23 @@ public class Room extends GameObject {
 
 	@Override
 	public String toString() {
-		return String.format("Room <%d>\nCapacity: %d\nDoors: %s\nEffects: %b\nItems: %s\nPeople: %s\n",
-				this.hashCode(), capacity, doors, effects, items, people);
+		StringBuilder doorsString = new StringBuilder();
+		for (Door door : this.doors) {
+			doorsString.append("<").append(door.hashCode()).append("> ");
+		}
+		StringBuilder effectsString = new StringBuilder();
+		for (Effect effect : this.effects) {
+			effectsString.append("<").append(effect.hashCode()).append("> ");
+		}
+		StringBuilder itemsString = new StringBuilder();
+		for (Item item : this.items) {
+			itemsString.append("<").append(item.hashCode()).append("> ");
+		}
+		StringBuilder peopleString = new StringBuilder();
+		for (Person person : this.people) {
+			peopleString.append("<").append(person.hashCode()).append("> ");
+		}
+		return String.format("Room <%d>\nCapacity: %d\nDoors: %s\nEffects: %s\nItems: %s\nPeople: %s\n",
+				this.hashCode(), capacity, doorsString, effectsString, itemsString, peopleString);
 	}
 }

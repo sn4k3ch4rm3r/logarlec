@@ -105,7 +105,7 @@ public abstract class Person extends GameObject {
 	public void pickedUpSlideRule() {}
 
 	public void getOut() {
-		if (knockOutTime > 0) {
+		if (knockOutTime <= 0) {
 			currentRoom.getOut(this);
 		}
 	}

@@ -62,6 +62,10 @@ public class Inventory {
 
 	@Override
 	public String toString() {
-		return String.format("%s, ", items);
+		StringBuilder itemsString = new StringBuilder();
+		for (Item item : items) {
+			itemsString.append("<").append(item.hashCode()).append("> ");
+		}
+		return String.format("%s", itemsString);
 	}
 }
