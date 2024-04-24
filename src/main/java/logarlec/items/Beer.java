@@ -2,7 +2,6 @@ package logarlec.items;
 
 import logarlec.effects.BeerEffect;
 import logarlec.gameobjects.Teacher;
-import logarlec.skeleton.Skeleton;
 
 public class Beer extends Item {
 

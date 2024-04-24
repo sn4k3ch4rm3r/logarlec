@@ -1,7 +1,6 @@
 package logarlec.effects;
 
 import logarlec.gameobjects.Room;
-import logarlec.skeleton.Skeleton;
 
 import logarlec.gameobjects.GameObject;
 import logarlec.gameobjects.Student;
@@ -10,11 +9,11 @@ import logarlec.util.Updatable;
 
 public abstract class Effect implements Updatable {
 	private GameObject holder;
-	protected double timeRemaining;	
+	protected double timeRemaining;
 
-	Effect(){}
+	Effect() {}
 
-	Effect(double time){}
+	Effect(double time) {}
 
 	/**
 	 * A hatás diákra alkalmazódik
@@ -31,7 +30,7 @@ public abstract class Effect implements Updatable {
 	public abstract void applyToTeacher(Teacher target);
 
 	public void applyToRoom(Room target) {
-		
+
 	}
 
 	/**
@@ -52,6 +51,5 @@ public abstract class Effect implements Updatable {
 		}
 	}
 
-	public void interactCleanEffect(CleanEffect cleanEffect) {
-	}
+	public void interactCleanEffect(CleanEffect cleanEffect) {}
 }

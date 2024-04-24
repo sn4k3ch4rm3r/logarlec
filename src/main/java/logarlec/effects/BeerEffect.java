@@ -1,7 +1,5 @@
 package logarlec.effects;
 
-import logarlec.skeleton.Skeleton;
-
 import logarlec.gameobjects.Teacher;
 import logarlec.gameobjects.Student;
 
@@ -17,8 +15,7 @@ public class BeerEffect extends Effect {
 		target.dropRandomItem();
 	}
 
-	public void applyToTeacher(Teacher target) {
-	}
+	public void applyToTeacher(Teacher target) {}
 
 	@Override
 	public String toString() {

@@ -1,7 +1,6 @@
 package logarlec.gameobjects;
 
 import logarlec.effects.Effect;
-import logarlec.skeleton.Skeleton;
 
 /**
  * Egy játékban szereplő tanár.
@@ -9,6 +8,7 @@ import logarlec.skeleton.Skeleton;
 public class Teacher extends Person {
 
 	private boolean peaceful;
+
 	/**
 	 * Setter a békés állapot beállítására.
 	 * 

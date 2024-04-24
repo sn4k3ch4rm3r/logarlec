@@ -2,13 +2,12 @@ package logarlec.items;
 
 import logarlec.effects.MaskEffect;
 import logarlec.gameobjects.Teacher;
-import logarlec.skeleton.Skeleton;
 
 public class Mask extends Item {
 	private MaskEffect maskEffect;
 	private int uses;
 
-	public Mask(){
+	public Mask() {
 		uses = 5;
 	}
 
@@ -32,13 +31,13 @@ public class Mask extends Item {
 	 */
 	@Override
 	public boolean usePassive() {
-		if(uses > 0){
-			double time = 5-(5-uses);
+		if (uses > 0) {
+			double time = 5 - (5 - uses);
 			maskEffect = new MaskEffect(time);
 			person.addEffect(maskEffect);
 			uses--;
 		}
-		if(uses == 0){
+		if (uses == 0) {
 			person.removeItem(this);
 		}
 		return true;

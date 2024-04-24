@@ -6,7 +6,6 @@ import logarlec.items.Item;
 import logarlec.util.Door;
 import java.util.LinkedList;
 import java.util.List;
-import logarlec.skeleton.Skeleton;
 
 /**
  * Egy játékban szereplő szoba.
@@ -66,7 +65,7 @@ public class Room extends GameObject {
 	 * @param person a személy, aki belépne a szobába
 	 */
 	public boolean enter(Person person) {
-		if(people.size() < capacity){
+		if (people.size() < capacity) {
 			people.add(person);
 			person.enterRoom(this);
 			return true;
@@ -89,13 +88,14 @@ public class Room extends GameObject {
 	 * @param room a másik szoba
 	 */
 	public void merge(Room room) {
-		//ha a két szobának niincs közös ajtaja vagy a nagyobbik kevesebb mint a két szoba összes embere
+		// ha a két szobának niincs közös ajtaja vagy a nagyobbik kevesebb mint a két szoba összes
+		// embere
 		int capac = this.capacity + room.capacity;
 		int peopleCount = this.people.size() + room.people.size();
 		if (doors.stream().noneMatch(door -> room.doors.contains(door)) || peopleCount > capac) {
 			return;
 		}
-	
+
 		room.moveContents(this);
 		this.capacity = this.capacity > room.capacity ? this.capacity : room.capacity;
 	}
@@ -107,27 +107,26 @@ public class Room extends GameObject {
 	 */
 	public Room split() {
 		/*
-		Skeleton.logFunctionCall(this, "split");
-		Room newRoom = Skeleton.createObject("newRoom", Room.class);
-		Skeleton.createObject("door", Door.class, this, newRoom);
-		Skeleton.logReturn(newRoom);
-		return newRoom;*/
+		 * Skeleton.logFunctionCall(this, "split"); Room newRoom = Skeleton.createObject("newRoom",
+		 * Room.class); Skeleton.createObject("door", Door.class, this, newRoom);
+		 * Skeleton.logReturn(newRoom); return newRoom;
+		 */
 
 		Room newRoom = new Room();
-		Door door = new Door(this, newRoom);
-		
-		for (Effect e : effects){
+		new Door(this, newRoom);
+
+		for (Effect e : effects) {
 			newRoom.applyEffect(e);
 		}
 
-		for (Person p : people){
-			if(Math.random() < 0.5){
+		for (Person p : people) {
+			if (Math.random() < 0.5) {
 				newRoom.enter(p);
 			}
 		}
 
-		for (Item i : items){
-			if(Math.random() < 0.5){
+		for (Item i : items) {
+			if (Math.random() < 0.5) {
 				newRoom.addItem(i);
 			}
 		}
@@ -273,7 +272,7 @@ public class Room extends GameObject {
 	}
 
 	public boolean isClean() {
-		if (visitorsSinceClean > 10){
+		if (visitorsSinceClean > 10) {
 			return false;
 		}
 		return true;

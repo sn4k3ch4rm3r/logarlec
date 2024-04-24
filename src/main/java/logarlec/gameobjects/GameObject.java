@@ -1,9 +1,7 @@
 package logarlec.gameobjects;
 
-import logarlec.effects.CleanEffect;
 import logarlec.effects.Effect;
 import logarlec.items.Item;
-import logarlec.skeleton.Skeleton;
 import logarlec.util.Updatable;
 import java.util.LinkedList;
 import java.util.List;

@@ -3,7 +3,6 @@ package logarlec.effects;
 import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
-import logarlec.skeleton.Skeleton;
 
 public class CleanEffect extends Effect {
     @Override

@@ -2,7 +2,6 @@ package logarlec.items;
 
 import logarlec.effects.GasEffect;
 import logarlec.gameobjects.Teacher;
-import logarlec.skeleton.Skeleton;
 
 public class Camembert extends Item {
 	/**

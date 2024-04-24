@@ -1,7 +1,5 @@
 package logarlec.effects;
 
-import logarlec.skeleton.Skeleton;
-
 import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
 
@@ -10,6 +8,7 @@ public class MaskEffect extends Effect {
 	public MaskEffect(double time) {
 		timeRemaining = time;
 	}
+
 	/**
 	 * Diák bénított állapotának megszüntetése.
 	 *

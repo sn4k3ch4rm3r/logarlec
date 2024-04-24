@@ -2,7 +2,6 @@ package logarlec.items;
 
 import logarlec.effects.CleanEffect;
 import logarlec.gameobjects.Teacher;
-import logarlec.skeleton.Skeleton;
 
 public class AirFreshener extends Item {
     @Override
