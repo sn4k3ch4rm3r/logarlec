@@ -53,4 +53,8 @@ public class Prototype {
 		}
 		return Integer.toString(hashCode);
 	}
+
+	public static void clearObjects() {
+		objects.clear();
+	}
 }
