@@ -4,7 +4,12 @@ import logarlec.gameobjects.Teacher;
 import logarlec.gameobjects.Student;
 
 public class BeerEffect extends Effect {
-	double timeRemaining = 15.0;
+
+
+	public BeerEffect(){
+		super();
+		timeRemaining = 15.0;
+	}
 
 	/**
 	 * Egy diák játékból kiejtett állapotát megszünteti, és eldobatja
