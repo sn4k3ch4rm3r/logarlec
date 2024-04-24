@@ -260,7 +260,7 @@ public class Room extends GameObject {
 
 	public void getOut(Person person) {
 		for (Door door : doors) {
-			door.use(person, this);
+			door.use(person);
 			if (!people.contains(person)) {
 				break;
 			}
