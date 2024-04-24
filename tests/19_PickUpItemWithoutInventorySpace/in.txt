@@ -19,3 +19,4 @@ Pickup student beer4
 Pickup student beer5
 Add room beer6
 Pickup student beer6
+Status student
