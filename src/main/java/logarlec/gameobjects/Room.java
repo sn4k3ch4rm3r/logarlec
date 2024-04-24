@@ -281,7 +281,7 @@ public class Room extends GameObject {
 
 	@Override
 	public String toString() {
-		return String.format("Room <%d>\nCapacity: %d\nDoors: %s\nEffects: %b\nItems: %s\nPeople: %s\n",
-				this.hashCode(), capacity, doors, effects, items, people);
+		return String.format("Room <%d>\nCapacity: %d\nDoors: <%d>\nEffects: <%d>\nItems: <%d>\nPeople: <%d>\n",
+				this.hashCode(), capacity, doors.hashCode(), effects.hashCode(), items.hashCode(), people.hashCode());
 	}
 }

@@ -60,9 +60,4 @@ public class Inventory {
 			remove(item);
 		}
 	}
-
-	@Override
-	public String toString() {
-		return String.format("%s, ", items);
-	}
 }

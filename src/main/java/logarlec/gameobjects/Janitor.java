@@ -33,7 +33,11 @@ public class Janitor extends Person {
 
     @Override
 	public String toString() {
+        StringBuilder effectsSB = new StringBuilder();
+		for (Effect e : effects) {
+			effectsSB.append(e.toString());
+		}
 		return String.format("Janitor <%d>\nEffects: %b\nInventory: %s\nKnock-out time: %b",
-				this.hashCode(), effects, this.inventory.toString(), knockOutTime);
+				this.hashCode(), effectsSB.toString(), this.inventory.toString(), knockOutTime);
 	}
 }

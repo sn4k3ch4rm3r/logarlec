@@ -73,7 +73,12 @@ public class Student extends Person {
 
 	@Override
 	public String toString() {
+		StringBuilder effectsSB = new StringBuilder();
+		for (Effect e : effects) {
+			effectsSB.append(e.toString());
+		}
+
 		return String.format("Student <%d>\nEffects: %s\nEliminated: %b\nInventory: %s\nKnock-out time: %f\nRoom: <%d>\n",
-				this.hashCode(), effects, eliminated, inventory.toString(), knockOutTime, this.currentRoom.hashCode());
+				this.hashCode(), effectsSB.toString(), eliminated, inventory.toString(), knockOutTime, this.currentRoom.hashCode());
 	}
 }
