@@ -24,3 +24,4 @@ public class RagEffect extends Effect {
 		return String.format("RagEffect <%d>\nHolder: <%d>\nTime remaining: %f\n",
 				this.hashCode(), this.holder.hashCode(), timeRemaining);
 	}
+}

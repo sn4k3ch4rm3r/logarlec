@@ -30,7 +30,7 @@ public class CodeOfStudies extends Item {
 			person.protectFromTeacher(target);
 			uses--;
 		}
-		if(uses ==0)
+		if(uses == 0) {
 			person.removeItem(this);
 		}
 	}
