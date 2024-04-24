@@ -26,9 +26,9 @@ public class Test {
 		try {
 			StringBuilder actual = new StringBuilder();
 			for (Command command : commands) {
-				String result = replaceObjectNames(command.execute());
+				String result = command.execute();
 				if (result != null && result != "") {
-					actual.append(result + "\n");
+					actual.append(replaceObjectNames(result) + "\n");
 				}
 			}
 			String result = actual.toString().strip();

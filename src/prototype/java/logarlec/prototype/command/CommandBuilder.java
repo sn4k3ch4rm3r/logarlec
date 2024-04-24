@@ -16,8 +16,7 @@ public class CommandBuilder {
 		String cmd = args[0].toLowerCase();
 		switch (cmd) {
 			case "add":
-				// TODO
-				return null;
+				return new Add(args[1], args[2]);
 			case "create":
 				String type = args[1];
 				String name = args[2];
@@ -27,37 +26,32 @@ public class CommandBuilder {
 				}
 				return new Create(type, name, cmdArgs);
 			case "drop":
-				// TODO
-				return null;
+				return new Drop(args[1], args[2]);
 			case "link":
-				// TODO
-				return null;
+				return new Link(args[1], args[2]);
 			case "merge":
-				// TODO
-				return null;
+				return new Merge(args[1], args[2]);
 			case "move":
-				// TODO
-				return null;
+				return new Move(args[1], args[2]);
 			case "oneway":
-				// TODO
-				return null;
+				return new Oneway(args[1], Boolean.parseBoolean(args[2]));
 			case "pickup":
-				// TODO
-				return null;
+				return new Pickup(args[1], args[2]);
 			case "seed":
 				// TODO
 				return null;
 			case "split":
-				// TODO
-				return null;
+				return new Split(args[1]);
 			case "status":
 				return new Status(args[1]);
 			case "use":
-				// TODO
-				return null;
+				return new Use(args[1], args[2]);
 			case "update":
-				// TODO
-				return null;
+				if (args.length == 3) {
+					return new Update(Double.parseDouble(args[1]), args[2]);
+				} else {
+					return new Update(Double.parseDouble(args[1]));
+				}
 			default:
 				return null;
 		}
