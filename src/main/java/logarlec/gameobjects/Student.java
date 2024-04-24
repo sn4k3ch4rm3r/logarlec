@@ -75,7 +75,7 @@ public class Student extends Person {
 	public String toString() {
 		StringBuilder effectsSB = new StringBuilder();
 		for (Effect e : effects) {
-			effectsSB.append(e.toString());
+			effectsSB.append(e.hashCode());
 		}
 
 		return String.format("Student <%d>\nEffects: %s\nEliminated: %b\nInventory: %s\nKnock-out time: %f\nRoom: <%d>\n",

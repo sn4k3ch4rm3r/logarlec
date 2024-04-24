@@ -52,7 +52,7 @@ public class Teacher extends Person {
 	public String toString() {
 		StringBuilder effectsSB = new StringBuilder();
 		for (Effect e : effects) {
-			effectsSB.append(e.toString());
+			effectsSB.append(e.hashCode());
 		}
 		return String.format("Teacher <%d>\nEffects: %s\nInventory: %s\nKnock-out time: %f\nRoom: <%d>\n",
 				this.hashCode(), effectsSB.toString(), inventory.toString(), knockOutTime, this.currentRoom.hashCode());
