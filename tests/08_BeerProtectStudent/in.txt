@@ -9,5 +9,6 @@ Add room mask
 Add room student
 Pickup student beer
 Pickup student mask
+Use student beer
 Update 1
 Status student

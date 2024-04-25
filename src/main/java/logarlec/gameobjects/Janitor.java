@@ -2,6 +2,7 @@ package logarlec.gameobjects;
 
 import logarlec.effects.Effect;
 import logarlec.effects.JanitorEffect;
+import logarlec.prototype.Prototype;
 
 public class Janitor extends Person {
     @Override
@@ -26,6 +27,13 @@ public class Janitor extends Person {
     public void enterRoom(Room room) {
         super.enterRoom(room);
         JanitorEffect janitorEffect = new JanitorEffect();
+        String effectName = janitorEffect.getClass().getSimpleName();
+        effectName = effectName.substring(0, 1).toLowerCase() + effectName.substring(1);
+        int i = 0;
+        while (Prototype.getObject(effectName + (i == 0 ? "" : i)) != null) {
+            i++;
+        }
+        Prototype.addObject(effectName + (i == 0 ? "" : i), janitorEffect);
         room.addEffect(janitorEffect);
     }
 

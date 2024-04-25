@@ -1,6 +1,6 @@
 Room room
 Capacity: 4
 Doors:
-Effects: wetRagEffect
+Effects: ragEffect
 Items:
 People: student

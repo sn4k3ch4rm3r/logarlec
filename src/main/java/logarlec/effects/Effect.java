@@ -51,10 +51,12 @@ public abstract class Effect implements Updatable {
 			timeRemaining -= deltaTime;
 		} else {
 			holder.removeEffect(this);
-			try {
-				Prototype.out.write(String.format("<%d> ran out of time.\n", hashCode()).getBytes());
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (this instanceof GasEffect || this instanceof RagEffect || this instanceof BeerEffect) {
+				try {
+					Prototype.out.write(String.format("<%d> ran out of time.\n", hashCode()).getBytes());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
