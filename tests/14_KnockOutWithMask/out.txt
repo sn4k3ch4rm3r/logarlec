@@ -1,7 +1,7 @@
 student got knocked out.
 student was protected by mask.
-Student: student
-Effects:
+Student student
+Effects: maskEffect
 Eliminated: false
 Inventory: mask
 Knock-out time: -5
