@@ -5,13 +5,16 @@ import logarlec.gameobjects.Teacher;
 import logarlec.prototype.Prototype;
 
 public class Beer extends Item {
-
 	/**
 	 * A Beer osztály use metódusa A metódus a BeerEffect-et adja hozzá a personhoz, majd
 	 * eltávolítja a person inventory-jából a Beer-t
 	 */
 	@Override
 	public void use() {
+	}
+
+	@Override
+	public void useAgainst(Teacher target) {
 		BeerEffect beerEffect = new BeerEffect();
 		String effectName = beerEffect.getClass().getSimpleName();
 		effectName = effectName.substring(0, 1).toLowerCase() + effectName.substring(1);
@@ -23,11 +26,6 @@ public class Beer extends Item {
 		person.addEffect(beerEffect);
 		person.removeItem(this);
 		person.dropRandomItem();
-	}
-
-	@Override
-	public void useAgainst(Teacher target) {
-		// Do nothing
 	}
 
 	@Override
