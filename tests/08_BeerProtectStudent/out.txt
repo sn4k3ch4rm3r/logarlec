@@ -1,8 +1,8 @@
 teacher attacked everyone.
 student was eliminated.
-student was revived.
-Student: student
-Effects:
+student was saved by beer.
+Student student
+Effects: beerEffect
 Eliminated: false
 Inventory:
 Knock-out time: -5

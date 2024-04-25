@@ -6,6 +6,7 @@ import logarlec.gameobjects.Room;
 import logarlec.prototype.Prototype;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -55,7 +56,10 @@ public class Inventory {
 	 * @param teacher A támadó oktató.
 	 */
 	public void protectFrom(Teacher teacher) {
-		items.forEach(i -> i.useAgainst(teacher));
+		List<Item> itemsNew = new ArrayList<>(items);
+		for (Item item : itemsNew) {
+			item.useAgainst(teacher);
+		}
 	}
 
 	public void dropRandomItem() {
