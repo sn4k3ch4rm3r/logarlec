@@ -1,6 +1,6 @@
 Room room
 Capacity: 4
-Effects:
 Doors:
+Effects:
 Items:
 People: student
