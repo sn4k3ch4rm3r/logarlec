@@ -8,6 +8,7 @@ Add roomA cheese
 Add roomA student
 Pickup student cheese
 Add roomB janitor
+Update 1
 Use student cheese
 Move janitor door
 Update 1

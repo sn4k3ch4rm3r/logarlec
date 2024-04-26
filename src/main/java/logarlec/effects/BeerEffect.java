@@ -17,13 +17,14 @@ public class BeerEffect extends Effect {
 	 *
 	 */
 	public void applyToStudent(Student target) {
-		target.setEliminated(false);
-		try {
-			Prototype.out.write(String.format("<%d> was saved by beer.\n", target.hashCode()).getBytes());
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (target.isEliminated()) {
+			try {
+				Prototype.out.write(String.format("<%d> was saved by beer.\n", target.hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			target.setEliminated(false);
 		}
-		target.dropRandomItem();
 	}
 
 	public void applyToTeacher(Teacher target) {}

@@ -1,3 +1,9 @@
+janitorEffect cleaned the room.
+janitor moved to roomA.
+gasEffect ran out of time.
+janitorEffect1 removed gasEffect.
+janitorEffect1 cleaned the room.
+
 Room roomA
 Capacity: 4
 Doors: door

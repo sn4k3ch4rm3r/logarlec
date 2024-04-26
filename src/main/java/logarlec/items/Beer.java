@@ -11,6 +11,7 @@ public class Beer extends Item {
 	 */
 	@Override
 	public void use() {
+		useAgainst(null);
 	}
 
 	@Override

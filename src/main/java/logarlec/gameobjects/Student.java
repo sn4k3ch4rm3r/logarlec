@@ -28,19 +28,29 @@ public class Student extends Person {
 	}
 
 	/**
+	 * A diák vesztés állapotának lekérdezése.
+	 *
+	 * @return a vesztés állapota
+	 */
+	public boolean isEliminated() {
+		return eliminated;
+
+	}
+
+	/**
 	 * Setter a vesztés állapotának beállítására.
 	 * 
 	 * @param value az elmimnated új értéke
 	 */
 	public void setEliminated(boolean value) {
-		eliminated = value;
-		if (!eliminated) {
+		if (eliminated && !value) {
 			try {
 				//Prototype.out.write(String.format("<%d> was revived.\n", this.hashCode()).getBytes());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		eliminated = value;
 	}
 
 	/**

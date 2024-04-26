@@ -27,6 +27,14 @@ public class CleanEffect extends Effect {
     }
 
     @Override
+    public void update(double deltaTime) {
+        super.update(deltaTime);
+        if (timeRemaining <= 0) {
+            holder.removeEffect(this);
+        }
+    }
+
+    @Override
 	public String toString() {
 		return String.format("CleanEffect <%d>\nHolder: <%d>\n",
 				this.hashCode(), this.holder.hashCode());
