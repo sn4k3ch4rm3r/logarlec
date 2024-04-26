@@ -10,9 +10,11 @@ public class TestRunner {
 	 * 
 	 * @param test A futtatandó teszt.
 	 */
-	public static void run(Test test) {
+	public static boolean run(Test test) {
 		System.out.println(test.toString());
-		System.out.println(test.run() ? "[SUCCESS]" : "[FAILED]");
+		boolean success = test.run();
+		System.out.println(success ? "[SUCCESS]" : "[FAILED]");
+		return success;
 	}
 
 	/**
@@ -21,10 +23,14 @@ public class TestRunner {
 	 * @param tests A tesztek listája.
 	 */
 	public static void runall(List<Test> tests) {
+		int successful = 0;
 		for (Test test : tests) {
 			Prototype.clearObjects();
-			run(test);
+			if (run(test)) {
+				successful++;
+			}
 		}
+		System.out.printf("Successful: %d/%d%n", successful, tests.size());
 	}
 
 	/**

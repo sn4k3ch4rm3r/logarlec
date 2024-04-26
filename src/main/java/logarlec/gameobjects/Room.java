@@ -119,7 +119,15 @@ public class Room extends GameObject {
 		 */
 
 		Room newRoom = new Room();
-		new Door(this, newRoom);
+		String name = Prototype.getObjectName(this.hashCode());
+		Prototype.addObject(name + "_S1", newRoom);
+		Door door = new Door(this, newRoom);
+		StringBuilder doorName = new StringBuilder("door");
+		int counter = 0;
+		while (Prototype.getObject(doorName + (counter == 0 ? "" : Integer.toString(counter))) != null) {
+			counter++;
+		}
+		Prototype.addObject(doorName + (counter == 0 ? "" : Integer.toString(counter)), door);
 
 		for (Effect e : effects) {
 			newRoom.applyEffect(e);

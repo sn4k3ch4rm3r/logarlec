@@ -9,6 +9,9 @@ public class MaskEffect extends Effect {
 	public MaskEffect(double time) {
 		timeRemaining = time;
 	}
+	public MaskEffect() {
+		this(5.0);
+	}
 
 	/**
 	 * Diák bénított állapotának megszüntetése.

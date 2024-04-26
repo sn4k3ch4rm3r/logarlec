@@ -1,7 +1,7 @@
 Create Room roomA
 Create Room roomB
 Create Student student
-Create door roomA roomB
+Create Door door roomA roomB
 Add roomA student
 Move student door
 Status roomB
