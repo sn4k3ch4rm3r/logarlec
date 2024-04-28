@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import logarlec.gameobjects.Room;
 import logarlec.prototype.testrunner.TestBuilder;
 import logarlec.prototype.testrunner.TestRunner;
@@ -77,5 +78,20 @@ public class Prototype {
 
 	public static List<Room> getRooms() {
 		return objects.values().stream().filter(o -> o instanceof Room).map(o -> (Room) o).toList();
+	}
+
+	public static String replaceObjectNames(String raw) {
+		Pattern pattern = Pattern.compile("<([^>]*)>");
+		Matcher matcher = pattern.matcher(raw);
+		StringBuffer sb = new StringBuffer();
+		while (matcher.find()) {
+			int hashCode = Integer.parseInt(matcher.group(1));
+			Object object = getObjectName(hashCode);
+			if (object != null) {
+				matcher.appendReplacement(sb, object.toString());
+			}
+		}
+		matcher.appendTail(sb);
+		return sb.toString();
 	}
 }

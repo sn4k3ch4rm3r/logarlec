@@ -5,8 +5,6 @@ import logarlec.prototype.command.Command;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 public class Test {
 	private List<Command> commands;
@@ -33,10 +31,10 @@ public class Test {
 					byte[] buffer = new byte[Prototype.in.available()];
 					Prototype.in.read(buffer);
 					String output = new String(buffer, StandardCharsets.UTF_8);
-					actual.append(replaceObjectNames(output));
+					actual.append(Prototype.replaceObjectNames(output));
 				}
 				if (result != null && result != "") {
-					actual.append(replaceObjectNames(result) + "\n");
+					actual.append(Prototype.replaceObjectNames(result) + "\n");
 				}
 			}
 			String result = actual.toString().trim();
@@ -53,19 +51,8 @@ public class Test {
 		}
 	}
 
-	private String replaceObjectNames(String raw) {
-		Pattern pattern = Pattern.compile("<([^>]*)>");
-		Matcher matcher = pattern.matcher(raw);
-		StringBuffer sb = new StringBuffer();
-		while (matcher.find()) {
-			int hashCode = Integer.parseInt(matcher.group(1));
-			Object object = Prototype.getObjectName(hashCode);
-			if (object != null) {
-				matcher.appendReplacement(sb, object.toString());
-			}
-		}
-		matcher.appendTail(sb);
-		return sb.toString();
+	public TestDescription getDescription() {
+		return description;
 	}
 
 	@Override
