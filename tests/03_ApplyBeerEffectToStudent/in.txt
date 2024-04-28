@@ -1,5 +1,5 @@
 Create Student student
 Create Beer beer
 Pickup student beer
-Use student Beer
+Use student beer
 Status student

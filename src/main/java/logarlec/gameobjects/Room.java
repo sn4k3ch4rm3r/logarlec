@@ -39,9 +39,14 @@ public class Room extends GameObject {
 	private int visitorsSinceClean;
 
 	public Room() {
+		this(4);
+	}
+
+	public Room(Integer capacity) {
 		people = new LinkedList<>();
 		doors = new LinkedList<>();
 		items = new LinkedList<>();
+		this.capacity = capacity;
 	}
 
 	/**
@@ -114,7 +119,16 @@ public class Room extends GameObject {
 		 */
 
 		Room newRoom = new Room();
-		new Door(this, newRoom);
+		String name = Prototype.getObjectName(this.hashCode());
+		Prototype.addObject(name + "_S1", newRoom);
+		Door door = new Door(this, newRoom);
+		StringBuilder doorName = new StringBuilder("door");
+		int counter = 0;
+		while (Prototype
+				.getObject(doorName + (counter == 0 ? "" : Integer.toString(counter))) != null) {
+			counter++;
+		}
+		Prototype.addObject(doorName + (counter == 0 ? "" : Integer.toString(counter)), door);
 
 		for (Effect e : effects) {
 			newRoom.applyEffect(e);
@@ -248,6 +262,12 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void interactTeacher(Teacher teacher) {
+		try {
+			Prototype.out.write(
+					String.format("<%d> attacked everyone.\n", teacher.hashCode()).getBytes());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		for (Person person : people) {
 			person.interactTeacher(teacher);
 		}
@@ -277,5 +297,28 @@ public class Room extends GameObject {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder doorsString = new StringBuilder();
+		for (Door door : this.doors) {
+			doorsString.append("<").append(door.hashCode()).append("> ");
+		}
+		StringBuilder effectsString = new StringBuilder();
+		for (Effect effect : this.effects) {
+			effectsString.append("<").append(effect.hashCode()).append("> ");
+		}
+		StringBuilder itemsString = new StringBuilder();
+		for (Item item : this.items) {
+			itemsString.append("<").append(item.hashCode()).append("> ");
+		}
+		StringBuilder peopleString = new StringBuilder();
+		for (Person person : this.people) {
+			peopleString.append("<").append(person.hashCode()).append("> ");
+		}
+		return String.format(
+				"Room <%d>\nCapacity: %d\nDoors: %s\nEffects: %s\nItems: %s\nPeople: %s\n",
+				this.hashCode(), capacity, doorsString, effectsString, itemsString, peopleString);
 	}
 }

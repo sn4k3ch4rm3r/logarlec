@@ -20,4 +20,10 @@ public class JanitorEffect extends CleanEffect {
         super.applyToRoom(target);
         target.clean();
     }
+
+    @Override
+	public String toString() {
+		return String.format("JanitorEffect <%d>\nHolder: <%d>\n",
+				this.hashCode(), this.holder.hashCode());
+	}
 }

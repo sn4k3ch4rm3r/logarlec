@@ -1,5 +1,6 @@
 package logarlec.items;
 
+import logarlec.gameobjects.Person;
 import logarlec.gameobjects.Teacher;
 import logarlec.gameobjects.Room;
 
@@ -29,6 +30,7 @@ public class Transistor extends Item {
 			return;
 
 		if (this.other != null && this.target != null) {
+			Person person = this.person;
 			person.dropItem(this);
 			if (target.enter(person)) {
 				room.leave(person);
@@ -80,5 +82,11 @@ public class Transistor extends Item {
 	 */
 	public void setPair(Transistor other) {
 		this.other = other;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Transistor <%d>\nPair: <%d>\nPerson: <%d>\nRoom: <%d>\nTarget room: <%d>\n",
+				this.hashCode(), other.hashCode(), person.hashCode(), room.hashCode(), target.hashCode());
 	}
 }

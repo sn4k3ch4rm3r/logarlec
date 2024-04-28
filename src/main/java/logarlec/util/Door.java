@@ -2,6 +2,7 @@ package logarlec.util;
 
 import logarlec.gameobjects.Person;
 import logarlec.gameobjects.Room;
+import logarlec.prototype.Prototype;
 
 public class Door {
 	private Room from, to;
@@ -22,7 +23,6 @@ public class Door {
 	 * az ajtó egyik végénél lehet használni. Ha az ajtó rejtett, akkor nem lehet használni.
 	 * 
 	 * @param person Az ajtót használó személy
-	 * @param from A szoba ahol van a személy jelenleg
 	 */
 	public void use(Person person) {
 		Room from = person.getCurrentRoom();
@@ -30,6 +30,23 @@ public class Door {
 			Room roomToEnter = from == this.from ? this.to : this.from;
 			if (roomToEnter.enter(person)) {
 				from.leave(person);
+				try {
+					Prototype.out.write(String.format("<%d> moved to <%d>.\n", person.hashCode(), roomToEnter.hashCode()).getBytes());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				try {
+					Prototype.out.write("The other room is full.\n".getBytes());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			try {
+				Prototype.out.write(String.format("<%d> couldn't use the door.\n", person.hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}

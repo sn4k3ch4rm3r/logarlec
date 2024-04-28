@@ -3,8 +3,10 @@ package logarlec.util;
 import logarlec.gameobjects.Teacher;
 import logarlec.items.Item;
 import logarlec.gameobjects.Room;
+import logarlec.prototype.Prototype;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -20,8 +22,14 @@ public class Inventory {
 		if (items.size() < 5) {
 			items.add(item);
 			return true;
+		} else {
+			try {
+				Prototype.out.write("Inventory is full.\n".getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
 		}
-		return false;
 	}
 
 	/**
@@ -48,7 +56,10 @@ public class Inventory {
 	 * @param teacher A támadó oktató.
 	 */
 	public void protectFrom(Teacher teacher) {
-		items.forEach(i -> i.useAgainst(teacher));
+		List<Item> itemsNew = new ArrayList<>(items);
+		for (Item item : itemsNew) {
+			item.useAgainst(teacher);
+		}
 	}
 
 	public void dropRandomItem() {
@@ -58,5 +69,18 @@ public class Inventory {
 			item.drop();
 			remove(item);
 		}
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder itemsString = new StringBuilder();
+		for (Item item : items) {
+			itemsString.append("<").append(item.hashCode()).append("> ");
+		}
+		return String.format("%s", itemsString);
 	}
 }

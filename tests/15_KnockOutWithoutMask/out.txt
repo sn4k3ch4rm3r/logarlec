@@ -1,5 +1,5 @@
 student got knocked out.
-Student: student
+Student student
 Effects:
 Eliminated: false
 Inventory:

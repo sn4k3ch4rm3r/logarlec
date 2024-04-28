@@ -1,1 +1,7 @@
 Inventory is full.
+Student student
+Effects:
+Eliminated: false
+Inventory: beer1 beer2 beer3 beer4 beer5
+Knock-out time: -5
+Room: room

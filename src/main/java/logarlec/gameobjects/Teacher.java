@@ -1,13 +1,14 @@
 package logarlec.gameobjects;
 
 import logarlec.effects.Effect;
+import logarlec.prototype.Prototype;
 
 /**
  * Egy játékban szereplő tanár.
  */
 public class Teacher extends Person {
 
-	private boolean peaceful;
+	private boolean peaceful = false;
 
 	/**
 	 * Setter a békés állapot beállítására.
@@ -16,6 +17,13 @@ public class Teacher extends Person {
 	 */
 	public void setPeaceful(boolean value) {
 		peaceful = value;
+		if (peaceful) {
+			try {
+				Prototype.out.write(String.format("<%d> became peaceful.\n", this.hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
@@ -44,7 +52,18 @@ public class Teacher extends Person {
 		super.update(deltaTime);
 
 		if (!peaceful) {
+			// TODO Prototype print: teacher attacked everyone.
 			currentRoom.interactTeacher(this);
 		}
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder effectsSB = new StringBuilder();
+		for (Effect e : effects) {
+			effectsSB.append("<").append(e.hashCode()).append("> ");
+		}
+		return String.format("Teacher <%d>\nEffects: %s\nInventory: %s\nKnock-out time: %.0f\nRoom: <%d>\n",
+				this.hashCode(), effectsSB, inventory.toString(), knockOutTime, this.currentRoom.hashCode());
 	}
 }

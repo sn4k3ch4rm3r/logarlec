@@ -5,10 +5,11 @@ import logarlec.gameobjects.Room;
 import logarlec.gameobjects.GameObject;
 import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
+import logarlec.prototype.Prototype;
 import logarlec.util.Updatable;
 
 public abstract class Effect implements Updatable {
-	private GameObject holder;
+	protected GameObject holder;
 	protected double timeRemaining;
 
 	Effect() {}
@@ -47,7 +48,7 @@ public abstract class Effect implements Updatable {
 	@Override
 	public void update(double deltaTime) {
 		if (timeRemaining > 0) {
-			holder.removeEffect(this);
+			timeRemaining -= deltaTime;
 		}
 	}
 

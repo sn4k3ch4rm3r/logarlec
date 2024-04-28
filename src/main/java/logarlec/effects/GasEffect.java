@@ -2,9 +2,12 @@ package logarlec.effects;
 
 import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
+import logarlec.prototype.Prototype;
 
 public class GasEffect extends Effect {
-	double timeRemaining = 15.0;
+	public GasEffect() {
+		timeRemaining = 15;
+	}
 
 	/**
 	 * Diák megbénítása
@@ -23,12 +26,31 @@ public class GasEffect extends Effect {
 	}
 
 	@Override
+	public void interactCleanEffect(CleanEffect cleanEffect) {
+		timeRemaining = 0;
+		update(0);
+		try {
+			Prototype.out.write(String.format("<%d> removed <%d>.\n", cleanEffect.hashCode(), this.hashCode()).getBytes());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public String toString() {
-		return "Gas effect";
+		return String.format("GasEffect <%d>\nHolder: <%d>\nTime remaining: %.0f\n", this.hashCode(),
+				this.holder.hashCode(), timeRemaining);
 	}
 
 	@Override
-	public void interactCleanEffect(CleanEffect cleanEffect) {
-		timeRemaining = 0;
+	public void update(double deltaTime) {
+		super.update(deltaTime);
+		if (timeRemaining <= 0) {
+			holder.removeEffect(this);
+			try {
+				Prototype.out.write(String.format("<%d> ran out of time.\n", hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

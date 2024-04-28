@@ -4,11 +4,13 @@ Create Door door roomA roomB
 Create Janitor janitor
 Create Student student
 Create Camembert cheese
-Add room cheese
-Pickup student cheese
+Add roomA cheese
 Add roomA student
+Pickup student cheese
 Add roomB janitor
+Update 1
 Use student cheese
 Move janitor door
+Update 1
 Status roomA
 Status roomB

@@ -2,6 +2,8 @@ package logarlec.prototype.testrunner;
 
 import logarlec.prototype.Prototype;
 import logarlec.prototype.command.Command;
+
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -27,6 +29,12 @@ public class Test {
 			StringBuilder actual = new StringBuilder();
 			for (Command command : commands) {
 				String result = command.execute();
+				if (Prototype.in.available() > 0) {
+					byte[] buffer = new byte[Prototype.in.available()];
+					Prototype.in.read(buffer);
+					String output = new String(buffer, StandardCharsets.UTF_8);
+					actual.append(replaceObjectNames(output));
+				}
 				if (result != null && result != "") {
 					actual.append(replaceObjectNames(result) + "\n");
 				}

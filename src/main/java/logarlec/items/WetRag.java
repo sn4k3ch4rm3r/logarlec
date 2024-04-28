@@ -3,13 +3,22 @@ package logarlec.items;
 import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Teacher;
 import logarlec.effects.RagEffect;
+import logarlec.prototype.Prototype;
 
 public class WetRag extends Item {
 	RagEffect ragEffect;
 
 	@Override
 	public void use() {
-		// Do nothing
+		ragEffect = new RagEffect();
+		String effectName = ragEffect.getClass().getSimpleName();
+		effectName = effectName.substring(0, 1).toLowerCase() + effectName.substring(1);
+		int i = 0;
+		while (Prototype.getObject(effectName + (i == 0 ? "" : i)) != null) {
+			i++;
+		}
+		Prototype.addObject(effectName + (i == 0 ? "" : i), ragEffect);
+		room.addEffect(ragEffect);
 	}
 
 	@Override
@@ -41,8 +50,19 @@ public class WetRag extends Item {
 	 */
 	@Override
 	public void setRoom(Room newRoom) {
-		room.removeEffect(ragEffect);
-		newRoom.addEffect(ragEffect);
+		if (ragEffect != null) {
+			if (room != null) {
+				room.removeEffect(ragEffect);
+			}
+			newRoom.addEffect(ragEffect);
+		}
 		room = newRoom;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("WetRag <%d>\nPerson: <%d>\nRoom: <%d>\n",
+				this.hashCode(), this.person.hashCode(), this.room.hashCode());
+	}
+	
 }

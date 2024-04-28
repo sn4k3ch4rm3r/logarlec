@@ -1,6 +1,6 @@
 teacher attacked everyone.
 student was eliminated.
-Student: student
+Student student
 Effects:
 Eliminated: true
 Inventory:

@@ -4,6 +4,7 @@ package logarlec.gameobjects;
 import java.util.LinkedList;
 import java.util.List;
 import logarlec.effects.Effect;
+import logarlec.prototype.Prototype;
 
 /**
  * Egy játékban szereplő diák.
@@ -27,11 +28,28 @@ public class Student extends Person {
 	}
 
 	/**
+	 * A diák vesztés állapotának lekérdezése.
+	 *
+	 * @return a vesztés állapota
+	 */
+	public boolean isEliminated() {
+		return eliminated;
+
+	}
+
+	/**
 	 * Setter a vesztés állapotának beállítására.
 	 * 
 	 * @param value az elmimnated új értéke
 	 */
 	public void setEliminated(boolean value) {
+		if (eliminated && !value) {
+			try {
+				//Prototype.out.write(String.format("<%d> was revived.\n", this.hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		eliminated = value;
 	}
 
@@ -52,7 +70,15 @@ public class Student extends Person {
 	 */
 	@Override
 	public void interactTeacher(Teacher teacher) {
-		if (!immuneToTeacher.contains(teacher)) {
+		eliminated = true;
+		if (immuneToTeacher.contains(teacher)) {
+			eliminated = false;
+		} else {
+			try {
+				Prototype.out.write(String.format("<%d> was eliminated.\n", this.hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			inventory.protectFrom(teacher);
 		}
 	}
@@ -68,5 +94,15 @@ public class Student extends Person {
 	@Override
 	public void pickedUpSlideRule() {
 		// A játék véget ér
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder effectsString = new StringBuilder();
+		for (Effect effect : this.effects) {
+			effectsString.append("<").append(effect.hashCode()).append("> ");
+		}
+		return String.format("Student <%d>\nEffects: %s\nEliminated: %b\nInventory: %s\nKnock-out time: %.0f\nRoom: %s\n",
+				this.hashCode(), effectsString, eliminated, inventory.toString(), knockOutTime, currentRoom == null ? "" : String.format("<%d>", currentRoom.hashCode()));
 	}
 }

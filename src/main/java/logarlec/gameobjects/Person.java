@@ -2,6 +2,7 @@ package logarlec.gameobjects;
 
 import logarlec.effects.Effect;
 import logarlec.items.Item;
+import logarlec.prototype.Prototype;
 import logarlec.util.Inventory;
 
 /**
@@ -10,7 +11,7 @@ import logarlec.util.Inventory;
 public abstract class Person extends GameObject {
 
 	private String name;
-	private double knockOutTime;
+	protected double knockOutTime;
 
 	/**
 	 * A személy által birtokolt tárgyak.
@@ -59,6 +60,13 @@ public abstract class Person extends GameObject {
 	 */
 	public void setKnockOut(double value) {
 		knockOutTime = value;
+		if (knockOutTime > 0) {
+			try {
+				Prototype.out.write(String.format("<%d> got knocked out.\n", hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
@@ -72,6 +80,11 @@ public abstract class Person extends GameObject {
 			effect.update(deltaTime);
 			applyEffect(effect);
 		}
+		if (knockOutTime > 0) {
+			for (Item item : inventory.getItems()) {
+				item.usePassive();
+			}
+		}
 	}
 
 	/**
@@ -84,7 +97,10 @@ public abstract class Person extends GameObject {
 		if (currentRoom == null || currentRoom.isClean()) {
 			if (inventory.add(item)) {
 				item.setPerson(this);
-				item.setRoom(currentRoom);
+				if (currentRoom != null) {
+					currentRoom.removeItem(item);
+					item.setRoom(currentRoom);
+				}
 			}
 		}
 	}
@@ -105,8 +121,13 @@ public abstract class Person extends GameObject {
 	public void pickedUpSlideRule() {}
 
 	public void getOut() {
-		if (knockOutTime > 0) {
+		if (knockOutTime <= 0) {
 			currentRoom.getOut(this);
+			try {
+				Prototype.out.write(String.format("<%d> got kicked out.\n", hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

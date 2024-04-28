@@ -1,10 +1,13 @@
+student moved to roomB.
 Room roomB
 Capacity: 4
+Doors: door
 Effects:
 Items:
 People: student
 Room roomA
 Capacity: 4
+Doors: door
 Effects:
 Items:
 People:

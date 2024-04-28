@@ -1,6 +1,7 @@
 student couldn't use the door.
 Room roomA
 Capacity: 4
+Doors: door
 Effects:
 Items:
 People:
