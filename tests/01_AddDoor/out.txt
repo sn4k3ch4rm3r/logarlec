@@ -1,0 +1,5 @@
+Door door
+Hidden: false
+One-way: false
+Room 1: room1
+Room 2: room2

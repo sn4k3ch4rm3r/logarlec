@@ -1,0 +1,11 @@
+Create Student student
+Create AirFreshener freshener
+Create Room room
+Create GasEffect effect
+Add room freshener
+Add room effect
+Add room student
+Pickup student freshener
+Use student freshener
+Update 1
+Status room

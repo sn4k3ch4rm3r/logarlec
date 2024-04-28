@@ -1,0 +1,8 @@
+@startuml RoomMergeActivity
+start
+if(not connected or there is too much people)
+else
+:moveContents(this);
+endif
+stop
+@enduml

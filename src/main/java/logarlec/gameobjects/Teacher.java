@@ -1,21 +1,30 @@
 package logarlec.gameobjects;
 
 import logarlec.effects.Effect;
-import logarlec.skeleton.Skeleton;
+import logarlec.prototype.Prototype;
 
 /**
  * Egy játékban szereplő tanár.
  */
 public class Teacher extends Person {
+
+	private boolean peaceful = false;
+
 	/**
 	 * Setter a békés állapot beállítására.
 	 * 
 	 * @param value az új békés állapot
 	 */
 	public void setPeaceful(boolean value) {
-		logarlec.skeleton.Skeleton.logFunctionCall(this, "setPeaceful", value);
-		// Set peaceful value
-		logarlec.skeleton.Skeleton.logReturn(void.class);
+		peaceful = value;
+		if (peaceful) {
+			try {
+				Prototype.out.write(
+						String.format("<%d> became peaceful.\n", this.hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
@@ -36,23 +45,27 @@ public class Teacher extends Person {
 
 	@Override
 	public void applyEffect(Effect effect) {
-		Skeleton.logFunctionCall(this, "applyEffect", effect);
 		effect.applyToTeacher(this);
-		Skeleton.logReturn(void.class);
 	}
 
 	@Override
 	public void update(double deltaTime) {
-		Skeleton.logFunctionCall(this, "update", deltaTime);
-
-		Skeleton.setLogging(false);
 		super.update(deltaTime);
-		Skeleton.setLogging(true);
 
-		if (!Skeleton.getInput(Boolean.class, "Is the teacher peaceful [true|false]: ")) {
+		if (!peaceful) {
 			currentRoom.interactTeacher(this);
 		}
+	}
 
-		Skeleton.logReturn(void.class);
+	@Override
+	public String toString() {
+		StringBuilder effectsSB = new StringBuilder();
+		for (Effect e : effects) {
+			effectsSB.append("<").append(e.hashCode()).append("> ");
+		}
+		return String.format(
+				"Teacher <%d>\nEffects: %s\nInventory: %s\nKnock-out time: %.0f\nRoom: <%d>\n",
+				this.hashCode(), effectsSB, inventory.toString(), knockOutTime,
+				this.currentRoom.hashCode());
 	}
 }

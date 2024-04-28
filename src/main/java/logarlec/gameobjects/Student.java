@@ -4,19 +4,37 @@ package logarlec.gameobjects;
 import java.util.LinkedList;
 import java.util.List;
 import logarlec.effects.Effect;
-import logarlec.skeleton.Skeleton;
+import logarlec.prototype.Prototype;
 
 /**
  * Egy játékban szereplő diák.
  */
 public class Student extends Person {
 	/**
-	 * Az ignorálható tanárok listája.
+	 * Az oktatók listája akikkel szemben a hallgató védve van.
 	 */
 	private List<Teacher> immuneToTeacher;
 
+	/**
+	 * A vesztés állapotát jelző változó.
+	 */
+	private boolean eliminated;
+
+	/**
+	 * Konstruktor a diák létrehozásához.
+	 */
 	public Student() {
 		immuneToTeacher = new LinkedList<>();
+	}
+
+	/**
+	 * A diák vesztés állapotának lekérdezése.
+	 *
+	 * @return a vesztés állapota
+	 */
+	public boolean isEliminated() {
+		return eliminated;
+
 	}
 
 	/**
@@ -25,9 +43,7 @@ public class Student extends Person {
 	 * @param value az elmimnated új értéke
 	 */
 	public void setEliminated(boolean value) {
-		Skeleton.logFunctionCall(this, "setEliminated", value);
-		// Set eliminated value
-		Skeleton.logReturn(void.class);
+		eliminated = value;
 	}
 
 	/**
@@ -37,9 +53,7 @@ public class Student extends Person {
 	 */
 	@Override
 	public void protectFromTeacher(Teacher target) {
-		Skeleton.logFunctionCall(this, "protectFromTeacher", target);
 		immuneToTeacher.add(target);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -49,18 +63,42 @@ public class Student extends Person {
 	 */
 	@Override
 	public void interactTeacher(Teacher teacher) {
-		Skeleton.logFunctionCall(this, "interactTeacher", teacher);
+		eliminated = true;
 		if (immuneToTeacher.contains(teacher)) {
-			return;
+			eliminated = false;
+		} else {
+			try {
+				Prototype.out
+						.write(String.format("<%d> was eliminated.\n", this.hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			inventory.protectFrom(teacher);
 		}
-		inventory.protectFrom(teacher);
-		Skeleton.logReturn(void.class);
 	}
 
 	@Override
 	public void applyEffect(Effect effect) {
-		Skeleton.logFunctionCall(this, "applyEffect", effect);
 		effect.applyToStudent(this);
-		Skeleton.logReturn(void.class);
+	}
+
+	/*
+	 * A diák felveszi a logarécet, ezzel a játék véget ér.
+	 */
+	@Override
+	public void pickedUpSlideRule() {
+		// A játék véget ér
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder effectsString = new StringBuilder();
+		for (Effect effect : this.effects) {
+			effectsString.append("<").append(effect.hashCode()).append("> ");
+		}
+		return String.format(
+				"Student <%d>\nEffects: %s\nEliminated: %b\nInventory: %s\nKnock-out time: %.0f\nRoom: %s\n",
+				this.hashCode(), effectsString, eliminated, inventory.toString(), knockOutTime,
+				currentRoom == null ? "" : String.format("<%d>", currentRoom.hashCode()));
 	}
 }

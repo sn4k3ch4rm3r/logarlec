@@ -38,6 +38,7 @@ package GameObjects {
 	class Room {
 		- capacity : int
 		- personCount : int
+		- visitorsSinceClean : int
 		+ enter(person : Person) : boolean
 		+ leave(person : Person) : void
 		+ merge(room : Room) : void
@@ -60,6 +61,7 @@ interface Updatable {
 }
 
 class Door {
+	- oneWay : bool
 	+ use(person : Person, from : Room) : void
 	+ move(from : Room, to : Room) : void
 	+ hide() : void

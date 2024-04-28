@@ -1,30 +1,41 @@
 package logarlec.effects;
 
-import logarlec.skeleton.Skeleton;
-
 import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
+import logarlec.prototype.Prototype;
 
 
 public class RagEffect extends Effect {
-
-	public void applyToStudent(Student target) {
-		Skeleton.logFunctionCall(this, "applyToStudent", target);
-		Skeleton.logReturn(void.class);
+	public RagEffect() {
+		super();
+		timeRemaining = 15;
 	}
+
+	public void applyToStudent(Student target) {}
 
 	/**
 	 * Oktató megbékítése.
 	 *
 	 */
 	public void applyToTeacher(Teacher target) {
-		Skeleton.logFunctionCall(this, "applyToTeacher", target);
 		target.setPeaceful(true);
-		Skeleton.logReturn(void.class);
 	}
 
 	@Override
 	public String toString() {
-		return "Rag effect";
+		return String.format("RagEffect <%d>\nHolder: <%d>\nTime remaining: %.0f\n", this.hashCode(),
+				this.holder.hashCode(), timeRemaining);
+	}
+	@Override
+	public void update(double deltaTime) {
+		super.update(deltaTime);
+		if (timeRemaining <= 0) {
+			holder.removeEffect(this);
+			try {
+				Prototype.out.write(String.format("<%d> ran out of time.\n", hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

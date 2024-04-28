@@ -1,0 +1,12 @@
+Student student
+Effects:
+Eliminated: false
+Inventory:
+Knock-out time: -5
+Room: room
+Room room
+Capacity: 4
+Doors:
+Effects:
+Items: beer
+People: student

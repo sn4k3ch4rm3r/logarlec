@@ -1,0 +1,3 @@
+InheritGasEffect
+A teszt célja megbizonyosodni arról, hogy a szoba által számontartott Effectetátveszik-e a benne lévő szereplők
+Az Effcet terjedése.

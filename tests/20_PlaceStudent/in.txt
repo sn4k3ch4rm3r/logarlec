@@ -1,0 +1,4 @@
+Create Room room
+Create Student student
+Add room student
+Status room

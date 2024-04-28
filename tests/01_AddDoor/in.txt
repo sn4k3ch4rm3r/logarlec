@@ -1,0 +1,4 @@
+Create Room room1
+Create Room room2
+Create Door door room1 room2
+Status door

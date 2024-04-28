@@ -1,7 +1,6 @@
 package logarlec.effects;
 
 import logarlec.gameobjects.Room;
-import logarlec.skeleton.Skeleton;
 
 import logarlec.gameobjects.GameObject;
 import logarlec.gameobjects.Student;
@@ -10,6 +9,11 @@ import logarlec.util.Updatable;
 
 public abstract class Effect implements Updatable {
 	protected GameObject holder;
+	protected double timeRemaining;
+
+	Effect() {}
+
+	Effect(double time) {}
 
 	/**
 	 * A hatás diákra alkalmazódik
@@ -25,9 +29,19 @@ public abstract class Effect implements Updatable {
 	 */
 	public abstract void applyToTeacher(Teacher target);
 
-	public void applyToRoom(Room target) {
+	/**
+	 * A hatás szobára való alkalmazása
+	 * 
+	 * @param target A szoba, amire alkalmazódik a hatás
+	 */
+	public void applyToRoom(Room target) {}
 
-	}
+	/**
+	 * A hatás interakciója CleanEffect-el.
+	 * 
+	 * @param cleanEffect a CleanEffect, amivel interakciót végez
+	 */
+	public void interactCleanEffect(CleanEffect cleanEffect) {}
 
 	/**
 	 * Ezen hatás tulajdonosának megváltoztatása.
@@ -36,25 +50,14 @@ public abstract class Effect implements Updatable {
 	 */
 
 	public void setHolder(GameObject holder) {
-		Skeleton.logFunctionCall(this, "setHolder", holder);
 		this.holder = holder;
-		Skeleton.logReturn(void.class);
 	}
 
 
 	@Override
 	public void update(double deltaTime) {
-		Skeleton.logFunctionCall(this, "update", deltaTime);
-		boolean moreTime = Skeleton.getInput(Boolean.class,
-				"Does the " + this + " have more time left [true|false]: ");
-		if (!moreTime) {
-			holder.removeEffect(this);
+		if (timeRemaining > 0) {
+			timeRemaining -= deltaTime;
 		}
-		Skeleton.logReturn(void.class);
-	}
-
-	public void interactCleanEffect(CleanEffect cleanEffect) {
-		Skeleton.logFunctionCall(this, "interactCleanEffect", cleanEffect);
-		Skeleton.logReturn(void.class);
 	}
 }

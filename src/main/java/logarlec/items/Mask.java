@@ -2,10 +2,15 @@ package logarlec.items;
 
 import logarlec.effects.MaskEffect;
 import logarlec.gameobjects.Teacher;
-import logarlec.skeleton.Skeleton;
+import logarlec.prototype.Prototype;
 
 public class Mask extends Item {
-	MaskEffect maskEffect;
+	private MaskEffect maskEffect;
+	private int uses;
+
+	public Mask() {
+		uses = 5;
+	}
 
 	/**
 	 * A Mask osztály use metódusa A metódus a MaskEffect-et adja hozzá a personhoz
@@ -27,11 +32,28 @@ public class Mask extends Item {
 	 */
 	@Override
 	public boolean usePassive() {
-		Skeleton.logFunctionCall(this, "usePassive");
-		maskEffect = Skeleton.createObject("maskEffect", MaskEffect.class);
-		person.addEffect(maskEffect);
-
-		Skeleton.logReturn(true);
+		if (uses > 0) {
+			double time = uses;
+			maskEffect = new MaskEffect(time);
+			String effectName = maskEffect.getClass().getSimpleName();
+			effectName = effectName.substring(0, 1).toLowerCase() + effectName.substring(1);
+			int i = 0;
+			while (Prototype.getObject(effectName + (i == 0 ? "" : i)) != null) {
+				i++;
+			}
+			Prototype.addObject(effectName + (i == 0 ? "" : i), maskEffect);
+			person.addEffect(maskEffect);
+			person.applyEffect(maskEffect);
+			uses--;
+			try {
+				Prototype.out.write(String.format("<%d> was protected by mask.\n", person.hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		if (uses == 0) {
+			person.removeItem(this);
+		}
 		return true;
 	}
 
@@ -47,16 +69,15 @@ public class Mask extends Item {
 
 	@Override
 	public void drop() {
-		Skeleton.logFunctionCall(this, "drop");
-
-
-		if (Skeleton.getInput(Boolean.class,
-				"Is there an active effect caused by this item [true|false]: ")) {
+		if (maskEffect != null) {
 			person.removeEffect(maskEffect);
 		}
-		Skeleton.setLogging(false);
 		super.drop();
-		Skeleton.setLogging(true);
-		Skeleton.logReturn(void.class);
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Mask <%d>\nPerson: <%d>\nRoom: <%d>\nUses: %d\n",
+				this.hashCode(), this.person.hashCode(), this.room.hashCode(), this.uses);
 	}
 }

@@ -1,0 +1,3 @@
+UpdateBeerEffect
+A teszt célja az effect frissülésének ellenőrzése.
+Az effect frissülésének ellenőrzése.

@@ -1,0 +1,7 @@
+student moved to roomA.
+Room roomB
+Capacity: 4
+Doors: door
+Effects:
+Items: transistorA
+People: student

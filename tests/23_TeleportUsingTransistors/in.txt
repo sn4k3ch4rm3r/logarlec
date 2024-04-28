@@ -1,0 +1,16 @@
+Create Room roomA
+Create Room roomB
+Create Door door roomA roomB
+Create Transistor transistorA
+Create Transistor transistorB
+Create Student student
+Add roomB student
+Add roomB transistorA
+Add roomB transistorB
+Pickup student transistorA
+Pickup student transistorB
+Link transistorA transistorB
+Use student transistorA
+Move student door
+Use student transistorB
+Status roomB

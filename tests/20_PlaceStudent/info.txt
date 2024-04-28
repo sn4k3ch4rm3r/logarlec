@@ -1,0 +1,3 @@
+PlaceStudent
+A teszt célja megbizonyosodni arról, hogy az elvárt belső állapotválltozások mennek végre, amikor egy Person típusú entitást egy szobába rakunk.
+Az elhelezést vizsgáljuk.

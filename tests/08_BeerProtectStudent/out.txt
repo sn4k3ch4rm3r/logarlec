@@ -1,0 +1,9 @@
+teacher attacked everyone.
+student was eliminated.
+student was saved by beer.
+Student student
+Effects: beerEffect
+Eliminated: false
+Inventory:
+Knock-out time: -5
+Room: room

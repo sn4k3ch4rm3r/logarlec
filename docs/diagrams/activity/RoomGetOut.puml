@@ -1,0 +1,9 @@
+@startuml RoomGetOutActivity
+start
+if(No usable doors) then
+else
+:choose a random usable door;
+:move the person through the door;
+endif
+stop
+@enduml

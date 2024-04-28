@@ -1,0 +1,5 @@
+Create Student student
+Create RagEffect effect
+Add student effect
+Update 1 student
+Status effect
