@@ -38,8 +38,8 @@ public class Test {
 				System.out.println("---------\nGot:\n" + result);
 			}
 			return success;
-		} catch (Exception e) {
-			System.err.println("Exception occured");
+		} catch (Throwable e) {
+			System.err.println("Something went wrong!");
 			e.printStackTrace();
 			return false;
 		}

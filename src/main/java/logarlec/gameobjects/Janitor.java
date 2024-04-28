@@ -2,7 +2,6 @@ package logarlec.gameobjects;
 
 import logarlec.effects.Effect;
 import logarlec.effects.JanitorEffect;
-import logarlec.skeleton.Skeleton;
 
 public class Janitor extends Person {
     @Override
@@ -21,8 +20,7 @@ public class Janitor extends Person {
     }
 
     @Override
-    public void pickedUpSlideRule(){
-    }
+    public void pickedUpSlideRule() {}
 
     @Override
     public void enterRoom(Room room) {

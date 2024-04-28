@@ -1,11 +1,8 @@
 package logarlec.test;
 
 import logarlec.effects.BeerEffect;
-import logarlec.effects.CleanEffect;
-import logarlec.effects.GasEffect;
 import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Student;
-import logarlec.gameobjects.Teacher;
 import logarlec.items.Camembert;
 import logarlec.skeleton.Skeleton;
 

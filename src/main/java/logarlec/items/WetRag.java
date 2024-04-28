@@ -2,7 +2,6 @@ package logarlec.items;
 
 import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Teacher;
-import logarlec.skeleton.Skeleton;
 import logarlec.effects.RagEffect;
 
 public class WetRag extends Item {

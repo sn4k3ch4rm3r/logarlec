@@ -1,7 +1,5 @@
 package logarlec.effects;
 
-import logarlec.skeleton.Skeleton;
-
 import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
 
@@ -31,6 +29,6 @@ public class GasEffect extends Effect {
 
 	@Override
 	public void interactCleanEffect(CleanEffect cleanEffect) {
-		holder.removeEffect(this);
+		timeRemaining = 0;
 	}
 }

@@ -6,7 +6,6 @@ import logarlec.items.Item;
 import logarlec.util.Door;
 import java.util.LinkedList;
 import java.util.List;
-import logarlec.skeleton.Skeleton;
 
 /**
  * Egy játékban szereplő szoba.
@@ -114,7 +113,7 @@ public class Room extends GameObject {
 		 */
 
 		Room newRoom = new Room();
-		Door door = new Door(this, newRoom);
+		new Door(this, newRoom);
 
 		for (Effect e : effects) {
 			newRoom.applyEffect(e);

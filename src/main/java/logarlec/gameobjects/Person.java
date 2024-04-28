@@ -4,9 +4,6 @@ import logarlec.effects.Effect;
 import logarlec.items.Item;
 import logarlec.util.Inventory;
 
-import logarlec.skeleton.Skeleton;
-
-
 /**
  * A pályán mozogni képes entitások ősosztálya.
  */
@@ -61,9 +58,7 @@ public abstract class Person extends GameObject {
 	 * @param value az ájulás ideje
 	 */
 	public void setKnockOut(double value) {
-		Skeleton.logFunctionCall(this, "setKnockOut", value);
 		knockOutTime = value;
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -73,12 +68,10 @@ public abstract class Person extends GameObject {
 	 */
 	@Override
 	public void update(double deltaTime) {
-		Skeleton.logFunctionCall(this, "update", deltaTime);
 		for (Effect effect : effects) {
 			effect.update(deltaTime);
 			applyEffect(effect);
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -88,15 +81,12 @@ public abstract class Person extends GameObject {
 	 */
 	@Override
 	public void addItem(Item item) {
-		Skeleton.logFunctionCall(this, "addItem", item);
 		if (currentRoom == null || currentRoom.isClean()) {
 			if (inventory.add(item)) {
 				item.setPerson(this);
 				item.setRoom(currentRoom);
 			}
 		}
-
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -106,33 +96,22 @@ public abstract class Person extends GameObject {
 	 */
 	@Override
 	public void removeItem(Item item) {
-		Skeleton.logFunctionCall(this, "removeItem", item);
 		inventory.remove(item);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
 	 * A logarléc megtalálást kezelő metódus.
 	 */
-	public void pickedUpSlideRule() {
-		Skeleton.logFunctionCall(this, "pickedUpSlideRule");
-		Skeleton.logReturn(void.class);
-	}
+	public void pickedUpSlideRule() {}
 
 	public void getOut() {
-		Skeleton.logFunctionCall(this, "getOut");
-		// If not knocked out
-		boolean isKnockedOut = Skeleton.getInput(Boolean.class, "Is the person knocked out?");
-		if (!isKnockedOut) {
+		if (knockOutTime > 0) {
 			currentRoom.getOut(this);
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	public void dropRandomItem() {
-		Skeleton.logFunctionCall(this, "dropRandomItem");
 		inventory.dropRandomItem();
-		Skeleton.logReturn(void.class);
 	}
 
 	public Room getCurrentRoom() {

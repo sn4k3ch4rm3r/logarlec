@@ -4,7 +4,6 @@ package logarlec.gameobjects;
 import java.util.LinkedList;
 import java.util.List;
 import logarlec.effects.Effect;
-import logarlec.skeleton.Skeleton;
 
 /**
  * Egy játékban szereplő diák.
@@ -67,7 +66,7 @@ public class Student extends Person {
 	 * A diák felveszi a logarécet, ezzel a játék véget ér.
 	 */
 	@Override
-	public void pickedUpSlideRule(){
-		//A játék véget ér
+	public void pickedUpSlideRule() {
+		// A játék véget ér
 	}
 }

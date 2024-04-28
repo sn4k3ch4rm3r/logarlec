@@ -1,8 +1,6 @@
 package logarlec.items;
 
 import logarlec.gameobjects.Teacher;
-import logarlec.skeleton.Skeleton;
-import logarlec.gameobjects.Person;
 import logarlec.gameobjects.Room;
 
 public class Transistor extends Item {
@@ -27,17 +25,16 @@ public class Transistor extends Item {
 	 */
 	@Override
 	public void use() {
-		if(this.other == null)
+		if (this.other == null)
 			return;
-		
-		if(this.other != null && this.target != null) {
+
+		if (this.other != null && this.target != null) {
 			person.dropItem(this);
-			if(target.enter(person)) {
+			if (target.enter(person)) {
 				room.leave(person);
 			}
-		}
-		else if(this.other != null && this.target == null) {
-			person.dropItem(this);	
+		} else if (this.other != null && this.target == null) {
+			person.dropItem(this);
 			other.setTarget(this.room);
 		}
 	}

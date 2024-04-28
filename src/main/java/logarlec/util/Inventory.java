@@ -1,7 +1,5 @@
 package logarlec.util;
 
-import logarlec.skeleton.Skeleton;
-
 import logarlec.gameobjects.Teacher;
 import logarlec.items.Item;
 import logarlec.gameobjects.Room;
@@ -12,13 +10,14 @@ import java.util.Random;
 
 public class Inventory {
 	private List<Item> items = new ArrayList<>();
+
 	/**
 	 * Tárgy hozzáadása a felszereléshez, ha kevesebb, mint 5 van benne.
 	 *
 	 * @param item Hozzáadandó tárgy.
 	 */
 	public boolean add(Item item) {
-		if(items.size() < 5){
+		if (items.size() < 5) {
 			items.add(item);
 			return true;
 		}
@@ -31,7 +30,7 @@ public class Inventory {
 	 * @param item Eltávolítandó tárgy.
 	 */
 	public void remove(Item item) {
-        items.remove(item);
+		items.remove(item);
 	}
 
 	/**
