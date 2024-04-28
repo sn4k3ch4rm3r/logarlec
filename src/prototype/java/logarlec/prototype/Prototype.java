@@ -1,13 +1,18 @@
 package logarlec.prototype;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 import logarlec.prototype.testrunner.TestBuilder;
 import logarlec.prototype.testrunner.TestRunner;
 
+import logarlec.gameobjects.Room;
+
 public class Prototype {
 	private static Map<String, Object> objects = new HashMap<>();
+	public static Random random = new Random();
 
 	/**
 	 * A Prototípus program belépési pontja.
@@ -52,5 +57,13 @@ public class Prototype {
 			}
 		}
 		return Integer.toString(hashCode);
+	}
+
+	public static void clearObjects() {
+		objects.clear();
+	}
+
+	public static List<Room> getRooms() {
+		return objects.values().stream().filter(o -> o instanceof Room).map(o -> (Room) o).toList();
 	}
 }

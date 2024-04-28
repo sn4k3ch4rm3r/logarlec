@@ -3,6 +3,7 @@ package logarlec.gameobjects;
 import logarlec.effects.CleanEffect;
 import logarlec.effects.Effect;
 import logarlec.items.Item;
+import logarlec.prototype.Prototype;
 import logarlec.util.Door;
 import java.util.LinkedList;
 import java.util.List;
@@ -120,13 +121,13 @@ public class Room extends GameObject {
 		}
 
 		for (Person p : people) {
-			if (Math.random() < 0.5) {
+			if (Prototype.random.nextDouble() < 0.5) {
 				newRoom.enter(p);
 			}
 		}
 
 		for (Item i : items) {
-			if (Math.random() < 0.5) {
+			if (Prototype.random.nextDouble() < 0.5) {
 				newRoom.addItem(i);
 			}
 		}
@@ -260,7 +261,7 @@ public class Room extends GameObject {
 
 	public void getOut(Person person) {
 		for (Door door : doors) {
-			door.use(person, this);
+			door.use(person);
 			if (!people.contains(person)) {
 				break;
 			}

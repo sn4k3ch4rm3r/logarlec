@@ -24,7 +24,8 @@ public class Door {
 	 * @param person Az ajtót használó személy
 	 * @param from A szoba ahol van a személy jelenleg
 	 */
-	public void use(Person person, Room from) {
+	public void use(Person person) {
+		Room from = person.getCurrentRoom();
 		if (!hidden && !(oneWay && from != this.from)) {
 			Room roomToEnter = from == this.from ? this.to : this.from;
 			if (roomToEnter.enter(person)) {

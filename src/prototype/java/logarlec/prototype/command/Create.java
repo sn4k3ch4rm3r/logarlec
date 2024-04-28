@@ -46,7 +46,7 @@ public class Create implements Command {
 		}
 		Object object = constructor.newInstance(args);
 		Prototype.addObject(objectName, object);
-		return "";
+		return null;
 	}
 
 }
