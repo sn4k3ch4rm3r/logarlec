@@ -81,6 +81,7 @@ public class TestRunner {
 		Scanner scanner = new Scanner(System.in);
 		String input = "";
 		do {
+			System.out.print("> ");
 			input = scanner.nextLine().strip();
 			if (!input.equals("exit")) {
 				Command cmd = CommandBuilder.buildSingle(input);
