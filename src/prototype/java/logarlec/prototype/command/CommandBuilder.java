@@ -38,8 +38,7 @@ public class CommandBuilder {
 			case "pickup":
 				return new Pickup(args[1], args[2]);
 			case "seed":
-				// TODO
-				return null;
+				return new Seed(Integer.parseInt(args[1]));
 			case "split":
 				return new Split(args[1]);
 			case "status":
