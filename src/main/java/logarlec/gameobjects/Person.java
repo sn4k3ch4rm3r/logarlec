@@ -10,7 +10,6 @@ import logarlec.util.Inventory;
  */
 public abstract class Person extends GameObject {
 
-	private String name;
 	protected double knockOutTime;
 
 	/**
@@ -62,7 +61,8 @@ public abstract class Person extends GameObject {
 		knockOutTime = value;
 		if (knockOutTime > 0) {
 			try {
-				Prototype.out.write(String.format("<%d> got knocked out.\n", hashCode()).getBytes());
+				Prototype.out
+						.write(String.format("<%d> got knocked out.\n", hashCode()).getBytes());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -56,6 +56,12 @@ public class CommandBuilder {
 		}
 	}
 
+	/**
+	 * Parancsok létrehozása.
+	 * 
+	 * @param commands String lista, amiben a parancsok vannak szövegként tárolva
+	 * @return Parancs objektumok listája
+	 */
 	public static List<Command> buildAll(List<String> commands) {
 		List<Command> cmds = new LinkedList<>();
 		for (String cmd : commands) {

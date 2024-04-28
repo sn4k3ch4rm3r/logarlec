@@ -43,13 +43,6 @@ public class Student extends Person {
 	 * @param value az elmimnated új értéke
 	 */
 	public void setEliminated(boolean value) {
-		if (eliminated && !value) {
-			try {
-				//Prototype.out.write(String.format("<%d> was revived.\n", this.hashCode()).getBytes());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 		eliminated = value;
 	}
 
@@ -75,7 +68,8 @@ public class Student extends Person {
 			eliminated = false;
 		} else {
 			try {
-				Prototype.out.write(String.format("<%d> was eliminated.\n", this.hashCode()).getBytes());
+				Prototype.out
+						.write(String.format("<%d> was eliminated.\n", this.hashCode()).getBytes());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -102,7 +96,9 @@ public class Student extends Person {
 		for (Effect effect : this.effects) {
 			effectsString.append("<").append(effect.hashCode()).append("> ");
 		}
-		return String.format("Student <%d>\nEffects: %s\nEliminated: %b\nInventory: %s\nKnock-out time: %.0f\nRoom: %s\n",
-				this.hashCode(), effectsString, eliminated, inventory.toString(), knockOutTime, currentRoom == null ? "" : String.format("<%d>", currentRoom.hashCode()));
+		return String.format(
+				"Student <%d>\nEffects: %s\nEliminated: %b\nInventory: %s\nKnock-out time: %.0f\nRoom: %s\n",
+				this.hashCode(), effectsString, eliminated, inventory.toString(), knockOutTime,
+				currentRoom == null ? "" : String.format("<%d>", currentRoom.hashCode()));
 	}
 }

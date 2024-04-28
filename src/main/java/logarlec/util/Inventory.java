@@ -6,7 +6,6 @@ import logarlec.gameobjects.Room;
 import logarlec.prototype.Prototype;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -62,6 +61,9 @@ public class Inventory {
 		}
 	}
 
+	/**
+	 * Random tárgy eldobása az eszköztárból.
+	 */
 	public void dropRandomItem() {
 		if (!items.isEmpty()) {
 			Random random = new Random();
@@ -71,6 +73,11 @@ public class Inventory {
 		}
 	}
 
+	/**
+	 * Az eszköztárban található tárgyakat lehet lekérdezni vele.
+	 * 
+	 * @return A tárgyak listája
+	 */
 	public List<Item> getItems() {
 		return items;
 	}

@@ -9,6 +9,13 @@ import java.io.IOException;
 
 
 public class TestBuilder {
+
+	/**
+	 * Létrehoz egyetlen tesztesetet.
+	 * 
+	 * @param path Az a mappa, ahol a teszt bemenete és kimenete található
+	 * @return Teszt objektum
+	 */
 	public static Test buildSingle(String path) {
 		try {
 			List<String> input = Files.readAllLines(Paths.get(path, "in.txt"));
@@ -25,6 +32,12 @@ public class TestBuilder {
 		return null;
 	}
 
+	/**
+	 * Egy mappában lévő összes teszteset létrehozása
+	 * 
+	 * @param path Az a mappa, ahol a tesztesetek találhatóak
+	 * @return Teszt objektumok listája.
+	 */
 	public static List<Test> buildAll(String path) {
 		List<Test> tests = new LinkedList<>();
 		try (Stream<Path> paths = Files.walk(Paths.get(path), 1)) {

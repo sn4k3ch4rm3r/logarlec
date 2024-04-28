@@ -5,7 +5,6 @@ import logarlec.gameobjects.Room;
 import logarlec.gameobjects.GameObject;
 import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
-import logarlec.prototype.Prototype;
 import logarlec.util.Updatable;
 
 public abstract class Effect implements Updatable {
@@ -30,9 +29,19 @@ public abstract class Effect implements Updatable {
 	 */
 	public abstract void applyToTeacher(Teacher target);
 
-	public void applyToRoom(Room target) {
+	/**
+	 * A hatás szobára való alkalmazása
+	 * 
+	 * @param target A szoba, amire alkalmazódik a hatás
+	 */
+	public void applyToRoom(Room target) {}
 
-	}
+	/**
+	 * A hatás interakciója CleanEffect-el.
+	 * 
+	 * @param cleanEffect a CleanEffect, amivel interakciót végez
+	 */
+	public void interactCleanEffect(CleanEffect cleanEffect) {}
 
 	/**
 	 * Ezen hatás tulajdonosának megváltoztatása.
@@ -51,6 +60,4 @@ public abstract class Effect implements Updatable {
 			timeRemaining -= deltaTime;
 		}
 	}
-
-	public void interactCleanEffect(CleanEffect cleanEffect) {}
 }

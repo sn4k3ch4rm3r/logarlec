@@ -52,10 +52,22 @@ public class Prototype {
 		}
 	}
 
+	/**
+	 * Nevesített objektum regisztrálása.
+	 * 
+	 * @param name Az objektum neve
+	 * @param object Maga az objektum
+	 */
 	public static void addObject(String name, Object object) {
 		objects.put(name, object);
 	}
 
+	/**
+	 * Objektum lekérdezése név alapján
+	 * 
+	 * @param name Az objektum neve
+	 * @return Az objektum
+	 */
 	public static Object getObject(String name) {
 		if (objects.containsKey(name)) {
 			return objects.get(name);
@@ -63,6 +75,12 @@ public class Prototype {
 		return null;
 	}
 
+	/**
+	 * Objektum nevének lekérdezése hashCode alapján.
+	 * 
+	 * @param hashCode Az objektum hashCode-ja
+	 * @return Az objektum
+	 */
 	public static String getObjectName(int hashCode) {
 		for (Entry<String, Object> obj : objects.entrySet()) {
 			if (obj.getValue().hashCode() == hashCode) {
@@ -72,14 +90,29 @@ public class Prototype {
 		return Integer.toString(hashCode);
 	}
 
+	/**
+	 * Törli a nyilvántartott objektumokat.
+	 */
 	public static void clearObjects() {
 		objects.clear();
 	}
 
+	/**
+	 * A nyilvántartott szobák lekérdezése
+	 * 
+	 * @return A szobák listája
+	 */
 	public static List<Room> getRooms() {
 		return objects.values().stream().filter(o -> o instanceof Room).map(o -> (Room) o).toList();
 	}
 
+	/**
+	 * Parancsok kimenetében az objektumok az egyszerűbb megvalósítás érdekében csak a hash
+	 * code-jukat írják ki, ezt cseréli a Prototípus program által nyilvántartott névre.
+	 * 
+	 * @param raw Az eredeti kimenet
+	 * @return Kimenet az objektumok nevével
+	 */
 	public static String replaceObjectNames(String raw) {
 		Pattern pattern = Pattern.compile("<([^>]*)>");
 		Matcher matcher = pattern.matcher(raw);

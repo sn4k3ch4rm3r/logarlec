@@ -94,16 +94,16 @@ public class Room extends GameObject {
 	 * @param room a másik szoba
 	 */
 	public void merge(Room room) {
-		// ha a két szobának niincs közös ajtaja vagy a nagyobbik kevesebb mint a két szoba összes
-		// embere
-		int capac = this.capacity + room.capacity;
+		int newCapacity = capacity > room.capacity ? capacity : room.capacity;
 		int peopleCount = this.people.size() + room.people.size();
-		if (doors.stream().noneMatch(door -> room.doors.contains(door)) || peopleCount > capac) {
+		// Csak akkor tud össze olvadni, ha van közös ajtó, és elegendő kapacitás
+		if (doors.stream().noneMatch(door -> room.doors.contains(door))
+				|| peopleCount > newCapacity) {
 			return;
 		}
 
 		room.moveContents(this);
-		this.capacity = this.capacity > room.capacity ? this.capacity : room.capacity;
+		this.capacity = newCapacity;
 	}
 
 	/**
@@ -112,12 +112,6 @@ public class Room extends GameObject {
 	 * @return az új szoba
 	 */
 	public Room split() {
-		/*
-		 * Skeleton.logFunctionCall(this, "split"); Room newRoom = Skeleton.createObject("newRoom",
-		 * Room.class); Skeleton.createObject("door", Door.class, this, newRoom);
-		 * Skeleton.logReturn(newRoom); return newRoom;
-		 */
-
 		Room newRoom = new Room();
 		String name = Prototype.getObjectName(this.hashCode());
 		Prototype.addObject(name + "_S1", newRoom);

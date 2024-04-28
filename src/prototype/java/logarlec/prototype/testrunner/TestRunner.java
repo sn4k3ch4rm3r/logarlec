@@ -106,6 +106,11 @@ public class TestRunner {
 		scanner.close();
 	}
 
+	/**
+	 * Tesztesetek kilistázása az interaktív teszt futtatóhoz.
+	 * 
+	 * @param tests Tesztek listája
+	 */
 	private static void listTests(List<Test> tests) {
 		for (int i = 0; i < tests.size(); i++) {
 			System.out.printf("%2d %s\n", i + 1, tests.get(i).getDescription().name());
