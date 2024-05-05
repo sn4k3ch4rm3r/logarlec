@@ -1,25 +1,18 @@
 @startuml tile-wrapping
 
 package Model {
-    interface Updatable
+
     package "Base Model" {
-        abstract GameObject
         class Room
         abstract Person
         abstract Item
         class Door
-
-        GameObject <|-- Room
-        GameObject <|-- Person
-        GameObject <|-- Item
-
-        Door o- Room
-
         Person <|-- Student
     }
 
     package "Wrapper" {
         class Game {
+            + nextTurn(currentPlayer : Student) : void
             + getRooms() : Room 0..*
             + getPlayers() : Student 0..*
             + getTiles() : Tile 0..*
@@ -31,22 +24,27 @@ package Model {
         class WallTile
 
         class Entity
+        class ItemEntity {
+            - use () : void
+            - drop() : void
+            - pickUp (PersonEntity) : void
+        }
 
         Tile <|-- FloorTile
         Tile <|-- DoorTile
         Tile <|-- WallTile
 
-        Entity o-- Person
+        Entity <|-- PersonEntity
+        Entity <|-- ItemEntity
+
+        PersonEntity o-- Person
+        ItemEntity o-- Item
         Tile o-- Item
         Tile o- Entity
 
         Game "tiles 0..*" *-- Tile
         Game "entities 0..*" *-- Entity
     }
-
-    Game <|- Updatable
-
-
     Tile o-- Room
     DoorTile o-- Door
 
@@ -56,22 +54,26 @@ package Model {
 }
 package "View" {
     class GameWindow {
-        + update() : void
+        + nextTurn(currentPlayer : Student) : void
     }
     class SidePanel
     class MapView
     GameWindow *-- SidePanel
     GameWindow *-- MapView
-    SidePanel *-- ItemPanel : itemPanels 5
+    SidePanel *-- PlayerPanel : "playerPanels 4"
     MapView *-- TilePanel : tilePanels 0..*
     }
 
 Game *- GameWindow : gameWindow
 package Controller {
+
     class ControllerClass as "Controller" {
         - nextTurn() : void
         - NPCturn() : void
         - move(Entity, direction) : void
+        + use (ItemEntity) : void
+        + drop (ItemEntity) : void
+        + pickUp (ItemEntity,PersonEntity) : void
     }
     class KeyboardEventListener
     class MouseEventListener
@@ -81,12 +83,16 @@ package Controller {
         left
         right
     }
+    ControllerClass --> KeyboardEventListener
+    ControllerClass *-- Game : game
 
-    ControllerClass -> KeyboardEventListener
-
-    ControllerClass *--- Game : game
+    KeyboardEventListener o-- ControllerClass
 }
-ControllerClass o-- Entity : currentPlayer
-SidePanel o- Entity : currentPlayer
-ItemPanel --> MouseEventListener
+ControllerClass o-- Student : currentPlayer
+SidePanel o- PersonEntity : currentPlayer
+PlayerPanel --> MouseEventListener
+PlayerPanel --o Student : player
+PlayerPanel  o-- ControllerClass : controller
+
+Tile o--- TilePanel : tileView
 @enduml
