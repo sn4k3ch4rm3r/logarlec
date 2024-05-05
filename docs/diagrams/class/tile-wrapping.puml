@@ -1,0 +1,63 @@
+@startuml tile-wrapping
+
+package Model {
+    package "Base Model" {
+        abstract GameObject
+        class Room
+        abstract Person
+        abstract Item
+        class Door
+
+        GameObject <|-- Room
+        GameObject <|-- Person
+        GameObject <|-- Item
+
+        Door o- Room
+
+        Person <|-- Student
+    }
+
+    package "Wrapper" {
+        class Game {
+            + getRooms() : Room 0..*
+            + getPlayers() : Student 0..*
+        }
+        abstract Tile
+        class FloorTile
+        class DoorTile
+        class WallTile
+
+        class Entity
+
+        Tile <|-- FloorTile
+        Tile <|-- DoorTile
+        Tile <|-- WallTile
+
+        Entity o-- Person
+        Tile o-- Item
+        Tile o- Entity
+
+        Game "tiles 0..*" *-- Tile
+        Game "entities 0..*" *-- Entity
+    }
+
+    Tile o-- Room
+    DoorTile o-- Door
+
+    Game "rooms 0..*" *-- Room
+    Game "players 1..4" o-- Student
+}
+
+package Controller {
+    class Controller {
+        - currentPlayer
+
+    }
+    class KeyboardEventListener
+
+    Controller -> KeyboardEventListener
+
+    Controller *--- Game
+}
+
+@enduml
