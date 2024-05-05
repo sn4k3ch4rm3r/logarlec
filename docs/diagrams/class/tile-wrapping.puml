@@ -1,0 +1,92 @@
+@startuml tile-wrapping
+
+package Model {
+    interface Updatable
+    package "Base Model" {
+        abstract GameObject
+        class Room
+        abstract Person
+        abstract Item
+        class Door
+
+        GameObject <|-- Room
+        GameObject <|-- Person
+        GameObject <|-- Item
+
+        Door o- Room
+
+        Person <|-- Student
+    }
+
+    package "Wrapper" {
+        class Game {
+            + getRooms() : Room 0..*
+            + getPlayers() : Student 0..*
+            + getTiles() : Tile 0..*
+            + getEntities() : Entity 0..*
+        }
+        abstract Tile
+        class FloorTile
+        class DoorTile
+        class WallTile
+
+        class Entity
+
+        Tile <|-- FloorTile
+        Tile <|-- DoorTile
+        Tile <|-- WallTile
+
+        Entity o-- Person
+        Tile o-- Item
+        Tile o- Entity
+
+        Game "tiles 0..*" *-- Tile
+        Game "entities 0..*" *-- Entity
+    }
+
+    Game <|- Updatable
+
+
+    Tile o-- Room
+    DoorTile o-- Door
+
+    Game "rooms 0..*" *-- Room
+    Game "players 1..4" o-- Student
+
+}
+package "View" {
+    class GameWindow {
+        + update() : void
+    }
+    class SidePanel
+    class MapView
+    GameWindow *-- SidePanel
+    GameWindow *-- MapView
+    SidePanel *-- ItemPanel : itemPanels 5
+    MapView *-- TilePanel : tilePanels 0..*
+    }
+
+Game *- GameWindow : gameWindow
+package Controller {
+    class ControllerClass as "Controller" {
+        - nextTurn() : void
+        - NPCturn() : void
+        - move(Entity, direction) : void
+    }
+    class KeyboardEventListener
+    class MouseEventListener
+    enum direction {
+        up
+        down
+        left
+        right
+    }
+
+    ControllerClass -> KeyboardEventListener
+
+    ControllerClass *--- Game : game
+}
+ControllerClass o-- Entity : currentPlayer
+SidePanel o- Entity : currentPlayer
+ItemPanel --> MouseEventListener
+@enduml
