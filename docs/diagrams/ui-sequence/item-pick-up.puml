@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title UI item drop
+hide footbox
+autoactivate on
+participant Controller
+participant "itemEntity : ItemEntity" as itemEntity
+participant "item : Item" as item
+participant "person : Person" as person
+
+[-> Controller : drop(itemEntity)
+    Controller -> itemEntity : drop()
+        itemEntity -> item : getPerson()
+        return person
+        itemEntity -> person : removeItem(item)
+        return
+    return
+    Controller -> Controller : nextTurn()
+    return
+return
+@enduml

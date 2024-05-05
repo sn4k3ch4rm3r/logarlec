@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title UI item drop
+hide footbox
+autoactivate on
+participant MouseEventListener
+participant SidePanel
+participant Controller
+
+MouseEventListener -> SidePanel : drop(itemEntity, player)
+    alt Player's turn
+    SidePanel -> Controller : use(itemEntity)
+    return
+    else Not Player's turn
+    end
+return
+@enduml

@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title UI item use
+hide footbox
+autoactivate on
+participant Controller
+participant "itemEntity : ItemEntity" as entity
+participant "item : Item" as item
+
+[-> Controller : use(itemEntity)
+    Controller -> entity : use()
+        entity -> item : use()
+        return
+    return
+    Controller -> Controller : nextTurn()
+    return
+return
+@enduml

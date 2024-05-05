@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title UI item use
+hide footbox
+autoactivate on
+
+participant Controller
+participant Game
+participant "room : Room" as room
+participant "NPC : PersonEntity" as NPC
+
+[-> Controller : NPCTurn()
+    Controller -> Game : update(1)
+        loop room in rooms
+            Game -> room : update(1)
+            return
+        end
+    return
+
+    Controller -> Game : getNPCs()
+    return NPCs
+
+    loop NPC in NPCs
+        Controller -> NPC : moveRandomly()
+        return
+    end
+
+    Controller -> Controller : nextTurn()
+    return
+
+return
+@enduml

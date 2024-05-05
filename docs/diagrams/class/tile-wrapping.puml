@@ -2,6 +2,8 @@
 
 package Model {
 
+    interface Updatable
+
     package "Base Model" {
         class Room
         abstract Person
@@ -12,22 +14,31 @@ package Model {
 
     package "Wrapper" {
         class Game {
-            + nextTurn(currentPlayer : Student) : void
+            + nextTurn(nextPlayer : PersonEntity) : void
             + getRooms() : Room 0..*
-            + getPlayers() : Student 0..*
+            + getPlayers() : PersonEntity 0..*
             + getTiles() : Tile 0..*
             + getEntities() : Entity 0..*
         }
-        abstract Tile
-        class FloorTile
-        class DoorTile
+        abstract Tile {
+            + {abstract} moveTo(PersonEntity) : FloorTile
+        }
+        class FloorTile {
+            + moveTo(PersonEntity) : FloorTile
+        }
+        class DoorTile {
+            + + moveTo(PersonEntity) : FloorTile
+        }
         class WallTile
 
         class Entity
         class ItemEntity {
-            - use () : void
-            - drop() : void
-            - pickUp (PersonEntity) : void
+            + use () : void
+            + drop() : void
+            + pickUp (PersonEntity) : void
+        }
+        class PersonEntity {
+            + moveRandomly() : void
         }
 
         Tile <|-- FloorTile
@@ -44,19 +55,24 @@ package Model {
 
         Game "tiles 0..*" *-- Tile
         Game "entities 0..*" *-- Entity
+        Game "NPCs 0..*" *-- PersonEntity
     }
     Tile o-- Room
     DoorTile o-- Door
 
     Game "rooms 0..*" *-- Room
-    Game "players 1..4" o-- Student
-
+    Game "players 1..4" o-- PersonEntity
+    Game <|- Updatable
 }
 package "View" {
     class GameWindow {
-        + nextTurn(currentPlayer : Student) : void
+        + nextTurn(nextPlayer : PersonEntity) : void
     }
-    class SidePanel
+    class SidePanel {
+        + nextTurn(nextPlayer : PersonEntity) : void
+        + drop (item : ItemEntity, player : PersonEntity) : void
+        + use (item : ItemEntity, player : PersonEntity) : void
+    }
     class MapView
     GameWindow *-- SidePanel
     GameWindow *-- MapView
@@ -70,13 +86,11 @@ package Controller {
     class ControllerClass as "Controller" {
         - nextTurn() : void
         - NPCturn() : void
-        - move(Entity, direction) : void
+        + move(direction) : void
         + use (ItemEntity) : void
         + drop (ItemEntity) : void
-        + pickUp (ItemEntity,PersonEntity) : void
     }
     class KeyboardEventListener
-    class MouseEventListener
     enum direction {
         up
         down
@@ -88,11 +102,11 @@ package Controller {
 
     KeyboardEventListener o-- ControllerClass
 }
-ControllerClass o-- Student : currentPlayer
+ControllerClass o-- PersonEntity : currentPlayer
 SidePanel o- PersonEntity : currentPlayer
 PlayerPanel --> MouseEventListener
-PlayerPanel --o Student : player
-PlayerPanel  o-- ControllerClass : controller
+PlayerPanel --o PersonEntity : player
+SidePanel  o-- ControllerClass : controller
 
 Tile o--- TilePanel : tileView
 @enduml

@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title UI item drop
+hide footbox
+autoactivate on
+participant KeyBoardListener
+participant Controller
+participant "tile : Tile" as tile
+
+KeyBoardListener-> Controller : move(direction)
+    opt currentPlayer not null
+        Controller -> tile : moveTo(currentPlayer)
+        return
+    end
+return
+@enduml

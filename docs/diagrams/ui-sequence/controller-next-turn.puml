@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title UI item use
+hide footbox
+autoactivate on
+
+participant Controller
+
+[-> Controller : nextTurn()
+    Controller -> Game : nextTurn(nextPlayer)
+        Game -> GameWindow : nextTurn(nextPlayer)
+            GameWindow -> SidePanel : nextTurn(nextPlayer)
+            return
+        return
+    return
+    opt nextPlayer is null
+    Controller -> Controller : NPCturn()
+    return
+    end
+return
+@enduml
