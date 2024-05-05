@@ -1,0 +1,3 @@
+KnockOutWithoutMask
+A teszt célja a Camembert működésének ellenőrzése.
+A Camembret működésének ellenőrzése.

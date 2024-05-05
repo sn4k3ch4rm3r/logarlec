@@ -1,13 +1,13 @@
 package logarlec.util;
 
-import logarlec.skeleton.Skeleton;
-
 import logarlec.gameobjects.Teacher;
 import logarlec.items.Item;
 import logarlec.gameobjects.Room;
+import logarlec.prototype.Prototype;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Inventory {
 	private List<Item> items = new ArrayList<>();
@@ -18,14 +18,17 @@ public class Inventory {
 	 * @param item Hozzáadandó tárgy.
 	 */
 	public boolean add(Item item) {
-		Skeleton.logFunctionCall(this, "add", item);
-		if (Skeleton.getInput(Boolean.class, "Can more items fit the inventory [true|false]: ")) {
+		if (items.size() < 5) {
 			items.add(item);
-			Skeleton.logReturn(true);
 			return true;
+		} else {
+			try {
+				Prototype.out.write("Inventory is full.\n".getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
 		}
-		Skeleton.logReturn(false);
-		return false;
 	}
 
 	/**
@@ -34,9 +37,7 @@ public class Inventory {
 	 * @param item Eltávolítandó tárgy.
 	 */
 	public void remove(Item item) {
-		Skeleton.logFunctionCall(this, "remove", item);
 		items.remove(item);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -45,9 +46,7 @@ public class Inventory {
 	 * @param room A szoba, ahova kerültek.
 	 */
 	public void setRoom(Room room) {
-		Skeleton.logFunctionCall(this, "setRoom", room);
 		items.forEach(i -> i.setRoom(room));
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -56,18 +55,39 @@ public class Inventory {
 	 * @param teacher A támadó oktató.
 	 */
 	public void protectFrom(Teacher teacher) {
-		Skeleton.logFunctionCall(this, "protectFrom", teacher);
-		items.forEach(i -> i.useAgainst(teacher));
-		Skeleton.logReturn(void.class);
+		List<Item> itemsNew = new ArrayList<>(items);
+		for (Item item : itemsNew) {
+			item.useAgainst(teacher);
+		}
 	}
 
+	/**
+	 * Random tárgy eldobása az eszköztárból.
+	 */
 	public void dropRandomItem() {
-		Skeleton.logFunctionCall(this, "dropRandomItem");
 		if (!items.isEmpty()) {
-			Item item = items.get((int) (Math.random() * items.size()));
+			Random random = new Random();
+			Item item = items.get(random.nextInt(items.size()));
 			item.drop();
 			remove(item);
 		}
-		Skeleton.logReturn(void.class);
+	}
+
+	/**
+	 * Az eszköztárban található tárgyakat lehet lekérdezni vele.
+	 * 
+	 * @return A tárgyak listája
+	 */
+	public List<Item> getItems() {
+		return items;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder itemsString = new StringBuilder();
+		for (Item item : items) {
+			itemsString.append("<").append(item.hashCode()).append("> ");
+		}
+		return String.format("%s", itemsString);
 	}
 }

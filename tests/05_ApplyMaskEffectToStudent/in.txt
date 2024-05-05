@@ -1,0 +1,11 @@
+Create Room room
+Create GasEffect effect
+Create Student student
+Create Mask mask
+Add room student
+Add room effect
+Add room mask
+Pickup student mask
+Update 1
+Status student
+Status mask

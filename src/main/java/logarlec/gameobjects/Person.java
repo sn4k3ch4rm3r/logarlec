@@ -2,15 +2,16 @@ package logarlec.gameobjects;
 
 import logarlec.effects.Effect;
 import logarlec.items.Item;
+import logarlec.prototype.Prototype;
 import logarlec.util.Inventory;
-
-import logarlec.skeleton.Skeleton;
-
 
 /**
  * A pályán mozogni képes entitások ősosztálya.
  */
 public abstract class Person extends GameObject {
+
+	protected double knockOutTime;
+
 	/**
 	 * A személy által birtokolt tárgyak.
 	 */
@@ -22,7 +23,8 @@ public abstract class Person extends GameObject {
 	protected Room currentRoom;
 
 	public Person() {
-		inventory = Skeleton.createObject("inventory", Inventory.class);
+		inventory = new Inventory();
+		knockOutTime = -5;
 	}
 
 	/**
@@ -36,10 +38,8 @@ public abstract class Person extends GameObject {
 	 * @param room a szoba, melybe a személy belép
 	 */
 	public void enterRoom(Room room) {
-		Skeleton.logFunctionCall(this, "enterRoom", room);
 		currentRoom = room;
 		inventory.setRoom(room);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -48,10 +48,8 @@ public abstract class Person extends GameObject {
 	 * @param item az eldobandó tárgy
 	 */
 	public void dropItem(Item item) {
-		Skeleton.logFunctionCall(this, "dropItem", item);
 		inventory.remove(item);
 		item.drop();
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -60,9 +58,15 @@ public abstract class Person extends GameObject {
 	 * @param value az ájulás ideje
 	 */
 	public void setKnockOut(double value) {
-		Skeleton.logFunctionCall(this, "setKnockOut", value);
-		// Set knockout value
-		Skeleton.logReturn(void.class);
+		knockOutTime = value;
+		if (knockOutTime > 0) {
+			try {
+				Prototype.out
+						.write(String.format("<%d> got knocked out.\n", hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
@@ -72,12 +76,15 @@ public abstract class Person extends GameObject {
 	 */
 	@Override
 	public void update(double deltaTime) {
-		Skeleton.logFunctionCall(this, "update", deltaTime);
 		for (Effect effect : effects) {
 			effect.update(deltaTime);
 			applyEffect(effect);
 		}
-		Skeleton.logReturn(void.class);
+		if (knockOutTime > 0) {
+			for (Item item : inventory.getItems()) {
+				item.usePassive();
+			}
+		}
 	}
 
 	/**
@@ -87,15 +94,15 @@ public abstract class Person extends GameObject {
 	 */
 	@Override
 	public void addItem(Item item) {
-		Skeleton.logFunctionCall(this, "addItem", item);
 		if (currentRoom == null || currentRoom.isClean()) {
 			if (inventory.add(item)) {
 				item.setPerson(this);
-				item.setRoom(currentRoom);
+				if (currentRoom != null) {
+					currentRoom.removeItem(item);
+					item.setRoom(currentRoom);
+				}
 			}
 		}
-
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -105,32 +112,30 @@ public abstract class Person extends GameObject {
 	 */
 	@Override
 	public void removeItem(Item item) {
-		Skeleton.logFunctionCall(this, "removeItem", item);
 		inventory.remove(item);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
 	 * A logarléc megtalálást kezelő metódus.
 	 */
-	public void pickedUpSlideRule() {
-		Skeleton.logFunctionCall(this, "pickedUpSlideRule");
-		Skeleton.logReturn(void.class);
-	}
+	public void pickedUpSlideRule() {}
 
 	public void getOut() {
-		Skeleton.logFunctionCall(this, "getOut");
-		// If not knocked out
-		boolean isKnockedOut = Skeleton.getInput(Boolean.class, "Is the person knocked out?");
-		if (!isKnockedOut) {
+		if (knockOutTime <= 0) {
 			currentRoom.getOut(this);
+			try {
+				Prototype.out.write(String.format("<%d> got kicked out.\n", hashCode()).getBytes());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	public void dropRandomItem() {
-		Skeleton.logFunctionCall(this, "dropRandomItem");
 		inventory.dropRandomItem();
-		Skeleton.logReturn(void.class);
+	}
+
+	public Room getCurrentRoom() {
+		return currentRoom;
 	}
 }

@@ -1,0 +1,7 @@
+Create Room room
+Create Student student
+Create GasEffect effect
+Add room effect
+Add room student
+Update 1 room
+Status student

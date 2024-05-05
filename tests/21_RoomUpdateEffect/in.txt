@@ -1,0 +1,5 @@
+Create Room room
+Create BeerEffect effect
+Add room effect
+Update 1 room
+Status effect

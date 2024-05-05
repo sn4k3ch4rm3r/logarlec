@@ -1,0 +1,3 @@
+AddDoor
+A teszt célja megbizonyosodni arról, hogy az ajtó elhelyezés két szoba közt megfelelően működik.
+Az ajtó működését vizsgáljuk.

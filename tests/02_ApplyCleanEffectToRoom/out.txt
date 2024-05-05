@@ -1,0 +1,9 @@
+effect ran out of time.
+cleanEffect removed effect.
+cleanEffect cleaned the room.
+Room room
+Capacity: 4
+Doors:
+Effects:
+Items:
+People: student

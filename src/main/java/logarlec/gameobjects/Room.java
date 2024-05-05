@@ -3,10 +3,10 @@ package logarlec.gameobjects;
 import logarlec.effects.CleanEffect;
 import logarlec.effects.Effect;
 import logarlec.items.Item;
+import logarlec.prototype.Prototype;
 import logarlec.util.Door;
 import java.util.LinkedList;
 import java.util.List;
-import logarlec.skeleton.Skeleton;
 
 /**
  * Egy játékban szereplő szoba.
@@ -28,10 +28,25 @@ public class Room extends GameObject {
 	 */
 	private List<Item> items;
 
+	/**
+	 * A szobába elférő emberek száma.
+	 */
+	private int capacity;
+
+	/**
+	 * A szobában ennyi ember fordult meg a takarítás óta.
+	 */
+	private int visitorsSinceClean;
+
 	public Room() {
+		this(4);
+	}
+
+	public Room(Integer capacity) {
 		people = new LinkedList<>();
 		doors = new LinkedList<>();
 		items = new LinkedList<>();
+		this.capacity = capacity;
 	}
 
 	/**
@@ -47,6 +62,7 @@ public class Room extends GameObject {
 		doors = new LinkedList<>();
 		items = new LinkedList<>();
 		people = new LinkedList<>();
+		this.capacity = capacity;
 	}
 
 	/**
@@ -55,14 +71,11 @@ public class Room extends GameObject {
 	 * @param person a személy, aki belépne a szobába
 	 */
 	public boolean enter(Person person) {
-		Skeleton.logFunctionCall(this, "enter", person);
-		if (Skeleton.getInput(Boolean.class, "Is there enough space in the room [true|false]: ")) {
+		if (people.size() < capacity) {
 			people.add(person);
 			person.enterRoom(this);
-			Skeleton.logReturn(true);
 			return true;
 		}
-		Skeleton.logReturn(false);
 		return false;
 	}
 
@@ -72,9 +85,7 @@ public class Room extends GameObject {
 	 * @param person a személy, aki távozik
 	 */
 	public void leave(Person person) {
-		Skeleton.logFunctionCall(this, "leave", person);
 		people.remove(person);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -83,9 +94,16 @@ public class Room extends GameObject {
 	 * @param room a másik szoba
 	 */
 	public void merge(Room room) {
-		Skeleton.logFunctionCall(this, "merge", room);
+		int newCapacity = capacity > room.capacity ? capacity : room.capacity;
+		int peopleCount = this.people.size() + room.people.size();
+		// Csak akkor tud össze olvadni, ha van közös ajtó, és elegendő kapacitás
+		if (doors.stream().noneMatch(door -> room.doors.contains(door))
+				|| peopleCount > newCapacity) {
+			return;
+		}
+
 		room.moveContents(this);
-		Skeleton.logReturn(void.class);
+		this.capacity = newCapacity;
 	}
 
 	/**
@@ -94,10 +112,33 @@ public class Room extends GameObject {
 	 * @return az új szoba
 	 */
 	public Room split() {
-		Skeleton.logFunctionCall(this, "split");
-		Room newRoom = Skeleton.createObject("newRoom", Room.class);
-		Skeleton.createObject("door", Door.class, this, newRoom);
-		Skeleton.logReturn(newRoom);
+		Room newRoom = new Room();
+		String name = Prototype.getObjectName(this.hashCode());
+		Prototype.addObject(name + "_S1", newRoom);
+		Door door = new Door(this, newRoom);
+		StringBuilder doorName = new StringBuilder("door");
+		int counter = 0;
+		while (Prototype
+				.getObject(doorName + (counter == 0 ? "" : Integer.toString(counter))) != null) {
+			counter++;
+		}
+		Prototype.addObject(doorName + (counter == 0 ? "" : Integer.toString(counter)), door);
+
+		for (Effect e : effects) {
+			newRoom.applyEffect(e);
+		}
+
+		for (Person p : people) {
+			if (Prototype.random.nextDouble() < 0.5) {
+				newRoom.enter(p);
+			}
+		}
+
+		for (Item i : items) {
+			if (Prototype.random.nextDouble() < 0.5) {
+				newRoom.addItem(i);
+			}
+		}
 		return newRoom;
 	}
 
@@ -107,7 +148,6 @@ public class Room extends GameObject {
 	 * @param room a másik szoba
 	 */
 	public void moveContents(Room room) {
-		Skeleton.logFunctionCall(this, "moveContents", room);
 		for (Person person : people) {
 			room.enter(person);
 		}
@@ -120,7 +160,6 @@ public class Room extends GameObject {
 		for (Door door : doors) {
 			door.move(this, room);
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -129,9 +168,7 @@ public class Room extends GameObject {
 	 * @param door az ajtó
 	 */
 	public void addDoor(Door door) {
-		Skeleton.logFunctionCall(this, "addDoor", door);
 		doors.add(door);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -140,31 +177,25 @@ public class Room extends GameObject {
 	 * @param door az ajtó
 	 */
 	public void removeDoor(Door door) {
-		Skeleton.logFunctionCall(this, "removeDoor", door);
 		doors.remove(door);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
 	 * Az összes ajtó elrejtése.
 	 */
 	public void hideDoors() {
-		Skeleton.logFunctionCall(this, "hideDoors");
 		for (Door door : doors) {
 			door.hide();
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
 	 * Az összes ajtó megjelenítése.
 	 */
 	public void showDoors() {
-		Skeleton.logFunctionCall(this, "showDoors");
 		for (Door door : doors) {
 			door.show();
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -174,7 +205,6 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void update(double deltaTime) {
-		Skeleton.logFunctionCall(this, "update", deltaTime);
 		for (Effect effect : effects) {
 			effect.update(deltaTime);
 			effect.applyToRoom(this);
@@ -185,7 +215,6 @@ public class Room extends GameObject {
 			}
 			person.update(deltaTime);
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -195,10 +224,8 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void addItem(Item item) {
-		Skeleton.logFunctionCall(this, "addItem", item);
 		items.add(item);
 		item.setRoom(this);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -208,9 +235,7 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void removeItem(Item item) {
-		Skeleton.logFunctionCall(this, "removeItem", item);
 		items.remove(item);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -220,7 +245,6 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void applyEffect(Effect effect) {
-		Skeleton.logFunctionCall(this, "applyEffect", effect);
 		effect.setHolder(this);
 		effects.add(effect);
 	}
@@ -232,42 +256,63 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void interactTeacher(Teacher teacher) {
-		Skeleton.logFunctionCall(this, "interactTeacher", teacher);
+		try {
+			Prototype.out.write(
+					String.format("<%d> attacked everyone.\n", teacher.hashCode()).getBytes());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		for (Person person : people) {
 			person.interactTeacher(teacher);
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	public void interactCleanEffect(CleanEffect effect) {
-		Skeleton.logFunctionCall(this, "interactCleanEffect", effect);
 		for (Effect e : effects) {
 			e.interactCleanEffect(effect);
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	public void getOut(Person person) {
-		Skeleton.logFunctionCall(this, "getOut", person);
 		for (Door door : doors) {
-			door.use(person, this);
+			door.use(person);
 			if (!people.contains(person)) {
 				break;
 			}
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	public void clean() {
-		Skeleton.logFunctionCall(this, "clean");
-		// Reset visitorsSinceClean
-		Skeleton.logReturn(void.class);
+		visitorsSinceClean = 0;
 	}
 
 	public boolean isClean() {
-		Skeleton.logFunctionCall(this, "isClean");
-		boolean clean = Skeleton.getInput(Boolean.class, "Is the room clean [true|false]: ");
-		Skeleton.logReturn(clean);
-		return clean;
+		if (visitorsSinceClean > 10) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder doorsString = new StringBuilder();
+		for (Door door : this.doors) {
+			doorsString.append("<").append(door.hashCode()).append("> ");
+		}
+		StringBuilder effectsString = new StringBuilder();
+		for (Effect effect : this.effects) {
+			effectsString.append("<").append(effect.hashCode()).append("> ");
+		}
+		StringBuilder itemsString = new StringBuilder();
+		for (Item item : this.items) {
+			itemsString.append("<").append(item.hashCode()).append("> ");
+		}
+		StringBuilder peopleString = new StringBuilder();
+		for (Person person : this.people) {
+			peopleString.append("<").append(person.hashCode()).append("> ");
+		}
+		return String.format(
+				"Room <%d>\nCapacity: %d\nDoors: %s\nEffects: %s\nItems: %s\nPeople: %s\n",
+				this.hashCode(), capacity, doorsString, effectsString, itemsString, peopleString);
 	}
 }

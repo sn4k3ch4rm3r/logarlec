@@ -1,0 +1,7 @@
+Create Room room 4
+Create Student student
+Create WetRag rag
+Add room student
+Add student rag
+Use student rag
+Status room

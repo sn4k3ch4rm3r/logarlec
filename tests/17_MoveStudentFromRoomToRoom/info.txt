@@ -1,0 +1,3 @@
+MoveStudentFromRoomToRoom
+A teszt célja megbizonyosodni arról, hogy a szereplők képesek használni az szobák közti ajtókat.
+Az ajtók működése

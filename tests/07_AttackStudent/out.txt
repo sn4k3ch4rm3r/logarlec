@@ -1,0 +1,8 @@
+teacher attacked everyone.
+student was eliminated.
+Student student
+Effects:
+Eliminated: true
+Inventory:
+Knock-out time: -5
+Room: room

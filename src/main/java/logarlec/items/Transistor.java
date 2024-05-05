@@ -1,8 +1,7 @@
 package logarlec.items;
 
-import logarlec.gameobjects.Teacher;
-import logarlec.skeleton.Skeleton;
 import logarlec.gameobjects.Person;
+import logarlec.gameobjects.Teacher;
 import logarlec.gameobjects.Room;
 
 public class Transistor extends Item {
@@ -16,9 +15,7 @@ public class Transistor extends Item {
 	 * @param room - a beállítandó Room
 	 */
 	public void setTarget(Room room) {
-		Skeleton.logFunctionCall(this, "setTarget", room);
 		target = room;
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -29,20 +26,19 @@ public class Transistor extends Item {
 	 */
 	@Override
 	public void use() {
-		Skeleton.logFunctionCall(this, "use");
-		if (Skeleton.getInput(Boolean.class, "Is the transistor active [true|false]: ")) {
-			Person p = person;
+		if (this.other == null)
+			return;
+
+		if (this.other != null && this.target != null) {
+			Person person = this.person;
 			person.dropItem(this);
-			boolean entered = target.enter(p);
-			if (entered) {
-				room.leave(p);
+			if (target.enter(person)) {
+				room.leave(person);
 			}
-		} else if (Skeleton.getInput(Boolean.class,
-				"Does the transistor have a pair [true|false]: ")) {
+		} else if (this.other != null && this.target == null) {
 			person.dropItem(this);
-			other.setTarget(room);
+			other.setTarget(this.room);
 		}
-		Skeleton.logReturn(void.class);
 	}
 
 	@Override
@@ -64,9 +60,7 @@ public class Transistor extends Item {
 	 */
 	@Override
 	public void useItem(Item item) {
-		Skeleton.logFunctionCall(this, "useItem", item);
 		item.link(this);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -77,10 +71,8 @@ public class Transistor extends Item {
 	 */
 	@Override
 	public void link(Transistor other) {
-		Skeleton.logFunctionCall(this, "link", other);
 		other.setPair(this);
 		this.other = other;
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -89,8 +81,12 @@ public class Transistor extends Item {
 	 * @param other - a beállítandó Transistor
 	 */
 	public void setPair(Transistor other) {
-		Skeleton.logFunctionCall(this, "setPair", other);
 		this.other = other;
-		Skeleton.logReturn(void.class);
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Transistor <%d>\nPair: <%d>\nPerson: <%d>\nRoom: <%d>\nTarget room: <%d>\n",
+				this.hashCode(), other.hashCode(), person.hashCode(), room.hashCode(), target.hashCode());
 	}
 }

@@ -1,0 +1,3 @@
+ApplyCleanEffectToRoom
+A teszt célja a légfrissítő működésének ellenőrzése.
+A GasEffect eltávolítása légfrissítő által.

@@ -3,7 +3,7 @@ package logarlec.effects;
 import logarlec.gameobjects.Room;
 import logarlec.gameobjects.Student;
 import logarlec.gameobjects.Teacher;
-import logarlec.skeleton.Skeleton;
+import logarlec.prototype.Prototype;
 
 public class CleanEffect extends Effect {
     @Override
@@ -18,8 +18,25 @@ public class CleanEffect extends Effect {
 
     @Override
     public void applyToRoom(Room target) {
-        Skeleton.logFunctionCall(this, "applyToRoom", target);
         target.interactCleanEffect(this);
-        Skeleton.logReturn(void.class);
+        try {
+            Prototype.out.write(String.format("<%d> cleaned the room.\n", hashCode()).getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    @Override
+    public void update(double deltaTime) {
+        super.update(deltaTime);
+        if (timeRemaining <= 0) {
+            holder.removeEffect(this);
+        }
+    }
+
+    @Override
+	public String toString() {
+		return String.format("CleanEffect <%d>\nHolder: <%d>\n",
+				this.hashCode(), this.holder.hashCode());
+	}
 }

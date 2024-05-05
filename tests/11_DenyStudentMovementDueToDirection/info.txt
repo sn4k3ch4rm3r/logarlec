@@ -1,0 +1,3 @@
+DenyStudentMovementDueToDirection
+A teszt célja megbizonyosodni arról, hogy hogy az ajtók rossz irányú mozgást nemengednek át.
+Az ajtók működése

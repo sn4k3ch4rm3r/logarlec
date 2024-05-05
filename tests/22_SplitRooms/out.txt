@@ -1,0 +1,6 @@
+Room room_S1
+Capacity: 4
+Doors: door
+Effects:
+Items:
+People:

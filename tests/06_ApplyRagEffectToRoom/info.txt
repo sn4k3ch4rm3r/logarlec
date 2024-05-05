@@ -1,0 +1,3 @@
+ApplyRagEffectToRoom
+A teszt célja a Táblatörlő által hordozott Effect szobára való terjedésének tesztelése.
+Az tárgy Effect terjedése.

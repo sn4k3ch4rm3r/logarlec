@@ -1,0 +1,6 @@
+Student student
+Effects: beerEffect
+Eliminated: false
+Inventory:
+Knock-out time: -5
+Room:

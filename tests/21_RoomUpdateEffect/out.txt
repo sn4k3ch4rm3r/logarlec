@@ -1,0 +1,3 @@
+BeerEffect effect
+Holder: room
+Time remaining: 14

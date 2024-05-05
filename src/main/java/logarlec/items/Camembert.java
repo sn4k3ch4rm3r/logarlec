@@ -2,7 +2,7 @@ package logarlec.items;
 
 import logarlec.effects.GasEffect;
 import logarlec.gameobjects.Teacher;
-import logarlec.skeleton.Skeleton;
+import logarlec.prototype.Prototype;
 
 public class Camembert extends Item {
 	/**
@@ -11,11 +11,17 @@ public class Camembert extends Item {
 	 */
 	@Override
 	public void use() {
-		Skeleton.logFunctionCall(this, "use");
-		GasEffect gasEffect = Skeleton.createObject("gasEffect", GasEffect.class);
+		GasEffect gasEffect = new GasEffect();
+		String effectName = gasEffect.getClass().getSimpleName();
+		effectName = effectName.substring(0, 1).toLowerCase() + effectName.substring(1);
+		int i = 0;
+		while (Prototype.getObject(effectName + (i == 0 ? "" : i)) != null) {
+			i++;
+		}
+		Prototype.addObject(effectName + (i == 0 ? "" : i), gasEffect);
 		room.addEffect(gasEffect);
 		person.removeItem(this);
-		Skeleton.logReturn(void.class);
+		room.removeItem(this);
 	}
 
 	@Override
@@ -37,6 +43,12 @@ public class Camembert extends Item {
 	@Override
 	public void link(Transistor other) {
 		// Do nothing
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Camembert <%d>\nPerson: <%d>\nRoom: <%d>\n",
+				this.hashCode(), this.person.hashCode(), this.room.hashCode());
 	}
 
 }

@@ -1,0 +1,3 @@
+ApplyGasEffectToRoom
+A teszt célja a Camembert által hordozott Effect szobára való terjedésének tesztelése.
+Az GasEffect terjedését vizsgáljuk.

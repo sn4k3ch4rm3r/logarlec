@@ -1,0 +1,3 @@
+ApplyMaskEffectToStudent
+A teszt célja a MaskEffect Diákra való terjedésének ellenőrzése.
+A MaskEffect terjedését vizsgáljuk

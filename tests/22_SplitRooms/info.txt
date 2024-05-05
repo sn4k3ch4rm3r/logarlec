@@ -1,0 +1,3 @@
+SplitRooms
+A teszt célja a szobaszétválás elleőrzése
+A szobaszétválás elleőrzése

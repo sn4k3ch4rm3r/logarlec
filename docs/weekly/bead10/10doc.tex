@@ -1,43 +1,257 @@
 \chapter{Prototípus beadása}
 
 \section{Fordítási és futtatási útmutató}
-\comment{A feltöltött program fordításával és futtatásával kapcsolatos útmutatás. Ennek tartalmaznia kell leltárszerűen az egyes fájlok pontos nevét, méretét byte-ban, keletkezési idejét, valamint azt, hogy a fájlban mi került megvalósításra.}
+% \comment{A feltöltött program fordításával és futtatásával kapcsolatos útmutatás. Ennek tartalmaznia kell leltárszerűen az egyes fájlok pontos nevét, méretét byte-ban, keletkezési idejét, valamint azt, hogy a fájlban mi került megvalósításra.}
 
 \subsection{Fájllista}
 
 \begin{fajllista}
-    \fajl
-    {Demo.java} % Kezdet
-    {353 byte} % Méret
-    {2020.03.26~21:05~} % Időpont
-    {Demo programosztály} % Leírás
+\fajl{src/main/java/logarlec/effects/BeerEffect.java}{1197 byte}{2024-04-28 12:41}{...}
+\fajl{src/main/java/logarlec/effects/CleanEffect.java}{1025 byte}{2024-04-28 12:41}{...}
+\fajl{src/main/java/logarlec/effects/Effect.java}{1387 byte}{2024-04-28 14:26}{...}
+\fajl{src/main/java/logarlec/effects/GasEffect.java}{1272 byte}{2024-04-28 12:41}{...}
+\fajl{src/main/java/logarlec/effects/JanitorEffect.java}{681 byte}{2024-04-28 12:41}{...}
+\fajl{src/main/java/logarlec/effects/MaskEffect.java}{1098 byte}{2024-04-28 12:41}{...}
+\fajl{src/main/java/logarlec/effects/RagEffect.java}{931 byte}{2024-04-28 12:41}{...}
+\fajl{src/main/java/logarlec/gameobjects/GameObject.java}{1449 byte}{2024-04-28 12:33}{...}
+\fajl{src/main/java/logarlec/gameobjects/Janitor.java}{1434 byte}{2024-04-28 12:41}{...}
+\fajl{src/main/java/logarlec/gameobjects/Person.java}{2994 byte}{2024-04-28 12:50}{...}
+\fajl{src/main/java/logarlec/gameobjects/Room.java}{6927 byte}{2024-04-28 14:30}{...}
+\fajl{src/main/java/logarlec/gameobjects/Student.java}{2433 byte}{2024-04-28 14:31}{...}
+\fajl{src/main/java/logarlec/gameobjects/Teacher.java}{1560 byte}{2024-04-28 14:31}{...}
+\fajl{src/main/java/logarlec/items/AirFreshener.java}{1198 byte}{2024-04-28 14:35}{...}
+\fajl{src/main/java/logarlec/items/Beer.java}{1319 byte}{2024-04-28 14:33}{...}
+\fajl{src/main/java/logarlec/items/Camembert.java}{1321 byte}{2024-04-28 14:34}{...}
+\fajl{src/main/java/logarlec/items/CodeOfStudies.java}{1291 byte}{2024-04-28 14:33}{...}
+\fajl{src/main/java/logarlec/items/FakeCodeOfStudies.java}{592 byte}{2024-04-28 14:33}{...}
+\fajl{src/main/java/logarlec/items/FakeMask.java}{448 byte}{2024-04-28 14:34}{...}
+\fajl{src/main/java/logarlec/items/FakeSlideRule.java}{677 byte}{2024-04-28 14:34}{...}
+\fajl{src/main/java/logarlec/items/Item.java}{1220 byte}{2024-04-28 14:33}{...}
+\fajl{src/main/java/logarlec/items/Mask.java}{1891 byte}{2024-04-28 12:41}{...}
+\fajl{src/main/java/logarlec/items/SlideRule.java}{1095 byte}{2024-04-28 12:41}{...}
+\fajl{src/main/java/logarlec/items/Transistor.java}{2373 byte}{2024-04-28 12:41}{...}
+\fajl{src/main/java/logarlec/items/WetRag.java}{1533 byte}{2024-04-28 12:41}{...}
+\fajl{src/main/java/logarlec/Main.java}{289 byte}{2024-04-28 13:00}{...}
+\fajl{src/main/java/logarlec/util/Door.java}{2580 byte}{2024-04-28 12:41}{...}
+\fajl{src/main/java/logarlec/util/Inventory.java}{2106 byte}{2024-04-28 14:38}{...}
+\fajl{src/main/java/logarlec/util/Updatable.java}{225 byte}{2024-04-28 14:38}{...}
+\fajl{src/prototype/java/logarlec/prototype/command/Add.java}{927 byte}{2024-04-28 12:41}{...}
+\fajl{src/prototype/java/logarlec/prototype/command/Command.java}{197 byte}{2024-04-23 21:52}{...}
+\fajl{src/prototype/java/logarlec/prototype/command/CommandBuilder.java}{1982 byte}{2024-04-28 14:40}{...}
+\fajl{src/prototype/java/logarlec/prototype/command/Create.java}{1509 byte}{2024-04-28 12:41}{...}
+\fajl{src/prototype/java/logarlec/prototype/command/Drop.java}{571 byte}{2024-04-28 12:41}{...}
+\fajl{src/prototype/java/logarlec/prototype/command/Link.java}{580 byte}{2024-04-28 12:41}{...}
+\fajl{src/prototype/java/logarlec/prototype/command/Merge.java}{497 byte}{2024-04-28 12:41}{...}
+\fajl{src/prototype/java/logarlec/prototype/command/Move.java}{567 byte}{2024-04-28 12:41}{...}
+\fajl{src/prototype/java/logarlec/prototype/command/Oneway.java}{466 byte}{2024-04-28 12:41}{...}
+\fajl{src/prototype/java/logarlec/prototype/command/Pickup.java}{574 byte}{2024-04-28 12:41}{...}
+\fajl{src/prototype/java/logarlec/prototype/command/Seed.java}{344 byte}{2024-04-28 12:41}{...}
+\fajl{src/prototype/java/logarlec/prototype/command/Split.java}{368 byte}{2024-04-28 12:41}{...}
+\fajl{src/prototype/java/logarlec/prototype/command/Status.java}{313 byte}{2024-04-23 21:52}{...}
+\fajl{src/prototype/java/logarlec/prototype/command/Update.java}{754 byte}{2024-04-28 12:41}{...}
+\fajl{src/prototype/java/logarlec/prototype/command/Use.java}{593 byte}{2024-04-28 12:41}{...}
+\fajl{src/prototype/java/logarlec/prototype/Prototype.java}{3296 byte}{2024-04-28 14:47}{...}
+\fajl{src/prototype/java/logarlec/prototype/testrunner/Test.java}{1799 byte}{2024-04-28 14:40}{...}
+\fajl{src/prototype/java/logarlec/prototype/testrunner/TestBuilder.java}{1573 byte}{2024-04-28 14:42}{...}
+\fajl{src/prototype/java/logarlec/prototype/testrunner/TestDescription.java}{129 byte}{2024-04-23 21:52}{...}
+\fajl{src/prototype/java/logarlec/prototype/testrunner/TestRunner.java}{3285 byte}{2024-04-28 14:42}{...}
+\fajl{tests/01\_AddDoor/in.txt}{81 byte}{2024-04-23 21:52}{...}
+\fajl{tests/01\_AddDoor/info.txt}{153 byte}{2024-04-23 21:52}{...}
+\fajl{tests/01\_AddDoor/out.txt}{72 byte}{2024-04-23 21:52}{...}
+\fajl{tests/02\_ApplyCleanEffectToRoom/in.txt}{225 byte}{2024-04-23 21:52}{...}
+\fajl{tests/02\_ApplyCleanEffectToRoom/info.txt}{140 byte}{2024-04-23 21:52}{...}
+\fajl{tests/02\_ApplyCleanEffectToRoom/out.txt}{152 byte}{2024-04-28 12:41}{...}
+\fajl{tests/03\_ApplyBeerEffectToStudent/in.txt}{97 byte}{2024-04-28 12:41}{...}
+\fajl{tests/03\_ApplyBeerEffectToStudent/info.txt}{138 byte}{2024-04-23 21:52}{...}
+\fajl{tests/03\_ApplyBeerEffectToStudent/out.txt}{96 byte}{2024-04-23 21:52}{...}
+\fajl{tests/04\_ApplyGasEffectToRoom/in.txt}{158 byte}{2024-04-23 21:52}{...}
+\fajl{tests/04\_ApplyGasEffectToRoom/info.txt}{157 byte}{2024-04-23 21:52}{...}
+\fajl{tests/04\_ApplyGasEffectToRoom/out.txt}{77 byte}{2024-04-23 21:52}{...}
+\fajl{tests/05\_ApplyMaskEffectToStudent/in.txt}{195 byte}{2024-04-23 21:52}{...}
+\fajl{tests/05\_ApplyMaskEffectToStudent/info.txt}{138 byte}{2024-04-23 21:52}{...}
+\fajl{tests/05\_ApplyMaskEffectToStudent/out.txt}{213 byte}{2024-04-28 12:41}{...}
+\fajl{tests/06\_ApplyRagEffectToRoom/in.txt}{128 byte}{2024-04-28 12:41}{...}
+\fajl{tests/06\_ApplyRagEffectToRoom/info.txt}{151 byte}{2024-04-23 21:52}{...}
+\fajl{tests/06\_ApplyRagEffectToRoom/out.txt}{77 byte}{2024-04-28 12:41}{...}
+\fajl{tests/07\_AttackStudent/in.txt}{128 byte}{2024-04-23 21:52}{...}
+\fajl{tests/07\_AttackStudent/info.txt}{75 byte}{2024-04-23 21:52}{...}
+\fajl{tests/07\_AttackStudent/out.txt}{142 byte}{2024-04-28 12:41}{...}
+\fajl{tests/08\_BeerProtectStudent/in.txt}{236 byte}{2024-04-23 21:52}{...}
+\fajl{tests/08\_BeerProtectStudent/info.txt}{128 byte}{2024-04-23 21:52}{...}
+\fajl{tests/08\_BeerProtectStudent/out.txt}{182 byte}{2024-04-28 12:41}{...}
+\fajl{tests/09\_CleanCheese/in.txt}{307 byte}{2024-04-28 12:41}{...}
+\fajl{tests/09\_CleanCheese/info.txt}{224 byte}{2024-04-23 21:52}{...}
+\fajl{tests/09\_CleanCheese/out.txt}{303 byte}{2024-04-28 12:41}{...}
+\fajl{tests/10\_DenyStudentMovementDueToCapacity/in.txt}{132 byte}{2024-04-28 12:41}{...}
+\fajl{tests/10\_DenyStudentMovementDueToCapacity/info.txt}{158 byte}{2024-04-23 21:52}{...}
+\fajl{tests/10\_DenyStudentMovementDueToCapacity/out.txt}{25 byte}{2024-04-23 21:52}{...}
+\fajl{tests/11\_DenyStudentMovementDueToDirection/in.txt}{162 byte}{2024-04-28 12:41}{...}
+\fajl{tests/11\_DenyStudentMovementDueToDirection/info.txt}{159 byte}{2024-04-23 21:52}{...}
+\fajl{tests/11\_DenyStudentMovementDueToDirection/out.txt}{97 byte}{2024-04-28 12:41}{...}
+\fajl{tests/12\_DropItem/in.txt}{162 byte}{2024-04-23 21:52}{...}
+\fajl{tests/12\_DropItem/info.txt}{103 byte}{2024-04-23 21:52}{...}
+\fajl{tests/12\_DropItem/out.txt}{162 byte}{2024-04-28 12:41}{...}
+\fajl{tests/13\_InheritGasEffect/in.txt}{151 byte}{2024-04-23 21:52}{...}
+\fajl{tests/13\_InheritGasEffect/info.txt}{162 byte}{2024-04-23 21:52}{...}
+\fajl{tests/13\_InheritGasEffect/out.txt}{115 byte}{2024-04-23 21:52}{...}
+\fajl{tests/14\_KnockOutWithMask/in.txt}{187 byte}{2024-04-23 21:52}{...}
+\fajl{tests/14\_KnockOutWithMask/info.txt}{121 byte}{2024-04-23 21:52}{...}
+\fajl{tests/14\_KnockOutWithMask/out.txt}{164 byte}{2024-04-28 12:41}{...}
+\fajl{tests/15\_KnockOutWithoutMask/in.txt}{133 byte}{2024-04-23 21:52}{...}
+\fajl{tests/15\_KnockOutWithoutMask/info.txt}{124 byte}{2024-04-23 21:52}{...}
+\fajl{tests/15\_KnockOutWithoutMask/out.txt}{115 byte}{2024-04-28 12:41}{...}
+\fajl{tests/16\_MergeRooms/in.txt}{148 byte}{2024-04-28 12:41}{...}
+\fajl{tests/16\_MergeRooms/info.txt}{101 byte}{2024-04-23 21:52}{...}
+\fajl{tests/16\_MergeRooms/out.txt}{68 byte}{2024-04-28 12:41}{...}
+\fajl{tests/17\_MoveStudentFromRoomToRoom/in.txt}{158 byte}{2024-04-28 12:41}{...}
+\fajl{tests/17\_MoveStudentFromRoomToRoom/info.txt}{156 byte}{2024-04-23 21:52}{...}
+\fajl{tests/17\_MoveStudentFromRoomToRoom/out.txt}{163 byte}{2024-04-28 12:41}{...}
+\fajl{tests/18\_PickUpItemWithInventorySpace/in.txt}{130 byte}{2024-04-23 21:52}{...}
+\fajl{tests/18\_PickUpItemWithInventorySpace/info.txt}{131 byte}{2024-04-23 21:52}{...}
+\fajl{tests/18\_PickUpItemWithInventorySpace/out.txt}{95 byte}{2024-04-23 21:52}{...}
+\fajl{tests/19\_PickUpItemWithoutInventorySpace/in.txt}{418 byte}{2024-04-28 12:41}{...}
+\fajl{tests/19\_PickUpItemWithoutInventorySpace/info.txt}{134 byte}{2024-04-23 21:52}{...}
+\fajl{tests/19\_PickUpItemWithoutInventorySpace/out.txt}{140 byte}{2024-04-28 12:41}{...}
+\fajl{tests/20\_PlaceStudent/in.txt}{73 byte}{2024-04-23 21:52}{...}
+\fajl{tests/20\_PlaceStudent/info.txt}{201 byte}{2024-04-23 21:52}{...}
+\fajl{tests/20\_PlaceStudent/out.txt}{67 byte}{2024-04-28 12:41}{...}
+\fajl{tests/21\_RoomUpdateEffect/in.txt}{91 byte}{2024-04-23 21:52}{...}
+\fajl{tests/21\_RoomUpdateEffect/info.txt}{152 byte}{2024-04-23 21:52}{...}
+\fajl{tests/21\_RoomUpdateEffect/out.txt}{53 byte}{2024-04-28 12:41}{...}
+\fajl{tests/22\_SplitRooms/in.txt}{46 byte}{2024-04-23 21:52}{...}
+\fajl{tests/22\_SplitRooms/info.txt}{95 byte}{2024-04-23 21:52}{...}
+\fajl{tests/22\_SplitRooms/out.txt}{67 byte}{2024-04-28 12:41}{...}
+\fajl{tests/23\_TeleportUsingTransistors/in.txt}{388 byte}{2024-04-23 21:52}{...}
+\fajl{tests/23\_TeleportUsingTransistors/info.txt}{124 byte}{2024-04-23 21:52}{...}
+\fajl{tests/23\_TeleportUsingTransistors/out.txt}{110 byte}{2024-04-28 12:41}{...}
+\fajl{tests/24\_UpdateBeerEffect/in.txt}{103 byte}{2024-04-23 21:52}{...}
+\fajl{tests/24\_UpdateBeerEffect/info.txt}{119 byte}{2024-04-23 21:52}{...}
+\fajl{tests/24\_UpdateBeerEffect/out.txt}{54 byte}{2024-04-28 12:41}{...}
+\fajl{tests/25\_UpdateGasEffect/in.txt}{90 byte}{2024-04-23 21:52}{...}
+\fajl{tests/25\_UpdateGasEffect/info.txt}{118 byte}{2024-04-23 21:52}{...}
+\fajl{tests/25\_UpdateGasEffect/out.txt}{52 byte}{2024-04-28 12:41}{...}
+\fajl{tests/26\_UpdateMaskEffect/in.txt}{103 byte}{2024-04-23 21:52}{...}
+\fajl{tests/26\_UpdateMaskEffect/info.txt}{119 byte}{2024-04-23 21:52}{...}
+\fajl{tests/26\_UpdateMaskEffect/out.txt}{55 byte}{2024-04-28 12:41}{...}
+\fajl{tests/27\_UpdateRagEffect/in.txt}{102 byte}{2024-04-23 21:52}{...}
+\fajl{tests/27\_UpdateRagEffect/info.txt}{118 byte}{2024-04-23 21:52}{...}
+\fajl{tests/27\_UpdateRagEffect/out.txt}{55 byte}{2024-04-28 12:41}{...}
+\fajl{10\_prototipus\_elkeszitese.pdf}{93960 byte}{2024-04-28 22:26}{...}
 \end{fajllista}
 
+\clearpage
 \subsection{Fordítás}
-\comment{A fenti listában szereplő forrásfájlokból milyen műveletekkel lehet a bináris, futtatható kódot előállítani. Az előállításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
+% \comment{A fenti listában szereplő forrásfájlokból milyen műveletekkel lehet a bináris, futtatható kódot előállítani. Az előállításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
 
+Indítsunk Windows CMD-t vagy Powershell-t és lépjünk a projektet tartalmazó mappába. Ezután adjuk ki a következő parancsot:
 \begin{verbatim}
-javac -d bin *.java
+    .\build.bat
 \end{verbatim}
 
 \subsection{Futtatás}
-\comment{A futtatható kód elindításával kapcsolatos teendők leírása. Az indításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
+% \comment{A futtatható kód elindításával kapcsolatos teendők leírása. Az indításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
 
+Indítsunk Windows CMD-t vagy Powershell-t és lépjünk a projektet tartalmazó mappába. Ezután adjuk ki a következő parancsot:
 \begin{verbatim}
-cd bin
-java Main.java
+    java -cp build/bin logarlec.Main <mode> [<path>]
 \end{verbatim}
+A mode argumentum lehet: 
+\begin{itemize}
+    \item \textit{run}: Egy tesztesetet futtat. A \textit{path} argumentum a teszteset fájljait tartalmazó mappa (pl.: ./tests/01\_AddDoor).
+    \item \textit{runall}: Egy mappában lévő összes tesztesetet futtatja. A \textit{path} argumentum a teszteket tartalmazó mappa (pl.: ./tests).
+    \item \textit{interactive}: Megjeleníti a teszteseteket, és interaktív módon lehetőséget ad a felhasználónak, hogy melyik eseteket szeretné vizsgálni. A \textit{path} argumentum a teszteket tartalmazó mappa (pl.: ./tests).
+    \item \textit{command}: Interaktív parancsértelmező. A felhasználó beírhat parancsokat és láthatja ezek kimenetét.
+\end{itemize}
 
 \section{Tesztek jegyzőkönyvei}
 
-\subsection{Teszteset1}
-\comment{Az alábbi táblázatot a megismételt (hibás) tesztek esetén kell kitölteni minden ismétléshez egyszer. Ha szükséges, akkor a valós kimenet is mellékelhető mint a teszt eredménye}
-\testFAIL{????}{Ápr. 25. 13:50}{ A teszt eredménye}{A teszt hibás futásának okai}{Változtatások}
-\comment{Az alábbi táblázatot az utolsó, sikeres tesztfuttatáshoz kell kitölteni}
-\testOK{????}{Ápr. 25. 14:00}
+\subsection{AddDoor}
+\testOK{Zelei}{Ápr. 24. 17:20}
+\subsection{ApplyBeerEffectToStudent}
+\testFAIL{Zelei}{Ápr. 24. 17:20}{ Hibás kimenet }{ Rossz várt kimenet }{ A bemenet és a kimenet átírása }
+
+\testOK{Zelei}{Ápr. 25. 12:28}
+\subsection{ApplyCleanEffectToRoom}
+\testFAIL{Zelei}{Ápr. 24. 17:20}{ Hibás kimenet }{ Hiányoztak a menet közbeni kiírások }{ A kimenet átírása }
+
+\testOK{Zelei}{Ápr. 24. 17:15}
+\subsection{ApplyGasEffectToRoom}
+\testFAIL{Zelei}{Ápr. 24. 17:35}{ Hibás kimenet }{ A Camembert nem semmisül meg használat után }{ Camembert megsemmisítése használat után }
+
+\testOK{Zelei}{Ápr. 24. 17:40}
+\subsection{ApplyMaskEffectToStudent}
+\testOK{Zelei}{Ápr. 25. 12:35}
+\subsection{ApplyRagEffectToRoom}
+\testFAIL{Zelei}{Ápr. 24. 17:20}{ Hibás kimenet }{ Rossz várt kimenet }{ A bemenet és a kimenet átírása }
+\testOK{Zelei}{Ápr. 24. 17:25}
+
+\subsection{AttackStudent}
+\testOK{Zelei}{Ápr. 25. 12:37}
+\subsection{BeerProtectStudent}
+\testFAIL{Zelei}{Ápr. 25. 12:45}{ Hibás kimenet }{ Saved by beer helyett revived }{ A kimenet átírása }
+
+\testOK{Zelei}{Ápr. 24. 17:40}
+\subsection{CleanCheese}
+\testFAIL{Zelei}{Ápr. 24. 17:35}{ Hibás kimenet }{ Rossz várt kimenet }{ A bemenet és a kimenet átírása }
+
+\testOK{Zelei}{Ápr. 26. 16:18}
+\subsection{DenyStudentMovementDueToCapacity}
+\testOK{Zelei}{Ápr. 25. 12:56}
+\subsection{DenyStudentMovementDueToDirection}
+\testOK{Zelei}{Ápr. 25. 12:57}
+\subsection{DropItem}
+\testFAIL{Zelei}{Ápr. 24. 18:10}{ Hibás kimenet, a szobánál duplikált tárgy }{ Tárgy felvételénél a szobából nem került ki }{ A szobából kikerül egy tárgy a felvételekor }
+
+\testOK{Zelei}{Ápr. 24. 18:16}
+\subsection{InheritGasEffect}
+\testOK{Zelei}{Ápr. 26. 16:08}
+\subsection{KnockOutWithMask}
+\testFAIL{Joób}{Ápr. 24. 18:30}{Hibás kimenet. A effect interakciók nem kerültek loggolásra. \newline A maszkot nem várta 
+ ateszteset, hogy az Inventoryban marad.}{A tesztkörnyezetünk nem támogat folyamat közbeni státuszkiírásokat. \newline Hibás volt az elvárt kimenet.}{Az elvárt kimenetből a foylamat közbeni visszajelzések eltávolítása. \newline A kimenet megváltoztatása.}
+ \testOK{Joób}{Ápr. 25. 14:30}
+\subsection{KnockOutWithoutMask}
+\testOK{Joób}{Ápr. 24. 19:00}
+\subsection{MergeRooms}
+\testFAIL{Joób}{Ápr. 24. 19:10}{Eltérő elvárt és kapott kimenet.}{A tesztelőkészítésben nem volt ajtó a két szoba közt, ezért a program helyesen nem hajtotta végre az összeolvasztást.}{A tesztelrendezésnél adunk a két szoba közé egy ajtót.}
+\testOK{Joób}{Ápr. 24. 19:15}
+\subsection{MoveStudentFromRoomToRoom}
+\subsection{PickUpItemWithInventorySpace}
+\testOK{Joób}{Ápr. 24. 19:20}
+\subsection{PickUpItemWithoutInventorySpace}
+\testOK{Joób}{Ápr. 24. 19:28}
+\subsection{PlaceStudent}
+\testFAIL{Joób}{Ápr. 24. 20:25}{Failed}{A Room státuszánál nem várta a teszt a Doors: mezőt}{A várt üzenet javítása}
+\testOK{Joób}{Ápr. 24. 20:30}
+\subsection{RoomUpdateEffect}
+\testFAIL{Joób}{Ápr. 24. 20:25}{A timeRemining mező nem csökkent.}{A BeerEffect nem rendelkezett megfelelő konstruktorral a timeRemaining mező beállításához.}{Konstruktor hozzáadása}
+\testFAIL{Joób}{Ápr. 24. 20:30}{Az effect birtokosa nem megfelelő volt.}{Rossz elvárt kimenet file.}{Az elvárt kimenet javítása.}
+\testOK{Zelei}{Ápr. 26. 16:54}
+\subsection{SplitRooms}
+\testFAIL{Zelei}{Ápr. 26. 16:36}{ Hibás kimenet }{ Elírás, hiányzó ajtó }{ A várt kimenet kijavítása }
+
+\testOK{Zelei}{Ápr. 26. 16:38}
+\subsection{TeleportUsingTransistors}
+\testFAIL{Zelei}{Ápr. 26. 16:46}{ Error }{ Egy függvény által nullra állított tagváltozóval függvényhívás }{ Tagváltozó elmentése lokálisan }
+
+\testOK{Zelei}{Ápr. 26. 16:50}
+\subsection{UpdateBeerEffect}
+\testOK{Joób}{Ápr. 24. 20:50}
+\subsection{UpdateGasEffect}
+\testOK{Joób}{Ápr. 24. 20:52}
+\subsection{UpdateMaskEffect}
+\testFAIL{Zelei}{Ápr. 26. 16:40}{ Hibás kimenet, saved by mask kiírása }{ Mindig ki lett írva a szöveg, nem csak tényleges mentésnél }{ Az üzenet kiírásának feltételhez kötése }
+
+\testOK{Zelei}{Ápr. 26. 16:43}
+\subsection{UpdateRagEffect}
+\testFAIL{Zelei}{Ápr. 26. 16:32}{ Error }{ MaskEffectnek nincs megfelelő konstruktora }{ Paraméter nélküli konstruktor létrehozása }
+
+\testOK{Zelei}{Ápr. 26. 16:36}
 
 \section{Értékelés}
-\comment{A projekt kezdete óta az értékelésig eltelt időben tagokra bontva, százalékban.}
 \begin{ertekeles}
-    \ertekelestag{Teszt János}{ ?????? }{100\%}
+    \ertekelestag{Balla Gergely}{ [NEPTUN] }{20\%}
+    \ertekelestag{Joób Zalán}{ [NEPTUN] }{20\%}
+    \ertekelestag{Nagy Alexandra}{ [NEPTUN] }{20\%}
+    \ertekelestag{Tóth Boldizsár}{ [NEPTUN] }{20\%}
+    \ertekelestag{Zelei Mátyás}{ [NEPTUN] }{20\%}
 \end{ertekeles}

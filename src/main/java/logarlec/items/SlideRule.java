@@ -2,7 +2,6 @@ package logarlec.items;
 
 import logarlec.gameobjects.Person;
 import logarlec.gameobjects.Teacher;
-import logarlec.skeleton.Skeleton;
 
 public class SlideRule extends Item {
 
@@ -33,16 +32,22 @@ public class SlideRule extends Item {
 	}
 
 	/**
-	 * A SlideRule osztály setPerson metódusa
-	 * A metódus beállítja, hogy az adott SlideRule-t melyik Person inventory-jában tároljuk
-	 * @param person - a SlideRulet felvevő Person
-	 * A metódus meghívja a person pickedUpSlideRule metódusát
+	 * A SlideRule osztály setPerson metódusa A metódus beállítja, hogy az adott SlideRule-t melyik
+	 * Person inventory-jában tároljuk
+	 * 
+	 * @param person - a SlideRulet felvevő Person A metódus meghívja a person pickedUpSlideRule
+	 *        metódusát
 	 */
 	@Override
 	public void setPerson(Person person) {
-		Skeleton.logFunctionCall(this, "setPerson", person);
 		this.person = person;
 		person.pickedUpSlideRule();
-		Skeleton.logReturn(void.class);
 	}
+
+	@Override
+	public String toString() {
+		return String.format("SlideRule <%d>\nPerson: <%d>\nRoom: <%d>\n",
+				this.hashCode(), this.person.hashCode(), this.room.hashCode());
+	}
+	
 }

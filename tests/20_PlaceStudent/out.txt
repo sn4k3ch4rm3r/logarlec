@@ -1,0 +1,6 @@
+Room room
+Capacity: 4
+Doors:
+Effects:
+Items:
+People: student

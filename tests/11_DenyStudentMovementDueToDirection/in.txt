@@ -1,0 +1,8 @@
+Create Room roomA
+Create Room roomB
+Create Student student
+Create Door door roomA roomB
+Oneway door true
+Add roomB student
+Move student door
+Status roomA

@@ -1,0 +1,3 @@
+PickUpItemWithoutInventorySpace
+A teszt célja a tárgyfelvétel funkció ellenőrzése.
+A tárgyfelvétel funkció ellenőrzése.

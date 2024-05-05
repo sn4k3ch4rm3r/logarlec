@@ -24,7 +24,7 @@ public class DoorUseTest extends TestCase {
     }
 
     public void run() {
-        door.use(student, from);
+        door.use(student);
     }
 
 }

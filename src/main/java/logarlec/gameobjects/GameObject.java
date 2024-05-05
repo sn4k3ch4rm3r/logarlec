@@ -1,9 +1,7 @@
 package logarlec.gameobjects;
 
-import logarlec.effects.CleanEffect;
 import logarlec.effects.Effect;
 import logarlec.items.Item;
-import logarlec.skeleton.Skeleton;
 import logarlec.util.Updatable;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +13,7 @@ public abstract class GameObject implements Updatable {
 	/**
 	 * Az objektumon lévő hatások listája.
 	 */
-	List<Effect> effects;
+	protected List<Effect> effects;
 
 	public GameObject() {
 		effects = new LinkedList<>();
@@ -55,10 +53,8 @@ public abstract class GameObject implements Updatable {
 	 * @param effect a hozzáadandó effect
 	 */
 	public void addEffect(Effect effect) {
-		Skeleton.logFunctionCall(this, "addEffect", effect);
 		effects.add(effect);
 		effect.setHolder(this);
-		Skeleton.logReturn(void.class);
 	}
 
 	/**
@@ -67,8 +63,6 @@ public abstract class GameObject implements Updatable {
 	 * @param effect a eltávolítandó effect
 	 */
 	public void removeEffect(Effect effect) {
-		Skeleton.logFunctionCall(this, "removeEffect", effect);
 		effects.remove(effect);
-		Skeleton.logReturn(void.class);
 	}
 }

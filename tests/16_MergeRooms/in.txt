@@ -1,0 +1,7 @@
+Create Room roomA 2
+Create Room roomB 4
+Create Door door roomA roomB
+Create Student student
+Add roomB student
+Merge roomA roomB
+Status roomA
