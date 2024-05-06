@@ -169,9 +169,17 @@ package Controller {
     }
     class ObjectFactory{
         + createDoor(fromRoom : Room, toRoom : Room, fromPos : Position, toPos : Position) : void
+        + createRoom(int capacity, position width, height) : void
         + createItem(position : Position) : void
+        + createItemSlideRule(position : Position) : void
+        + createItemTransistor(position : Position) : void
+        + createItemBeer(position : Position) : void
+        + createItemWetRag(position : Position) : void
+        + createItemCode(position : Position) : void
+        + createItemCamembert(position : Position) : void
+        + createItemAirFreshener(position : Position) : void
         + createNPC(position : Position) : void
-        + createJanitor(position : Position) : void
+        + createNPCJanitor(position : Position) : void
         + createPlayer(position : Position) : void
     }
 
