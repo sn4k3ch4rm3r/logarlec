@@ -89,7 +89,7 @@ package Model {
             + getPlayers() : Student 0..*
         }
         abstract Tile{
-            - coord : Coordinate
+            - coord : Position
             - texture : Texture
             + stepOn(person : Person) : void
         }
@@ -106,9 +106,13 @@ package Model {
         }
 
         class Entity{
-            - positionTile : FloorTile
+            - position : Position
             + getPerson() : Person
             + getPosition() : FloorTile
+        }
+        struct Position {
+            int x
+            int y
         }
 
         Tile <|-- FloorTile
