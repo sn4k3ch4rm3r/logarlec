@@ -1,62 +1,600 @@
 \chapter{Grafikus felület specifikációja}
 
 \section{A grafikus interfész}
-\comment{A menürendszer, a kezelői felület grafikus képe. A grafikus felület megjelenését, a használt ikonokat, stb screenshot-szerű képekkel kell bemutatni. Az építészetben ez a homlokzati terv.}
-\diagram{img/BMElogo}{Példa kép}{3cm}
+% \comment{A menürendszer, a kezelői felület grafikus képe. A grafikus felület megjelenését, a használt ikonokat, stb screenshot-szerű képekkel kell bemutatni. Az építészetben ez a homlokzati terv.}
+
+\diagram{img/graphics-plan/menu}{Menü terve}{14cm}
+\diagram{img/graphics-plan/game}{Játék felület terve}{14cm}
+
+\subsection{Vezérlés}
+A program indításakor a főmenü nyílik meg. A főmenüből új játék indítani, illetve kilépni lehet. Új játék indításakor a játékablak nyílik meg.
+\newline Itt az aktuálisan körön lévő játékost lehet irányítani. A térképen mozgatni a 'WASD' gombokkal lehet. Egy tárgyat felvenni úgy lehet, hogy a játékost ráléptetjük a csempére, amin van. Ajtóra lépés esetén a játékos megkísérel átlépni az ajtón. Falra nem lehet lépni. Más személy által elfoglalt csempére nem lehet lépni.
+\newline A játékosoknál lévő tárgyak az oldalsó panelen láthatók. 'E' gomb megnyomásakor kiválaszthatunk egy tárgyat, hogy használjuk. 'Q' gombbal hasonlóan eldobunk egy tárgyat. 'L' gombbal összelinkeljük a nálunk lévő tranzisztorokat. Space megnyomásával befejezzük a körünket, a következő játékos jön.
 
 \section{A grafikus rendszer architektúrája}
-\comment{A felület működésének elve, a grafikus rendszer architektúrája (struktúra diagramok). A struktúra diagramokon a prototípus azon és csak azon osztályainak is szerepelnie kell, amelyekhez a grafikus felületet létrehozó osztályok kapcsolódnak.}
+% \comment{A felület működésének elve, a grafikus rendszer architektúrája (struktúra diagramok). A struktúra diagramokon a prototípus azon és csak azon osztályainak is szerepelnie kell, amelyekhez a grafikus felületet létrehozó osztályok kapcsolódnak.}
 
 \subsection{A felület működési elve}
-\comment{Le kell írni, hogy a grafikai megjelenésért felelős osztályok, objektumok hogyan kapcsolódnak a meglevő rendszerhez, a megjelenítés során mi volt az alapelv. Törekedni kell az MVC megvalósításra. Alapelvek lehetnek: \textbf{push} alapú: a modell értesíti a felületet, hogy változott; \textbf{pull} alapú: a felület kérdezi le a modellt, hogy változott-e; \textbf{kevert}: a kettő kombinációja.}
+% \comment{Le kell írni, hogy a grafikai megjelenésért felelős osztályok, objektumok hogyan kapcsolódnak a meglevő rendszerhez, a megjelenítés során mi volt az alapelv. Törekedni kell az MVC megvalósításra. Alapelvek lehetnek: \textbf{push} alapú: a modell értesíti a felületet, hogy változott; \textbf{pull} alapú: a felület kérdezi le a modellt, hogy változott-e; \textbf{kevert}: a kettő kombinációja.}
+A játékunkhoz az MVC mintát választottuk. 3 részre bontjuk a programkódot. A Modellre, mely kezeli az alkalmazás logikai részét. A Nézetre, mely megjeleníti a különböző objektumokat. A Vezérlőre, mely a felhasználói bementeket kezeli. 
+A modellt kevert módon implementáljuk.
+Az MVC modellt a számos előnye miatt választottuk. Ilyen az egyidejű fejlesztés lehetősége, a rétegek függetlensége és a könnyen változtathatóság. A hátrányait a mintának is érdemes megjegyezni, de a gyengébb olvashatóság és a több boilerplate kód ellenére is megérte ezt a mintát választanunk.
 
 \subsection{A felület osztály-struktúrája}
-\comment{Osztálydiagram. Minden új osztály, és azon régiek, akik az újakhoz közvetlenül kapcsolódnak.}
-\diagram{img/BMElogo}{Példa kép}{3cm}
+% \comment{Osztálydiagram. Minden új osztály, és azon régiek, akik az újakhoz közvetlenül kapcsolódnak.}
+\diagram{img/diagrams/class/mvc-model}{Modell}{14cm}
+\diagram{img/diagrams/class/mvc-view}{View}{14cm}
+\diagram{img/diagrams/class/mvc-controller}{Controller}{14cm}
 
 \section{A grafikus objektumok felsorolása}
-\comment{Az új osztályok felsorolása. Az régi osztályok közül azoknak a felsorolása, ahol változás volt. Ezek esetén csak a változásokat kell leírni.}
 
-\subsection{Új osztályok}
-\subsubsection{Osztály1}
+
+\subsubsection{AIController}
 \begin{class-template-responsibility}
-    Felelősség leírása
+    Az oktatók és takarítók irályítása
 \end{class-template-responsibility}
 \begin{class-template-interface}
-    Megvalósított interfészek felsorolása
+    -
 \end{class-template-interface}
 \begin{class-template-baseclass}
-    Ős-Ősosztály \baseclass Ősosztály... 
+    PersonController
 \end{class-template-baseclass}
 \begin{class-template-attribute}
-    \classitem{+A [0..*]}{adattag A}
+    \classitem{entity : Entity}{Az oktatót/takarítót reprezentáló entitás.}
 \end{class-template-attribute}
-\comment{Milyen publikus, protected és privát  metódusokkal rendelkezik. Metódusonként precíz leírás, ha szükséges, activity diagram is a metódusban megvalósítandó algoritmusról. Minden olyan metódusnak szerepelnie kell, amelyiket az osztály megvalósít vagy felüldefiniál.}
 \begin{class-template-method}
-    \classitem{+B(A a) : void}{metódus B}
+    \classitem{turn() : void}{Az oktató/takarító van soron, random irányba megpróbál lépni.}
 \end{class-template-method}
 
-\subsection{Megváltozott osztályok}
-\subsubsection{Osztály2}
+\subsubsection{DoorTile}
 \begin{class-template-responsibility}
-    Felelősség leírása
+    Az ajtó reprezentálása. 
 \end{class-template-responsibility}
 \begin{class-template-interface}
-    Megvalósított interfészek felsorolása
+    -
 \end{class-template-interface}
 \begin{class-template-baseclass}
-    Ős-Ősosztály \baseclass Ősosztály... 
+    Tile
 \end{class-template-baseclass}
 \begin{class-template-attribute}
-    \classitem{+A [0..*]}{adattag A}
+    \classitem{door : Door}{Az pálya abszrakt reprezentációjában hozzá tartozó ajtó.}
 \end{class-template-attribute}
-\comment{Milyen publikus, protected és privát  metódusokkal rendelkezik. Metódusonként precíz leírás, ha szükséges, activity diagram is a metódusban megvalósítandó algoritmusról. Minden olyan metódusnak szerepelnie kell, amelyiket az osztály megvalósít vagy felüldefiniál.}
 \begin{class-template-method}
-    \classitem{+B(A a) : void}{metódus B}
+    \classitem{stepOn(person : Person) : boolean}{Valaki megpróbál átlépni az ajtón.}
+\end{class-template-method}
+
+\subsubsection{DoorTileView}
+\begin{class-template-responsibility}
+    Egy ajtó kirajzolása.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Drawable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{doorTile : DoorTile}{A nézethez tartozó DoorTile objektum.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    -
+\end{class-template-method}
+
+\subsubsection{Drawable}
+\begin{class-template-responsibility}
+    Interfész biztosítása a kirajzolható objektumoknak.
+\end{class-template-responsibility}
+\begin{class-template-method}
+    \classitem{draw(graphics : Graphics) : void}{Az objektum kirajzolása az adott grafikus kontextusban.}
+\end{class-template-method}
+
+\subsubsection{Entity}
+\begin{class-template-responsibility}
+    A játékban szereplő embereknek ad egy wrapper-t, ami tárolja a pozícióját.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{position : Position}{Az entitás x,y koordinátái világ térben}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{getPerson() : person}{Az entitás által reprezentált abszrakt modell beli ember lekérdezése.}
+    \classitem{getPosition() : Position}{Az entitás helyzetének lekérdezése.}
+\end{class-template-method}
+
+\subsubsection{FloorTile}
+\begin{class-template-responsibility}
+    Szobák padlóit reprezentáló csempe.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Tile
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{item : Item}{A csempén található elejtett tárgy, ha van.}
+    \classitem{person : Person}{A csempén álló személy, ha van.}
+    \classitem{onChangeListeners : Listener 0..*}{Az inventory megváltozását figyelő eseménykezelők.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{stepOn(person) : boolean}{Egy ember erre a mezőre lép. Igazat ad vissza, ha sikeres (nem állt ott más).}
+    \classitem{removePerson(person): void}{Az ember elhagyta a mezőt.}
+    \classitem{setItem(item): void}{A tárgy hozzáadása a cellához.}
+    \classitem{addOnChangeEventListener(onChange) : void}{A Tile változásának figyelése}
+\end{class-template-method}
+
+\subsubsection{FloorTileView}
+\begin{class-template-responsibility}
+    Egy padlóelem kirajzolása.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Drawable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{floorTile : FloorTile}{A mező, amit ez a nézet reprezentál.}
+    \classitem{itemView : ItemView}{A cellán lévő tárgy nézete (ha van).}
+    \classitem{personView : PersonView}{A cellán lévő személy nézete (ha van).}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{setItem(itemView : ItemView): void}{A mezőn lévő tárgy nézetének beállítása.}
+    \classitem{setPerson(personView : PersonView): void}{A mezőn álló ember nézetének beállítása.}
+\end{class-template-method}
+
+\subsubsection{Game}
+\begin{class-template-responsibility}
+    A játékbeli pálya és játékosok tárolása.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{tiles : Tile 0..*}{A játékteret alkotó mezők.}
+    \classitem{rooms : Room 2..*}{A játékteret alkotó szobák.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{}{}
+\end{class-template-method}
+
+\subsubsection{GameController}
+\begin{class-template-responsibility}
+    A játék központi vezérlője, ismeri a játékállapotot, a megjelenítőket, illetve az alacsonyabb szintű vezérlőket, és ezek kapcsolatát.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{players : PlayerController 1..4}{Játékosok vezérlői}
+    \classitem{npcs : AiController 1..*}{Oktatók és takarítók vezérlői}
+    \classitem{modelViews : Map<Object, Drawable>}{A modellbeli objektumok és őket reprezentáló nézetek kapcsolatát tárolja.}
+    \classitem{renderer : Renderer}{Kirajzolja a játékot.}
+    \classitem{gamePanel : GamePanel}{A kirenderelt játékot megjelenító panel.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{addModelView(object : Object, view : Drawable) : void}{Egy modell objektum és hozzátartozó nézet összerendelése.}
+    \classitem{getModelView(object : Object) : Drawable}{Az objektum nézetének lekérdezése.}
+    \classitem{addRoom(room : Room) : void}{Egy szoba hozzáadása a kontrollerhez.}
+    \classitem{addRoomView(roomView) : void}{Egy szoba nézetének hozzáadása a kontrollerhez.}
+    \classitem{setTile(tile : Tile, position : Position) : void}{A pályán a megadott pozícióban elhelyez egy cellát.}
+    \classitem{getTile(position : Position) : Tile}{A megadott pozícióban lévő csempe lekérdezése.}
+    \classitem{getCurrentPlayer() : void}{A soron következő játékos lekérdezése.}
+    \classitem{addEntity(Entity) : void}{Entitás hozzáadása a kontrollerhez.}
+    \classitem{addPlayerController(controller : PlayerController) : void}{Játékos-kontroller hozzáadása a kontrollerhez.}
+    \classitem{addAiController(controller : AiController) : void}{Oktató / takarító kontrollerének regisztrálása.}
+\end{class-template-method}
+
+\subsubsection{GamePanel}
+\begin{class-template-responsibility}
+    A játékot megjelenítő panel.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    JPanel
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{renderer : Renderer}{A nézeteket kirajzoló objektum.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{repaint() : void}{A renderer által rajzolt képet jeleníti meg teljes méretében.}
+\end{class-template-method}
+
+\subsubsection{GameView}
+\begin{class-template-responsibility}
+    A pálya és a különböző felhasználói felületek kirajzolása.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Drawable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{game : Game}{A játékállapot.}
+    \classitem{mapView : MapView}{A pálya nézete}
+    \classitem{sideBarView : SideBarView}{Az oldalsó panel nézete}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{draw(graphics) : void}{Kirajzolás.   }
+\end{class-template-method}
+
+\subsubsection{InventoryController}
+\begin{class-template-responsibility}
+    Egy játékos tárgyainak nyilvántartása, és a változtatások kezelése.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{inventoryView : InventoryView}{Az inventory nézete}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{onInventoryChanged(inventory) : void}{Az Inventory változásának kezelése.}
+\end{class-template-method}
+
+\subsubsection{InventoryView}
+\begin{class-template-responsibility}
+    Egy játékos tárgyainak megjelenítése.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Drawable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{clearItems() : void}{Tárgynézetek törlése.}
+    \classitem{addItem(itemView) : void}{Egy új tárgy megjelenítése az inventoryban.}
+\end{class-template-method}
+
+\subsubsection{ItemView}
+\begin{class-template-responsibility}
+    Egy tárgy kirajzolása.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Drawable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{item : Item}{A tárgy, amihez a nézet tartozik.}
+    \classitem{sprite : Sprite}{A tárgyat megjelenítő kép.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{}{}
+\end{class-template-method}
+
+\subsubsection{KeyboardEventListener}
+\begin{class-template-responsibility}
+    A billentyűzet felügyelete.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{keyPressed(key) : void}{A megfelelő esemény végrehajtása a billentyű lenyomásának hatására.}
+\end{class-template-method}
+
+\subsubsection{MapView}
+\begin{class-template-responsibility}
+    A pálya kirajzolása.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Drawable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{roomViews : RoomView 0..*}{A pályát alkotó szobák nézetei.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{draw(graphics : Graphics) : void}{Kirajzolás}
+\end{class-template-method}
+
+\subsubsection{PersonController}
+\begin{class-template-responsibility}
+    Ősosztály biztosítása a PlayerControllernek és az AIControllernek.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+-
+\end{class-template-attribute}
+\begin{class-template-method}
+-
+\end{class-template-method}
+
+\subsubsection{PersonView}
+\begin{class-template-responsibility}
+    Egy személy kirajzolása.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Drawable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{person : Person}{A nézethez tartozó személy objektum.}
+    \classitem{sprite : Sprite}{Az embernek megfelelő kép, amivel kirajzolódik.}
+\end{class-template-attribute}
+\begin{class-template-method}
+-
+\end{class-template-method}
+
+\subsubsection{PlayerController}
+\begin{class-template-responsibility}
+    A játékos irányítása.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    PersonController
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{inventoryController : InventoryController}{A játékos eszköztárának vezérlője}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{move(direction) : void}{A játékos elmozdítása a megfelelő irányba.}
+\end{class-template-method}
+
+\subsubsection{PlayerView}
+\begin{class-template-responsibility}
+    Egy játékos kirajzolása az oldalsó panelre.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Drawable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{inventoryView : InventoryView}{A játékos inventoryjának nézete.}
+    \classitem{personView : PersonView}{A játékoshoz tartozó kinézet.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{}{}
+\end{class-template-method}
+
+\subsubsection{RoomView}
+\begin{class-template-responsibility}
+    A pálya kirajzolása.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Drawable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{tiles : TileView 0..*}{A szobát alkotó mezők nézetei.}
+    \classitem{room : Room}{A nézethez tartozó modellbeli objektum.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{addTile(tileView) : void}{Egy új cella hozzáadása a szobához.}
+\end{class-template-method}
+
+\subsubsection{SideBarView}
+\begin{class-template-responsibility}
+    Az oldalsó panel kirajzolása.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Drawable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+     \classitem{draw(graphics Graphics) : void}{Kirajzolás}
+\end{class-template-method}
+
+\subsubsection{Tile}
+\begin{class-template-responsibility}
+    Absztrakt osztály biztosítása a csempék számára. Az absztrakt osztály megvalósítja a csempe helyzete számontartásához szükséges funkciót.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{room : Room}{A szoba, amihez a mező tartozik.}
+    \classitem{onChangeListeners : Listener 0..*}{A mezőt figyelő eseménykezelők.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{stepOn(person) : boolean}{A személy megpróbál rálépni a csempére. Ha már van rajta személy, akkor ez nem sikerül. A visszatérés a csempe, amin ezután lesz.}
+    \classitem{addOnChangeEventListener(onChange) : void}{A Tile változásának figyelése}
+\end{class-template-method}
+
+\subsubsection{TileController}
+\begin{class-template-responsibility}
+    A játék csempéinek a kezelése.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{tile : Tile}{A hozzátartozó cella.}
+    \classitem{tileView : TileView}{A hozzátartozó cella nézete.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{onTileChanged() : void}{A csempe változásának a kezelése.}
+\end{class-template-method}
+
+\subsubsection{TileView}
+\begin{class-template-responsibility}
+    Egy mező kirajzolása.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Drawable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{tile : Tile}{A mező, amit ez a nézet reprezentál.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    -
+\end{class-template-method}
+
+\subsubsection{TransistorView}
+\begin{class-template-responsibility}
+    Egy tranzisztor kirajzolása. Azért van ennél az egy tárgynál külön szükség rá, mivel míg a többi tárgynál elég a sprite-ot létrehozásnál megadni, addig a tranzisztor állapotától függően az változhat.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Drawable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    ItemView
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{transistor : Transistor}{A tranzisztor, amit megjelenít.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{draw(graphics : Graphics) : void}{Kirajzolja a tranzisztort, megjelenítve azt is, hogy aktív-e.}
+\end{class-template-method}
+
+\subsubsection{WallTile}
+\begin{class-template-responsibility}
+    Vizuálisan is megjeleníthető pályahatárok biztosítása.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    Tile
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{stepOn(person) : boolean}{Hamisat ad vissza, mivel falra nem lehet lépni.}
+\end{class-template-method}
+
+\subsubsection{WallTileView}
+\begin{class-template-responsibility}
+    Egy faldarab kirajzolása.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Drawable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+-
+\end{class-template-attribute}
+\begin{class-template-method}
+-
+\end{class-template-method}
+
+\subsubsection{ObjectFactory}
+\begin{class-template-responsibility}
+    Factory mintát követő objektum gyártás
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    -
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    -
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{createRoom(int capacity, position  widht, height) : Room}{Létrehoz  egy szobát és a benne lévő csempéket: Falcsempék a szélére, padlócsempék a többi helyre. Modellbeli és view-beli objektumokat is gyárt}
+    \classitem{createDoor(Room fromRoom, Room toRoom, position fromPos, position toPos) : Door}{ajtó gyártása: modellbeli ajtó + modellbeli és view-beli csempék.}
+    \classitem{createPlayer(position position) : Student}{játékos gyártása: Student, hozzátartozó entity és view}
+    \classitem{createNPC(position position) : Teacher}{NPC gyártása: Teacher, hozzátartozó entity és view}
+    \classitem{createNPCJanitor(position position) : Janitor}{NPC gyártása: Janitor, hozzátartozó entity és view}
+    \classitem{createItemSlideRule(position position) : SlideRule}{Item + view gyártása}
+    \classitem{createItemBeer(position position) : Beer}{Item + view gyártása}
+    \classitem{createItemWetRag(position position) : WetRag}{Item + view  gyártása}
+    \classitem{createItemCode(position position) : CodeOfStudies}{Item + view gyártása}
+    \classitem{createItemMask(position position) : Mask}{Item + view  gyártása}
+    \classitem{createItemCamembert(position position) : Camambert}{Item + view gyártása}
+    \classitem{createItemAirFreshener(position position) : AirFreshener}{Item + view gyártása}
+    \classitem{createItemTransistor(position position) : Transistor}{Item + view gyártása + még egy item gyártása}
+\end{class-template-method}
+
+
+\subsection{Megváltozott osztályok}
+Az alapelvünk az átalakításnál az volt, hogy a lehető legkevesebb dolgott kelljen megváltoztatni a a már meglévő osztálystruktúrában, ezért ahol lehetett inkább új osztályokba csomagoltuk a meglévő modell objektumait.
+
+\subsubsection{Inventory}
+\begin{class-template-responsibility}
+    Az entitások által birtokolt tárgyak számontartása a modellben.
+\end{class-template-responsibility}
+\begin{class-template-interface}
+    Updatable
+\end{class-template-interface}
+\begin{class-template-baseclass}
+    -
+\end{class-template-baseclass}
+\begin{class-template-attribute}
+    \classitem{onChangeListeners : Listener 0..*}{Az inventory megváltozását figyelő eseménykezelők.}
+\end{class-template-attribute}
+\begin{class-template-method}
+    \classitem{addOnChangeEventLitener(listener : Listener) : void}{Listener feliratkoztatása az inventory változás event-ére.}
+    \classitem{onChanged() : void}{Értesíti a feliratkozott eseménykezelőket a változásról.}
+    \classitem{add(item : Item) : boolean}{A korábbi működésen túl meghívja az \textit{onChanged()} metódust.}
+    \classitem{remove(item : Item) : void}{A korábbi működésen túl meghívja az \textit{onChanged()} metódust.}
 \end{class-template-method}
 
 \section{Kapcsolat az alkalmazói rendszerrel}
-\comment{Szekvencia-diagramokon ábrázolni kell a grafikus rendszer működését. Konzisztens kell legyen az előző alfejezetekkel. Minden metódus, ami ott szerepel, fel kell tűnjön valamelyik szekvenciában. Minden metódusnak, ami szekvenciában szerepel, szereplnie kell a valamelyik osztálydiagramon.}
+% \comment{Szekvencia-diagramokon ábrázolni kell a grafikus rendszer működését. Konzisztens kell legyen az előző alfejezetekkel. Minden metódus, ami ott szerepel, fel kell tűnjön valamelyik szekvenciában. Minden metódusnak, ami szekvenciában szerepel, szereplnie kell a valamelyik osztálydiagramon.}
 
-
-
+\diagram{img/diagrams/graphics-sequence/create-door}{Ajtó létrehozása}{14cm}
+\diagram{img/diagrams/graphics-sequence/create-item}{Tárgy létrehozása}{14cm}
+\diagram{img/diagrams/graphics-sequence/create-npc}{NPC létrehozása}{14cm}
+\diagram{img/diagrams/graphics-sequence/create-player}{Játékos létrehozása}{14cm}
+\diagram{img/diagrams/graphics-sequence/create-room}{Szoba létrehozása}{14cm}
+\diagram{img/diagrams/graphics-sequence/drop-item}{Tárgy eldobása}{14cm}
+\diagram{img/diagrams/graphics-sequence/entity-movement}{Mozgás}{14cm}
+\diagram{img/diagrams/graphics-sequence/inventory-changed}{Inventory megváltozása}{14cm}
+\diagram{img/diagrams/graphics-sequence/move-player}{Játékos mozgatása}{14cm}
+\diagram{img/diagrams/graphics-sequence/render-game-view}{Pálya kirajzolása}{14cm}
+\diagram{img/diagrams/graphics-sequence/render-game}{Játék kirajzolása}{14cm}
+\diagram{img/diagrams/graphics-sequence/render-side-panel}{Oldalsó panel kirajzolása}{14cm}
+\diagram{img/diagrams/graphics-sequence/renderer}{Renderer működése}{14cm}
