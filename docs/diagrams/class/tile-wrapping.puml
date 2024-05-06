@@ -94,9 +94,13 @@ package Model {
             + stepOn(person : Person) : void
         }
         class FloorTile{
+            - item : Item
+            - person : Person
+            - onChangeListeners : Listener[]
             + stepOn(person : Person) : void
             + removePerson(person : Person) : void
             + setItem(item : Item) : void
+            + addOnChangeEventListener(onChange : void) : void
         }
         class DoorTile{
             - door : Door
