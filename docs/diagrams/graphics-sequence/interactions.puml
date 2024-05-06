@@ -43,6 +43,7 @@ participant "person : Person" as person
 participant "tileController : TileController" as tileController
 participant "tileView : FloorTile" as tileView
 participant "controller : GameController" as controller
+participant "entity : Entity" as entity
 
 
 [-> tile ++: stepOn(person)
@@ -52,6 +53,8 @@ participant "controller : GameController" as controller
 			tile -> person ++: addItem(item)
 			return
 		end
+		tile -> entity ++ : setTile(tile)
+        return
 		tile -> tile ++: onChanged()
 			tile -> tileController ++: onTileChanged()
 				tileController -> tile ++: getItem()
