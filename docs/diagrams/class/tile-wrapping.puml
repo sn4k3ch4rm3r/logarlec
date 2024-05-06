@@ -232,9 +232,6 @@ package View {
         - personView : PersonView
         + setItem(itemView : ItemView) : void
         + setPerson(personView : PersonView) : void
-        + setPerson(null) : void
-        + setItem(null) : void
-
     }
     class WallTileView
     class DoorTileView{
