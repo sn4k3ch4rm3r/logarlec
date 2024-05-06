@@ -2,7 +2,15 @@
 
 package Model {
     package "Base Model" {
-        abstract GameObject
+        abstract GameObject{
+            + {abstract} addItem(item : Item) : void
+            + {abstract} removeItem(item : Item) : void
+            + {abstract} applyEffect(effect : Effect) : void
+            + {abstract} interactTeacher(teacher : Teacher) : void
+            + {abstract} interactJanitor(janitor : Janitor) : void
+            + addEffect(effect : Effect) : void
+            + removeEffect(effect : Effect) : void
+        }
         class Room{
         - capacity : int
 		- personCount : int
@@ -37,7 +45,16 @@ package Model {
             + getInventory() : Inventory
         }
         
-        abstract Item
+        abstract Item{
+            + {abstract} use() : void
+            + {abstract} useAgainst(target : Teacher) : void
+            + {abstract} usePassive() : bool
+            + {abstract} useItem(item : Item) : void
+            + {abstract} link(other : Transistor) : void
+            + drop() : void
+            + setRoom(room : Room) : void
+            + setPerson(person : Person) : void
+        }
         class Door{
             - oneWay : bool
             + use(person : Person, from : Room) : void
@@ -70,12 +87,30 @@ package Model {
             + getRooms() : Room 0..*
             + getPlayers() : Student 0..*
         }
-        abstract Tile
-        class FloorTile
-        class DoorTile
-        class WallTile
+        abstract Tile{
+            - coord : Coordinate
+            - texture : Texture
+            + stepOn(person : Person) : void
+        }
+        class FloorTile{
+            + stepOn(person : Person) : void
+            + removePerson(person : Person) : void
+            + setItem(item : Item) : void
+        }
+        class DoorTile{
+            - door : Door
+            + doorTile(person : Person) : FloorTile
 
-        class Entity
+        }
+        class WallTile{
+            + stepOn(person : Person) : FloorTile
+        }
+
+        class Entity{
+            - positionTile : FloorTile
+            + getPerson() : Person
+            + getPosition() : FloorTile
+        }
 
         Tile <|-- FloorTile
         Tile <|-- DoorTile
@@ -129,7 +164,8 @@ package Controller {
         + getInventoryView() : InventoryView
     }
     class TileController{
-        + tile : Tile
+        - tile : Tile
+        - tileView : TileView
         + onTileChanged() : void
     }
     class ObjectFactory{
