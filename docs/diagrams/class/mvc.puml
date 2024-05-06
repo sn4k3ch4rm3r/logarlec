@@ -1,0 +1,316 @@
+@startuml mvc-model
+package Model {
+    package "Base Model" {
+        abstract GameObject{
+            + {abstract} addItem(item : Item) : void
+            + {abstract} removeItem(item : Item) : void
+            + {abstract} applyEffect(effect : Effect) : void
+            + {abstract} interactTeacher(teacher : Teacher) : void
+            + {abstract} interactJanitor(janitor : Janitor) : void
+            + addEffect(effect : Effect) : void
+            + removeEffect(effect : Effect) : void
+        }
+        class Room{
+        - capacity : int
+		- personCount : int
+		- visitorsSinceClean : int
+		+ enter(person : Person) : boolean
+		+ leave(person : Person) : void
+		+ merge(room : Room) : void
+		+ split() : Room
+		+ moveContents(room : Room) : void
+		+ addDoor(door : Door) : void
+		+ removeDoor(door : Door) : void 
+		+ hideDoors() : void
+		+ showDoors() : void
+		+ interactCleanEffect(cleanEffect : CleanEffect) : void
+		+ getOut(person : Person) : void
+		+ clean() : void
+		+ isClean() : bool
+        }
+        abstract Person{
+            - name : String
+            - knockOutTime : double
+            + {abstract} protectFromTeacher(target : Teacher) : void
+            + enterRoom(room : Room) : void
+            + dropItem(item : Item) : void
+            + setKnockOut(value : double) : void
+            + getOut() : void
+        }
+        class Student{
+            - eliminated : bool
+            + setEliminated(value : bool) : void
+            + dropRandomItem() : void
+            + getInventory() : Inventory
+        }
+        
+        abstract Item{
+            + {abstract} use() : void
+            + {abstract} useAgainst(target : Teacher) : void
+            + {abstract} usePassive() : bool
+            + {abstract} useItem(item : Item) : void
+            + {abstract} link(other : Transistor) : void
+            + drop() : void
+            + setRoom(room : Room) : void
+            + setPerson(person : Person) : void
+        }
+        class Door{
+            - oneWay : bool
+            + use(person : Person, from : Room) : void
+            + move(from : Room, to : Room) : void
+            + hide() : void
+            + show() : void
+        }
+        class Inventory{
+            - itemCount : int
+            - onChangeListeners : Listener[]
+            + add(item : Item) : bool
+            + remove(item : Item) : void
+            + setRoom(room : Room) : void
+            + protectFrom(teacher : Teacher) : void
+            + dropRandomItem() : void
+            + addOnChangeEventListener(onChange : void) : void
+        }
+
+        GameObject <|-- Room
+        GameObject <|-- Person
+        GameObject <|-- Item
+
+        Door o- Room
+        Person *-- Inventory
+        Inventory o- Item
+        Person <|-- Student
+    }
+
+    package "Wrapper" {
+        class Game {
+            + getRooms() : Room 0..*
+            + getPlayers() : Student 0..*
+        }
+        abstract Tile{
+            - coord : Position
+            - texture : Texture
+            + stepOn(person : Person) : void
+        }
+        class FloorTile{
+            - item : Item
+            - person : Person
+            - onChangeListeners : Listener[]
+            + stepOn(person : Person) : void
+            + removePerson(person : Person) : void
+            + setItem(item : Item) : void
+            + addOnChangeEventListener(onChange : void) : void
+        }
+        class DoorTile{
+            - door : Door
+        }
+        class WallTile{
+            + stepOn(person : Person) : FloorTile
+        }
+
+        class Entity{
+            - position : Position
+            + getPerson() : Person
+            + getPosition() : FloorTile
+        }
+        struct Position {
+            int x
+            int y
+        }
+
+        Tile <|-- FloorTile
+        Tile <|-- DoorTile
+        Tile <|-- WallTile
+
+        Entity o-- Person
+        Tile o-- Item
+        Tile o- Entity
+
+        Game "tiles 0..*" *-- Tile
+        Game "entities 0..*" *-- Entity
+    }
+
+    Tile o-- Room
+    DoorTile o-- Door
+
+    Game "rooms 0..*" *-- Room
+    Game "players 1..4" o-- Student
+}
+@enduml
+
+@startuml mvc-controller
+package Controller {
+    class GameController {
+        - currentPlayer : Player
+        - players : PlayerController 1..4
+        - rooms : Room[]
+        - roomViews : RoomView[]
+        + addModelView(object: GameObject, representation : Drawable) : void
+        + getModelView(item : Item) : ItemView
+        + addRoom(room : Room) : void
+        + addRoomView(roomView : RoomView) : void
+        + setTile(fromTile : Tile, fromView : View) : void
+        + getTile(position : Position) : Tile
+        + getCurrentPlayer() : Player
+        + addEntity(entity : Entity) : void
+        + addPlayerController(playerController : PlayerController) : void
+
+        + updateView() : void
+    }
+    class KeyboardEventListener{
+        + keyPressed(key : int) : void
+    }
+    class PersonController{
+        - person : Person
+        + move(direction : Direction) : void
+    }
+    class PlayerController{
+        + dropItem(index : int) : void
+    }
+    class AiController
+    class InventoryController{
+        + onInventoryChanged() : void
+        + getInventoryView() : InventoryView
+    }
+    class TileController{
+        - tile : Tile
+        - tileView : TileView
+        + onTileChanged() : void
+    }
+    class ObjectFactory{
+        + createDoor(fromRoom : Room, toRoom : Room, fromPos : Position, toPos : Position) : void
+        + createRoom(int capacity, position width, height) : void
+        + createItem(position : Position) : void
+        + createItemSlideRule(position : Position) : void
+        + createItemTransistor(position : Position) : void
+        + createItemBeer(position : Position) : void
+        + createItemWetRag(position : Position) : void
+        + createItemCode(position : Position) : void
+        + createItemCamembert(position : Position) : void
+        + createItemAirFreshener(position : Position) : void
+        + createNPC(position : Position) : void
+        + createNPCJanitor(position : Position) : void
+        + createPlayer(position : Position) : void
+    }
+
+    PersonController <|-- PlayerController
+    PersonController <|-- AiController
+
+    GameController -> KeyboardEventListener
+    ObjectFactory <- GameController
+    GameController *-- PlayerController
+    InventoryController -* PlayerController
+}
+
+GameController *--- Renderer
+GameController "gameState" *--- Game
+InventoryController o-- InventoryView
+@enduml
+
+@startuml mvc-view
+
+
+
+package View {
+    class Window
+    class MenuPanel
+    class GamePanel
+
+    Window *-- MenuPanel
+    Window *-- GamePanel
+
+
+    ' Everything ending in View should implement
+    ' Drawable, but it's already chaotic enough
+    interface Drawable
+    {
+        + draw(graphics : Graphics) : void
+    }
+
+    class GameView{
+        + draw(graphics : Graphics2D) : void
+    }
+    class MapView{
+        + draw(subGraphics : Graphics2D) : void
+    }
+    class SideBarView{
+        + draw(subGraphics : Graphics2D) : void
+    }
+    class RoomView{
+        - tiles : TileView 0..*
+        + addTile(tileView : TileView) : void
+    }
+    class TileView{
+        - room : Room
+        - rooms : RoomView[]
+        - onChangeListeners : Listener[]
+        + addOnChangeEventListener(onChange : void) : void
+    }
+    class FloorTileView{
+        - itemView : ItemView
+        - personView : PersonView
+        + setItem(itemView : ItemView) : void
+        + setPerson(personView : PersonView) : void
+    }
+    class WallTileView
+    class DoorTileView{
+        - door : Door
+    }
+    class PersonView{
+        - person : Person
+    }
+    class PlayerView{
+        - inventoryView : InventoryView
+        - personView : PersonView
+    }
+    class InventoryView{
+        + clearItems() : void
+        + addItem(item : ItemView) : void
+    }
+    class ItemView{
+        - item : Item
+    }
+    class TransistorView
+
+	Drawable <|.. GameView
+	Drawable <|.. MapView
+	Drawable <|.. SideBarView
+	Drawable <|.. RoomView
+	Drawable <|.. TileView
+	Drawable <|.. PersonView
+	Drawable <|.. PlayerView
+	Drawable <|.. InventoryView
+	Drawable <|.. ItemView
+
+    ItemView <|-- TransistorView
+    TileView <|-- FloorTileView
+    TileView <|-- WallTileView
+    TileView <|-- DoorTileView
+
+    InventoryView o-- ItemView
+    GameView o-- SideBarView
+    SideBarView o-- PlayerView
+    GameView o-- MapView
+    MapView o-- RoomView
+    RoomView o-- TileView
+    FloorTileView o-- PersonView
+    FloorTileView o-- ItemView
+    PlayerView o-- InventoryView
+    PlayerView o-- PersonView
+
+	class Renderer {
+		render(view : Drawable) : void
+	}
+	GamePanel o-- Renderer
+	Renderer -> Drawable
+}
+GameView o-- Game
+
+PlayerView "person" o-- Student
+InventoryView "inventory" o-- Inventory
+ItemView "item" o-- Item
+RoomView "room" o-- Room
+TileView "tile" o-- Tile
+DoorTileView o-- Door
+PersonView o-- Person
+@enduml
