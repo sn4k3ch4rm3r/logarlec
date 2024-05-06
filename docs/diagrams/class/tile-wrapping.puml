@@ -64,6 +64,7 @@ package Model {
         }
         class Inventory{
             - itemCount : int
+            - onChangeListeners : Listener[]
             + add(item : Item) : bool
             + remove(item : Item) : void
             + setRoom(room : Room) : void
@@ -225,6 +226,7 @@ package View {
     class TileView{
         - room : Room
         - rooms : RoomView[]
+        - onChangeListeners : Listener[]
         + addOnChangeEventListener(onChange : void) : void
     }
     class FloorTileView{
