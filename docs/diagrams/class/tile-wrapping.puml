@@ -45,7 +45,16 @@ package Model {
             + getInventory() : Inventory
         }
         
-        abstract Item
+        abstract Item{
+            + {abstract} use() : void
+            + {abstract} useAgainst(target : Teacher) : void
+            + {abstract} usePassive() : bool
+            + {abstract} useItem(item : Item) : void
+            + {abstract} link(other : Transistor) : void
+            + drop() : void
+            + setRoom(room : Room) : void
+            + setPerson(person : Person) : void
+        }
         class Door{
             - oneWay : bool
             + use(person : Person, from : Room) : void
