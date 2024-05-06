@@ -4,7 +4,7 @@ title Render The Game
 hide footbox
 skinparam SequenceReferenceBackgroundColor white
 
-participant "controller : Controller" as controller
+participant "controller : GameController" as controller
 participant "renderer : Renderer" as renderer
 participant "gameView : GameView" as gameView
 participant "mapView : MapView" as mapView

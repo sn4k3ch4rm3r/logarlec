@@ -3,11 +3,57 @@
 package Model {
     package "Base Model" {
         abstract GameObject
-        class Room
-        abstract Person
+        class Room{
+        - capacity : int
+		- personCount : int
+		- visitorsSinceClean : int
+		+ enter(person : Person) : boolean
+		+ leave(person : Person) : void
+		+ merge(room : Room) : void
+		+ split() : Room
+		+ moveContents(room : Room) : void
+		+ addDoor(door : Door) : void
+		+ removeDoor(door : Door) : void 
+		+ hideDoors() : void
+		+ showDoors() : void
+		+ interactCleanEffect(cleanEffect : CleanEffect) : void
+		+ getOut(person : Person) : void
+		+ clean() : void
+		+ isClean() : bool
+        }
+        abstract Person{
+            - name : String
+            - knockOutTime : double
+            + {abstract} protectFromTeacher(target : Teacher) : void
+            + enterRoom(room : Room) : void
+            + dropItem(item : Item) : void
+            + setKnockOut(value : double) : void
+            + getOut() : void
+        }
+        class Student{
+            - eliminated : bool
+            + setEliminated(value : bool) : void
+            + dropRandomItem() : void
+            + getInventory() : Inventory
+        }
+        
         abstract Item
-        class Door
-        class Inventory
+        class Door{
+            - oneWay : bool
+            + use(person : Person, from : Room) : void
+            + move(from : Room, to : Room) : void
+            + hide() : void
+            + show() : void
+        }
+        class Inventory{
+            - itemCount : int
+            + add(item : Item) : bool
+            + remove(item : Item) : void
+            + setRoom(room : Room) : void
+            + protectFrom(teacher : Teacher) : void
+            + dropRandomItem() : void
+            + addOnChangeListener(onChange : void) : void
+        }
 
         GameObject <|-- Room
         GameObject <|-- Person
@@ -52,13 +98,20 @@ package Model {
 
 package Controller {
     class GameController {
-        - currentPlayer
+        - currentPlayer : Player
+        - players : PlayerController 1..4
+        - rooms : Room[]
+        - roomViews : RoomView[]
         + setTile(fromTile : Tile, fromView : View) : void
         + addEntity(entity : Entity) : void
         + addPlayerController(playerController : PlayerController) : void
         + addModelView(person: Person, personView: PersonView) : void
+        + addModelView(room : Room, roomView : RoomView) : void
+        + addRoom(room : Room) : void
+        + addRoomView(roomView : RoomView) : void
         + getTile(position : Position) : Tile
         + getCurrentPlayer() : Player
+        + updateView() : void
     }
     class KeyboardEventListener{
         + keyPressed(key : int) : void
@@ -66,7 +119,6 @@ package Controller {
     class PersonController{
         - person : Person
         + move(direction : Direction) : void
-        + pickupItem() : void
     }
     class PlayerController{
         + dropItem(index : int) : void
@@ -74,8 +126,10 @@ package Controller {
     class AiController
     class InventoryController{
         + onInventoryChanged() : void
+        + getInventoryView() : InventoryView
     }
     class TileController{
+        + tile : Tile
         + onTileChanged() : void
     }
     class ObjectFactory{
@@ -104,14 +158,24 @@ package View {
     Window *-- MenuPanel
     Window *-- GamePanel
 
-    interface Drawable
+
     ' Everything ending in View should implement
     ' Drawable, but it's already chaotic enough
+    interface Drawable
+    {
+        + draw() : void
+    }
+
     class GameView
     class MapView
     class SidePanelView
-    class RoomView
-    class TileView
+    class RoomView{
+        - tiles : TileView 0..*
+        + addTile(tileView : TileView) : void
+    }
+    class TileView{
+        + addOnChangeListener(onChange : void) : void
+    }
     class FloorTileView
     class WallTileView
     class DoorTileView
