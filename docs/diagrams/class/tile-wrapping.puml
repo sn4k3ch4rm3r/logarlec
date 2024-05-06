@@ -69,7 +69,7 @@ package Model {
             + setRoom(room : Room) : void
             + protectFrom(teacher : Teacher) : void
             + dropRandomItem() : void
-            + addOnChangeListener(onChange : void) : void
+            + addOnChangeEventListener(onChange : void) : void
         }
 
         GameObject <|-- Room
@@ -225,7 +225,7 @@ package View {
     class TileView{
         - room : Room
         - rooms : RoomView[]
-        + addOnChangeListener(onChange : void) : void
+        + addOnChangeEventListener(onChange : void) : void
     }
     class FloorTileView{
         - itemView : ItemView
