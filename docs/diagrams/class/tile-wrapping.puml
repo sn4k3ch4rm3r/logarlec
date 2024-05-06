@@ -53,13 +53,38 @@ package Model {
 package Controller {
     class GameController {
         - currentPlayer
+        + setTile(fromTile : Tile, fromView : View) : void
+        + addEntity(entity : Entity) : void
+        + addPlayerController(playerController : PlayerController) : void
+        + addModelView(person: Person, personView: PersonView) : void
+        + getTile(position : Position) : Tile
+        + getCurrentPlayer() : Player
     }
-    class KeyboardEventListener
-    class PersonController
-    class PlayerController
+    class KeyboardEventListener{
+        + keyPressed(key : int) : void
+    }
+    class PersonController{
+        - person : Person
+        + move(direction : Direction) : void
+        + pickupItem() : void
+    }
+    class PlayerController{
+        + dropItem(index : int) : void
+    }
     class AiController
-    class InventoryController
-    class TileController
+    class InventoryController{
+        + onInventoryChanged() : void
+    }
+    class TileController{
+        + onTileChanged() : void
+    }
+    class ObjectFactory{
+        + createDoor(fromRoom : Room, toRoom : Room, fromPos : Position, toPos : Position) : void
+        + createItem(position : Position) : void
+        + createNPC(position : Position) : void
+        + createJanitor(position : Position) : void
+        + createPlayer(position : Position) : void
+    }
 
     PersonController <|-- PlayerController
     PersonController <|-- AiController
