@@ -1,0 +1,111 @@
+@startuml render-game
+
+title Render The Game
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "controller : Controller" as controller
+participant "renderer : Renderer" as renderer
+participant "gameView : GameView" as gameView
+participant "mapView : MapView" as mapView
+participant "sideBarView : SideBarView" as sideBarView
+participant "gamePanel : GamePanel" as gamePanel
+
+[-> controller ++: updateView()
+	controller -> renderer ++: clear()
+	return
+	controller -> renderer ++: render(gameView)
+		renderer -> gameView ++: draw(graphics)
+			gameView -> mapView ++: draw(subGraphics)
+			return
+			gameView -> sideBarView ++: draw(subGraphics)
+			return
+		return
+	return
+	controller -> gamePanel ++: repaint()
+		gamePanel -> renderer ++: getScreenBuffer()
+		return screenBuffer
+	return
+return
+
+@enduml
+
+@startuml renderer
+
+title Renderer Rendering
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "renderer : Renderer" as renderer
+participant "view : Drawable" as view
+
+[-> renderer ++: render(view)
+	renderer -> view ++: draw(graphics)
+	return
+return
+
+@enduml
+
+@startuml render-game-view
+
+title Rendering the Map
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "mapView : MapView" as MapView
+participant "roomView : RoomView" as roomView
+participant "tileView : TileView" as tileView
+participant "itemView : Drawable" as itemView
+participant "personView : Drawable" as personView
+
+[-> mapView ++: draw(graphics)
+	loop roomView in roomViews
+		mapView -> roomView ++: draw(graphics)
+			loop tileView in tileViews
+				roomView -> tileView ++: draw(graphics)
+					opt tile has item
+						tileView -> itemView ++: draw(subGraphics)
+						return
+					end
+					opt tile has person
+						tileView -> personView ++: draw(subGraphics)
+						return
+					end
+				return
+			end
+		return
+	end
+return
+
+@enduml
+
+
+@startuml render-side-panel
+
+title Rendering the SidePanelView
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "sidePanelView : SidePanelView" as sidePanelView
+participant "playerView : PlayerView" as playerView
+participant "personView : PersonView" as personView
+participant "inventoryView : InventoryView" as inventoryView
+participant "itemView : ItemView" as itemView
+
+
+[-> sidePanelView ++: draw(graphics)
+	loop playerView in playerViews
+		sidePanelView -> playerView ++: draw(subGraphics)
+			playerView -> personView ++: draw(subGraphics)
+			return
+			playerView -> inventoryView ++: draw(subGraphics)
+				loop itemView in itemViews
+					inventoryView -> itemView ++: draw(subGraphics)
+					return
+				end
+			return
+		return
+	end
+return
+
+@enduml

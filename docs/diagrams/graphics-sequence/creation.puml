@@ -1,0 +1,213 @@
+@startuml create-room
+
+title Create Room
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "objectFactory : ObjectFactory" as objectFactory
+participant "controller : GameController" as controller
+participant "room : Room" as room
+participant "roomView : RoomView" as roomView
+participant "tile : Tile" as tile
+participant "tileView : TileView" as tileView
+participant "tileController : TileController" as tileController
+
+[-> objectFactory ++: createRoom(capacity, position, width, height)
+	create room
+	objectFactory --> room : <<create>> (capacity)
+	create roomView
+	objectFactory --> roomView : <<create>> (room)
+	loop (x,y) in (width,height)
+		create tile
+		objectFactory --> tile : <<create>> (room, position)
+		create tileView
+		objectFactory --> tileView : <<create>> (tile)
+		note left: Floor/Wall Tile based on if the\nx and y coordinates are on the edge
+		opt we created a floor tile
+			create tileController
+			objectFactory -> tileController ++: <<create>> (tile, tileView)
+				tileController -> tile ++: addOnChangeListener(onChange)
+				return
+			return
+		end
+		objectFactory -> roomView ++: addTile(tileView)
+		return
+		objectFactory -> controller ++: setTile(tile, position)
+		return
+	end
+	objectFactory -> controller ++: addModelView(room, roomView)
+	return
+	objectFactory -> controller ++: addRoom(room)
+	return
+	objectFactory -> controller ++: addRoomView(roomView)
+	return
+return
+
+@enduml
+
+@startuml create-door
+
+title Create Door
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "objectFactory : ObjectFactory" as objectFactory
+participant "controller : GameController" as controller
+participant "door : Door" as door
+participant "fromTile : DoorTile" as fromTile
+participant "fromView : DoorTileView" as fromView
+participant "toTile : DoorTile" as toTile
+participant "toView : DoorTileView" as toView
+
+[-> objectFactory ++: createDoor(fromRoom, toRoom, fromPos, toPos)
+	create door
+	objectFactory --> door : <<create>> (fromRoom, toRoom)
+	
+	create fromTile
+	objectFactory --> fromTile : <<create>> (door, fromRoom, fromPos)
+	create fromView
+	objectFactory --> fromView : <<create>> (fromTile)
+
+	create toTile
+	objectFactory --> toTile : <<create>> (door, toRoom, toPos)
+	create toView
+	objectFactory --> toView : <<create>> (toTile)
+
+	objectFactory -> controller ++: setTile(fromTile, fromView)
+	return
+	objectFactory -> controller ++: setTile(toTile, toView)
+	return
+return
+
+@enduml
+
+@startuml create-player
+
+title Create Player
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "objectFactory : ObjectFactory" as objectFactory
+participant "controller : GameController" as controller
+participant "person : Student" as person
+participant "inventory : Inventory" as inventory
+participant "personView : PersonView" as personView
+participant "entity : Entity" as entity
+participant "playerController : PlayerController" as playerController
+participant "inventoryController : InventoryController" as inventoryController
+participant "inventoryView : InventoryView" as inventoryView
+participant "playerView : PlayerView" as playerView
+
+[-> objectFactory ++: createPlayer(position)
+	create person
+	objectFactory -> person ++: <<create>>
+		create inventory
+		person --> inventory : <<create>>
+	return
+
+	create personView
+	objectFactory --> personView : <<create>> (person, sprite)
+	objectFactory -> controller ++: addModelView(person, personView)
+	return
+	
+	create entity
+	objectFactory --> entity : <<create>> (person, position)
+	
+	create playerController
+	objectFactory -> playerController ++: <<create>> (entity, personView)
+		playerController -> entity ++: getPerson()
+		return person
+
+		playerController -> person ++: getInventory
+		return inventory
+	
+		create inventoryController
+		playerController -> inventoryController ++: <<create>> (inventory)
+			create inventoryView
+			inventoryController --> inventoryView : <<create>> (inventory)
+			inventoryController -> inventory ++: addOnChangeListener(onChanged)
+			return
+		return
+
+		playerController -> inventoryController ++: getInventoryView()
+		return inventoryView
+
+		create playerView
+		playerController --> playerView : <<create>> (personView, inventoryView)
+	return
+	objectFactory -> controller ++: addEntity(entity)
+	return
+	objectFactory -> controller ++: addPlayerController(playerController)
+	return
+return
+
+@enduml
+
+@startuml create-npc
+
+title Create NPC
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "objectFactory : ObjectFactory" as objectFactory
+participant "controller : GameController" as controller
+participant "person : Teacher" as person
+participant "inventory : Inventory" as inventory
+participant "personView : PersonView" as personView
+participant "entity : Entity" as entity
+participant "aiController : AiController" as aiController
+
+[-> objectFactory ++: createNpc(position)
+	note right: This works the same for the Janitor
+	create person
+	objectFactory -> person ++: <<create>>
+		create inventory
+		person --> inventory : <<create>>
+	return
+
+	create personView
+	objectFactory --> personView : <<create>> (person, sprite)
+	objectFactory -> controller ++: addModelView(person, personView)
+	return
+
+	create entity
+	objectFactory --> entity : <<create>> (person, position)
+
+	create aiController
+	objectFactory --> aiController : <<create>> (person)
+
+	objectFactory -> controller ++: addEntity(entity)
+	return
+	objectFactory -> controller ++: addAiController(aiController)
+	return
+return
+
+@enduml
+
+@startuml create-item
+
+title Create Item
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "objectFactory : ObjectFactory" as objectFactory
+participant "controller : GameController" as controller
+participant "item : Item" as item
+participant "itemView : ItemView" as itemView
+
+[-> objectFactory ++: createItem(position)
+note right: Separate for each type of item, but just like this\nwith the exception of the transistor, which has\na separate TransistorView type
+
+	create item
+	objectFactory --> item : <<create>>
+	create itemView
+	objectFactory --> itemView : <<create>> (item, sprite)
+
+	objectFactory -> controller ++: addModelView(item, ItemView)
+	return
+
+	objectFactory -> controller ++: addItem(item, position)
+	return
+return
+@enduml
+

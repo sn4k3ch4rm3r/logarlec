@@ -7,13 +7,15 @@ package Model {
         abstract Person
         abstract Item
         class Door
+        class Inventory
 
         GameObject <|-- Room
         GameObject <|-- Person
         GameObject <|-- Item
 
         Door o- Room
-
+        Person *-- Inventory
+        Inventory o- Item
         Person <|-- Student
     }
 
@@ -49,15 +51,79 @@ package Model {
 }
 
 package Controller {
-    class Controller {
+    class GameController {
         - currentPlayer
-
     }
     class KeyboardEventListener
+    class PersonController
+    class PlayerController
+    class AiController
+    class InventoryController
+    class TileController
 
-    Controller -> KeyboardEventListener
+    PersonController <|-- PlayerController
+    PersonController <|-- AiController
 
-    Controller *--- Game
+    GameController -> KeyboardEventListener
+    ObjectFactory <- GameController
+    GameController *-- PlayerController
+    PlayerController *- InventoryController
+
 }
+
+package View {
+    class Window
+    class MenuPanel
+    class GamePanel
+
+    Window *-- MenuPanel
+    Window *-- GamePanel
+
+    interface Drawable
+    ' Everything ending in View should implement
+    ' Drawable, but it's already chaotic enough
+    class GameView
+    class MapView
+    class SidePanelView
+    class RoomView
+    class TileView
+    class FloorTileView
+    class WallTileView
+    class DoorTileView
+    class PlayerView
+    class InventoryView
+    class ItemView
+    class TransistorView
+
+    ItemView <|-- TransistorView
+    TileView <|-- FloorTileView
+    TileView <|-- WallTileView
+    TileView <|-- DoorTileView
+
+    InventoryView o-- ItemView
+    GameView o-- SidePanelView
+    SidePanelView o-- PlayerView
+    GameView o-- MapView
+    MapView o-- RoomView
+    RoomView o-- TileView
+    FloorTileView o-- PersonView
+    FloorTileView o-- ItemView
+    PlayerView o-- InventoryView
+    PlayerView o-- PersonView
+}
+
+GameController "gameState" *--- Game
+' GameController "objectViews 0..*" *--- Drawable
+
+GameView o-- Game
+
+PlayerView "person" o-- Student
+InventoryController o--- InventoryView
+InventoryView "inventory" o-- Inventory
+ItemView "item" o-- Item
+RoomView "room" o-- Room
+TileView "tile" o-- Tile
+DoorTileView o-- Door
+PersonView o-- Person
 
 @enduml

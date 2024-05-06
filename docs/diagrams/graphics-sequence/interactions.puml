@@ -1,0 +1,166 @@
+@startuml inventory-changed
+
+title Inventory Changed
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "inventory : Inventory" as inventory
+participant "inventoryController : InventoryController" as inventoryController
+participant "controller : GameController" as controller
+participant "inventoryView : InventoryView" as inventoryView
+
+[-> inventory ++: addItem(item)
+note right: Same for every method adding/removing items
+	inventory -> inventory ++: onChanged()
+		inventory -> inventoryController ++: onInventoryChanged(inventory)
+			inventoryController -> controller ++: getModelView(inventory)
+			return inventoryView
+			inventoryController -> inventoryView ++: clearItems()
+			return
+			inventoryController -> inventory ++: getItems()
+			return items
+			loop item in items
+				inventoryController -> controller ++: getModelView(item)
+				return itemView
+				inventoryController -> inventoryView ++: addItem(itemView)
+				return
+			end
+		return
+	inventory--
+return
+
+@enduml
+
+
+@startuml entity-movement
+
+title Entity Moved
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "tile : FloorTile" as tile
+participant "person : Person" as person
+participant "tileController : TileController" as tileController
+participant "tileView : FloorTile" as tileView
+participant "controller : GameController" as controller
+
+
+[-> tile ++: stepOn(person)
+	note right: Similarly when an item is dropped on the tile, or an entity leaves
+	opt tile isn't occupied
+		opt tile has item and is clean
+			tile -> person ++: addItem(item)
+			return
+		end
+		tile -> tile ++: onChanged()
+			tile -> tileController ++: onTileChanged()
+				tileController -> tile ++: getItem()
+				return item
+				alt item is not null
+					tileController -> controller ++: getModelView(item)
+					return itemView
+					tileController -> tileView ++: setItem(itemView)
+					return
+				else
+					tileController -> tileView ++: setItem(null)
+					return
+				end
+				
+				tileController -> tile ++: getPerson()
+				return person
+				alt person is not null
+					tileController -> controller ++: getModelView(person)
+					return personView
+					tileController -> tileView ++: setPerson(personView)
+					return
+				else
+					tileController -> tileView ++: setPerson(null)
+					return
+				end
+			return
+		tile-- 
+	end
+return isSuccessful
+
+@enduml
+
+@startuml move-player
+
+title Move Player
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "keyboardHandler : KeyboardEventListener" as keyboardHandler
+participant "controller : GameController" as controller
+participant "playerController : PlayerController" as playerController
+participant "entity : Entity" as entity
+participant "tile : Tile" as tile
+participant "oldTile : FloorTile" as oldTile
+
+[-> keyboardHandler ++: keyPressed(key)
+	opt key in WASD
+		keyboardHandler -> controller ++: getCurrentPlayer()
+		return playerController
+		keyboardHandler -> playerController ++: move(direction)
+			playerController -> entity ++: getPosition()
+			return position
+			playerController -> entity ++: getPerson()
+			return person
+			playerController -> controller ++: getTile(position+direction)
+			return tile
+			playerController -> tile ++: stepOn(person)
+			return success
+			opt success
+				playerController -> controller ++: getTile(position)
+				return oldTile
+				playerController -> oldTile ++: removePerson(person)
+				return
+			end
+		return
+	end
+return
+
+@enduml
+
+@startuml drop-item
+
+title Drop Item
+hide footbox
+skinparam SequenceReferenceBackgroundColor white
+
+participant "keyboardHandler : KeyboardEventListener" as keyboardHandler
+participant "controller : GameController" as controller
+participant "playerController : PlayerController" as playerController
+participant "entity : Entity" as entity
+participant "person : Person" as person
+participant "inventory : Inventory" as inventory
+participant "tile : FloorTile" as tile
+
+[-> keyboardHandler ++: keyPressed(key)
+	opt key is Q and then index
+		keyboardHandler -> controller ++: getCurrentPlayer()
+		return playerController
+		
+		keyboardHandler -> playerController ++: dropItem(index)
+			playerController -> entity ++: getPosition()
+			return position
+			playerController -> entity ++: getPerson
+			return person
+
+			playerController -> controller ++: getTile(position)
+			return tile
+
+			playerController -> person ++: getInventory()
+			return inventory
+			playerController -> inventory ++: getItems()
+			return
+
+			playerController -> person ++: dropItem(item)
+			return
+			playerController -> tile ++: setItem(item)
+			return
+		return
+	end
+return
+
+@enduml
