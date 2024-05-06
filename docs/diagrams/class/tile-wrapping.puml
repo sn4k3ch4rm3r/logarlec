@@ -70,12 +70,30 @@ package Model {
             + getRooms() : Room 0..*
             + getPlayers() : Student 0..*
         }
-        abstract Tile
-        class FloorTile
-        class DoorTile
-        class WallTile
+        abstract Tile{
+            - coord : Coordinate
+            - texture : Texture
+            + stepOn(person : Person) : void
+        }
+        class FloorTile{
+            + stepOn(person : Person) : void
+            + removePerson(person : Person) : void
+            + setItem(item : Item) : void
+        }
+        class DoorTile{
+            - door : Door
+            + doorTile(person : Person) : FloorTile
 
-        class Entity
+        }
+        class WallTile{
+            + stepOn(person : Person) : FloorTile
+        }
+
+        class Entity{
+            - positionTile : FloorTile
+            + getPerson() : Person
+            + getPosition() : FloorTile
+        }
 
         Tile <|-- FloorTile
         Tile <|-- DoorTile
@@ -129,7 +147,8 @@ package Controller {
         + getInventoryView() : InventoryView
     }
     class TileController{
-        + tile : Tile
+        - tile : Tile
+        - tileView : TileView
         + onTileChanged() : void
     }
     class ObjectFactory{
