@@ -135,16 +135,16 @@ package Controller {
         - players : PlayerController 1..4
         - rooms : Room[]
         - roomViews : RoomView[]
-        + addModelView(person: Person, personView: PersonView) : void
-        + addModelView(room : Room, roomView : RoomView) : void
+        + addModelView(object: GameObject, representation : Drawable) : void
+        + getModelView(item : Item) : ItemView
         + addRoom(room : Room) : void
         + addRoomView(roomView : RoomView) : void
         + setTile(fromTile : Tile, fromView : View) : void
         + getTile(position : Position) : Tile
         + getCurrentPlayer() : Player
-        
         + addEntity(entity : Entity) : void
         + addPlayerController(playerController : PlayerController) : void
+
         + updateView() : void
     }
     class KeyboardEventListener{
