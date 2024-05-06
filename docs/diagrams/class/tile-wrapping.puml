@@ -166,22 +166,51 @@ package View {
         + draw() : void
     }
 
-    class GameView
-    class MapView
-    class SidePanelView
+    class GameView{
+        + draw(graphics : Graphics2D) : void
+    }
+    class MapView{
+        + draw(subGraphics : Graphics2D) : void
+    }
+    class SideBarView{
+        + draw(subGraphics : Graphics2D) : void
+    }
     class RoomView{
         - tiles : TileView 0..*
         + addTile(tileView : TileView) : void
     }
     class TileView{
+        - room : Room
+        - rooms : RoomView[]
         + addOnChangeListener(onChange : void) : void
     }
-    class FloorTileView
+    class FloorTileView{
+        - itemView : ItemView
+        - personView : PersonView
+        + setItem(itemView : ItemView) : void
+        + setPerson(personView : PersonView) : void
+        + setPerson(null) : void
+        + setItem(null) : void
+
+    }
     class WallTileView
-    class DoorTileView
-    class PlayerView
-    class InventoryView
-    class ItemView
+    class DoorTileView{
+        - door : Door
+    }
+    class PersonView{
+        - person : Person
+    }
+    class PlayerView{
+        - inventoryView : InventoryView
+        - personView : PersonView
+    }
+    class InventoryView{
+        + clearItems() : void
+        + addItem(item : ItemView) : void
+    }
+    class ItemView{
+        - item : Item
+    }
     class TransistorView
 
     ItemView <|-- TransistorView
@@ -190,8 +219,8 @@ package View {
     TileView <|-- DoorTileView
 
     InventoryView o-- ItemView
-    GameView o-- SidePanelView
-    SidePanelView o-- PlayerView
+    GameView o-- SideBarView
+    SideBarView o-- PlayerView
     GameView o-- MapView
     MapView o-- RoomView
     RoomView o-- TileView
