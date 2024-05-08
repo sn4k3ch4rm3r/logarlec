@@ -12,6 +12,18 @@ import java.util.Random;
 public class Inventory {
 	private List<Item> items = new ArrayList<>();
 
+	private List<InventoryChangeListener> listeners = new ArrayList<>();
+
+	public void addOnChangeEventListener(InventoryChangeListener listener) {
+		listeners.add(listener);
+	}
+
+	public void onChanged(){
+		for (InventoryChangeListener listener : listeners) {
+			listener.onInventoryChange(this);
+		}
+	}
+
 	/**
 	 * Tárgy hozzáadása a felszereléshez, ha kevesebb, mint 5 van benne.
 	 *
@@ -20,6 +32,7 @@ public class Inventory {
 	public boolean add(Item item) {
 		if (items.size() < 5) {
 			items.add(item);
+			onChanged();
 			return true;
 		} else {
 			try {
@@ -38,6 +51,7 @@ public class Inventory {
 	 */
 	public void remove(Item item) {
 		items.remove(item);
+		onChanged();
 	}
 
 	/**
