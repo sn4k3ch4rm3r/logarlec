@@ -7,6 +7,7 @@ import logarlec.prototype.Prototype;
 import logarlec.util.Door;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Egy játékban szereplő szoba.
@@ -38,6 +39,13 @@ public class Room extends GameObject {
 	 */
 	private int visitorsSinceClean;
 
+	/**
+	 * Elátkozott-e a szoba.
+	 */
+	private boolean cursed;
+	private boolean hidden;
+	private Random random = new Random();
+
 	public Room() {
 		this(4);
 	}
@@ -47,6 +55,9 @@ public class Room extends GameObject {
 		doors = new LinkedList<>();
 		items = new LinkedList<>();
 		this.capacity = capacity;
+		visitorsSinceClean = 0;
+		cursed = random.nextDouble() < 0.1;
+		hidden = false;
 	}
 
 	/**
@@ -187,6 +198,7 @@ public class Room extends GameObject {
 		for (Door door : doors) {
 			door.hide();
 		}
+		hidden = true;
 	}
 
 	/**
@@ -196,6 +208,7 @@ public class Room extends GameObject {
 		for (Door door : doors) {
 			door.show();
 		}
+		hidden = false;
 	}
 
 	/**
@@ -205,6 +218,10 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void update(double deltaTime) {
+		if (cursed && random.nextDouble() < 0.05) {
+			if (hidden) showDoors();
+			else hideDoors();
+		}
 		for (Effect effect : effects) {
 			effect.update(deltaTime);
 			effect.applyToRoom(this);
