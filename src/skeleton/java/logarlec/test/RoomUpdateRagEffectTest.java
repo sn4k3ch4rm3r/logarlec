@@ -1,14 +1,15 @@
 package logarlec.test;
 
-import logarlec.effects.RagEffect;
-import logarlec.gameobjects.Room;
-import logarlec.gameobjects.Teacher;
+import logarlec.model.effects.RagEffect;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.gameobjects.Teacher;
 import logarlec.skeleton.Skeleton;
 
 public class RoomUpdateRagEffectTest extends TestCase {
     Room room;
     Teacher teacher;
     RagEffect ragEffect;
+
     public RoomUpdateRagEffectTest() {
         super("Room: update rag effect");
     }

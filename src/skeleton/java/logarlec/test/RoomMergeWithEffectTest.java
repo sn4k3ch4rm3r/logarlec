@@ -1,15 +1,16 @@
 package logarlec.test;
 
-import logarlec.effects.GasEffect;
-import logarlec.gameobjects.Room;
+import logarlec.model.effects.GasEffect;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.util.Door;
 import logarlec.skeleton.Skeleton;
-import logarlec.util.Door;
 
 public class RoomMergeWithEffectTest extends TestCase {
     Room room1;
     Room room2;
     Door door;
     GasEffect gasEffect;
+
     public RoomMergeWithEffectTest() {
         super("Room: merge with effect");
     }

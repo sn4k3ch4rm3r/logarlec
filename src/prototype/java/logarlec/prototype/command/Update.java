@@ -1,8 +1,8 @@
 package logarlec.prototype.command;
 
-import logarlec.gameobjects.Room;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.util.Updatable;
 import logarlec.prototype.Prototype;
-import logarlec.util.Updatable;
 
 public class Update implements Command {
 

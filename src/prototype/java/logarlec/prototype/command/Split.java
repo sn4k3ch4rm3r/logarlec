@@ -1,7 +1,7 @@
 package logarlec.prototype.command;
 
+import logarlec.model.gameobjects.Room;
 import logarlec.prototype.Prototype;
-import logarlec.gameobjects.Room;
 
 public class Split implements Command {
 

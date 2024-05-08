@@ -1,12 +1,13 @@
 package logarlec.test;
 
-import logarlec.effects.BeerEffect;
-import logarlec.gameobjects.Student;
+import logarlec.model.effects.BeerEffect;
+import logarlec.model.gameobjects.Student;
 import logarlec.skeleton.Skeleton;
 
 public class StudentProtectedByBeerTest extends TestCase {
     Student student;
     BeerEffect beerEffect;
+
     public StudentProtectedByBeerTest() {
         super("Student: protected by beer");
     }

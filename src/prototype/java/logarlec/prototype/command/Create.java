@@ -17,8 +17,8 @@ public class Create implements Command {
 	@Override
 	public String execute() throws Exception {
 		Class<?> type = null;
-		String[] packages =
-				{"logarlec.gameobjects", "logarlec.effects", "logarlec.items", "logarlec.util"};
+		String[] packages = {"logarlec.model.gameobjects", "logarlec.model.effects",
+				"logarlec.model.items", "logarlec.model.util"};
 		for (String packageName : packages) {
 			try {
 				type = Class.forName(packageName + "." + className);

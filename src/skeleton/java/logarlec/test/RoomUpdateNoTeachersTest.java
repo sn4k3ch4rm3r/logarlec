@@ -1,13 +1,14 @@
 package logarlec.test;
 
-import logarlec.gameobjects.Room;
-import logarlec.gameobjects.Student;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.gameobjects.Student;
 import logarlec.skeleton.Skeleton;
 
 public class RoomUpdateNoTeachersTest extends TestCase {
     Room room;
     Student student1;
     Student student2;
+
     public RoomUpdateNoTeachersTest() {
         super("Room: update no teachers");
     }

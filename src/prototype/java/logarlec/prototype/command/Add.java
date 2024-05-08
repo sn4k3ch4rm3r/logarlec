@@ -1,10 +1,10 @@
 package logarlec.prototype.command;
 
-import logarlec.effects.Effect;
-import logarlec.gameobjects.GameObject;
-import logarlec.gameobjects.Person;
-import logarlec.gameobjects.Room;
-import logarlec.items.Item;
+import logarlec.model.effects.Effect;
+import logarlec.model.gameobjects.GameObject;
+import logarlec.model.gameobjects.Person;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.items.Item;
 import logarlec.prototype.Prototype;
 
 public class Add implements Command {

@@ -1,12 +1,13 @@
 package logarlec.test;
 
-import logarlec.gameobjects.Teacher;
-import logarlec.items.SlideRule;
+import logarlec.model.gameobjects.Teacher;
+import logarlec.model.items.SlideRule;
 import logarlec.skeleton.Skeleton;
 
 public class TeacherPickupSlideruleTest extends TestCase {
     Teacher teacher;
     SlideRule slideRule;
+
     public TeacherPickupSlideruleTest() {
         super("Teacher: pickup sliderule");
     }

@@ -1,8 +1,8 @@
 package logarlec.test;
 
-import logarlec.gameobjects.Room;
-import logarlec.gameobjects.Student;
-import logarlec.items.AirFreshener;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.gameobjects.Student;
+import logarlec.model.items.AirFreshener;
 import logarlec.skeleton.Skeleton;
 
 public class StudentUseAirFreshenerTest extends TestCase {

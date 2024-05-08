@@ -1,8 +1,8 @@
 package logarlec.prototype.command;
 
-import logarlec.gameobjects.Person;
+import logarlec.model.gameobjects.Person;
+import logarlec.model.util.Door;
 import logarlec.prototype.Prototype;
-import logarlec.util.Door;
 
 public class Move implements Command {
 

@@ -1,12 +1,13 @@
 package logarlec.test;
 
-import logarlec.gameobjects.Student;
-import logarlec.items.Mask;
+import logarlec.model.gameobjects.Student;
+import logarlec.model.items.Mask;
 import logarlec.skeleton.Skeleton;
 
 public class StudentUseMaskTest extends TestCase {
     Student student;
     Mask mask;
+
     public StudentUseMaskTest() {
         super("Student: use mask");
     }

@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import logarlec.gameobjects.Room;
+import logarlec.model.gameobjects.Room;
 import logarlec.prototype.testrunner.TestBuilder;
 import logarlec.prototype.testrunner.TestRunner;
 
