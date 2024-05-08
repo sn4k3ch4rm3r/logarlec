@@ -38,6 +38,11 @@ public class Room extends GameObject {
 	 */
 	private int visitorsSinceClean;
 
+	/**
+	 * Elátkozott-e a szoba.
+	 */
+	private boolean cursed;
+
 	public Room() {
 		this(4);
 	}
