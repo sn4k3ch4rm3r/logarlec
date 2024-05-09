@@ -1,7 +1,7 @@
 package logarlec.prototype.command;
 
+import logarlec.model.util.Door;
 import logarlec.prototype.Prototype;
-import logarlec.util.Door;
 
 public class Oneway implements Command {
 

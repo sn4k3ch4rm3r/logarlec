@@ -1,13 +1,14 @@
 package logarlec.test;
 
-import logarlec.gameobjects.Room;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.util.Door;
 import logarlec.skeleton.Skeleton;
-import logarlec.util.Door;
 
 public class RoomSplitTest extends TestCase {
     Room room;
     Room otherRoom;
     Door door;
+
     public RoomSplitTest() {
         super("Room: split");
     }

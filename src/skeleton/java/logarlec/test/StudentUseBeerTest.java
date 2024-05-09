@@ -1,7 +1,7 @@
 package logarlec.test;
 
-import logarlec.gameobjects.Student;
-import logarlec.items.Beer;
+import logarlec.model.gameobjects.Student;
+import logarlec.model.items.Beer;
 import logarlec.skeleton.Skeleton;
 
 public class StudentUseBeerTest extends TestCase {

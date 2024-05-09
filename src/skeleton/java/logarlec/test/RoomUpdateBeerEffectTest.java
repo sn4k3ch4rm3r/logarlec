@@ -1,9 +1,9 @@
 package logarlec.test;
 
-import logarlec.effects.BeerEffect;
-import logarlec.gameobjects.Room;
-import logarlec.gameobjects.Student;
-import logarlec.items.Camembert;
+import logarlec.model.effects.BeerEffect;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.gameobjects.Student;
+import logarlec.model.items.Camembert;
 import logarlec.skeleton.Skeleton;
 
 public class RoomUpdateBeerEffectTest extends TestCase {

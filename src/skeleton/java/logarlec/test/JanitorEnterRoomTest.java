@@ -1,7 +1,7 @@
 package logarlec.test;
 
-import logarlec.gameobjects.Janitor;
-import logarlec.gameobjects.Room;
+import logarlec.model.gameobjects.Janitor;
+import logarlec.model.gameobjects.Room;
 import logarlec.skeleton.Skeleton;
 
 public class JanitorEnterRoomTest extends TestCase {

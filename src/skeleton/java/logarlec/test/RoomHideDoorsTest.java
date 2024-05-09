@@ -1,8 +1,8 @@
 package logarlec.test;
 
-import logarlec.gameobjects.*;
+import logarlec.model.gameobjects.*;
+import logarlec.model.util.*;
 import logarlec.skeleton.Skeleton;
-import logarlec.util.*;
 
 public class RoomHideDoorsTest extends TestCase {
     private Room room;

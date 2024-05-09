@@ -1,10 +1,10 @@
 package logarlec.test;
 
-import logarlec.gameobjects.Room;
-import logarlec.gameobjects.Teacher;
-import logarlec.items.Mask;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.gameobjects.Teacher;
+import logarlec.model.items.Mask;
+import logarlec.model.util.Door;
 import logarlec.skeleton.Skeleton;
-import logarlec.util.Door;
 
 public class RoomMergeTest extends TestCase {
     Room room1;

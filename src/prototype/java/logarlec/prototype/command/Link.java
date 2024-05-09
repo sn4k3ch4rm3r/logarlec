@@ -1,6 +1,6 @@
 package logarlec.prototype.command;
 
-import logarlec.items.Transistor;
+import logarlec.model.items.Transistor;
 import logarlec.prototype.Prototype;
 
 public class Link implements Command {

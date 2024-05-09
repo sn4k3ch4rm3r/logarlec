@@ -1,9 +1,9 @@
 package logarlec.test;
 
-import logarlec.effects.GasEffect;
-import logarlec.effects.MaskEffect;
-import logarlec.gameobjects.Room;
-import logarlec.gameobjects.Student;
+import logarlec.model.effects.GasEffect;
+import logarlec.model.effects.MaskEffect;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.gameobjects.Student;
 import logarlec.skeleton.Skeleton;
 
 public class RoomUpdateGasAndMaskTest extends TestCase {

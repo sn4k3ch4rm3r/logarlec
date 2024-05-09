@@ -1,10 +1,10 @@
 package logarlec.test;
 
-import logarlec.effects.JanitorEffect;
-import logarlec.gameobjects.Room;
-import logarlec.gameobjects.Student;
+import logarlec.model.effects.JanitorEffect;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.gameobjects.Student;
+import logarlec.model.util.Door;
 import logarlec.skeleton.Skeleton;
-import logarlec.util.Door;
 
 public class RoomUpdateJanitorEffectTest extends TestCase {
     Room room;

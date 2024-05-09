@@ -1,8 +1,8 @@
 package logarlec.test;
 
-import logarlec.effects.CleanEffect;
-import logarlec.effects.GasEffect;
-import logarlec.gameobjects.Room;
+import logarlec.model.effects.CleanEffect;
+import logarlec.model.effects.GasEffect;
+import logarlec.model.gameobjects.Room;
 import logarlec.skeleton.Skeleton;
 
 public class RoomUpdateCleanEffectTest extends TestCase {

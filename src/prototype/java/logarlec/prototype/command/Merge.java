@@ -1,6 +1,6 @@
 package logarlec.prototype.command;
 
-import logarlec.gameobjects.Room;
+import logarlec.model.gameobjects.Room;
 import logarlec.prototype.Prototype;
 
 public class Merge implements Command {

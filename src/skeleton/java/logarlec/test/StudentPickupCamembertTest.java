@@ -1,8 +1,8 @@
 package logarlec.test;
 
-import logarlec.gameobjects.Room;
-import logarlec.gameobjects.Student;
-import logarlec.items.Camembert;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.gameobjects.Student;
+import logarlec.model.items.Camembert;
 import logarlec.skeleton.Skeleton;
 
 public class StudentPickupCamembertTest extends TestCase {

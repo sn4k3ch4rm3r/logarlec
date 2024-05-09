@@ -1,14 +1,15 @@
 package logarlec.test;
 
-import logarlec.gameobjects.Room;
-import logarlec.gameobjects.Student;
-import logarlec.gameobjects.Teacher;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.gameobjects.Student;
+import logarlec.model.gameobjects.Teacher;
 import logarlec.skeleton.Skeleton;
 
 public class RoomUpdateStudentTeacherTest extends TestCase {
     Room room;
     Student student;
     Teacher teacher;
+
     public RoomUpdateStudentTeacherTest() {
         super("Room: update student and teacher");
     }

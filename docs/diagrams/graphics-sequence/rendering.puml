@@ -52,7 +52,7 @@ title Rendering the Map
 hide footbox
 skinparam SequenceReferenceBackgroundColor white
 
-participant "mapView : MapView" as MapView
+participant "mapView : MapView" as mapView
 participant "roomView : RoomView" as roomView
 participant "tileView : TileView" as tileView
 participant "itemView : Drawable" as itemView

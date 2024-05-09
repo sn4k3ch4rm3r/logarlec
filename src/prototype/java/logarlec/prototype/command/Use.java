@@ -1,7 +1,7 @@
 package logarlec.prototype.command;
 
-import logarlec.gameobjects.Person;
-import logarlec.items.Item;
+import logarlec.model.gameobjects.Person;
+import logarlec.model.items.Item;
 import logarlec.prototype.Prototype;
 
 public class Use implements Command {

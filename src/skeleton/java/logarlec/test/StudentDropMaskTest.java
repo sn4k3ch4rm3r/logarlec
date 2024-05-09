@@ -1,8 +1,8 @@
 package logarlec.test;
 
-import logarlec.gameobjects.Room;
-import logarlec.gameobjects.Student;
-import logarlec.items.Mask;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.gameobjects.Student;
+import logarlec.model.items.Mask;
 import logarlec.skeleton.Skeleton;
 
 public class StudentDropMaskTest extends TestCase {
