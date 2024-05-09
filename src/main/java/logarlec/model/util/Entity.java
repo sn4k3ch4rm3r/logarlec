@@ -1,6 +1,6 @@
-package logarlec.model_wrappers;
+package logarlec.model.util;
 
-import logarlec.models.gameobjects.Person;
+import logarlec.model.gameobjects.Person;
 
 public class Entity {
     private Position position;

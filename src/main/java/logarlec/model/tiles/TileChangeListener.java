@@ -1,4 +1,4 @@
-package logarlec.model_wrappers;
+package logarlec.model.tiles;
 
 public interface TileChangeListener {
     public void onTileChanged(Tile tile);

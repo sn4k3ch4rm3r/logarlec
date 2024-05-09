@@ -1,7 +1,7 @@
-package logarlec.model_wrappers;
+package logarlec.model.tiles;
 
-import logarlec.models.gameobjects.Person;
-import logarlec.models.items.Item;
+import logarlec.model.gameobjects.Person;
+import logarlec.model.items.Item;
 
 public class FloorTile extends Tile {
     private Person person;

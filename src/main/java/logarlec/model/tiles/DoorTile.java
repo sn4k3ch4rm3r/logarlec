@@ -1,7 +1,7 @@
-package logarlec.model_wrappers;
+package logarlec.model.tiles;
 
-import logarlec.models.gameobjects.Person;
-import logarlec.models.util.Door;
+import logarlec.model.gameobjects.Person;
+import logarlec.model.util.Door;
 
 public class DoorTile extends Tile {
     private Door door;

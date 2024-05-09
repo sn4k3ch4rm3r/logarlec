@@ -44,7 +44,6 @@ participant "tileController : TileController" as tileController
 participant "tileView : FloorTile" as tileView
 participant "controller : GameController" as controller
 
-
 [-> tile ++: stepOn(person)
 	note right: Similarly when an item is dropped on the tile, or an entity leaves
 	opt tile isn't occupied

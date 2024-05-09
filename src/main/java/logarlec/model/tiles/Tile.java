@@ -1,7 +1,8 @@
-package logarlec.model_wrappers;
+package logarlec.model.tiles;
 
-import logarlec.models.gameobjects.Person;
-import logarlec.models.gameobjects.Room;
+import logarlec.model.gameobjects.Person;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.util.Position;
 
 import java.util.List;
 

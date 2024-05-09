@@ -1,4 +1,4 @@
-package logarlec.model_wrappers;
+package logarlec.model.util;
 
 public class Position {
     public int x, y;

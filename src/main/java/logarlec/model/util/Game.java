@@ -1,7 +1,8 @@
-package logarlec.model_wrappers;
+package logarlec.model.util;
 
-import logarlec.models.gameobjects.Room;
-import logarlec.models.gameobjects.Student;
+import logarlec.model.gameobjects.Room;
+import logarlec.model.gameobjects.Student;
+import logarlec.model.tiles.Tile;
 
 import java.util.List;
 
