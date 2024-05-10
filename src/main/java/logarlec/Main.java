@@ -1,15 +1,9 @@
 package logarlec;
 
-import logarlec.prototype.Prototype;
-
+import logarlec.view.Window;
 
 public class Main {
-	/**
-	 * A program belépési pontja, elindítja a prototípus programot.
-	 * 
-	 * @param args Parancssori argumentumok
-	 */
 	public static void main(String[] args) {
-		Prototype.main(args);
+		new Window();
 	}
 }
