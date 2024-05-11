@@ -33,5 +33,6 @@ public class FloorTile extends Tile {
 
     public void setItem(Item item) {
         this.item = item;
+        onChanged();
     }
 }
