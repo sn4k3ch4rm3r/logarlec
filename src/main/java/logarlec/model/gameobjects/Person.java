@@ -93,7 +93,7 @@ public abstract class Person extends GameObject {
 	 * @param item a hozzáadandó tárgy
 	 */
 	@Override
-	public void addItem(Item item) {
+	public boolean addItem(Item item) {
 		if (currentRoom == null || currentRoom.isClean()) {
 			if (inventory.add(item)) {
 				item.setPerson(this);
@@ -101,8 +101,10 @@ public abstract class Person extends GameObject {
 					currentRoom.removeItem(item);
 					item.setRoom(currentRoom);
 				}
+				return true;
 			}
 		}
+		return false;
 	}
 
 	/**

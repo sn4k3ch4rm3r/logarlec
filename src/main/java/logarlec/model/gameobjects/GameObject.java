@@ -23,8 +23,9 @@ public abstract class GameObject implements Updatable {
 	 * Az tárgy hozzáadása az objektumhoz.
 	 * 
 	 * @param item a hozzáadandó tárgy
+	 * @return sikeres-e a tárgy hozzáadása
 	 */
-	public abstract void addItem(Item item);
+	public abstract boolean addItem(Item item);
 
 	/**
 	 * A tárgy eltávolítása az objektumról.
