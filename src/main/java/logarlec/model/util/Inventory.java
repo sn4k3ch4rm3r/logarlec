@@ -1,5 +1,6 @@
 package logarlec.model.util;
 
+import logarlec.model.events.InventoryChangeListener;
 import logarlec.model.gameobjects.Room;
 import logarlec.model.gameobjects.Teacher;
 import logarlec.model.items.Item;

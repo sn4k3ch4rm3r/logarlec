@@ -1,8 +1,11 @@
-package logarlec.model.tiles;
+package logarlec.model.events;
+
+import logarlec.model.tiles.Tile;
 
 public interface TileChangeListener {
     /**
      * egy megfigyelt csempe állapota megváltozott, erre reagál az objektum
+     * 
      * @param tile
      */
     public void onTileChanged(Tile tile);
