@@ -17,10 +17,19 @@ public abstract class Tile {
         this.room = room;
     }
 
+    /**
+     * Egy személy rá próbál lépni erre a csempére
+     * @param person Aki ide próbál lépni
+     * @return sikeres-e a rálépés
+     */
     public abstract boolean stepOn(Person person);
     public void addOnChangeEventListener(TileChangeListener listener) {
         onChangeListeners.add(listener);
     }
+
+    /**
+     * Valami változott a csempe állapotán, erről értesül, akit érint
+     */
     protected void onChanged() {
         for (TileChangeListener listener : onChangeListeners) {
             listener.onTileChanged(this);

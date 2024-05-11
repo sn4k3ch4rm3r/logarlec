@@ -13,6 +13,11 @@ public class DoorTile extends Tile {
         this.door = door;
     }
 
+    /**
+     * Az ehhez tartozó ajtón megpróbál átlépni a személy, ha sikerül átkerül egy csempére az ajtó túloldalán
+     * @param person Aki ide próbál lépni
+     * @return sikeres-e az ajtón átlépés
+     */
     @Override
     public boolean stepOn(Person person) {
         if (door.use(person)) {

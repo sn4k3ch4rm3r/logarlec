@@ -10,6 +10,9 @@ public class WallTile extends Tile{
         super(position, room);
     }
 
+    /**
+     * @return false, mert falra nem lehet lépni
+     */
     @Override
     public boolean stepOn(Person person) {
         return false;

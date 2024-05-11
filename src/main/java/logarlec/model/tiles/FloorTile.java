@@ -13,6 +13,11 @@ public class FloorTile extends Tile {
         super(position, room);
     }
 
+    /**
+     * Egy személy erre a tile-ra lép, ha nincs még rajta személy.
+     * Ha sikereses a rálépés felveszi az itt található tárgyat
+     * @param person Aki ide próbál lépni
+     */
     @Override
     public boolean stepOn(Person person) {
         if (this.person != null) {
