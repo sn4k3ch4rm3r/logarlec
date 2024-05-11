@@ -23,8 +23,9 @@ public class Door {
 	 * az ajtó egyik végénél lehet használni. Ha az ajtó rejtett, akkor nem lehet használni.
 	 * 
 	 * @param person Az ajtót használó személy
+	 * @return a személy átlép-e az ajtón
 	 */
-	public void use(Person person) {
+	public boolean use(Person person) {
 		Room from = person.getCurrentRoom();
 		if (!hidden && !(oneWay && from != this.from)) {
 			Room roomToEnter = from == this.from ? this.to : this.from;
@@ -36,6 +37,7 @@ public class Door {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				return true;
 			} else {
 				try {
 					Prototype.out.write("The other room is full.\n".getBytes());
@@ -51,6 +53,7 @@ public class Door {
 				e.printStackTrace();
 			}
 		}
+		return false;
 	}
 
 	/**

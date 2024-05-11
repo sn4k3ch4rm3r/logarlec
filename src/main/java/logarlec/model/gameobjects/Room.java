@@ -242,9 +242,10 @@ public class Room extends GameObject {
 	 * @param item a hozzáadandó tárgy
 	 */
 	@Override
-	public void addItem(Item item) {
+	public boolean addItem(Item item) {
 		items.add(item);
 		item.setRoom(this);
+		return true;
 	}
 
 	/**
