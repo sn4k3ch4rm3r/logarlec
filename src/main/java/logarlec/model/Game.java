@@ -1,4 +1,4 @@
-package logarlec.model.Game;
+package logarlec.model;
 
 import logarlec.model.gameobjects.Room;
 import logarlec.model.gameobjects.Student;
