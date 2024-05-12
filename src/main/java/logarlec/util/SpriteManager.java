@@ -18,8 +18,6 @@ import java.util.Map;
 public class SpriteManager {
     private int spriteSheetWidth;
     private int spriteSheetHeight;
-    private int spriteWidth;
-    private int spriteHeight;
     private static Map<String, BufferedImage> spriteImages;
     private static final String configPath = "configurations/SpriteConfiguration.xml";
 
@@ -40,8 +38,6 @@ public class SpriteManager {
 
             this.spriteSheetWidth = Integer.parseInt(generalInfo.getNamedItem("spriteSheetWidth").getNodeValue());
             this.spriteSheetHeight = Integer.parseInt(generalInfo.getNamedItem("spriteSheetHeight").getNodeValue());
-            this.spriteWidth = Integer.parseInt(generalInfo.getNamedItem("spriteWidth").getNodeValue());
-            this.spriteHeight = Integer.parseInt(generalInfo.getNamedItem("spriteHeight").getNodeValue());
             spritePath = doc.getElementsByTagName("spritePath").item(0).getTextContent();
 
             var sprites = doc.getElementsByTagName("sprite");
@@ -51,9 +47,11 @@ public class SpriteManager {
                 var spriteAttributes = sprite.getAttributes();
                 String spriteName = spriteAttributes.getNamedItem("name").getNodeValue();
                 BufferedImage spriteImage = ImageIO.read(new File(spritePath));
-                Element element = (Element)sprite;
-                int x = Integer.parseInt(element.getElementsByTagName("x").item(0).getTextContent());
-                int y = Integer.parseInt(element.getElementsByTagName("y").item(0).getTextContent());
+                int x = Integer.parseInt(spriteAttributes.getNamedItem("x").getNodeValue());
+                int y = Integer.parseInt(spriteAttributes.getNamedItem("y").getNodeValue());
+
+                int spriteWidth = Integer.parseInt(spriteAttributes.getNamedItem("width").getNodeValue());
+                int spriteHeight = Integer.parseInt(spriteAttributes.getNamedItem("height").getNodeValue());
 
                 spriteImage = spriteImage.getSubimage(x, y, spriteWidth, spriteHeight);
                 spriteImages.put(spriteName, spriteImage);

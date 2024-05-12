@@ -5,17 +5,19 @@
         <spriteSheetExtension>.png</spriteSheetExtension>
         <spriteSheetWidth>256</spriteSheetWidth>
         <spriteSheetHeight>256</spriteSheetHeight>
-        <spriteWidth>16</spriteWidth>
-        <spriteHeight>16</spriteHeight>
     </generalInfo>
     <tile id="0">
         <name>ExampleTile1</name>
         <x>0</x>
         <y>0</y>
+        <width>16</width>
+        <height>16</height>
     </tile>
     <tile id="1">
         <name>ExampleTile2</name>
         <x>1</x>
         <y>0</y>
+        <width>16</width>
+        <height>16</height>
     </tile>
 </root>
