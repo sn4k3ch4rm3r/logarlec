@@ -2,17 +2,15 @@ package logarlec.util;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import javax.imageio.ImageIO;
-import javax.security.sasl.SaslException;
-import javax.swing.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Map;
 
 public class SpriteManager {
@@ -25,22 +23,29 @@ public class SpriteManager {
      * Betölti a megadott elérési útvonalon található sprite-okat.
      */
     public void loadSprites() {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        String spritePath = null;
+        String spritePath;
         try {
-            DocumentBuilder builder = factory.newDocumentBuilder();
 
-            Document doc = builder.parse(configPath);
+            InputStream inputStream= new FileInputStream(configPath);
+            Reader reader = new InputStreamReader(inputStream,"UTF-8");
+            InputSource is = new InputSource(reader);
+            is.setEncoding("UTF-8");
+
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(is);
 
             doc.getDocumentElement().normalize();
 
-            var generalInfo = doc.getElementsByTagName("generalInfo").item(0).getAttributes();
+            Element root = doc.getDocumentElement();
+            spritePath = root.getElementsByTagName("config").item(0).getAttributes()
+                    .getNamedItem("sheetPath").getNodeValue();
+            spriteSheetWidth = Integer.parseInt(root.getElementsByTagName("config").item(0).getAttributes()
+                    .getNamedItem("sheetWidth").getNodeValue());
+            spriteSheetHeight = Integer.parseInt(root.getElementsByTagName("config").item(0).getAttributes()
+                    .getNamedItem("sheetHeight").getNodeValue());
 
-            this.spriteSheetWidth = Integer.parseInt(generalInfo.getNamedItem("spriteSheetWidth").getNodeValue());
-            this.spriteSheetHeight = Integer.parseInt(generalInfo.getNamedItem("spriteSheetHeight").getNodeValue());
-            spritePath = doc.getElementsByTagName("spritePath").item(0).getTextContent();
-
-            var sprites = doc.getElementsByTagName("sprite");
+            var sprites = root.getElementsByTagName("sprite");
 
             for(int i = 0; i < sprites.getLength(); i++) {
                 var sprite = sprites.item(i);

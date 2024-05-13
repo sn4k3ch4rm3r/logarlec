@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <root>
-    <generalInfo>
-        <spriteSheetLocation>assets/spritesheets/</spriteSheetLocation>
-        <spriteSheetExtension>.png</spriteSheetExtension>
-        <spriteSheetWidth>256</spriteSheetWidth>
-        <spriteSheetHeight>256</spriteSheetHeight>
-    </generalInfo>
-    <tile id="0">
-        <name>ExampleTile1</name>
-        <x>0</x>
-        <y>0</y>
-        <width>16</width>
-        <height>16</height>
-    </tile>
-    <tile id="1">
-        <name>ExampleTile2</name>
-        <x>1</x>
-        <y>0</y>
-        <width>16</width>
-        <height>16</height>
-    </tile>
+    <config sheetPath="assets/sprites/ExampleSpriteSheet.png" sheetWidth = "256" sheetHeight="256"/>
+    <sprite name="ExampleTile1" x="0" y="0" width="16" height="16"/>
+    <sprite name="ExampleTile2" x="16" y="0" width="16" height="16"/>
 </root>
