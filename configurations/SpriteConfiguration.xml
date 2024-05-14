@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<root>
-    <config sheetPath="assets/sprites/ExampleSpriteSheet.png" sheetWidth = "256" sheetHeight="256"/>
-    <sprite name="ExampleTile1" x="0" y="0" width="16" height="16"/>
-    <sprite name="ExampleTile2" x="16" y="0" width="16" height="16"/>
-</root>
