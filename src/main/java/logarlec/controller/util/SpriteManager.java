@@ -76,4 +76,14 @@ public class SpriteManager {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Visszaad egy képet név alapján
+     * 
+     * @param name A sprite neve
+     * @return <code>BufferedImage</code> a sprite.
+     */
+    public BufferedImage getSprite(String name) {
+        return spriteImages.get(name);
+    }
 }
