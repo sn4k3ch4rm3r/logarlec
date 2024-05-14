@@ -1,24 +1,26 @@
 <?xml version="1.0" ?>
 <sprites spritesheet="spritesheet.png">
-	<sprite name="beer" x="32" y="48" width="8" height="8"/>
-	<sprite name="floor" x="0" y="0" width="16" height="16"/>
-	<sprite name="inventory-slot" x="16" y="0" width="16" height="16"/>
-	<sprite name="janitor" x="32" y="0" width="16" height="16"/>
-	<sprite name="player" x="48" y="0" width="16" height="16"/>
-	<sprite name="slide-rule" x="40" y="48" width="8" height="8"/>
-	<sprite name="teacher-1" x="64" y="0" width="16" height="16"/>
-	<sprite name="teacher-2" x="0" y="16" width="16" height="16"/>
-	<sprite name="teacher-3" x="16" y="16" width="16" height="16"/>
-	<sprite name="teacher-4" x="32" y="16" width="16" height="16"/>
-	<sprite name="teacher-5" x="48" y="16" width="16" height="16"/>
-	<sprite name="transistor-active" x="48" y="48" width="8" height="8"/>
-	<sprite name="transistor" x="56" y="48" width="8" height="8"/>
-	<sprite name="wall-bottom-left" x="64" y="16" width="16" height="16"/>
-	<sprite name="wall-bottom-right" x="0" y="32" width="16" height="16"/>
-	<sprite name="wall-bottom" x="16" y="32" width="16" height="16"/>
-	<sprite name="wall-left" x="32" y="32" width="16" height="16"/>
-	<sprite name="wall-right" x="48" y="32" width="16" height="16"/>
-	<sprite name="wall-top-left" x="64" y="32" width="16" height="16"/>
-	<sprite name="wall-top-right" x="0" y="48" width="16" height="16"/>
-	<sprite name="wall-top" x="16" y="48" width="16" height="16"/>
+	<sprite name="beer" x="16" y="32" width="8" height="8"/>
+	<sprite name="button-hover" x="0" y="0" width="64" height="16"/>
+	<sprite name="button" x="64" y="0" width="64" height="16"/>
+	<sprite name="floor" x="128" y="0" width="16" height="16"/>
+	<sprite name="inventory-slot" x="144" y="0" width="16" height="16"/>
+	<sprite name="janitor" x="160" y="0" width="16" height="16"/>
+	<sprite name="player" x="176" y="0" width="16" height="16"/>
+	<sprite name="slide-rule" x="24" y="32" width="8" height="8"/>
+	<sprite name="teacher-1" x="0" y="16" width="16" height="16"/>
+	<sprite name="teacher-2" x="16" y="16" width="16" height="16"/>
+	<sprite name="teacher-3" x="32" y="16" width="16" height="16"/>
+	<sprite name="teacher-4" x="48" y="16" width="16" height="16"/>
+	<sprite name="teacher-5" x="64" y="16" width="16" height="16"/>
+	<sprite name="transistor-active" x="32" y="32" width="8" height="8"/>
+	<sprite name="transistor" x="40" y="32" width="8" height="8"/>
+	<sprite name="wall-bottom-left" x="80" y="16" width="16" height="16"/>
+	<sprite name="wall-bottom-right" x="96" y="16" width="16" height="16"/>
+	<sprite name="wall-bottom" x="112" y="16" width="16" height="16"/>
+	<sprite name="wall-left" x="128" y="16" width="16" height="16"/>
+	<sprite name="wall-right" x="144" y="16" width="16" height="16"/>
+	<sprite name="wall-top-left" x="160" y="16" width="16" height="16"/>
+	<sprite name="wall-top-right" x="176" y="16" width="16" height="16"/>
+	<sprite name="wall-top" x="0" y="32" width="16" height="16"/>
 </sprites>
