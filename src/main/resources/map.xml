@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<map>
+    <doors>
+        <door to="0" x0="1" y0="0" from="1" x1="2" y1="0"/>
+        <door to="1" x0="2" y0="0" from="0" x1="1" y1="0"/>
+    </doors>
+    <room id="0">
+        <tile x="0" y="0" type="floor">
+            <item type="beer"/>
+            <person type="player"/>
+        </tile>
+        <tile x="1" y="0" type="wall"/>
+    </room>
+    <room id="1">
+        <tile x="2" y="0" type="floor">
+            <person type="teacher"/>
+        </tile>
+    </room>
+</map>
