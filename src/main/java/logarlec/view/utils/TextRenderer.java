@@ -3,8 +3,21 @@ package logarlec.view.utils;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.InputStream;
 
 public class TextRenderer {
+	private static Font font;
+
+	static {
+		try {
+			InputStream is =
+					TextRenderer.class.getClassLoader().getResourceAsStream("PublicPixel.ttf");
+			font = Font.createFont(Font.TRUETYPE_FONT, is);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Szöveg kirajzolása, a tervben is használt 8x8 pixeles betűtípussal.
 	 * 
@@ -18,8 +31,7 @@ public class TextRenderer {
 				new BufferedImage(size * text.length(), size, BufferedImage.TYPE_INT_ARGB);
 
 		Graphics g = img.getGraphics();
-		// TODO: load font from resources
-		g.setFont(new Font("Public Pixel", Font.PLAIN, size));
+		g.setFont(font.deriveFont((float) size));
 		g.drawString(text, 0, size);
 
 		return img;
