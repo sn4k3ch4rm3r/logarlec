@@ -40,6 +40,14 @@ public class MenuPanel extends JPanel {
 		buttonPanel.add(btnExit, gbc);
 
 		this.add(buttonPanel);
+
+		btnStart.addActionListener(e -> {
+			startButtonCallback.run();
+		});
+
+		btnExit.addActionListener(e -> {
+			System.exit(0);
+		});
 	}
 
 	@Override
