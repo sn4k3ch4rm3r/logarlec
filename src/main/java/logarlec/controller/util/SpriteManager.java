@@ -1,33 +1,45 @@
-package logarlec.util;
+package logarlec.controller.util;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
+import logarlec.Configuration;
 import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.HashMap;
 import java.util.Map;
 
 public class SpriteManager {
-    private int spriteSheetWidth;
-    private int spriteSheetHeight;
-    private static Map<String, BufferedImage> spriteImages;
-    private static final String configPath = "configurations/SpriteConfiguration.xml";
+    private static SpriteManager instance;
+    private Map<String, BufferedImage> spriteImages;
+
+    private SpriteManager() {
+        spriteImages = new HashMap<>();
+    }
+
+    public static SpriteManager getInstance() {
+        if (instance == null) {
+            instance = new SpriteManager();
+        }
+        return instance;
+    }
 
     /**
-     * Betölti a megadott elérési útvonalon található sprite-okat.
+     * Betölti és feldarabolja a spritesheet-et és eltárolja a különböző sprite-okat név alapján.
      */
     public void loadSprites() {
-        String spritePath;
         try {
-
-            InputStream inputStream= new FileInputStream(configPath);
-            Reader reader = new InputStreamReader(inputStream,"UTF-8");
+            InputStream inputStream =
+                    getClass().getClassLoader().getResourceAsStream(Configuration.SPRITE_PATH);
+            Reader reader = new InputStreamReader(inputStream, "UTF-8");
             InputSource is = new InputSource(reader);
             is.setEncoding("UTF-8");
 
@@ -38,40 +50,30 @@ public class SpriteManager {
             doc.getDocumentElement().normalize();
 
             Element root = doc.getDocumentElement();
-            spritePath = root.getElementsByTagName("config").item(0).getAttributes()
-                    .getNamedItem("sheetPath").getNodeValue();
-            spriteSheetWidth = Integer.parseInt(root.getElementsByTagName("config").item(0).getAttributes()
-                    .getNamedItem("sheetWidth").getNodeValue());
-            spriteSheetHeight = Integer.parseInt(root.getElementsByTagName("config").item(0).getAttributes()
-                    .getNamedItem("sheetHeight").getNodeValue());
+            String spritePath = root.getAttribute("spritesheet");
+            NodeList sprites = root.getElementsByTagName("sprite");
+            BufferedImage spriteSheet =
+                    ImageIO.read(getClass().getClassLoader().getResource(spritePath));
 
-            var sprites = root.getElementsByTagName("sprite");
+            for (int i = 0; i < sprites.getLength(); i++) {
+                Node sprite = sprites.item(i);
+                NamedNodeMap spriteAttributes = sprite.getAttributes();
 
-            for(int i = 0; i < sprites.getLength(); i++) {
-                var sprite = sprites.item(i);
-                var spriteAttributes = sprite.getAttributes();
                 String spriteName = spriteAttributes.getNamedItem("name").getNodeValue();
-                BufferedImage spriteImage = ImageIO.read(new File(spritePath));
                 int x = Integer.parseInt(spriteAttributes.getNamedItem("x").getNodeValue());
                 int y = Integer.parseInt(spriteAttributes.getNamedItem("y").getNodeValue());
 
-                int spriteWidth = Integer.parseInt(spriteAttributes.getNamedItem("width").getNodeValue());
-                int spriteHeight = Integer.parseInt(spriteAttributes.getNamedItem("height").getNodeValue());
+                int spriteWidth =
+                        Integer.parseInt(spriteAttributes.getNamedItem("width").getNodeValue());
+                int spriteHeight =
+                        Integer.parseInt(spriteAttributes.getNamedItem("height").getNodeValue());
 
-                spriteImage = spriteImage.getSubimage(x, y, spriteWidth, spriteHeight);
-                spriteImages.put(spriteName, spriteImage);
+                BufferedImage image = spriteSheet.getSubimage(x, y, spriteWidth, spriteHeight);
+                spriteImages.put(spriteName, image);
             }
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
         }
-
-    }
-}
-
-class SpriteManagerTest {
-    public static void main(String[] args) {
-        SpriteManager spriteManager = new SpriteManager();
-        spriteManager.loadSprites();
     }
 }
