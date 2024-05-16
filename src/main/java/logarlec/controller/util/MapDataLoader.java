@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.Map;
 
 public class MapDataLoader {
-    private Boolean[][] walls;
+    private TileType[][] tiles;
     private Map<Position, String> items;
     private Map<Position, String> people;
 
     public void loadMapData() {
-        walls = new Boolean[Configuration.MAP_WIDTH][Configuration.MAP_HEIGHT];
+        tiles = new TileType[Configuration.MAP_WIDTH][Configuration.MAP_HEIGHT];
         items = new HashMap<Position, String>();
         people = new HashMap<Position, String>();
         try{
@@ -53,6 +53,9 @@ public class MapDataLoader {
                     int y0 = Integer.parseInt(element.getAttribute("y0"));
                     int x1 = Integer.parseInt(element.getAttribute("x1"));
                     int y1 = Integer.parseInt(element.getAttribute("y1"));
+                    // Temporary, should consider one-way doors
+                    tiles[x0][y0] = TileType.DOOR_OPEN;
+                    tiles[x1][y1] = TileType.DOOR_OPEN;
                 }
             }
 
@@ -66,7 +69,9 @@ public class MapDataLoader {
                     int y = Integer.parseInt(element.getAttribute("y"));
                     String type = element.getAttribute("type");
                     if(type.equals("wall")) {
-                        walls[x][y] = true;
+                        this.tiles[x][y] = TileType.WALL;
+                    } else if(type.equals("floor")) {
+                        this.tiles[x][y] = TileType.FLOOR;
                     }
 
                     NodeList children = element.getChildNodes();
@@ -93,6 +98,10 @@ public class MapDataLoader {
         } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public TileType[][] getTiles() {
+        return tiles;
     }
 
     public static void main(String[] args) {
