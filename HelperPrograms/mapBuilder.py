@@ -51,7 +51,6 @@ for i in range(23):
 '''
 
 
-'''
 root = minidom.Document() 
 
 map = root.createElement('map') 
@@ -60,22 +59,32 @@ root.appendChild(map)
 doors = root.createElement('doors')
 map.appendChild(doors)
 
-for i in range(23):
-	for i in range(24):
-		None
-
-room = root.createElement('room')
-
-map.appendChild(room)
-
 door = root.createElement('door')
 doors.appendChild(door)
 
+currentId = 0
+for room in rooms:
+	roomElement = root.createElement('room')
+	roomElement.setAttribute('id', str(currentId))
+	currentId = currentId + 1
+	map.appendChild(roomElement)
+	for wall in room.getWalls():
+		wallElement = root.createElement('tile')
+		wallElement.setAttribute('x', str(wall[0]))
+		wallElement.setAttribute('y', str(wall[1]))
+		wallElement.setAttribute('type', 'wall')
+		roomElement.appendChild(wallElement)
+	for floor in room.getFloor():
+		floorElement = root.createElement('tile')
+		floorElement.setAttribute('x', str(floor[0]))
+		floorElement.setAttribute('y', str(floor[1]))
+		floorElement.setAttribute('type', 'floor')
+		roomElement.appendChild(floorElement)
+
 xml_str = root.toprettyxml(indent ="\t") 
 
-save_path_file = "gfg.xml"
+currentDir = os.path.dirname(os.path.realpath(__file__))
+save_path_file = os.path.join(currentDir, "pyMapOut.xml")
 
 with open(save_path_file, "w") as f: 
 	f.write(xml_str) 
-
-'''
