@@ -14,10 +14,12 @@ public class InventoryView implements Drawable {
         int height = g2d.getClipBounds().height;
         for (int i = 0; i < 5; i++) {
             Graphics2D g = (Graphics2D) g2d.create(i * width, 0, width, height);
-            g.drawImage(SpriteManager.getInstance().getSprite("inventory-slot"), 0, 0, width, height, null);
+            g.drawImage(SpriteManager.getInstance().getSprite("inventory-slot"), 0, 0, width,
+                    height, null);
             if (i < items.size()) {
                 items.get(i).draw(g);
             }
+            g.dispose();
         }
     }
 

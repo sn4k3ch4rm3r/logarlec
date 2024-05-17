@@ -91,4 +91,9 @@ public class Transistor extends Item {
 				this.hashCode(), other.hashCode(), person.hashCode(), room.hashCode(),
 				target.hashCode());
 	}
+
+	public boolean isActive() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'isActive'");
+	}
 }
