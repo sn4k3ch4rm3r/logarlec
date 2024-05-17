@@ -65,6 +65,12 @@ public class MapDataLoader {
 
             //Read the doors from the xml file
             readDoors(doc);
+
+            //Load the items
+            loadItems();
+
+            //Load the people
+            loadPeople();
         } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
         }
@@ -138,6 +144,38 @@ public class MapDataLoader {
                 }
 
                 ObjectFactory.createDoor( room0, room1, new Position(x0, y0), new Position(x1, y1));
+            }
+        }
+    }
+
+    private void loadItems() {
+        for(Map.Entry<Position, String> entry : items.entrySet()) {
+            Position position = entry.getKey();
+            String type = entry.getValue();
+            String methodName = "create" + type;
+            try{
+                Objectfactory.getClass().getMethod(methodName, Position.class).invoke(null, position);
+            }
+            catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void loadPeople() {
+        for(Map.Entry<Position, String> entry : people.entrySet()) {
+            Position position = entry.getKey();
+            String type = entry.getValue();
+            if(type.equals("player")) {
+                ObjectFactory.createPlayer(position);
+            } else {
+                String methodName = "createNPC" + type;
+                try{
+                    Objectfactory.getClass().getMethod(methodName, Position.class).invoke(null, position);
+                }
+                catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }
