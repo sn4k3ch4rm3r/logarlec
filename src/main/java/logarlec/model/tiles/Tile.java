@@ -35,7 +35,7 @@ public abstract class Tile {
      */
     protected void onChanged() {
         for (TileChangeListener listener : onChangeListeners) {
-            listener.onTileChanged(this);
+            listener.onTileChanged();
         }
     }
 

@@ -7,4 +7,8 @@ public class Position {
         this.x = x;
         this.y = y;
     }
+
+    public Position add(Direction direction, int amount) {
+        return new Position(x + direction.getX() * amount, y + direction.getY() * amount);
+    }
 }
