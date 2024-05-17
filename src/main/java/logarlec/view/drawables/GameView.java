@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class GameView implements Drawable {
     private MapView mapView;
-    //private SideBarView sideBarView;
+    private SideBarView sideBarView;
     //private Game game;
 
     /**
@@ -24,5 +24,7 @@ public class GameView implements Drawable {
     public void draw(Graphics2D g2d) {
         Graphics2D mapGraphics = (Graphics2D) g2d.create(0, 0, g2d.getClipBounds().width - 200, g2d.getClipBounds().height);
         mapView.draw(mapGraphics);
+        Graphics2D sideBarGraphics = (Graphics2D) g2d.create(g2d.getClipBounds().width - 200, 0, 200, g2d.getClipBounds().height);
+        sideBarView.draw(sideBarGraphics);
     }
 }
