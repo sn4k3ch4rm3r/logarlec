@@ -1,7 +1,5 @@
 package logarlec.view.drawables;
 
-import logarlec.controller.util.SpriteManager;
-
 import java.awt.*;
 
 public class FloorTileView extends TileView {

@@ -11,8 +11,9 @@ public class PlayerView implements Drawable {
     PersonView personView;
     InventoryView inventoryView;
 
-    public PlayerView(String name) {
-        this.name = name;
+    public PlayerView(PersonView personView, InventoryView inventoryView) {
+        this.personView = personView;
+        this.inventoryView = inventoryView;
     }
 
     @Override
