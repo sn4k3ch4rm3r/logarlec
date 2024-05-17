@@ -41,13 +41,14 @@ public class MapDataLoader {
     private Map<Position, String> people;
 
     public void loadMapData() {
-        rooms = new LinkedList<ExtendedRoom>();
-        items = new HashMap<Position, String>();
-        people = new HashMap<Position, String>();
+        rooms = new LinkedList<>();
+        items = new HashMap<>();
+        people = new HashMap<>();
 
         try{
             InputStream inputStream =
                     getClass().getClassLoader().getResourceAsStream(Configuration.MAP_PATH);
+            assert inputStream != null;
             Reader reader = new InputStreamReader(inputStream, "UTF-8");
             InputSource is = new InputSource(reader);
             is.setEncoding("UTF-8");
@@ -59,57 +60,65 @@ public class MapDataLoader {
             doc.getDocumentElement().normalize();
 
             //Read the rooms from the xml file
-            NodeList tiles = doc.getElementsByTagName("room");
-            for (int i = 0; i < tiles.getLength(); i++) {
-                Node node = tiles.item(i);
-                if(node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element = (Element) node;
-
-                    int id = Integer.parseInt(element.getAttribute("id"));
-                    int x = Integer.parseInt(element.getAttribute("x"));
-                    int y = Integer.parseInt(element.getAttribute("y"));
-                    int width = Integer.parseInt(element.getAttribute("width"));
-                    int height = Integer.parseInt(element.getAttribute("height"));
-
-                    ExtendedRoom room = new ExtendedRoom(id, new Position(x, y), width, height, 10);
-                    rooms.add(room);
-
-
-                    NodeList children = element.getChildNodes();
-                    for(int j = 0; j < children.getLength(); j++) {
-                        Node child = children.item(j);
-                        if(child.getNodeType() == Node.ELEMENT_NODE) {
-                            Element childElement = (Element) child;
-                            String childType = childElement.getTagName();
-                            if(childType.equals("item")) {
-                                String subType = childElement.getAttribute("type");
-                                items.put(new Position(x, y), subType);
-                            } else if(childType.equals("person")) {
-                                String subType = childElement.getAttribute("type");
-                                people.put(new Position(x, y), subType);
-                            }
-                        }
-                    }
-
-                }
-            }
+            readRooms(doc);
 
             //Read the doors from the xml file
-            NodeList doors = doc.getElementsByTagName("door");
-            for (int i = 0; i < doors.getLength(); i++) {
-                Node node = doors.item(i);
-                if(node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element = (Element) node;
-                    String to = element.getAttribute("to");
-                    String from = element.getAttribute("from");
-                    int x0 = Integer.parseInt(element.getAttribute("x0"));
-                    int y0 = Integer.parseInt(element.getAttribute("y0"));
-                    int x1 = Integer.parseInt(element.getAttribute("x1"));
-                    int y1 = Integer.parseInt(element.getAttribute("y1"));
-                }
-            }
+            readDoors(doc);
         } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void readRooms(Document doc) {
+        NodeList tiles = doc.getElementsByTagName("room");
+        for (int i = 0; i < tiles.getLength(); i++) {
+            Node node = tiles.item(i);
+            if(node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+
+                int id = Integer.parseInt(element.getAttribute("id"));
+                int x = Integer.parseInt(element.getAttribute("x"));
+                int y = Integer.parseInt(element.getAttribute("y"));
+                int width = Integer.parseInt(element.getAttribute("width"));
+                int height = Integer.parseInt(element.getAttribute("height"));
+
+                ExtendedRoom room = new ExtendedRoom(id, new Position(x, y), width, height, 10);
+                rooms.add(room);
+
+
+                NodeList children = element.getChildNodes();
+                for(int j = 0; j < children.getLength(); j++) {
+                    Node child = children.item(j);
+                    if(child.getNodeType() == Node.ELEMENT_NODE) {
+                        Element childElement = (Element) child;
+                        String childType = childElement.getTagName();
+                        if(childType.equals("item")) {
+                            String subType = childElement.getAttribute("type");
+                            items.put(new Position(x, y), subType);
+                        } else if(childType.equals("person")) {
+                            String subType = childElement.getAttribute("type");
+                            people.put(new Position(x, y), subType);
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    private void readDoors(Document doc) {
+        NodeList doors = doc.getElementsByTagName("door");
+        for (int i = 0; i < doors.getLength(); i++) {
+            Node node = doors.item(i);
+            if(node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                String to = element.getAttribute("to");
+                String from = element.getAttribute("from");
+                int x0 = Integer.parseInt(element.getAttribute("x0"));
+                int y0 = Integer.parseInt(element.getAttribute("y0"));
+                int x1 = Integer.parseInt(element.getAttribute("x1"));
+                int y1 = Integer.parseInt(element.getAttribute("y1"));
+            }
         }
     }
 
