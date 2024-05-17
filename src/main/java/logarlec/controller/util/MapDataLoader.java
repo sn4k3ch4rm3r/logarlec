@@ -2,6 +2,7 @@ package logarlec.controller.util;
 
 import logarlec.Configuration;
 import logarlec.model.gameobjects.Person;
+import logarlec.model.gameobjects.Room;
 import logarlec.model.items.Item;
 import logarlec.model.util.Position;
 import org.w3c.dom.Document;
@@ -16,18 +17,34 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class MapDataLoader {
-    private Boolean[][] walls;
+    class ExtendedRoom extends Room {
+        public Integer id;
+        public Position position;
+        public Integer width;
+        public Integer height;
+
+        public ExtendedRoom(Integer id, Position position, Integer width, Integer height, Integer capacity) {
+            super(capacity);
+            this.id = id;
+            this.position = position;
+            this.width = width;
+            this.height = height;
+        }
+    }
+    private List<ExtendedRoom> rooms;
     private Map<Position, String> items;
     private Map<Position, String> people;
 
     public void loadMapData() {
-        walls = new Boolean[Configuration.MAP_WIDTH][Configuration.MAP_HEIGHT];
+        rooms = new LinkedList<ExtendedRoom>();
         items = new HashMap<Position, String>();
         people = new HashMap<Position, String>();
+
         try{
             InputStream inputStream =
                     getClass().getClassLoader().getResourceAsStream(Configuration.MAP_PATH);
@@ -41,33 +58,22 @@ public class MapDataLoader {
 
             doc.getDocumentElement().normalize();
 
-            //Read the doors from the xml file
-            NodeList doors = doc.getElementsByTagName("door");
-            for (int i = 0; i < doors.getLength(); i++) {
-                Node node = doors.item(i);
-                if(node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element = (Element) node;
-                    String to = element.getAttribute("to");
-                    String from = element.getAttribute("from");
-                    int x0 = Integer.parseInt(element.getAttribute("x0"));
-                    int y0 = Integer.parseInt(element.getAttribute("y0"));
-                    int x1 = Integer.parseInt(element.getAttribute("x1"));
-                    int y1 = Integer.parseInt(element.getAttribute("y1"));
-                }
-            }
-
-            //Read the walls and floors from the xml file
-            NodeList tiles = doc.getElementsByTagName("tile");
+            //Read the rooms from the xml file
+            NodeList tiles = doc.getElementsByTagName("room");
             for (int i = 0; i < tiles.getLength(); i++) {
                 Node node = tiles.item(i);
                 if(node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
+
+                    int id = Integer.parseInt(element.getAttribute("id"));
                     int x = Integer.parseInt(element.getAttribute("x"));
                     int y = Integer.parseInt(element.getAttribute("y"));
-                    String type = element.getAttribute("type");
-                    if(type.equals("wall")) {
-                        walls[x][y] = true;
-                    }
+                    int width = Integer.parseInt(element.getAttribute("width"));
+                    int height = Integer.parseInt(element.getAttribute("height"));
+
+                    ExtendedRoom room = new ExtendedRoom(id, new Position(x, y), width, height, 10);
+                    rooms.add(room);
+
 
                     NodeList children = element.getChildNodes();
                     for(int j = 0; j < children.getLength(); j++) {
@@ -88,8 +94,20 @@ public class MapDataLoader {
                 }
             }
 
-
-
+            //Read the doors from the xml file
+            NodeList doors = doc.getElementsByTagName("door");
+            for (int i = 0; i < doors.getLength(); i++) {
+                Node node = doors.item(i);
+                if(node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+                    String to = element.getAttribute("to");
+                    String from = element.getAttribute("from");
+                    int x0 = Integer.parseInt(element.getAttribute("x0"));
+                    int y0 = Integer.parseInt(element.getAttribute("y0"));
+                    int x1 = Integer.parseInt(element.getAttribute("x1"));
+                    int y1 = Integer.parseInt(element.getAttribute("y1"));
+                }
+            }
         } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
         }
