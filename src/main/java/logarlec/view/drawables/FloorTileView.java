@@ -24,4 +24,9 @@ public class FloorTileView extends TileView {
             person.draw(g2d);
         }
     }
+
+    public void setContents(ItemView item, PersonView person) {
+        this.item = item;
+        this.person = person;
+    }
 }
