@@ -22,14 +22,15 @@ import java.util.List;
 import java.util.Map;
 
 public class MapDataLoader {
-    class ExtendedRoom extends Room {
+    class ExtendedRoom {
+        public Room room;
         public Integer id;
         public Position position;
         public Integer width;
         public Integer height;
 
-        public ExtendedRoom(Integer id, Position position, Integer width, Integer height, Integer capacity) {
-            super(capacity);
+        public ExtendedRoom(Room room,Integer id, Position position, Integer width, Integer height) {
+            this.room = room;
             this.id = id;
             this.position = position;
             this.width = width;
@@ -82,7 +83,9 @@ public class MapDataLoader {
                 int width = Integer.parseInt(element.getAttribute("width"));
                 int height = Integer.parseInt(element.getAttribute("height"));
 
-                ExtendedRoom room = new ExtendedRoom(id, new Position(x, y), width, height, 10);
+                Component<Room, RoomView> component = ObjectFactory.createRoom(10, new Position(x, y), width, height);
+
+                ExtendedRoom room = new ExtendedRoom(component.getModel(), id, new Position(x, y), width, height);
                 rooms.add(room);
 
 
@@ -118,6 +121,23 @@ public class MapDataLoader {
                 int y0 = Integer.parseInt(element.getAttribute("y0"));
                 int x1 = Integer.parseInt(element.getAttribute("x1"));
                 int y1 = Integer.parseInt(element.getAttribute("y1"));
+
+                Room room0 = null;
+                Room room1 = null;
+
+                for(ExtendedRoom room : rooms) {
+                    if(room.id == Integer.parseInt(from)) {
+                        room0 = room.room;
+                    } else if(room.id == Integer.parseInt(to)) {
+                        room1 = room.room;
+                    }
+                }
+
+                if(room0 == null || room1 == null) {
+                    throw new RuntimeException("Room not found");
+                }
+
+                ObjectFactory.createDoor( room0, room1, new Position(x0, y0), new Position(x1, y1));
             }
         }
     }
