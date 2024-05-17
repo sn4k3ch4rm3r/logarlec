@@ -1,4 +1,4 @@
-package logarlec.view;
+package logarlec.view.drawables;
 
 public class WallTileView extends TileView {
     private static final String[] types = {"wall-top", "wall-top-right", "wall-right", "wall-bottom-right", "wall-bottom", "wall-bottom-left", "wall-left", "wall-top-left"};

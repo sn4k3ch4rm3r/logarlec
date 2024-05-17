@@ -1,7 +1,7 @@
 package logarlec.view.panels;
 
 import logarlec.controller.util.SpriteManager;
-import logarlec.view.GameView;
+import logarlec.view.drawables.GameView;
 
 import javax.swing.JPanel;
 import java.awt.*;

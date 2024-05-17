@@ -1,7 +1,4 @@
-package logarlec.view;
-
-import logarlec.controller.util.MapDataLoader;
-import logarlec.model.Game;
+package logarlec.view.drawables;
 
 import java.awt.*;
 
@@ -14,9 +11,9 @@ public class GameView implements Drawable {
      * A játék nézetének konstruktora. Létrehozza a térkép alapján a MapView-t és a SideBarView-t.
      */
     public GameView() {
-        MapDataLoader mapDataLoader = new MapDataLoader();
-        mapDataLoader.loadMapData();
-        mapView = new MapView(mapDataLoader.getTiles().clone());
+        //MapDataLoader mapDataLoader = new MapDataLoader();
+        //mapDataLoader.loadMapData();
+        //mapView = new MapView(mapDataLoader.getTiles().clone());
     }
 
     /**

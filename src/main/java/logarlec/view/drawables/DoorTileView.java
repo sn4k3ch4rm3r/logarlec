@@ -1,4 +1,4 @@
-package logarlec.view;
+package logarlec.view.drawables;
 
 public class DoorTileView extends TileView {
     /**

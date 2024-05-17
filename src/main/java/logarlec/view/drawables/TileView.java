@@ -1,4 +1,4 @@
-package logarlec.view;
+package logarlec.view.drawables;
 
 import logarlec.controller.util.SpriteManager;
 
