@@ -22,6 +22,8 @@
     </doors>
     <!-- Bottom room -->
     <room id="0" x="0" y="0" width="23" height="10">
+        <person x="2" y="2" type="Teacher"/>
+        <item x="19" y="3" type="SlideRule"/>
     </room>
     <!-- Middle left room -->
     <room id="1" x="0" y="11" width="18" height="7">
@@ -34,5 +36,7 @@
     </room>
     <!-- Upper left room -->
     <room id="4" x="0" y="17" width="7" height="7">
+        <person x="3" y="20" type="Player"/>
+        <item x="5" y="19" type="Transistor"/>
     </room>
 </map>
