@@ -21,12 +21,33 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A pálya adatainak .xml fájlból való betöltését végző osztály
+ */
 public class MapDataLoader {
+    /**
+     * Osztály a beolvasott szobák adatainak tárolására
+     */
     class ExtendedRoom {
+        /**
+         * A szoba modellje
+         */
         public Room room;
+        /**
+         * A szoba azonosítója
+         */
         public Integer id;
+        /**
+         * A szoba pozíciója
+         */
         public Position position;
+        /**
+         * A szoba szélessége
+         */
         public Integer width;
+        /**
+         * A szoba magassága
+         */
         public Integer height;
 
         public ExtendedRoom(Room room,Integer id, Position position, Integer width, Integer height) {
@@ -37,16 +58,28 @@ public class MapDataLoader {
             this.height = height;
         }
     }
+
+    /**
+     * A beolvasott szobák listája
+     */
     private List<ExtendedRoom> rooms;
+    /**
+     * A beolvasott tárgyak listája
+     */
     private Map<Position, String> items;
+    /**
+     * A beolvasott személyek listája
+     */
     private Map<Position, String> people;
 
     public void loadMapData() {
+        //Tárolók inicializálása
         rooms = new LinkedList<>();
         items = new HashMap<>();
         people = new HashMap<>();
 
         try{
+            //Az UTF-8 kódolásó fájl beolvasásához steraemet kell használni
             InputStream inputStream =
                     getClass().getClassLoader().getResourceAsStream(Configuration.MAP_PATH);
             assert inputStream != null;
@@ -54,32 +87,40 @@ public class MapDataLoader {
             InputSource is = new InputSource(reader);
             is.setEncoding("UTF-8");
 
+            //A DOM parser létrehozása
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(is);
 
+            //A dokumentum normalizálása ez nem kötelező, csak ajánlott lépés
             doc.getDocumentElement().normalize();
 
-            //Read the rooms from the xml file
+            //A szobák beolvasása az xml fájlból
             readRooms(doc);
 
-            //Read the doors from the xml file
+            //Az ajtók beolvasása az xml fájlból
             readDoors(doc);
 
-            //Load the items
+            //A tárgyak beolvasása
             loadItems();
 
-            //Load the people
+            //A személyek beolvasása
             loadPeople();
         } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * A szobák beolvasása az xml fájlból
+     * @param doc a beolvasott xml fájl
+     */
     private void readRooms(Document doc) {
+        //A room taggel rendelkező elemek listázása
         NodeList tiles = doc.getElementsByTagName("room");
         for (int i = 0; i < tiles.getLength(); i++) {
             Node node = tiles.item(i);
+            //Ha a node egy elem
             if(node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
 
@@ -93,7 +134,6 @@ public class MapDataLoader {
 
                 ExtendedRoom room = new ExtendedRoom(component.getModel(), id, new Position(x, y), width, height);
                 rooms.add(room);
-
 
                 NodeList children = element.getChildNodes();
                 for(int j = 0; j < children.getLength(); j++) {
@@ -115,6 +155,10 @@ public class MapDataLoader {
         }
     }
 
+    /**
+     * Az ajtók beolvasása az xml fájlból
+     * @param doc a beolvasott xml fájl
+     */
     private void readDoors(Document doc) {
         NodeList doors = doc.getElementsByTagName("door");
         for (int i = 0; i < doors.getLength(); i++) {
@@ -148,6 +192,9 @@ public class MapDataLoader {
         }
     }
 
+    /**
+     * A tárgyak betöltése és létrehozása
+     */
     private void loadItems() {
         for(Map.Entry<Position, String> entry : items.entrySet()) {
             Position position = entry.getKey();
@@ -162,6 +209,9 @@ public class MapDataLoader {
         }
     }
 
+    /**
+     * A személyek betöltése és létrehozása
+     */
     private void loadPeople() {
         for(Map.Entry<Position, String> entry : people.entrySet()) {
             Position position = entry.getKey();
@@ -180,6 +230,7 @@ public class MapDataLoader {
         }
     }
 
+    //Teszteléshez
     public static void main(String[] args) {
         MapDataLoader mapDataLoader = new MapDataLoader();
         mapDataLoader.loadMapData();
