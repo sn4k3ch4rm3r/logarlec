@@ -56,10 +56,30 @@ public class MapDataLoader {
         }
     }
 
+    class DoorData{
+        public String from;
+        public String to;
+        public Position position0;
+        public Position position1;
+        public Boolean oneway;
+
+        public DoorData(String from, String to, Position position0, Position position1) {
+            this.from = from;
+            this.to = to;
+            this.position0 = position0;
+            this.position1 = position1;
+            this.oneway = true;
+        }
+    }
+
     /**
      * A beolvasott szobák listája
      */
     private List<ExtendedRoom> rooms;
+    /**
+     * A beolvasott ajtók listája
+     */
+    private List<DoorData> doorDataList;
     /**
      * A beolvasott tárgyak listája
      */
@@ -74,6 +94,7 @@ public class MapDataLoader {
     public GameBuilder loadMapData() {
         //Tárolók inicializálása
         rooms = new LinkedList<>();
+        doorDataList = new LinkedList<>();
         items = new HashMap<>();
         people = new HashMap<>();
 
@@ -179,10 +200,25 @@ public class MapDataLoader {
                 int x1 = Integer.parseInt(element.getAttribute("x1"));
                 int y1 = Integer.parseInt(element.getAttribute("y1"));
 
-                gameBuilder.addDoor(from, to, Position(x0, y0), Position(x1, y1));
+                doorDataList.add(new DoorData(from, to, new Position(x0, y0), new Position(x1, y1)));
             }
         }
+
+        for (DoorData doorData : doorDataList) {
+            Boolean oneway = !hasNeighbour(doorData, doorDataList);
+            gameBuilder.addDoor(doorData.from, doorData.to, doorData.position0, doorData.position1, oneway);
+        }
     }
+
+    private Boolean hasNeighbour(DoorData doorData, List<DoorData> doorDataList){
+        for (DoorData doorData1 : doorDataList) {
+            if (doorData1.from.equals(doorData.to) && doorData1.to.equals(doorData.from)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * A tárgyak betöltése és létrehozása
