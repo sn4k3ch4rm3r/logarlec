@@ -11,7 +11,9 @@ public class Main {
 
 		for (int i = 0; i < args.length; i++) {
 			if (args[i].equals("--lang")) {
-				locale = new Locale(args[i + 1]);
+				String lang = args[i + 1].split("_")[0];
+				String country = args[i + 1].split("_")[1];
+				locale = new Locale(lang, country);
 			}
 		}
 
