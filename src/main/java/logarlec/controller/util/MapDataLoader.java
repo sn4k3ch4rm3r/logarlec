@@ -69,11 +69,16 @@ public class MapDataLoader {
      */
     private Map<Position, String> people;
 
-    public void loadMapData() {
+    GameBuilder gameBuilder;
+
+    public GameBuilder loadMapData() {
         //Tárolók inicializálása
         rooms = new LinkedList<>();
         items = new HashMap<>();
         people = new HashMap<>();
+
+        //gameBuilder inicializálása
+        gameBuilder = new GameBuilder(23,24);
 
         try {
             //Az UTF-8 kódolásó fájl beolvasásához steraemet kell használni
@@ -103,6 +108,9 @@ public class MapDataLoader {
 
             //A személyek beolvasása
             loadPeople();
+
+            gameBuilder.build();
+            return gameBuilder;
         } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
         }
@@ -128,7 +136,7 @@ public class MapDataLoader {
                 int width = Integer.parseInt(element.getAttribute("width"));
                 int height = Integer.parseInt(element.getAttribute("height"));
 
-                Component<Room, RoomView> component = ObjectFactory.createRoom(10, new Position(x, y), width, height);
+                gameBuilder.addRoom(id, 10, Position(x,y) width, height);
 
                 ExtendedRoom room = new ExtendedRoom(component.getModel(), id, new Position(x, y), width, height);
                 rooms.add(room);
@@ -171,22 +179,7 @@ public class MapDataLoader {
                 int x1 = Integer.parseInt(element.getAttribute("x1"));
                 int y1 = Integer.parseInt(element.getAttribute("y1"));
 
-                Room room0 = null;
-                Room room1 = null;
-
-                for (ExtendedRoom room : rooms) {
-                    if (room.id == Integer.parseInt(from)) {
-                        room0 = room.room;
-                    } else if (room.id == Integer.parseInt(to)) {
-                        room1 = room.room;
-                    }
-                }
-
-                if (room0 == null || room1 == null) {
-                    throw new NoSuchElementException("Room not found");
-                }
-
-                ObjectFactory.createDoor(room0, room1, new Position(x0, y0), new Position(x1, y1));
+                gameBuilder.addDoor(from, to, Position(x0, y0), Position(x1, y1));
             }
         }
     }
@@ -198,11 +191,42 @@ public class MapDataLoader {
         for (Map.Entry<Position, String> entry : items.entrySet()) {
             Position position = entry.getKey();
             String type = entry.getValue();
-            String methodName = "create" + type;
-            try {
-                Objectfactory.getClass().getMethod(methodName, Position.class).invoke(null, position);
-            } catch (Exception e) {
-                throw new IllegalArgumentException(e);
+            switch (type){
+                case "AirFreshener":
+                    gameBuilder.addAirFreshener(position);
+                    break;
+                case "Beer":
+                    gameBuilder.addBeer(position);
+                    break;
+                case "Camembert":
+                    gameBuilder.addCamembert(position);
+                    break;
+                case "CodeOfStudies":
+                    gameBuilder.addCodeOfStudies(position);
+                    break;
+                case "Mask":
+                    gameBuilder.addMask(position);
+                    break;
+                case "addSlideRule":
+                    gameBuilder.addSlideRule(position);
+                    break;
+                case "WetRag":
+                    gameBuilder.addWetRag(position);
+                    break;
+                case "Transistor":
+                    gameBuilder.addTransistor(position);
+                    break;
+                case "FakeCodeOfStudies":
+                    gameBuilder.addFakeCodeOfStudies(position);
+                    break;
+                case "FakeMask":
+                    gameBuilder.addFakeMask(position);
+                    break;
+                case "FakeSlideRule":
+                    gameBuilder.addFakeSlideRule(position);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid item type");
             }
         }
     }
@@ -215,14 +239,14 @@ public class MapDataLoader {
             Position position = entry.getKey();
             String type = entry.getValue();
             if (type.equals("Player")) {
-                ObjectFactory.createPlayer(position);
+                gameBuilder.addPlayer(position);
             } else {
                 switch (type) {
                     case "Teacher":
-                        ObjectFactory.createTeacher(position);
+                        gameBuilder.addTeacher(position);
                         break;
                     case "Janitor":
-                        ObjectFactory.createJanitor(position);
+                        gameBuilder.addJanitor(position);
                         break;
                     default:
                         throw new IllegalArgumentException("Invalid person type");
