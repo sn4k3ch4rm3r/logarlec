@@ -104,8 +104,35 @@ public class GameBuilder {
 				if (x == position.x || x == position.x + width - 1 || y == position.y
 						|| y == position.y + height - 1) {
 					WallTile wallTile = new WallTile(new Position(x, y), room);
+					WallTileView wallView = new WallTileView(wallTile);
+
+					if (x == position.x && y == position.y) {
+						wallView.setVariation("top-left");
+					}
+					else if (x == position.x + width - 1 && y == position.y) {
+						wallView.setVariation("top-right");
+					}
+					else if (x == position.x && y == position.y + height - 1) {
+						wallView.setVariation("bottom-left");
+					}
+					else if (x == position.x + width - 1 && y == position.y + height - 1) {
+						wallView.setVariation("bottom-right");
+					}
+					else if (y == position.y) {
+						wallView.setVariation("top");
+					}
+					else if (y == position.y + height - 1) {
+						wallView.setVariation("bottom");
+					}
+					else if (x == position.x) {
+						wallView.setVariation("left");
+					}
+					else if (x == position.x + width - 1) {
+						wallView.setVariation("right");
+					}
+
 					tile = wallTile;
-					view = new WallTileView(wallTile);
+					view = wallView;
 				}
 				else {
 					FloorTile floorTile = new FloorTile(new Position(x, y), room);
