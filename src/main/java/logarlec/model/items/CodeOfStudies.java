@@ -9,7 +9,7 @@ public class CodeOfStudies extends Item {
 	 */
 	private int uses;
 
-	CodeOfStudies() {
+	public CodeOfStudies() {
 		uses = 3;
 	}
 

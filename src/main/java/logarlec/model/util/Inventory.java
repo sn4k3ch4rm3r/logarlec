@@ -21,7 +21,7 @@ public class Inventory {
 
 	public void onChanged() {
 		for (InventoryChangeListener listener : listeners) {
-			listener.onInventoryChange(this);
+			listener.onInventoryChange();
 		}
 	}
 
