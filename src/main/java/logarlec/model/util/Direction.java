@@ -11,6 +11,11 @@ public enum Direction {
 		public int getY() {
 			return -1;
 		}
+
+		@Override
+		public Direction getOpposite() {
+			return DOWN;
+		}
 	},
 	DOWN {
 		@Override
@@ -22,6 +27,11 @@ public enum Direction {
 		public int getY() {
 			return 1;
 		}
+
+		@Override
+		public Direction getOpposite() {
+			return UP;
+		}
 	},
 	LEFT {
 		@Override
@@ -32,6 +42,11 @@ public enum Direction {
 		@Override
 		public int getY() {
 			return 0;
+		}
+
+		@Override
+		public Direction getOpposite() {
+			return RIGHT;
 		}
 	},
 	RIGHT {
@@ -45,9 +60,15 @@ public enum Direction {
 			return 0;
 		}
 
+		@Override
+		public Direction getOpposite() {
+			return LEFT;
+		}
 	};
 
 	public abstract int getX();
 
 	public abstract int getY();
+
+	public abstract Direction getOpposite();
 }

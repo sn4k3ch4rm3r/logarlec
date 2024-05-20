@@ -15,8 +15,11 @@ public class TileController implements TileChangeListener {
     public TileController(FloorTile tile, FloorTileView view) {
         this.tile = tile;
         this.tileView = view;
+    }
 
+    public void initialize() {
         tile.addOnChangeEventListener(this);
+        onTileChanged();
     }
 
     @Override

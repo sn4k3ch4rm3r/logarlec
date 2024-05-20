@@ -9,6 +9,7 @@ import logarlec.controller.AiController;
 import logarlec.controller.GameController;
 import logarlec.controller.PersonController;
 import logarlec.controller.PlayerController;
+import logarlec.controller.TileController;
 import logarlec.model.Game;
 import logarlec.model.gameobjects.Janitor;
 import logarlec.model.gameobjects.Person;
@@ -31,6 +32,7 @@ import logarlec.model.tiles.DoorTile;
 import logarlec.model.tiles.FloorTile;
 import logarlec.model.tiles.Tile;
 import logarlec.model.tiles.WallTile;
+import logarlec.model.util.Direction;
 import logarlec.model.util.Door;
 import logarlec.model.util.Entity;
 import logarlec.model.util.Position;
@@ -53,6 +55,7 @@ public class GameBuilder {
 	private List<PersonController> personControllers;
 
 	private Map<Integer, Room> rooms;
+	private List<TileController> tileControllers;
 	private int teacherCount;
 	private int playerCount;
 
@@ -71,6 +74,7 @@ public class GameBuilder {
 		personControllers = new LinkedList<>();
 
 		rooms = new HashMap<>();
+		tileControllers = new LinkedList<>();
 		teacherCount = 0;
 		playerCount = 0;
 	}
@@ -93,8 +97,8 @@ public class GameBuilder {
 			for (int y = position.y; y < height + position.y; y++) {
 				TileView view;
 				Tile tile;
-				if (x == position.x || x == position.x + width || y == position.y
-						|| y == position.y + height) {
+				if (x == position.x || x == position.x + width - 1 || y == position.y
+						|| y == position.y + height - 1) {
 					WallTile wallTile = new WallTile(new Position(x, y), room);
 					tile = wallTile;
 					view = new WallTileView(wallTile);
@@ -103,6 +107,7 @@ public class GameBuilder {
 					FloorTile floorTile = new FloorTile(new Position(x, y), room);
 					tile = floorTile;
 					view = new FloorTileView(floorTile);
+					tileControllers.add(new TileController(floorTile, (FloorTileView) view));
 				}
 				addTile(tile, view);
 			}
@@ -130,8 +135,19 @@ public class GameBuilder {
 		DoorTile fromTile = new DoorTile(from, fromRoom, door);
 		DoorTile toTile = new DoorTile(to, toRoom, door);
 
-		DoorTileView fromView = new DoorTileView(fromTile);
-		DoorTileView toView = new DoorTileView(toTile);
+		Direction direction = null;
+		for (Direction dir : Direction.values()) {
+			if (from.add(dir, 1).equals(to)) {
+				direction = dir;
+			}
+		}
+		if (direction == null) {
+			throw new IllegalArgumentException(
+					"The specified to and from tiles are not next to each other.");
+		}
+
+		DoorTileView fromView = new DoorTileView(fromTile, direction);
+		DoorTileView toView = new DoorTileView(toTile, direction.getOpposite());
 
 		addTile(fromTile, fromView);
 		addTile(toTile, toView);
@@ -293,6 +309,9 @@ public class GameBuilder {
 	 */
 	public GameController build() {
 		GameController.initialize(this);
+		for (TileController tileController : tileControllers) {
+			tileController.initialize();
+		}
 		return GameController.getInstance();
 	}
 
@@ -308,7 +327,7 @@ public class GameBuilder {
 		Entity entity = new Entity(position, person);
 		PersonController controller = controllerFactory.apply(entity, view);
 
-		modelViews.put(entity.getPerson(), view);
+		modelViews.put(person, view);
 		personControllers.add(controller);
 		game.addEntity(entity);
 		return this;
