@@ -1,12 +1,13 @@
 package logarlec.view.drawables;
 
+import logarlec.Configuration;
 import logarlec.model.tiles.Tile;
 
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 
 public abstract class TileView implements Drawable {
-    private Tile tile;
+    protected Tile tile;
     protected BufferedImage sprite;
 
     public TileView(Tile tile) {
@@ -14,7 +15,9 @@ public abstract class TileView implements Drawable {
     }
 
     protected Graphics2D getGraphicsContext(Graphics2D graphics) {
-        return (Graphics2D) graphics.create(tile.getPosition().x, tile.getPosition().y,
+        return (Graphics2D) graphics.create(
+                tile.getPosition().x * Configuration.TILE_SIZE,
+                tile.getPosition().y * Configuration.TILE_SIZE,
                 sprite.getWidth(), sprite.getHeight());
     }
 

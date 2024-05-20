@@ -1,5 +1,6 @@
 package logarlec.view.drawables;
 
+import logarlec.controller.util.SpriteManager;
 import logarlec.model.tiles.WallTile;
 
 public class WallTileView extends TileView {
@@ -9,5 +10,6 @@ public class WallTileView extends TileView {
     public WallTileView(WallTile tile) {
         super(tile);
         // TODO: Set sprite
+        sprite = SpriteManager.getInstance().getSprite("wall-top");
     }
 }

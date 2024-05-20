@@ -35,7 +35,8 @@ public class Transistor extends Item {
 			if (target.enter(person)) {
 				room.leave(person);
 			}
-		} else if (this.other != null && this.target == null) {
+		}
+		else if (this.other != null && this.target == null) {
 			person.dropItem(this);
 			other.setTarget(this.room);
 		}
@@ -93,7 +94,6 @@ public class Transistor extends Item {
 	}
 
 	public boolean isActive() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'isActive'");
+		return other != null;
 	}
 }

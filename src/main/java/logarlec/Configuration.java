@@ -7,6 +7,7 @@ public final class Configuration {
 	public static final int WIDTH = 512;
 	public static final int HEIGHT = 384;
 	public static final float SCALE = 2;
+	public static final int TILE_SIZE = 16;
 	public static final String SPRITE_PATH = "sprites.xml";
 	public static final Locale DEFAULT_LOCALE = new Locale("la");
 

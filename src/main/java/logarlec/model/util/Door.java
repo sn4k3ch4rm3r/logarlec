@@ -34,22 +34,27 @@ public class Door {
 				try {
 					Prototype.out.write(String.format("<%d> moved to <%d>.\n", person.hashCode(),
 							roomToEnter.hashCode()).getBytes());
-				} catch (Exception e) {
+				}
+				catch (Exception e) {
 					e.printStackTrace();
 				}
 				return true;
-			} else {
+			}
+			else {
 				try {
 					Prototype.out.write("The other room is full.\n".getBytes());
-				} catch (Exception e) {
+				}
+				catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		} else {
+		}
+		else {
 			try {
 				Prototype.out.write(String
 						.format("<%d> couldn't use the door.\n", person.hashCode()).getBytes());
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -65,12 +70,14 @@ public class Door {
 	public void move(Room from, Room to) {
 		if (to == this.from || to == this.to) {
 			to.removeDoor(this);
-		} else {
+		}
+		else {
 			from.removeDoor(this);
 			if (from == this.from) {
 				this.from = to;
 				this.to.addDoor(this);
-			} else if (from == this.to) {
+			}
+			else if (from == this.to) {
 				this.to = to;
 				this.to.addDoor(this);
 			}
@@ -98,6 +105,22 @@ public class Door {
 	 */
 	public void setOneWay(boolean oneWay) {
 		this.oneWay = oneWay;
+	}
+
+	public boolean isOneWay() {
+		return oneWay;
+	}
+
+	public Room getFromRoom() {
+		return from;
+	}
+
+	public Room getToRoom() {
+		return to;
+	}
+
+	public boolean isHidden() {
+		return hidden;
 	}
 
 	@Override

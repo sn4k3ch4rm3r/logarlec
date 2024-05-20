@@ -10,6 +10,7 @@ public class PersonView implements Drawable {
 
     public PersonView(Person person, BufferedImage sprite) {
         this.person = person;
+        this.sprite = sprite;
     }
 
     @Override
