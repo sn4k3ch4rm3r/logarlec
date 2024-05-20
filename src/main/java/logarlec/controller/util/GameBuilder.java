@@ -36,6 +36,7 @@ import logarlec.model.util.Direction;
 import logarlec.model.util.Door;
 import logarlec.model.util.Entity;
 import logarlec.model.util.Position;
+import logarlec.view.Renderer;
 import logarlec.view.drawables.DoorTileView;
 import logarlec.view.drawables.Drawable;
 import logarlec.view.drawables.FloorTileView;
@@ -45,6 +46,7 @@ import logarlec.view.drawables.PersonView;
 import logarlec.view.drawables.TileView;
 import logarlec.view.drawables.TransistorView;
 import logarlec.view.drawables.WallTileView;
+import logarlec.view.panels.GamePanel;
 
 public class GameBuilder {
 	private SpriteManager spriteManager;
@@ -53,6 +55,8 @@ public class GameBuilder {
 	private Map<Object, Drawable> modelViews;
 	private MapView mapView;
 	private List<PersonController> personControllers;
+	private GamePanel panel;
+	private Renderer renderer;
 
 	private Map<Integer, Room> rooms;
 	private List<TileController> tileControllers;
@@ -302,6 +306,17 @@ public class GameBuilder {
 		return addItem(position, new FakeSlideRule(), "slide-rule");
 	}
 
+
+	public GameBuilder setPanel(GamePanel gamePanel) {
+		this.panel = gamePanel;
+		return this;
+	}
+
+	public GameBuilder setRenderer(Renderer renderer) {
+		this.renderer = renderer;
+		return this;
+	}
+
 	/**
 	 * A játékállapot, vezérlők és nézetek megépítése.
 	 * 
@@ -354,5 +369,13 @@ public class GameBuilder {
 
 	public MapView getMapView() {
 		return mapView;
+	}
+
+	public GamePanel getPanel() {
+		return panel;
+	}
+
+	public Renderer getRenderer() {
+		return renderer;
 	}
 }

@@ -6,8 +6,11 @@ import logarlec.controller.util.GameBuilder;
 import logarlec.model.Game;
 import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
+import logarlec.view.Renderer;
 import logarlec.view.drawables.Drawable;
 import logarlec.view.drawables.MapView;
+import logarlec.view.panels.GamePanel;
+import logarlec.view.utils.Palette;
 
 
 public class GameController {
@@ -16,6 +19,9 @@ public class GameController {
     private Map<Object, Drawable> modelViews;
     private List<PersonController> personControllers;
 
+    private GamePanel panel;
+    private Renderer renderer;
+
     private MapView mapView;
 
     private GameController(GameBuilder builder) {
@@ -23,6 +29,8 @@ public class GameController {
         modelViews = builder.getModelViews();
         personControllers = builder.getPersonControllers();
         mapView = builder.getMapView();
+        panel = builder.getPanel();
+        renderer = builder.getRenderer();
     }
 
     public static void initialize(GameBuilder builder) {
@@ -41,7 +49,10 @@ public class GameController {
     }
 
     public void updateView() {
-        // TODO
+        renderer.clear(Palette.getColor(26));
+        renderer.render(mapView);
+
+        panel.repaint();
     }
 
     public void moveEntity(Entity entity, Direction direction) {
