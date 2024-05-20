@@ -53,6 +53,8 @@ public class GameBuilder {
 	private List<PersonController> personControllers;
 
 	private Map<Integer, Room> rooms;
+	private int teacherCount;
+	private int playerCount;
 
 	/**
 	 * A GameBuilder konstruktora
@@ -69,6 +71,8 @@ public class GameBuilder {
 		personControllers = new LinkedList<>();
 
 		rooms = new HashMap<>();
+		teacherCount = 0;
+		playerCount = 0;
 	}
 
 	/**
@@ -142,7 +146,8 @@ public class GameBuilder {
 	 * @return A GameBuilder példány.
 	 */
 	public GameBuilder addPlayer(Position position) {
-		return addPerson(position, new Student(), PlayerController::new, "player-1");
+		return addPerson(position, new Student(), PlayerController::new,
+				String.format("player-%d", ++playerCount));
 	}
 
 	/**
@@ -152,7 +157,8 @@ public class GameBuilder {
 	 * @return A GameBuilder példány.
 	 */
 	public GameBuilder addTeacher(Position position) {
-		return addPerson(position, new Teacher(), AiController::new, "teacher-1");
+		return addPerson(position, new Teacher(), AiController::new,
+				String.format("teacher-%d", ++teacherCount));
 	}
 
 	/**
@@ -313,5 +319,21 @@ public class GameBuilder {
 		modelViews.put(item, view);
 		game.addItem(item, position);
 		return this;
+	}
+
+	public Game getGameState() {
+		return game;
+	}
+
+	public Map<Object, Drawable> getModelViews() {
+		return modelViews;
+	}
+
+	public List<PersonController> getPersonControllers() {
+		return personControllers;
+	}
+
+	public MapView getMapView() {
+		return mapView;
 	}
 }
