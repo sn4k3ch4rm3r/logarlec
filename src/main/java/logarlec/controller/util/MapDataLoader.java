@@ -16,10 +16,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A pálya adatainak .xml fájlból való betöltését végző osztály
@@ -50,7 +47,7 @@ public class MapDataLoader {
          */
         public Integer height;
 
-        public ExtendedRoom(Room room,Integer id, Position position, Integer width, Integer height) {
+        public ExtendedRoom(Room room, Integer id, Position position, Integer width, Integer height) {
             this.room = room;
             this.id = id;
             this.position = position;
@@ -78,7 +75,7 @@ public class MapDataLoader {
         items = new HashMap<>();
         people = new HashMap<>();
 
-        try{
+        try {
             //Az UTF-8 kódolásó fájl beolvasásához steraemet kell használni
             InputStream inputStream =
                     getClass().getClassLoader().getResourceAsStream(Configuration.MAP_PATH);
@@ -113,6 +110,7 @@ public class MapDataLoader {
 
     /**
      * A szobák beolvasása az xml fájlból
+     *
      * @param doc a beolvasott xml fájl
      */
     private void readRooms(Document doc) {
@@ -121,7 +119,7 @@ public class MapDataLoader {
         for (int i = 0; i < tiles.getLength(); i++) {
             Node node = tiles.item(i);
             //Ha a node egy elem
-            if(node.getNodeType() == Node.ELEMENT_NODE) {
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
 
                 int id = Integer.parseInt(element.getAttribute("id"));
@@ -136,15 +134,15 @@ public class MapDataLoader {
                 rooms.add(room);
 
                 NodeList children = element.getChildNodes();
-                for(int j = 0; j < children.getLength(); j++) {
+                for (int j = 0; j < children.getLength(); j++) {
                     Node child = children.item(j);
-                    if(child.getNodeType() == Node.ELEMENT_NODE) {
+                    if (child.getNodeType() == Node.ELEMENT_NODE) {
                         Element childElement = (Element) child;
                         String childType = childElement.getTagName();
-                        if(childType.equals("item")) {
+                        if (childType.equals("item")) {
                             String subType = childElement.getAttribute("type");
                             items.put(new Position(x, y), subType);
-                        } else if(childType.equals("person")) {
+                        } else if (childType.equals("person")) {
                             String subType = childElement.getAttribute("type");
                             people.put(new Position(x, y), subType);
                         }
@@ -157,13 +155,14 @@ public class MapDataLoader {
 
     /**
      * Az ajtók beolvasása az xml fájlból
+     *
      * @param doc a beolvasott xml fájl
      */
     private void readDoors(Document doc) {
         NodeList doors = doc.getElementsByTagName("door");
         for (int i = 0; i < doors.getLength(); i++) {
             Node node = doors.item(i);
-            if(node.getNodeType() == Node.ELEMENT_NODE) {
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
                 String to = element.getAttribute("to");
                 String from = element.getAttribute("from");
@@ -175,19 +174,19 @@ public class MapDataLoader {
                 Room room0 = null;
                 Room room1 = null;
 
-                for(ExtendedRoom room : rooms) {
-                    if(room.id == Integer.parseInt(from)) {
+                for (ExtendedRoom room : rooms) {
+                    if (room.id == Integer.parseInt(from)) {
                         room0 = room.room;
-                    } else if(room.id == Integer.parseInt(to)) {
+                    } else if (room.id == Integer.parseInt(to)) {
                         room1 = room.room;
                     }
                 }
 
-                if(room0 == null || room1 == null) {
-                    throw new RuntimeException("Room not found");
+                if (room0 == null || room1 == null) {
+                    throw new NoSuchElementException("Room not found");
                 }
 
-                ObjectFactory.createDoor( room0, room1, new Position(x0, y0), new Position(x1, y1));
+                ObjectFactory.createDoor(room0, room1, new Position(x0, y0), new Position(x1, y1));
             }
         }
     }
@@ -196,15 +195,14 @@ public class MapDataLoader {
      * A tárgyak betöltése és létrehozása
      */
     private void loadItems() {
-        for(Map.Entry<Position, String> entry : items.entrySet()) {
+        for (Map.Entry<Position, String> entry : items.entrySet()) {
             Position position = entry.getKey();
             String type = entry.getValue();
             String methodName = "create" + type;
-            try{
+            try {
                 Objectfactory.getClass().getMethod(methodName, Position.class).invoke(null, position);
-            }
-            catch (Exception e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new IllegalArgumentException(e);
             }
         }
     }
@@ -213,26 +211,24 @@ public class MapDataLoader {
      * A személyek betöltése és létrehozása
      */
     private void loadPeople() {
-        for(Map.Entry<Position, String> entry : people.entrySet()) {
+        for (Map.Entry<Position, String> entry : people.entrySet()) {
             Position position = entry.getKey();
             String type = entry.getValue();
-            if(type.equals("player")) {
+            if (type.equals("Player")) {
                 ObjectFactory.createPlayer(position);
             } else {
-                String methodName = "createNPC" + type;
-                try{
-                    Objectfactory.getClass().getMethod(methodName, Position.class).invoke(null, position);
-                }
-                catch (Exception e) {
-                    throw new RuntimeException(e);
+                switch (type) {
+                    case "Teacher":
+                        ObjectFactory.createTeacher(position);
+                        break;
+                    case "Janitor":
+                        ObjectFactory.createJanitor(position);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Invalid person type");
+
                 }
             }
         }
-    }
-
-    //Teszteléshez
-    public static void main(String[] args) {
-        MapDataLoader mapDataLoader = new MapDataLoader();
-        mapDataLoader.loadMapData();
     }
 }
