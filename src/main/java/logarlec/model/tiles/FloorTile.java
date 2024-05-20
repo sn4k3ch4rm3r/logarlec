@@ -25,7 +25,7 @@ public class FloorTile extends Tile {
             return false;
         }
         this.person = person;
-        if (person.addItem(item)) {
+        if (this.item != null && person.addItem(item)) {
             this.item = null;
         }
         onChanged();
