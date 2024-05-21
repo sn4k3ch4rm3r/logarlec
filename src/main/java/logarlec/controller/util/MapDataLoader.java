@@ -57,16 +57,13 @@ public class MapDataLoader {
             doc.getDocumentElement().normalize();
 
             // A szobák beolvasása az xml fájlból
-            readRooms(doc);
-
-            // Az ajtók beolvasása az xml fájlból
-            readDoors(doc);
+            readInVariableData(doc, 0);
 
             // A tárgyak beolvasása
             loadItems();
 
             // A személyek beolvasása
-            loadPeople();
+            loadPeople(doc);
             return gameBuilder;
         }
         catch (ParserConfigurationException | SAXException | IOException e) {
@@ -79,69 +76,63 @@ public class MapDataLoader {
      *
      * @param doc a beolvasott xml fájl
      */
-    private void readRooms(Document doc) {
+    private void readInVariableData(Document doc, int configId) {
         // A room taggel rendelkező elemek listázása
-        NodeList tiles = doc.getElementsByTagName("room");
-        for (int i = 0; i < tiles.getLength(); i++) {
-            Node node = tiles.item(i);
+        NodeList configurations = doc.getElementsByTagName("configuration");
+        for (int i = 0; i < configurations.getLength(); i++) {
+            Node node = configurations.item(i);
             // Ha a node egy elem
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
-
+                // A room elem attribútumainak beolvasása
                 int id = Integer.parseInt(element.getAttribute("id"));
-                int x = Integer.parseInt(element.getAttribute("x"));
-                int y = Integer.parseInt(element.getAttribute("y"));
-                int width = Integer.parseInt(element.getAttribute("width"));
-                int height = Integer.parseInt(element.getAttribute("height"));
-                int capacity = Integer.parseInt(element.getAttribute("capacity"));
-
-                gameBuilder.addRoom(id, capacity, new Position(x, y), width, height);
-
-                NodeList children = element.getChildNodes();
-                for (int j = 0; j < children.getLength(); j++) {
-                    Node child = children.item(j);
-                    if (child.getNodeType() == Node.ELEMENT_NODE) {
-                        Element childElement = (Element) child;
-                        String childType = childElement.getTagName();
-                        if (childType.equals("item")) {
-                            int x0 = Integer.parseInt(childElement.getAttribute("x"));
-                            int y0 = Integer.parseInt(childElement.getAttribute("y"));
-                            String subType = childElement.getAttribute("type");
-                            items.put(new Position(x0, y0), subType);
+                if (id == configId) {
+                    NodeList rooms = element.getElementsByTagName("room");
+                    for (int j = 0; j < rooms.getLength(); j++) {
+                        Node roomNode = rooms.item(j);
+                        if (roomNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element roomElement = (Element) roomNode;
+                            // A room elem attribútumainak beolvasása
+                            int roomId = Integer.parseInt(roomElement.getAttribute("id"));
+                            int x = Integer.parseInt(roomElement.getAttribute("x"));
+                            int y = Integer.parseInt(roomElement.getAttribute("y"));
+                            int width = Integer.parseInt(roomElement.getAttribute("width"));
+                            int height = Integer.parseInt(roomElement.getAttribute("height"));
+                            int capacity = Integer.parseInt(roomElement.getAttribute("capacity"));
+                            // A room elem attribútumainak beolvasása
+                            gameBuilder.addRoom(roomId, capacity, new Position(x, y), width, height);
                         }
-                        else if (childType.equals("person")) {
-                            int x0 = Integer.parseInt(childElement.getAttribute("x"));
-                            int y0 = Integer.parseInt(childElement.getAttribute("y"));
-                            String subType = childElement.getAttribute("type");
-                            people.put(new Position(x0, y0), subType);
+                    }
+                    NodeList items = element.getElementsByTagName("item");
+                    for (int j = 0; j < items.getLength(); j++) {
+                        Node itemNode = items.item(j);
+                        if (itemNode.getNodeType() == Node.ELEMENT_NODE) {
+                            Element itemElement = (Element) itemNode;
+                            int x = Integer.parseInt(itemElement.getAttribute("x"));
+                            int y = Integer.parseInt(itemElement.getAttribute("y"));
+                            String type = itemElement.getAttribute("type");
+                            this.items.put(new Position(x, y), type);
+                        }
+                    }
+
+                    NodeList doors = element.getElementsByTagName("door");
+                    for (int j = 0; j < doors.getLength(); j++) {
+                        node = doors.item(j);
+                        if (node.getNodeType() == Node.ELEMENT_NODE) {
+                            Element itemElement = (Element) node;
+                            int to = Integer.parseInt(itemElement.getAttribute("to"));
+                            int from = Integer.parseInt(itemElement.getAttribute("from"));
+                            int x0 = Integer.parseInt(itemElement.getAttribute("x0"));
+                            int y0 = Integer.parseInt(itemElement.getAttribute("y0"));
+                            int x1 = Integer.parseInt(itemElement.getAttribute("x1"));
+                            int y1 = Integer.parseInt(itemElement.getAttribute("y1"));
+                            boolean oneway = Boolean.parseBoolean(itemElement.getAttribute("oneway"));
+
+                            gameBuilder.addDoor(from, to, new Position(x0, y0), new Position(x1, y1), oneway);
                         }
                     }
                 }
 
-            }
-        }
-    }
-
-    /**
-     * Az ajtók beolvasása az xml fájlból
-     *
-     * @param doc a beolvasott xml fájl
-     */
-    private void readDoors(Document doc) {
-        NodeList doors = doc.getElementsByTagName("door");
-        for (int i = 0; i < doors.getLength(); i++) {
-            Node node = doors.item(i);
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) node;
-                int to = Integer.parseInt(element.getAttribute("to"));
-                int from = Integer.parseInt(element.getAttribute("from"));
-                int x0 = Integer.parseInt(element.getAttribute("x0"));
-                int y0 = Integer.parseInt(element.getAttribute("y0"));
-                int x1 = Integer.parseInt(element.getAttribute("x1"));
-                int y1 = Integer.parseInt(element.getAttribute("y1"));
-                boolean oneway = Boolean.parseBoolean(element.getAttribute("oneway"));
-
-                gameBuilder.addDoor(from, to, new Position(x0, y0), new Position(x1, y1), oneway);
             }
         }
     }
@@ -196,8 +187,21 @@ public class MapDataLoader {
     /**
      * A személyek betöltése és létrehozása
      */
-    private void loadPeople() {
+    private void loadPeople(Document doc){
+        NodeList persons = doc.getElementsByTagName("person");
+        for (int i = 0; i < persons.getLength(); i++) {
+            Node personNode = persons.item(i);
+            if (personNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element personElement = (Element) personNode;
+                int x = Integer.parseInt(personElement.getAttribute("x"));
+                int y = Integer.parseInt(personElement.getAttribute("y"));
+                String type = personElement.getAttribute("type");
+                this.people.put(new Position(x, y), type);
+            }
+        }
+
         for (Map.Entry<Position, String> entry : people.entrySet()) {
+
             Position position = entry.getKey();
             String type = entry.getValue();
             switch (type) {
