@@ -104,12 +104,16 @@ public class MapDataLoader {
                         Element childElement = (Element) child;
                         String childType = childElement.getTagName();
                         if (childType.equals("item")) {
+                            int x0 = Integer.parseInt(childElement.getAttribute("x"));
+                            int y0 = Integer.parseInt(childElement.getAttribute("y"));
                             String subType = childElement.getAttribute("type");
-                            items.put(new Position(x, y), subType);
+                            items.put(new Position(x0, y0), subType);
                         }
                         else if (childType.equals("person")) {
+                            int x0 = Integer.parseInt(childElement.getAttribute("x"));
+                            int y0 = Integer.parseInt(childElement.getAttribute("y"));
                             String subType = childElement.getAttribute("type");
-                            people.put(new Position(x, y), subType);
+                            people.put(new Position(x0, y0), subType);
                         }
                     }
                 }
