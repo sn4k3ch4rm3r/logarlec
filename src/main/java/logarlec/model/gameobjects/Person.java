@@ -72,6 +72,7 @@ public abstract class Person extends GameObject {
 			applyEffect(effect);
 		}
 		if (knockOutTime > 0) {
+			knockOutTime -= deltaTime;
 			for (Item item : inventory.getItems()) {
 				item.usePassive();
 			}

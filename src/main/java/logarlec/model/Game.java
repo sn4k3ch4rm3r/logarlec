@@ -64,6 +64,16 @@ public class Game implements Updatable {
         }
     }
 
+    public void dropItem(Entity entity, Item item) {
+        Position position = entity.getPosition();
+        FloorTile tile = (FloorTile) tiles[position.x][position.y];
+        if (tile.getItem() != null) {
+            throw new IllegalArgumentException("Tile already has an item on it.");
+        }
+        tile.setItem(item);
+        item.setRoom(tile.getRoom());
+    }
+
     public void putTile(Tile tile) {
         tiles[tile.getPosition().x][tile.getPosition().y] = tile;
     }

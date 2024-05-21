@@ -171,6 +171,7 @@ public class PlayerController extends PersonController {
             case DROP -> {
                     if (itemDropsThisTurn < maxItemDropsPerTurn){
                         entity.getPerson().dropItem(item);
+                        GameController.getInstance().dropItem(entity, item);
                         itemDropsThisTurn++;
                     }
             }
