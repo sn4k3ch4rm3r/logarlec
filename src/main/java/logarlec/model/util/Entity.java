@@ -15,6 +15,10 @@ public class Entity {
         return position;
     }
 
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
     public Person getPerson() {
         return person;
     }

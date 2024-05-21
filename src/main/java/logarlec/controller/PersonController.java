@@ -4,7 +4,7 @@ import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
 import logarlec.view.drawables.PersonView;
 
-public class PersonController {
+public abstract class PersonController {
     protected Entity entity;
     protected PersonView personView;
 
@@ -16,4 +16,6 @@ public class PersonController {
     public void move(Direction direction) {
         GameController.getInstance().moveEntity(entity, direction);
     }
+
+    public abstract void turn();
 }

@@ -17,4 +17,13 @@ public class PlayerController extends PersonController {
     public PlayerView getPlayerView() {
         return playerView;
     }
+
+    public void turn() {
+        playerView.setActive(true);
+        GameController.getInstance().updateView();
+        while (true) {
+        }
+        // playerView.setActive(false);
+        // GameController.getInstance().updateView();
+    }
 }

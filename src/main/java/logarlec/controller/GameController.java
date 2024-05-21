@@ -13,7 +13,7 @@ import logarlec.view.panels.GamePanel;
 import logarlec.view.utils.Palette;
 
 
-public class GameController {
+public class GameController implements Runnable {
     private static GameController instance;
     private Game game;
     private Map<Object, Drawable> modelViews;
@@ -57,5 +57,20 @@ public class GameController {
 
     public void moveEntity(Entity entity, Direction direction) {
         game.moveEntity(entity, direction);
+    }
+
+    public void start() {
+        Thread thread = new Thread(this);
+        thread.start();
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            for (PersonController person : personControllers) {
+                person.turn();
+            }
+            updateView();
+        }
     }
 }
