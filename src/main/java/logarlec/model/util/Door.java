@@ -2,7 +2,6 @@ package logarlec.model.util;
 
 import logarlec.model.gameobjects.Person;
 import logarlec.model.gameobjects.Room;
-import logarlec.prototype.Prototype;
 
 /**
  * Az ajtókat reprezentáló osztály.
@@ -34,31 +33,7 @@ public class Door {
 			Room roomToEnter = from == this.from ? this.to : this.from;
 			if (roomToEnter.enter(person)) {
 				from.leave(person);
-				try {
-					Prototype.out.write(String.format("<%d> moved to <%d>.\n", person.hashCode(),
-							roomToEnter.hashCode()).getBytes());
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-				}
 				return true;
-			}
-			else {
-				try {
-					Prototype.out.write("The other room is full.\n".getBytes());
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		else {
-			try {
-				Prototype.out.write(String
-						.format("<%d> couldn't use the door.\n", person.hashCode()).getBytes());
-			}
-			catch (Exception e) {
-				e.printStackTrace();
 			}
 		}
 		return false;

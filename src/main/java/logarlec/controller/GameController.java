@@ -5,8 +5,10 @@ import java.util.List;
 import logarlec.controller.util.GameBuilder;
 import logarlec.controller.util.GameRebuilder;
 import logarlec.model.Game;
+import logarlec.model.items.Item;
 import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
+import logarlec.model.util.Position;
 import logarlec.view.Renderer;
 import logarlec.view.drawables.Drawable;
 import logarlec.view.drawables.GameView;
@@ -63,6 +65,14 @@ public class GameController implements Runnable {
         game.moveEntity(entity, direction);
     }
 
+    public void moveEntity(Entity entity, Position position) {
+        game.moveEntity(entity, position);
+    }
+
+    public boolean dropItem(Entity entity, Item item) {
+        return game.dropItem(entity, item);
+    }
+
     public void start() {
         Thread thread = new Thread(this);
         thread.start();
@@ -76,6 +86,7 @@ public class GameController implements Runnable {
             for (PersonController person : personControllers) {
                 person.turn();
             }
+            game.update(1);
             updateView();
         }
     }

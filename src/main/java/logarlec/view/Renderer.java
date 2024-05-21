@@ -19,13 +19,13 @@ public class Renderer {
 		graphics.dispose();
 	}
 
-	public void render(Drawable view) {
+	public synchronized void render(Drawable view) {
 		Graphics2D graphics = screenBuffer.createGraphics();
 		view.draw(graphics);
 		graphics.dispose();
 	}
 
-	public BufferedImage getScreenBuffer() {
+	public synchronized BufferedImage getScreenBuffer() {
 		return screenBuffer;
 	}
 }

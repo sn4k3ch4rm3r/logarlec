@@ -4,7 +4,6 @@ import logarlec.model.events.InventoryChangeListener;
 import logarlec.model.gameobjects.Room;
 import logarlec.model.gameobjects.Teacher;
 import logarlec.model.items.Item;
-import logarlec.prototype.Prototype;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +34,8 @@ public class Inventory {
 			items.add(item);
 			onChanged();
 			return true;
-		} else {
-			try {
-				Prototype.out.write("Inventory is full.\n".getBytes());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return false;
 		}
+		return false;
 	}
 
 	/**

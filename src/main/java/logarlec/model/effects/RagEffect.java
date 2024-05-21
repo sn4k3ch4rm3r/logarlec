@@ -2,8 +2,6 @@ package logarlec.model.effects;
 
 import logarlec.model.gameobjects.Student;
 import logarlec.model.gameobjects.Teacher;
-import logarlec.prototype.Prototype;
-
 
 public class RagEffect extends Effect {
 	public RagEffect() {
@@ -15,7 +13,6 @@ public class RagEffect extends Effect {
 
 	/**
 	 * Oktató megbékítése.
-	 *
 	 */
 	public void applyToTeacher(Teacher target) {
 		target.setPeaceful(true);
@@ -32,12 +29,6 @@ public class RagEffect extends Effect {
 		super.update(deltaTime);
 		if (timeRemaining <= 0) {
 			holder.removeEffect(this);
-			try {
-				Prototype.out
-						.write(String.format("<%d> ran out of time.\n", hashCode()).getBytes());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 	}
 }

@@ -22,7 +22,8 @@ public class Prototype {
 		try {
 			out = new PipedOutputStream();
 			in = new PipedInputStream(out);
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

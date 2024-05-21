@@ -12,12 +12,14 @@ public class GamePanel extends JPanel {
 
     public GamePanel(Renderer renderer) {
         this.renderer = renderer;
+        this.setDoubleBuffered(true);
         this.setPreferredSize(
                 new Dimension(Configuration.WINDOW_WIDTH, Configuration.WINDOW_HEIGHT));
     }
 
     @Override
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         g.drawImage(renderer.getScreenBuffer(), 0, 0,
                 getPreferredSize().width, getPreferredSize().height, null);
     }

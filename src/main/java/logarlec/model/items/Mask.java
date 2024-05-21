@@ -2,7 +2,6 @@ package logarlec.model.items;
 
 import logarlec.model.effects.MaskEffect;
 import logarlec.model.gameobjects.Teacher;
-import logarlec.prototype.Prototype;
 
 public class Mask extends Item {
 	private MaskEffect maskEffect;
@@ -35,22 +34,9 @@ public class Mask extends Item {
 		if (uses > 0) {
 			double time = uses;
 			maskEffect = new MaskEffect(time);
-			String effectName = maskEffect.getClass().getSimpleName();
-			effectName = effectName.substring(0, 1).toLowerCase() + effectName.substring(1);
-			int i = 0;
-			while (Prototype.getObject(effectName + (i == 0 ? "" : i)) != null) {
-				i++;
-			}
-			Prototype.addObject(effectName + (i == 0 ? "" : i), maskEffect);
 			person.addEffect(maskEffect);
 			person.applyEffect(maskEffect);
 			uses--;
-			try {
-				Prototype.out.write(String
-						.format("<%d> was protected by mask.\n", person.hashCode()).getBytes());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 		if (uses == 0) {
 			person.removeItem(this);

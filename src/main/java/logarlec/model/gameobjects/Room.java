@@ -4,7 +4,6 @@ import logarlec.model.effects.CleanEffect;
 import logarlec.model.effects.Effect;
 import logarlec.model.items.Item;
 import logarlec.model.util.Door;
-import logarlec.prototype.Prototype;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -124,32 +123,11 @@ public class Room extends GameObject {
 	 */
 	public Room split() {
 		Room newRoom = new Room();
-		String name = Prototype.getObjectName(this.hashCode());
-		Prototype.addObject(name + "_S1", newRoom);
-		Door door = new Door(this, newRoom);
-		StringBuilder doorName = new StringBuilder("door");
-		int counter = 0;
-		while (Prototype
-				.getObject(doorName + (counter == 0 ? "" : Integer.toString(counter))) != null) {
-			counter++;
-		}
-		Prototype.addObject(doorName + (counter == 0 ? "" : Integer.toString(counter)), door);
-
 		for (Effect e : effects) {
 			newRoom.applyEffect(e);
 		}
 
-		for (Person p : people) {
-			if (Prototype.random.nextDouble() < 0.5) {
-				newRoom.enter(p);
-			}
-		}
-
-		for (Item i : items) {
-			if (Prototype.random.nextDouble() < 0.5) {
-				newRoom.addItem(i);
-			}
-		}
+		// TODO: move people and items
 		return newRoom;
 	}
 
@@ -276,12 +254,6 @@ public class Room extends GameObject {
 	 */
 	@Override
 	public void interactTeacher(Teacher teacher) {
-		try {
-			Prototype.out.write(
-					String.format("<%d> attacked everyone.\n", teacher.hashCode()).getBytes());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		for (Person person : people) {
 			person.interactTeacher(teacher);
 		}

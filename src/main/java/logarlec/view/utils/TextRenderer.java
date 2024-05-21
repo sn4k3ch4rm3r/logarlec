@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.util.List;
+import java.util.LinkedList;
 
 public class TextRenderer {
 	private static Font font;
@@ -44,6 +46,34 @@ public class TextRenderer {
 		Graphics g = img.createGraphics();
 		g.drawImage(txt, (width - txt.getWidth()) / 2, 0, null);
 		g.dispose();
+		return img;
+	}
+
+	public static BufferedImage drawWrapped(String text, int size, int maxWidth) {
+		String[] words = text.split(" ");
+		List<String> lines = new LinkedList<>();
+		StringBuilder currentLine = new StringBuilder();
+		for (String word : words) {
+			if ((currentLine.length() + word.length()) * size <= maxWidth) {
+				currentLine.append(word + " ");
+			}
+			else {
+				lines.add(currentLine.toString());
+				currentLine = new StringBuilder(word + " ");
+			}
+		}
+		if (!currentLine.isEmpty()) {
+			lines.add(currentLine.toString());
+		}
+
+		BufferedImage img =
+				new BufferedImage(maxWidth, lines.size() * (size + 1), BufferedImage.TYPE_INT_ARGB);
+		Graphics g = img.createGraphics();
+		for (int i = 0; i < lines.size(); i++) {
+			g.drawImage(draw(lines.get(i), size), 0, i * (size + 1), null);
+		}
+		g.dispose();
+
 		return img;
 	}
 }

@@ -2,11 +2,9 @@ package logarlec.model.gameobjects;
 
 import logarlec.model.effects.Effect;
 import logarlec.model.effects.JanitorEffect;
-import logarlec.prototype.Prototype;
 
 /**
  * Osztály a takarító személyek reprezentálására
-
  */
 public class Janitor extends Person {
     @Override
@@ -49,18 +47,12 @@ public class Janitor extends Person {
     public void enterRoom(Room room) {
         super.enterRoom(room);
         JanitorEffect janitorEffect = new JanitorEffect();
-        String effectName = janitorEffect.getClass().getSimpleName();
-        effectName = effectName.substring(0, 1).toLowerCase() + effectName.substring(1);
-        int i = 0;
-        while (Prototype.getObject(effectName + (i == 0 ? "" : i)) != null) {
-            i++;
-        }
-        Prototype.addObject(effectName + (i == 0 ? "" : i), janitorEffect);
         room.addEffect(janitorEffect);
     }
 
     /**
      * Az osztály string reprezentációját adja vissza
+     * 
      * @return
      */
     @Override

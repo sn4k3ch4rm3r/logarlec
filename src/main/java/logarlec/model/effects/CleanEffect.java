@@ -3,7 +3,6 @@ package logarlec.model.effects;
 import logarlec.model.gameobjects.Room;
 import logarlec.model.gameobjects.Student;
 import logarlec.model.gameobjects.Teacher;
-import logarlec.prototype.Prototype;
 
 public class CleanEffect extends Effect {
     @Override
@@ -19,11 +18,6 @@ public class CleanEffect extends Effect {
     @Override
     public void applyToRoom(Room target) {
         target.interactCleanEffect(this);
-        try {
-            Prototype.out.write(String.format("<%d> cleaned the room.\n", hashCode()).getBytes());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
