@@ -7,6 +7,7 @@ import logarlec.model.util.Position;
 
 public class DoorTile extends Tile {
     private Door door;
+    private Tile destination;
 
     public DoorTile(Position position, Room room, Door door) {
         super(position, room);
@@ -23,10 +24,14 @@ public class DoorTile extends Tile {
     @Override
     public boolean stepOn(Person person) {
         if (door.use(person)) {
-            return false;
+            destination.stepOn(person);
+            return true;
         }
-        /* TODO: átrakni valahogy egy túloldali flooar tile-ra */
-        return true;
+        return false;
+    }
+
+    public void setDestination(Tile destination) {
+        this.destination = destination;
     }
 
     public Door getDoor() {
