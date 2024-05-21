@@ -14,6 +14,12 @@ public class Beer extends Item {
 		useAgainst(null);
 	}
 
+	/**
+	 * A Beer osztály useAgainst metódusa A metódus a BeerEffect-et adja hozzá a personhoz, majd
+	 * eltávolítja a person inventory-jából a Sört-t
+	 *
+	 * @param target a tanár, aki ellen a Beer-t használják
+	 */
 	@Override
 	public void useAgainst(Teacher target) {
 		BeerEffect beerEffect = new BeerEffect();

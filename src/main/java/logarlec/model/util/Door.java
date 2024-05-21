@@ -4,6 +4,9 @@ import logarlec.model.gameobjects.Person;
 import logarlec.model.gameobjects.Room;
 import logarlec.prototype.Prototype;
 
+/**
+ * Az ajtókat reprezentáló osztály.
+ */
 public class Door {
 	private Room from, to;
 	private boolean oneWay;
