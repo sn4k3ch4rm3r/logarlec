@@ -20,16 +20,16 @@ public class FloorTile extends Tile {
      * @param person Aki ide próbál lépni
      */
     @Override
-    public boolean stepOn(Person person) {
+    public Position stepOn(Person person) {
         if (this.person != null) {
-            return false;
+            return null;
         }
         this.person = person;
         if (this.item != null && person.addItem(item)) {
             this.item = null;
         }
         onChanged();
-        return true;
+        return getPosition();
     }
 
     public void setItem(Item item) {

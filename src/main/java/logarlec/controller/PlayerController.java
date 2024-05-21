@@ -2,17 +2,23 @@ package logarlec.controller;
 
 import logarlec.controller.util.FeedbackManager;
 import logarlec.controller.util.InputHandler;
+import logarlec.model.events.DropListener;
 import logarlec.model.items.Item;
+import logarlec.model.items.Transistor;
 import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
+import logarlec.model.util.Position;
 import logarlec.view.drawables.PersonView;
 import logarlec.view.drawables.PlayerView;
 import logarlec.view.utils.I18n;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class PlayerController extends PersonController {
+public class PlayerController extends PersonController implements DropListener {
     private InventoryController inventoryController;
+    private Map<Item, Position> linkedTransistors = new HashMap<>();
     /**
      * A játékos nézete
      */
@@ -33,6 +39,14 @@ public class PlayerController extends PersonController {
     private int itemUsesThisTurn;
     private int itemDropsThisTurn;
     private Item selectedTransistor;
+
+    @Override
+    public void onDrop(Item item) {
+        GameController.getInstance().dropItem(entity, item);
+        if (item instanceof Transistor) {
+            linkedTransistors.put(((Transistor) item).getPair(), entity.getPosition());
+        }
+    }
 
     /**
      * USE- éppen ki akarunk választani egy tárgyat használatra DROP - éppen ki akarunk választani
@@ -73,7 +87,7 @@ public class PlayerController extends PersonController {
         itemUsesThisTurn = 0;
         itemDropsThisTurn = 0;
         expectedInventoryInput = InventoryInput.NONE;
-        selectedTransistor = null;
+        //selectedTransistor = null;
         thisPlayersTurn = true;
         InputHandler.getInstance().setCurrentPlayer(this);
         while (thisPlayersTurn) {
@@ -88,22 +102,26 @@ public class PlayerController extends PersonController {
     /**
      * Játékos irányítása billentyűzettel WASD - mozgatás jobbra, balra, fel, le Space - kör vége E
      * - Válassz itemet használatra Q - Válassz itemet eldobásra L - Válassz itemet linkelésre
-     * 
+     *
      * @param e - ez tárolja a lenyomott billentyűt
      */
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
                 move(Direction.UP);
+                endTurn();
                 break;
             case KeyEvent.VK_S:
                 move(Direction.DOWN);
+                endTurn();
                 break;
             case KeyEvent.VK_A:
                 move(Direction.LEFT);
+                endTurn();
                 break;
             case KeyEvent.VK_D:
                 move(Direction.RIGHT);
+                endTurn();
                 break;
             case KeyEvent.VK_SPACE:
                 endTurn();
@@ -122,22 +140,27 @@ public class PlayerController extends PersonController {
                 break;
             case KeyEvent.VK_1:
                 inventoryInput(1);
+                endTurn();
                 break;
             case KeyEvent.VK_2:
                 inventoryInput(2);
+                endTurn();
                 break;
             case KeyEvent.VK_3:
                 inventoryInput(3);
+                endTurn();
                 break;
             case KeyEvent.VK_4:
                 inventoryInput(4);
+                endTurn();
                 break;
             case KeyEvent.VK_5:
                 inventoryInput(5);
+                endTurn();
                 break;
             default:
         }
-        thisPlayersTurn = false;
+
     }
 
     /**
@@ -147,24 +170,27 @@ public class PlayerController extends PersonController {
      * választottunk linkelendő itemet, azt kiválasztjuk Ha előzőleg a tranzisztor linkelést
      * választottuk és már választottunk linkelendő itemet, linkeljük a most kiválasztottal az item
      * használat és linkelés az item használat számlálót növelik, az eldobás az eldobás számlálót
-     * 
+     *
      * @param index - a kiválasztott item indexe
      */
     private void inventoryInput(int index) {
         List<Item> items = inventoryController.getInventory().getItems();
-        Item item = items.get(index);
-        if (item == null)
-            return;
+        Item item = items.get(index - 1);
+        if (item == null) return;
 
         switch (expectedInventoryInput) {
             case USE -> {
                 if (itemUsesThisTurn < maxItemUsesPerTurn) {
                     item.use();
+                    if (linkedTransistors.containsKey(item)) {
+                        GameController.getInstance().moveEntity(entity, linkedTransistors.get(item));
+                    }
                     itemUsesThisTurn++;
                 }
             }
             case DROP -> {
-                if (itemDropsThisTurn < maxItemDropsPerTurn) {
+                if (itemDropsThisTurn < maxItemDropsPerTurn){
+                    if (!GameController.getInstance().dropItem(entity, item)) return;
                     entity.getPerson().dropItem(item);
                     itemDropsThisTurn++;
                 }
@@ -177,6 +203,7 @@ public class PlayerController extends PersonController {
                     }
                     else if (selectedTransistor != item) {
                         selectedTransistor.useItem(item);
+                        selectedTransistor = null;
                         itemUsesThisTurn++;
                     }
                 }

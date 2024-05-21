@@ -4,8 +4,10 @@ import java.util.Map;
 import java.util.List;
 import logarlec.controller.util.GameBuilder;
 import logarlec.model.Game;
+import logarlec.model.items.Item;
 import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
+import logarlec.model.util.Position;
 import logarlec.view.Renderer;
 import logarlec.view.drawables.Drawable;
 import logarlec.view.drawables.GameView;
@@ -57,6 +59,14 @@ public class GameController implements Runnable {
 
     public void moveEntity(Entity entity, Direction direction) {
         game.moveEntity(entity, direction);
+    }
+
+    public void moveEntity(Entity entity, Position position) {
+        game.moveEntity(entity, position);
+    }
+
+    public boolean dropItem(Entity entity, Item item) {
+        return game.dropItem(entity, item);
     }
 
     public void start() {

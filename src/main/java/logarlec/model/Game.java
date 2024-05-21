@@ -49,15 +49,41 @@ public class Game implements Updatable {
      * @param direction Az irány, amerre mozgatni szeretnénk
      */
     public void moveEntity(Entity entity, Direction direction) {
+        if (!entity.canMove()) {
+            return;
+        }
         Position position = entity.getPosition();
         Position destination = position.add(direction, 1);
         Person person = entity.getPerson();
         Tile newTile = tiles[destination.x][destination.y];
 
-        if (newTile.stepOn(person)) {
-            entity.setPosition(newTile.getPosition());
+        Position newPosition = newTile.stepOn(person);
+        if (newPosition != null) {
+            entity.setPosition(newPosition);
             ((FloorTile) tiles[position.x][position.y]).removePerson();
         }
+    }
+
+    public void moveEntity(Entity entity, Position position) {
+        Position oldPosition = entity.getPosition();
+        Person person = entity.getPerson();
+        Tile newTile = tiles[position.x][position.y];
+        Position newPosition = newTile.stepOn(person);
+        if (newPosition != null) {
+            entity.setPosition(newPosition);
+            ((FloorTile) tiles[oldPosition.x][oldPosition.y]).removePerson();
+        }
+    }
+
+    public boolean dropItem(Entity entity, Item item) {
+        Position position = entity.getPosition();
+        FloorTile tile = (FloorTile) tiles[position.x][position.y];
+        if (tile.getItem() != null) {
+            return false;
+        }
+        tile.setItem(item);
+        item.setRoom(tile.getRoom());
+        return true;
     }
 
     public void putTile(Tile tile) {
@@ -77,7 +103,8 @@ public class Game implements Updatable {
         Position position = entity.getPosition();
         Person person = entity.getPerson();
         Tile tile = getTile(position);
-        if (!tile.stepOn(person) || !tile.getRoom().enter(person)) {
+        Position newPosition = tile.stepOn(person);
+        if (newPosition == null || !tile.getRoom().enter(person)) {
             throw new IllegalArgumentException(String
                     .format("Entity could not be placed at (%d, %d).", position.x, position.y));
         }

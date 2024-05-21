@@ -76,6 +76,10 @@ public class Transistor extends Item {
 		this.other = other;
 	}
 
+	public Transistor getPair() {
+		return other;
+	}
+
 	/**
 	 * A Transistor osztály setPair metódusa A metódus beállítja a Transistor párját a param
 	 * 

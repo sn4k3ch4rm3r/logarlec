@@ -22,4 +22,8 @@ public class Entity {
     public Person getPerson() {
         return person;
     }
+
+    public boolean canMove() {
+        return person.canMove();
+    }
 }
