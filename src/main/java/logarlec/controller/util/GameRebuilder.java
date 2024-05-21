@@ -4,9 +4,12 @@ import logarlec.controller.PersonController;
 import logarlec.controller.TileController;
 import logarlec.model.Game;
 import logarlec.model.gameobjects.Room;
+import logarlec.model.tiles.DoorTile;
 import logarlec.model.tiles.FloorTile;
 import logarlec.model.tiles.Tile;
 import logarlec.model.tiles.WallTile;
+import logarlec.model.util.Direction;
+import logarlec.model.util.Door;
 import logarlec.model.util.Position;
 import logarlec.view.Renderer;
 import logarlec.view.drawables.*;
@@ -23,11 +26,13 @@ public class GameRebuilder {
     Map<Integer, Room> rooms;
 
     List<ExtendedRoom> extendedRooms;
+    List<ExtendedDoor> extendedDoors;
 
 
 
     public GameRebuilder(Game game, GameBuilder bg) {
         extendedRooms = new ArrayList<ExtendedRoom>();
+        extendedDoors = new ArrayList<ExtendedDoor>();
         this.game = game;
         this.bg = bg;
         rooms = bg.getRooms();
@@ -35,9 +40,9 @@ public class GameRebuilder {
 
     private void getRoomsFromConfig(int configId){
         MapDataLoader mdl = new MapDataLoader();
-        List<ExtendedRoom> newRooms = mdl.getRoomDatas(configId);
+        extendedRooms = mdl.getRoomDatas(configId);
 
-        for(ExtendedRoom newRoom: newRooms){
+        for(ExtendedRoom newRoom: extendedRooms){
             if(!rooms.containsKey(newRoom.roomId)){
                 rooms.put(newRoom.roomId, rooms.get(newRoom.roomId-100).split());
             }
@@ -50,6 +55,7 @@ public class GameRebuilder {
             er.getOwnershipOfTiles(game, rooms);
         }
         buildNewWalls(bg.getPanel(), bg.getRenderer());
+        addDoors(configId);
     }
 
     public void buildNewWalls(GamePanel panel, Renderer renderer){
@@ -107,5 +113,37 @@ public class GameRebuilder {
         game.putTile(tile);
         bg.getMapView().addTileView(view);
         bg.getModelViews().put(tile, view);
+    }
+
+    private void addDoors(int configurationId){
+        MapDataLoader mdl = new MapDataLoader();
+        extendedDoors = mdl.getDoorDatas(configurationId);
+        for(ExtendedDoor ed: extendedDoors){
+            Room fromRoom = rooms.get(ed.fromID);
+            Room toRoom = rooms.get(ed.toID);
+
+            Door door = new Door(fromRoom, toRoom);
+            door.setOneWay(ed.oneway);
+
+            DoorTile fromTile = new DoorTile(ed.from, fromRoom, door);
+            DoorTile toTile = new DoorTile(ed.to, toRoom, door);
+
+            Direction direction = null;
+            for (Direction dir : Direction.values()) {
+                if (ed.from.add(dir, 1).equals(ed.to)) {
+                    direction = dir;
+                }
+            }
+            if (direction == null) {
+                throw new IllegalArgumentException(
+                        "The specified to and from tiles are not next to each other.");
+            }
+
+            DoorTileView fromView = new DoorTileView(fromTile, direction);
+            DoorTileView toView = new DoorTileView(toTile, direction.getOpposite());
+
+            addTile(fromTile, fromView);
+            addTile(toTile, toView);
+        }
     }
 }

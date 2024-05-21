@@ -272,4 +272,55 @@ public class MapDataLoader {
         return roomsOut;
     }
 
+    public List<ExtendedDoor> getDoorDatas(int configurationId) {
+        List<ExtendedDoor> doorsOut = new ArrayList<>();
+        try {
+            // Az UTF-8 kódolásó fájl beolvasásához steraemet kell használni
+            InputStream inputStream =
+                    getClass().getClassLoader().getResourceAsStream(Configuration.MAP_PATH);
+            assert inputStream != null;
+            Reader reader = new InputStreamReader(inputStream, "UTF-8");
+            InputSource is = new InputSource(reader);
+            is.setEncoding("UTF-8");
+
+            // A DOM parser létrehozása
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(is);
+
+            NodeList configurations = doc.getElementsByTagName("configuration");
+            for (int i = 0; i < configurations.getLength(); i++) {
+                Node node = configurations.item(i);
+                // Ha a node egy elem
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+                    // A room elem attribútumainak beolvasása
+                    int id = Integer.parseInt(element.getAttribute("id"));
+                    if (id == configurationId) {
+                        NodeList doors = element.getElementsByTagName("door");
+                        for (int j = 0; j < doors.getLength(); j++) {
+                            node = doors.item(j);
+                            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                                Element itemElement = (Element) node;
+                                int to = Integer.parseInt(itemElement.getAttribute("to"));
+                                int from = Integer.parseInt(itemElement.getAttribute("from"));
+                                int x0 = Integer.parseInt(itemElement.getAttribute("x0"));
+                                int y0 = Integer.parseInt(itemElement.getAttribute("y0"));
+                                int x1 = Integer.parseInt(itemElement.getAttribute("x1"));
+                                int y1 = Integer.parseInt(itemElement.getAttribute("y1"));
+                                boolean oneway = Boolean.parseBoolean(itemElement.getAttribute("oneway"));
+
+                                doorsOut.add(new ExtendedDoor(from, to, x0, y0, x1, y1, oneway));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        catch(ParserConfigurationException | SAXException | IOException e){
+            throw new RuntimeException(e);
+        }
+        return doorsOut;
+    }
+
 }
