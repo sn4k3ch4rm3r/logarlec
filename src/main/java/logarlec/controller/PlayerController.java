@@ -134,6 +134,7 @@ public class PlayerController extends PersonController {
                 break;
             default:
         }
+        thisPlayersTurn = false;
     }
 
     /**
