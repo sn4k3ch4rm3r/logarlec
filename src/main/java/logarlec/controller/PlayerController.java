@@ -78,6 +78,7 @@ public class PlayerController extends PersonController {
 
         }
         InputHandler.getInstance().setCurrentPlayer(null);
+        playerView.setActive(false);
         // playerView.setActive(false);
         // GameController.getInstance().updateView();
     }
