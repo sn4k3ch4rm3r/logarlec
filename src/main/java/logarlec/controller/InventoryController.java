@@ -8,15 +8,11 @@ public class InventoryController implements InventoryChangeListener {
     private InventoryView inventoryView;
 
     public InventoryController(Inventory inventory) {
-
+        inventoryView = new InventoryView();
     }
 
     public InventoryView getInventoryView() {
         return inventoryView;
-    }
-
-    public void onInventoryChanged(Inventory inentory) {
-        GameController.getInstance();
     }
 
     @Override

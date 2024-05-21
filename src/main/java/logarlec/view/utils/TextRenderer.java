@@ -13,7 +13,8 @@ public class TextRenderer {
 			InputStream is =
 					TextRenderer.class.getClassLoader().getResourceAsStream("PublicPixel.ttf");
 			font = Font.createFont(Font.TRUETYPE_FONT, is);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -34,6 +35,15 @@ public class TextRenderer {
 		g.setFont(font.deriveFont((float) size));
 		g.drawString(text, 0, size);
 
+		return img;
+	}
+
+	public static BufferedImage drawCentered(String text, int size, int width) {
+		BufferedImage img = new BufferedImage(width, size, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage txt = draw(text, size);
+		Graphics g = img.createGraphics();
+		g.drawImage(txt, (width - txt.getWidth()) / 2, 0, null);
+		g.dispose();
 		return img;
 	}
 }

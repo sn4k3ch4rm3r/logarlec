@@ -1,6 +1,7 @@
 package logarlec.view.drawables;
 
 import java.awt.*;
+import logarlec.Configuration;
 
 public class GameView implements Drawable {
     private MapView mapView;
@@ -9,8 +10,9 @@ public class GameView implements Drawable {
     /**
      * A játék nézetének konstruktora. Létrehozza a térkép alapján a MapView-t és a SideBarView-t.
      */
-    public GameView() {
-
+    public GameView(MapView mapView, SideBarView sideBarView) {
+        this.mapView = mapView;
+        this.sideBarView = sideBarView;
     }
 
     /**
@@ -20,13 +22,13 @@ public class GameView implements Drawable {
      */
     @Override
     public void draw(Graphics2D g2d) {
-        Graphics2D mapGraphics = (Graphics2D) g2d.create(0, 0, g2d.getClipBounds().width - 200,
-                g2d.getClipBounds().height);
+        Graphics2D mapGraphics =
+                (Graphics2D) g2d.create(0, 0, mapView.getWidth(), mapView.getHeight());
         mapView.draw(mapGraphics);
         mapGraphics.dispose();
 
-        Graphics2D sideBarGraphics = (Graphics2D) g2d.create(g2d.getClipBounds().width - 200, 0,
-                200, g2d.getClipBounds().height);
+        Graphics2D sideBarGraphics = (Graphics2D) g2d.create(mapView.getWidth(), 0,
+                Configuration.WIDTH - mapView.getWidth(), Configuration.HEIGHT);
         sideBarView.draw(sideBarGraphics);
         sideBarGraphics.dispose();
     }

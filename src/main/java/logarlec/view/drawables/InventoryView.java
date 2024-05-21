@@ -3,23 +3,28 @@ package logarlec.view.drawables;
 import logarlec.controller.util.SpriteManager;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.LinkedList;
 import java.util.List;
 
 public class InventoryView implements Drawable {
     List<ItemView> items;
+    BufferedImage inventorySlot;
+
+    public InventoryView() {
+        items = new LinkedList<>();
+        inventorySlot = SpriteManager.getInstance().getSprite("inventory-slot");
+    }
 
     @Override
     public void draw(Graphics2D g2d) {
-        int width = g2d.getClipBounds().width / 5;
-        int height = g2d.getClipBounds().height;
         for (int i = 0; i < 5; i++) {
-            Graphics2D g = (Graphics2D) g2d.create(i * width, 0, width, height);
-            g.drawImage(SpriteManager.getInstance().getSprite("inventory-slot"), 0, 0, width,
-                    height, null);
+            Graphics2D slotGraphics = (Graphics2D) g2d.create(i * 16, 0, 16, 16);
+            slotGraphics.drawImage(inventorySlot, 0, 0, null);
             if (i < items.size()) {
-                items.get(i).draw(g);
+                items.get(i).draw(slotGraphics);
             }
-            g.dispose();
+            slotGraphics.dispose();
         }
     }
 

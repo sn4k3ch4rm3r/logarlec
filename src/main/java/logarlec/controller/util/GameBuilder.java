@@ -40,9 +40,11 @@ import logarlec.view.Renderer;
 import logarlec.view.drawables.DoorTileView;
 import logarlec.view.drawables.Drawable;
 import logarlec.view.drawables.FloorTileView;
+import logarlec.view.drawables.GameView;
 import logarlec.view.drawables.ItemView;
 import logarlec.view.drawables.MapView;
 import logarlec.view.drawables.PersonView;
+import logarlec.view.drawables.SideBarView;
 import logarlec.view.drawables.TileView;
 import logarlec.view.drawables.TransistorView;
 import logarlec.view.drawables.WallTileView;
@@ -54,6 +56,7 @@ public class GameBuilder {
 	private Game game;
 	private Map<Object, Drawable> modelViews;
 	private MapView mapView;
+	private SideBarView sideBarView;
 	private List<PersonController> personControllers;
 	private GamePanel panel;
 	private Renderer renderer;
@@ -74,7 +77,8 @@ public class GameBuilder {
 
 		game = new Game(mapWidth, mapHeight);
 		modelViews = new HashMap<>();
-		mapView = new MapView();
+		mapView = new MapView(mapWidth, mapHeight);
+		sideBarView = new SideBarView();
 		personControllers = new LinkedList<>();
 
 		rooms = new HashMap<>();
@@ -193,8 +197,17 @@ public class GameBuilder {
 	 * @return A GameBuilder példány.
 	 */
 	public GameBuilder addPlayer(Position position) {
-		return addPerson(position, new Student(), PlayerController::new,
-				String.format("player-%d", ++playerCount));
+		Student person = new Student();
+		PersonView view = new PersonView(person,
+				spriteManager.getSprite(String.format("player-%d", ++playerCount)));
+		Entity entity = new Entity(position, person);
+		PlayerController controller = new PlayerController(entity, view);
+
+		modelViews.put(person, view);
+		personControllers.add(controller);
+		game.addEntity(entity);
+		sideBarView.addPlayerView(controller.getPlayerView());
+		return this;
 	}
 
 	/**
@@ -394,8 +407,8 @@ public class GameBuilder {
 		return personControllers;
 	}
 
-	public MapView getMapView() {
-		return mapView;
+	public GameView getGameView() {
+		return new GameView(mapView, sideBarView);
 	}
 
 	public GamePanel getPanel() {

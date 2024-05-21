@@ -1,13 +1,11 @@
 package logarlec.view.drawables;
 
-import logarlec.model.gameobjects.Student;
+import logarlec.view.utils.I18n;
 import logarlec.view.utils.TextRenderer;
 
 import java.awt.*;
 
 public class PlayerView implements Drawable {
-    Student student;
-    String name;
     PersonView personView;
     InventoryView inventoryView;
 
@@ -18,14 +16,15 @@ public class PlayerView implements Drawable {
 
     @Override
     public void draw(Graphics2D g2d) {
-        int width = g2d.getClipBounds().width;
-        int height = g2d.getClipBounds().height;
-        g2d.setColor(Color.WHITE);
-        Graphics2D g = (Graphics2D) g2d.create(0, 0, width, 40);
-        g.drawImage(TextRenderer.draw(name, 40), 0, 0, width, 40, null);
-        g = (Graphics2D) g2d.create(0, (int) (height * 0.4), 60, 60);
-        personView.draw(g);
-        g = (Graphics2D) g2d.create(60, (int) (height * 0.4), width - 60, 60);
-        inventoryView.draw(g);
+        // TODO: Have named players or something.
+        g2d.drawImage(TextRenderer.draw(I18n.getString("player"), 8), 8, 8, null);
+
+        Graphics2D personGraphics = (Graphics2D) g2d.create(8, 20, 16, 16);
+        personView.draw(personGraphics);
+        personGraphics.dispose();
+
+        Graphics2D inventoryGraphics = (Graphics2D) g2d.create(40, 20, 80, 16);
+        inventoryView.draw(inventoryGraphics);
+        inventoryGraphics.dispose();
     }
 }

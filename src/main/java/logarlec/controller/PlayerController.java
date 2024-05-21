@@ -14,5 +14,7 @@ public class PlayerController extends PersonController {
         playerView = new PlayerView(personView, inventoryController.getInventoryView());
     }
 
-
+    public PlayerView getPlayerView() {
+        return playerView;
+    }
 }
