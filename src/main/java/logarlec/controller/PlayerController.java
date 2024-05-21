@@ -3,6 +3,7 @@ package logarlec.controller;
 import logarlec.controller.util.FeedbackManager;
 import logarlec.controller.util.InputHandler;
 import logarlec.model.events.DropListener;
+import logarlec.model.events.GameEndedListener;
 import logarlec.model.gameobjects.Student;
 import logarlec.model.items.Item;
 import logarlec.model.items.Transistor;
@@ -17,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PlayerController extends PersonController implements DropListener {
+public class PlayerController extends PersonController implements DropListener, GameEndedListener {
     private InventoryController inventoryController;
     private Map<Item, Position> linkedTransistors = new HashMap<>();
 
@@ -50,6 +51,11 @@ public class PlayerController extends PersonController implements DropListener {
         if (item instanceof Transistor) {
             linkedTransistors.put(((Transistor) item).getPair(), entity.getPosition());
         }
+    }
+
+    @Override
+    public void onGameEnded() {
+        GameController.getInstance().endGame();
     }
 
     /**

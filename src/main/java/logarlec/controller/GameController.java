@@ -28,6 +28,8 @@ public class GameController implements Runnable {
 
     private GameView gameView;
 
+    private boolean gameEnded;
+
     private GameController(GameBuilder builder) {
         game = builder.getGameState();
         modelViews = builder.getModelViews();
@@ -81,6 +83,12 @@ public class GameController implements Runnable {
         while (true) {
             for (PersonController person : personControllers) {
                 person.turn();
+                if (gameEnded) {
+                    break;
+                }
+            }
+            if (gameEnded) {
+                break;
             }
             game.update(1);
             boolean allPlayersDied = true;
@@ -97,5 +105,10 @@ public class GameController implements Runnable {
             updateView();
         }
         updateView();
+    }
+
+    public void endGame() {
+        gameEnded = true;
+        FeedbackManager.setFeedback("Game ended. You won!");
     }
 }

@@ -4,11 +4,14 @@ package logarlec.model.gameobjects;
 import java.util.LinkedList;
 import java.util.List;
 import logarlec.model.effects.Effect;
+import logarlec.model.events.GameEndedListener;
 
 /**
  * Egy játékban szereplő diák.
  */
 public class Student extends Person {
+	private List<GameEndedListener> gameEndedListeners = new LinkedList<>();
+
 	/**
 	 * Az oktatók listája akikkel szemben a hallgató védve van.
 	 */
@@ -26,6 +29,10 @@ public class Student extends Person {
 		immuneToTeacher = new LinkedList<>();
 	}
 
+	public void addGameEndedListener(GameEndedListener listener) {
+		gameEndedListeners.add(listener);
+	}
+
 	/**
 	 * A diák vesztés állapotának lekérdezése.
 	 *
@@ -33,7 +40,6 @@ public class Student extends Person {
 	 */
 	public boolean isEliminated() {
 		return eliminated;
-
 	}
 
 	/**
@@ -81,7 +87,9 @@ public class Student extends Person {
 	 */
 	@Override
 	public void pickedUpSlideRule() {
-		// A játék véget ér
+		for (GameEndedListener g : gameEndedListeners) {
+			g.onGameEnded();
+		}
 	}
 
 	@Override
