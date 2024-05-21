@@ -45,8 +45,8 @@ public class FloorTile extends Tile {
         return person;
     }
 
-    public void removePerson(Person person) {
-        person = null;
+    public void removePerson() {
+        this.person = null;
         onChanged();
     }
 }

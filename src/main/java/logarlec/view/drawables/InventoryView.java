@@ -28,11 +28,15 @@ public class InventoryView implements Drawable {
         }
     }
 
-    public void clearItem() {
+    public void clearItems() {
         items.clear();
     }
 
     public void addItem(ItemView item) {
         items.add(item);
+    }
+
+    public List<ItemView> getItems() {
+        return items;
     }
 }

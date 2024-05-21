@@ -4,13 +4,7 @@ import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
 import logarlec.view.drawables.PersonView;
 
-/**
- * Az entitás vezérlője
- */
-public class PersonController {
-    /**
-     * Az entitás, amit vezérel
-     */
+public abstract class PersonController {
     protected Entity entity;
     /**
      * Az entitás nézete
@@ -35,4 +29,6 @@ public class PersonController {
     public void move(Direction direction) {
         GameController.getInstance().moveEntity(entity, direction);
     }
+
+    public abstract void turn();
 }

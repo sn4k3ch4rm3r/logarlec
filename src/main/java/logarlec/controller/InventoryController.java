@@ -1,8 +1,10 @@
 package logarlec.controller;
 
 import logarlec.model.events.InventoryChangeListener;
+import logarlec.model.items.Item;
 import logarlec.model.util.Inventory;
 import logarlec.view.drawables.InventoryView;
+import logarlec.view.drawables.ItemView;
 
 /**
  * Az inventory vezérlője
@@ -12,6 +14,7 @@ public class InventoryController implements InventoryChangeListener {
      * Az inventory nézete
      */
     private InventoryView inventoryView;
+    private Inventory inventory;
 
     /**
      * Konstruktor
@@ -20,6 +23,8 @@ public class InventoryController implements InventoryChangeListener {
      */
     public InventoryController(Inventory inventory) {
         inventoryView = new InventoryView();
+        this.inventory = inventory;
+        inventory.addOnChangeEventListener(this);
     }
 
     /**
@@ -33,7 +38,13 @@ public class InventoryController implements InventoryChangeListener {
 
     @Override
     public void onInventoryChange() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'onInventoryChange'");
+        inventoryView.clearItems();
+        for (Item item : inventory.getItems()) {
+            inventoryView.addItem((ItemView) GameController.getInstance().getModelView(item));
+        }
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }
