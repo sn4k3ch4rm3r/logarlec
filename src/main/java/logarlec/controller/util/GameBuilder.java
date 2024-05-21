@@ -418,4 +418,8 @@ public class GameBuilder {
 	public Renderer getRenderer() {
 		return renderer;
 	}
+
+	public Map<Integer, Room> getRooms(){
+		return rooms;
+	}
 }

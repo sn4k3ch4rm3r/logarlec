@@ -65,8 +65,7 @@ public class MapDataLoader {
             // A személyek beolvasása
             loadPeople(doc);
             return gameBuilder;
-        }
-        catch (ParserConfigurationException | SAXException | IOException e) {
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -187,7 +186,7 @@ public class MapDataLoader {
     /**
      * A személyek betöltése és létrehozása
      */
-    private void loadPeople(Document doc){
+    private void loadPeople(Document doc) {
         NodeList persons = doc.getElementsByTagName("person");
         for (int i = 0; i < persons.getLength(); i++) {
             Node personNode = persons.item(i);
@@ -217,6 +216,40 @@ public class MapDataLoader {
                 default:
                     throw new IllegalArgumentException("Invalid person type");
             }
+        }
+    }
+
+    List<Integer> getRoomIds(int configurationId) {
+        List<Integer> roomIds = new ArrayList<>();
+        try {
+            // Az UTF-8 kódolásó fájl beolvasásához steraemet kell használni
+            InputStream inputStream =
+                    getClass().getClassLoader().getResourceAsStream(Configuration.MAP_PATH);
+            assert inputStream != null;
+            Reader reader = new InputStreamReader(inputStream, "UTF-8");
+            InputSource is = new InputSource(reader);
+            is.setEncoding("UTF-8");
+
+            // A DOM parser létrehozása
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(is);
+
+            NodeList configurations = doc.getElementsByTagName("configuration");
+            for (int i = 0; i < configurations.getLength(); i++) {
+                Node node = configurations.item(i);
+                // Ha a node egy elem
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+                    // A room elem attribútumainak beolvasása
+                    int id = Integer.parseInt(element.getAttribute("id"));
+                    roomIds.add(id);
+                }
+            }
+            return roomIds;
+        }
+        catch(ParserConfigurationException | SAXException | IOException e){
+            throw new RuntimeException(e);
         }
     }
 }

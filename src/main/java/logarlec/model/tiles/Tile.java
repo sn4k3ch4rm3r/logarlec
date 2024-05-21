@@ -46,4 +46,7 @@ public abstract class Tile {
     public Room getRoom() {
         return room;
     }
+    public void setRoom(Room room) {
+        this.room = room;
+    }
 }
