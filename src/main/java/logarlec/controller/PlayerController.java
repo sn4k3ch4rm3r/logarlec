@@ -96,15 +96,19 @@ public class PlayerController extends PersonController {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
                 move(Direction.UP);
+                endTurn();
                 break;
             case KeyEvent.VK_S:
                 move(Direction.DOWN);
+                endTurn();
                 break;
             case KeyEvent.VK_A:
                 move(Direction.LEFT);
+                endTurn();
                 break;
             case KeyEvent.VK_D:
                 move(Direction.RIGHT);
+                endTurn();
                 break;
             case KeyEvent.VK_SPACE:
                 endTurn();
@@ -120,22 +124,27 @@ public class PlayerController extends PersonController {
                 break;
             case KeyEvent.VK_1:
                 inventoryInput(1);
+                endTurn();
                 break;
             case KeyEvent.VK_2:
                 inventoryInput(2);
+                endTurn();
                 break;
             case KeyEvent.VK_3:
                 inventoryInput(3);
+                endTurn();
                 break;
             case KeyEvent.VK_4:
                 inventoryInput(4);
+                endTurn();
                 break;
             case KeyEvent.VK_5:
                 inventoryInput(5);
+                endTurn();
                 break;
             default:
         }
-        thisPlayersTurn = false;
+
     }
 
     /**
@@ -149,7 +158,7 @@ public class PlayerController extends PersonController {
      */
     private void inventoryInput(int index) {
         List<Item> items = inventoryController.getInventory().getItems();
-        Item item = items.get(index);
+        Item item = items.get(index - 1);
         if (item == null) return;
 
         switch (expectedInventoryInput) {

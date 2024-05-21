@@ -24,7 +24,7 @@ public abstract class Tile {
      * @param person Aki ide próbál lépni
      * @return sikeres-e a rálépés
      */
-    public abstract boolean stepOn(Person person);
+    public abstract Position stepOn(Person person);
 
     public void addOnChangeEventListener(TileChangeListener listener) {
         onChangeListeners.add(listener);

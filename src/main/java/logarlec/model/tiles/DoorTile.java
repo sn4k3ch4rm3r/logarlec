@@ -22,12 +22,11 @@ public class DoorTile extends Tile {
      * @return sikeres-e az ajtón átlépés
      */
     @Override
-    public boolean stepOn(Person person) {
+    public Position stepOn(Person person) {
         if (door.use(person)) {
-            destination.stepOn(person);
-            return true;
+            return destination.stepOn(person);
         }
-        return false;
+        return null;
     }
 
     public void setDestination(Tile destination) {
