@@ -7,6 +7,7 @@ import logarlec.model.Game;
 import logarlec.model.items.Item;
 import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
+import logarlec.model.util.Position;
 import logarlec.view.Renderer;
 import logarlec.view.drawables.Drawable;
 import logarlec.view.drawables.GameView;
@@ -58,6 +59,10 @@ public class GameController implements Runnable {
 
     public void moveEntity(Entity entity, Direction direction) {
         game.moveEntity(entity, direction);
+    }
+
+    public void moveEntity(Entity entity, Position position) {
+        game.moveEntity(entity, position);
     }
 
     public boolean dropItem(Entity entity, Item item) {

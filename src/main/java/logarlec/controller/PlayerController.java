@@ -3,16 +3,21 @@ package logarlec.controller;
 import logarlec.controller.util.InputHandler;
 import logarlec.model.events.DropListener;
 import logarlec.model.items.Item;
+import logarlec.model.items.Transistor;
 import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
+import logarlec.model.util.Position;
 import logarlec.view.drawables.PersonView;
 import logarlec.view.drawables.PlayerView;
 
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PlayerController extends PersonController implements DropListener {
     private InventoryController inventoryController;
+    private Map<Item, Position> linkedTransistors = new HashMap<>();
     /**
      * A játékos nézete
      */
@@ -37,6 +42,9 @@ public class PlayerController extends PersonController implements DropListener {
     @Override
     public void onDrop(Item item) {
         GameController.getInstance().dropItem(entity, item);
+        if (item instanceof Transistor) {
+            linkedTransistors.put(((Transistor) item).getPair(), entity.getPosition());
+        }
     }
 
     /**
@@ -172,15 +180,18 @@ public class PlayerController extends PersonController implements DropListener {
             case USE -> {
                 if (itemUsesThisTurn < maxItemUsesPerTurn) {
                     item.use();
+                    if (linkedTransistors.containsKey(item)) {
+                        GameController.getInstance().moveEntity(entity, linkedTransistors.get(item));
+                    }
                     itemUsesThisTurn++;
                 }
             }
             case DROP -> {
-                    if (itemDropsThisTurn < maxItemDropsPerTurn){
-                        if (!GameController.getInstance().dropItem(entity, item)) return;
-                        entity.getPerson().dropItem(item);
-                        itemDropsThisTurn++;
-                    }
+                if (itemDropsThisTurn < maxItemDropsPerTurn){
+                    if (!GameController.getInstance().dropItem(entity, item)) return;
+                    entity.getPerson().dropItem(item);
+                    itemDropsThisTurn++;
+                }
             }
             case LINK -> {
                 if (itemUsesThisTurn < maxItemUsesPerTurn) {
