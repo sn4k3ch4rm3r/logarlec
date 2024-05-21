@@ -52,6 +52,11 @@ public class PlayerController extends PersonController implements DropListener {
         }
     }
 
+    @Override
+    public void onGameEnded() {
+        GameController.getInstance().endGame();
+    }
+
     /**
      * USE- éppen ki akarunk választani egy tárgyat használatra DROP - éppen ki akarunk választani
      * egy tárgyat eldobásra LINK - éppen ki akarunk választani két tranzisztort linkelésre NONE
