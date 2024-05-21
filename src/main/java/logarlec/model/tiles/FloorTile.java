@@ -14,8 +14,9 @@ public class FloorTile extends Tile {
     }
 
     /**
-     * Egy személy erre a tile-ra lép, ha nincs még rajta személy.
-     * Ha sikereses a rálépés felveszi az itt található tárgyat
+     * Egy személy erre a tile-ra lép, ha nincs még rajta személy. Ha sikereses a rálépés felveszi
+     * az itt található tárgyat
+     * 
      * @param person Aki ide próbál lépni
      */
     @Override
@@ -24,7 +25,7 @@ public class FloorTile extends Tile {
             return false;
         }
         this.person = person;
-        if (person.addItem(item)) {
+        if (this.item != null && person.addItem(item)) {
             this.item = null;
         }
         onChanged();
@@ -33,6 +34,19 @@ public class FloorTile extends Tile {
 
     public void setItem(Item item) {
         this.item = item;
+        onChanged();
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void removePerson(Person person) {
+        person = null;
         onChanged();
     }
 }

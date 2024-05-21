@@ -140,4 +140,8 @@ public abstract class Person extends GameObject {
 	public Room getCurrentRoom() {
 		return currentRoom;
 	}
+
+	public Inventory getInventory() {
+		return inventory;
+	}
 }

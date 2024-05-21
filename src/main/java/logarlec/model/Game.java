@@ -1,23 +1,68 @@
 package logarlec.model;
 
+import logarlec.model.gameobjects.Person;
 import logarlec.model.gameobjects.Room;
-import logarlec.model.gameobjects.Student;
+import logarlec.model.items.Item;
 import logarlec.model.tiles.Tile;
+import logarlec.model.tiles.FloorTile;
+import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
-
+import logarlec.model.util.Position;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Game {
-    private List<Student> players;
     private List<Room> rooms;
-    private List<Entity> entities;
     private Tile[][] tiles;
 
-    public List<Student> getPlayers() {
-        return players;
+    public Game(int mapWidth, int mapHeight) {
+        tiles = new Tile[mapWidth][mapHeight];
+        rooms = new LinkedList<>();
     }
 
     public List<Room> getRooms() {
         return rooms;
+    }
+
+    public void addRoom(Room room) {
+        rooms.add(room);
+    }
+
+    public void moveEntity(Entity entity, Direction direction) {
+        Position position = entity.getPosition();
+        Position destination = position.add(direction, 1);
+        Person person = entity.getPerson();
+        Tile newTile = tiles[destination.x][destination.y];
+
+        if (newTile.stepOn(person)) {
+            ((FloorTile) tiles[position.x][position.y]).removePerson(person);
+        }
+    }
+
+    public void putTile(Tile tile) {
+        tiles[tile.getPosition().x][tile.getPosition().y] = tile;
+    }
+
+    public Tile getTile(Position position) {
+        return tiles[position.x][position.y];
+    }
+
+    public void addEntity(Entity entity) {
+        Position position = entity.getPosition();
+        Person person = entity.getPerson();
+        Tile tile = getTile(position);
+        if (!tile.stepOn(person) || !tile.getRoom().enter(person)) {
+            throw new IllegalArgumentException(String
+                    .format("Entity could not be placed at (%d, %d).", position.x, position.y));
+        }
+    }
+
+    public void addItem(Item item, Position position) {
+        FloorTile tile = (FloorTile) getTile(position);
+        if (tile.getItem() != null) {
+            throw new IllegalArgumentException("Tile already has an item on it.");
+        }
+        tile.setItem(item);
+        item.setRoom(tile.getRoom());
     }
 }

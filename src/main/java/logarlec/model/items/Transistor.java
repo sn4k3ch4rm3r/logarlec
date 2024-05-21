@@ -35,7 +35,8 @@ public class Transistor extends Item {
 			if (target.enter(person)) {
 				room.leave(person);
 			}
-		} else if (this.other != null && this.target == null) {
+		}
+		else if (this.other != null && this.target == null) {
 			person.dropItem(this);
 			other.setTarget(this.room);
 		}
@@ -90,5 +91,9 @@ public class Transistor extends Item {
 				"Transistor <%d>\nPair: <%d>\nPerson: <%d>\nRoom: <%d>\nTarget room: <%d>\n",
 				this.hashCode(), other.hashCode(), person.hashCode(), room.hashCode(),
 				target.hashCode());
+	}
+
+	public boolean isActive() {
+		return other != null;
 	}
 }

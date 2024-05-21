@@ -14,7 +14,9 @@ public class DoorTile extends Tile {
     }
 
     /**
-     * Az ehhez tartozó ajtón megpróbál átlépni a személy, ha sikerül átkerül egy csempére az ajtó túloldalán
+     * Az ehhez tartozó ajtón megpróbál átlépni a személy, ha sikerül átkerül egy csempére az ajtó
+     * túloldalán
+     * 
      * @param person Aki ide próbál lépni
      * @return sikeres-e az ajtón átlépés
      */
@@ -23,7 +25,11 @@ public class DoorTile extends Tile {
         if (door.use(person)) {
             return false;
         }
-        /* TODO: átrakni valahogy egy túloldali flooar tile-ra*/
+        /* TODO: átrakni valahogy egy túloldali flooar tile-ra */
         return true;
+    }
+
+    public Door getDoor() {
+        return door;
     }
 }
