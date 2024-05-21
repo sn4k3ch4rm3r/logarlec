@@ -144,4 +144,8 @@ public abstract class Person extends GameObject {
 	public Inventory getInventory() {
 		return inventory;
 	}
+
+	public boolean canMove() {
+		return knockOutTime <= 0;
+	}
 }

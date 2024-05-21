@@ -13,7 +13,7 @@ public class WallTile extends Tile {
      * @return false, mert falra nem lehet lépni
      */
     @Override
-    public boolean stepOn(Person person) {
-        return false;
+    public Position stepOn(Person person) {
+        return null;
     }
 }
