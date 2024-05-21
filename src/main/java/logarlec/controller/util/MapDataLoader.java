@@ -1,9 +1,6 @@
 package logarlec.controller.util;
 
 import logarlec.Configuration;
-import logarlec.model.gameobjects.Person;
-import logarlec.model.gameobjects.Room;
-import logarlec.model.items.Item;
 import logarlec.model.util.Position;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -35,15 +32,15 @@ public class MapDataLoader {
     GameBuilder gameBuilder;
 
     public GameBuilder loadMapData() {
-        //Tárolók inicializálása
+        // Tárolók inicializálása
         items = new HashMap<>();
         people = new HashMap<>();
 
-        //gameBuilder inicializálása
-        gameBuilder = new GameBuilder(23,24);
+        // gameBuilder inicializálása
+        gameBuilder = new GameBuilder(23, 24);
 
         try {
-            //Az UTF-8 kódolásó fájl beolvasásához steraemet kell használni
+            // Az UTF-8 kódolásó fájl beolvasásához steraemet kell használni
             InputStream inputStream =
                     getClass().getClassLoader().getResourceAsStream(Configuration.MAP_PATH);
             assert inputStream != null;
@@ -51,27 +48,28 @@ public class MapDataLoader {
             InputSource is = new InputSource(reader);
             is.setEncoding("UTF-8");
 
-            //A DOM parser létrehozása
+            // A DOM parser létrehozása
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(is);
 
-            //A dokumentum normalizálása ez nem kötelező, csak ajánlott lépés
+            // A dokumentum normalizálása ez nem kötelező, csak ajánlott lépés
             doc.getDocumentElement().normalize();
 
-            //A szobák beolvasása az xml fájlból
+            // A szobák beolvasása az xml fájlból
             readRooms(doc);
 
-            //Az ajtók beolvasása az xml fájlból
+            // Az ajtók beolvasása az xml fájlból
             readDoors(doc);
 
-            //A tárgyak beolvasása
+            // A tárgyak beolvasása
             loadItems();
 
-            //A személyek beolvasása
+            // A személyek beolvasása
             loadPeople();
             return gameBuilder;
-        } catch (ParserConfigurationException | SAXException | IOException e) {
+        }
+        catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -82,11 +80,11 @@ public class MapDataLoader {
      * @param doc a beolvasott xml fájl
      */
     private void readRooms(Document doc) {
-        //A room taggel rendelkező elemek listázása
+        // A room taggel rendelkező elemek listázása
         NodeList tiles = doc.getElementsByTagName("room");
         for (int i = 0; i < tiles.getLength(); i++) {
             Node node = tiles.item(i);
-            //Ha a node egy elem
+            // Ha a node egy elem
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
 
@@ -97,7 +95,7 @@ public class MapDataLoader {
                 int height = Integer.parseInt(element.getAttribute("height"));
                 int capacity = Integer.parseInt(element.getAttribute("capacity"));
 
-                gameBuilder.addRoom(id, capacity, new Position(x,y), width, height);
+                gameBuilder.addRoom(id, capacity, new Position(x, y), width, height);
 
                 NodeList children = element.getChildNodes();
                 for (int j = 0; j < children.getLength(); j++) {
@@ -108,7 +106,8 @@ public class MapDataLoader {
                         if (childType.equals("item")) {
                             String subType = childElement.getAttribute("type");
                             items.put(new Position(x, y), subType);
-                        } else if (childType.equals("person")) {
+                        }
+                        else if (childType.equals("person")) {
                             String subType = childElement.getAttribute("type");
                             people.put(new Position(x, y), subType);
                         }
@@ -130,15 +129,15 @@ public class MapDataLoader {
             Node node = doors.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
-                String to = element.getAttribute("to");
-                String from = element.getAttribute("from");
+                int to = Integer.parseInt(element.getAttribute("to"));
+                int from = Integer.parseInt(element.getAttribute("from"));
                 int x0 = Integer.parseInt(element.getAttribute("x0"));
                 int y0 = Integer.parseInt(element.getAttribute("y0"));
                 int x1 = Integer.parseInt(element.getAttribute("x1"));
                 int y1 = Integer.parseInt(element.getAttribute("y1"));
                 boolean oneway = Boolean.parseBoolean(element.getAttribute("oneway"));
 
-                gameBuilder.addDoor(from, to, new Position(x0, y0), new Position(x1,y1), oneway);
+                gameBuilder.addDoor(from, to, new Position(x0, y0), new Position(x1, y1), oneway);
             }
         }
     }
@@ -150,7 +149,7 @@ public class MapDataLoader {
         for (Map.Entry<Position, String> entry : items.entrySet()) {
             Position position = entry.getKey();
             String type = entry.getValue();
-            switch (type){
+            switch (type) {
                 case "AirFreshener":
                     gameBuilder.addAirFreshener(position);
                     break;
@@ -166,7 +165,7 @@ public class MapDataLoader {
                 case "Mask":
                     gameBuilder.addMask(position);
                     break;
-                case "addSlideRule":
+                case "SlideRule":
                     gameBuilder.addSlideRule(position);
                     break;
                 case "WetRag":
@@ -197,20 +196,19 @@ public class MapDataLoader {
         for (Map.Entry<Position, String> entry : people.entrySet()) {
             Position position = entry.getKey();
             String type = entry.getValue();
-                switch (type) {
-                    case "Teacher":
-                        gameBuilder.addTeacher(position);
-                        break;
-                    case "Janitor":
-                        gameBuilder.addJanitor(position);
-                        break;
-                    case "Player":
-                        gameBuilder.addPlayer(position);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Invalid person type");
-
-                }
+            switch (type) {
+                case "Teacher":
+                    gameBuilder.addTeacher(position);
+                    break;
+                case "Janitor":
+                    gameBuilder.addJanitor(position);
+                    break;
+                case "Player":
+                    gameBuilder.addPlayer(position);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid person type");
+            }
         }
     }
 }
