@@ -22,64 +22,7 @@ import java.util.*;
  * A pálya adatainak .xml fájlból való betöltését végző osztály
  */
 public class MapDataLoader {
-    /**
-     * Osztály a beolvasott szobák adatainak tárolására
-     */
-    class ExtendedRoom {
-        /**
-         * A szoba modellje
-         */
-        public Room room;
-        /**
-         * A szoba azonosítója
-         */
-        public Integer id;
-        /**
-         * A szoba pozíciója
-         */
-        public Position position;
-        /**
-         * A szoba szélessége
-         */
-        public Integer width;
-        /**
-         * A szoba magassága
-         */
-        public Integer height;
 
-        public ExtendedRoom(Room room, Integer id, Position position, Integer width, Integer height) {
-            this.room = room;
-            this.id = id;
-            this.position = position;
-            this.width = width;
-            this.height = height;
-        }
-    }
-
-    class DoorData{
-        public String from;
-        public String to;
-        public Position position0;
-        public Position position1;
-        public Boolean oneway;
-
-        public DoorData(String from, String to, Position position0, Position position1) {
-            this.from = from;
-            this.to = to;
-            this.position0 = position0;
-            this.position1 = position1;
-            this.oneway = true;
-        }
-    }
-
-    /**
-     * A beolvasott szobák listája
-     */
-    private List<ExtendedRoom> rooms;
-    /**
-     * A beolvasott ajtók listája
-     */
-    private List<DoorData> doorDataList;
     /**
      * A beolvasott tárgyak listája
      */
@@ -93,8 +36,6 @@ public class MapDataLoader {
 
     public GameBuilder loadMapData() {
         //Tárolók inicializálása
-        rooms = new LinkedList<>();
-        doorDataList = new LinkedList<>();
         items = new HashMap<>();
         people = new HashMap<>();
 
@@ -129,8 +70,6 @@ public class MapDataLoader {
 
             //A személyek beolvasása
             loadPeople();
-
-            gameBuilder.build();
             return gameBuilder;
         } catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
@@ -156,11 +95,9 @@ public class MapDataLoader {
                 int y = Integer.parseInt(element.getAttribute("y"));
                 int width = Integer.parseInt(element.getAttribute("width"));
                 int height = Integer.parseInt(element.getAttribute("height"));
+                int capacity = Integer.parseInt(element.getAttribute("capacity"));
 
-                gameBuilder.addRoom(id, 10, Position(x,y) width, height);
-
-                ExtendedRoom room = new ExtendedRoom(component.getModel(), id, new Position(x, y), width, height);
-                rooms.add(room);
+                gameBuilder.addRoom(id, capacity, new Position(x,y), width, height);
 
                 NodeList children = element.getChildNodes();
                 for (int j = 0; j < children.getLength(); j++) {
@@ -199,26 +136,12 @@ public class MapDataLoader {
                 int y0 = Integer.parseInt(element.getAttribute("y0"));
                 int x1 = Integer.parseInt(element.getAttribute("x1"));
                 int y1 = Integer.parseInt(element.getAttribute("y1"));
+                boolean oneway = Boolean.parseBoolean(element.getAttribute("oneway"));
 
-                doorDataList.add(new DoorData(from, to, new Position(x0, y0), new Position(x1, y1)));
+                gameBuilder.addDoor(from, to, new Position(x0, y0), new Position(x1,y1), oneway);
             }
         }
-
-        for (DoorData doorData : doorDataList) {
-            Boolean oneway = !hasNeighbour(doorData, doorDataList);
-            gameBuilder.addDoor(doorData.from, doorData.to, doorData.position0, doorData.position1, oneway);
-        }
     }
-
-    private Boolean hasNeighbour(DoorData doorData, List<DoorData> doorDataList){
-        for (DoorData doorData1 : doorDataList) {
-            if (doorData1.from.equals(doorData.to) && doorData1.to.equals(doorData.from)){
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     /**
      * A tárgyak betöltése és létrehozása
@@ -274,9 +197,6 @@ public class MapDataLoader {
         for (Map.Entry<Position, String> entry : people.entrySet()) {
             Position position = entry.getKey();
             String type = entry.getValue();
-            if (type.equals("Player")) {
-                gameBuilder.addPlayer(position);
-            } else {
                 switch (type) {
                     case "Teacher":
                         gameBuilder.addTeacher(position);
@@ -284,11 +204,13 @@ public class MapDataLoader {
                     case "Janitor":
                         gameBuilder.addJanitor(position);
                         break;
+                    case "Player":
+                        gameBuilder.addPlayer(position);
+                        break;
                     default:
                         throw new IllegalArgumentException("Invalid person type");
 
                 }
-            }
         }
     }
 }
