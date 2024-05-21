@@ -219,8 +219,8 @@ public class MapDataLoader {
         }
     }
 
-    List<Integer> getRoomIds(int configurationId) {
-        List<Integer> roomIds = new ArrayList<>();
+    List<ExtendedRoom> getRoomDatas(int configurationId) {
+        List<ExtendedRoom> rooms = new ArrayList<>();
         try {
             // Az UTF-8 kódolásó fájl beolvasásához steraemet kell használni
             InputStream inputStream =
@@ -243,10 +243,17 @@ public class MapDataLoader {
                     Element element = (Element) node;
                     // A room elem attribútumainak beolvasása
                     int id = Integer.parseInt(element.getAttribute("id"));
-                    roomIds.add(id);
+                    int x = Integer.parseInt(element.getAttribute("x"));
+                    int y = Integer.parseInt(element.getAttribute("y"));
+                    int width = Integer.parseInt(element.getAttribute("width"));
+                    int height = Integer.parseInt(element.getAttribute("height"));
+                    int capacity = Integer.parseInt(element.getAttribute("capacity"));
+                    if (id == configurationId) {
+                        rooms.add(new ExtendedRoom(id, capacity, new Position(x, y), width, height));
+                    }
                 }
             }
-            return roomIds;
+            return rooms;
         }
         catch(ParserConfigurationException | SAXException | IOException e){
             throw new RuntimeException(e);

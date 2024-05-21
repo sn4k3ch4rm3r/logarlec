@@ -19,43 +19,25 @@ public class GameRebuilder {
 
     Map<Integer, Room> rooms;
 
-    class ExtendedRoom{
-        int roomId;
-        int capacity;
-        Position position;
-        int width;
-        int height;
-        public ExtendedRoom(int roomId, int capacity, Position position, int width, int height){
-            this.roomId = roomId;
-            this.capacity = capacity;
-            this.position = position;
-            this.width = width;
-            this.height = height;
-        }
 
-        public void getOwnershipOfTiles(){
-            for(int i = position.x; i < position.x + width; i++){
-                for(int j = position.y; j < position.y + height; j++){
-                    game.getTile(new Position(i,j)).setRoom(rooms.get(roomId));
-                }
-            }
-        }
-    }
 
     public GameRebuilder(Game game, GameBuilder bg) {
         this.game = game;
         rooms = bg.getRooms();
     }
 
+    private void getRoomsFromConfig(int configId){
+    }
+
 
 
     public void refreshRooms(int newConfigId){
         MapDataLoader mdl = new MapDataLoader();
-        List<Integer> roomIds = mdl.getRoomIds(newConfigId);
+        List<ExtendedRoom> newRooms = mdl.getRoomDatas(newConfigId);
 
-        for(int roomId : roomIds){
-            if(!rooms.containsKey(roomId)){
-                rooms.put(roomId, new Room());
+        for(ExtendedRoom newRoom: newRooms){
+            if(!rooms.containsKey(newRoom.roomId)){
+                rooms.put(newRoom.roomId, rooms.get(newRoom.roomId-100).split());
             }
         }
 
