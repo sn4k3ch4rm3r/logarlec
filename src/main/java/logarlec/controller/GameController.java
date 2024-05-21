@@ -87,6 +87,7 @@ public class GameController implements Runnable {
                 person.turn();
             }
             game.update(1);
+            rebuilder.rebuildGame(1);
             updateView();
         }
     }

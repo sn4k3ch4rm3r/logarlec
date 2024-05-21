@@ -27,25 +27,6 @@
                 <door from="5" x0="14" y0="5" to="6" x1="15" y1="5" oneway="true"/>
                 <door from="0" x0="7" y0="3" to="5" x1="8" y1="3" oneway="false"/>
             </doors>
-            <items>
-                <item x="5" y="5" type="Mask" ownerRoom="0"/>
-                <item x="6" y="6" type="AirFreshener" ownerRoom="0"/>
-                <item x="5" y="7" type="Transistor" ownerRoom="0"/>
-                <item x="13" y="6" type="Beer" ownerRoom="5"/>
-                <item x="10" y="3" type="WetRag" ownerRoom="5"/>
-                <item x="19" y="3" type="SlideRule" ownerRoom="6"/>
-                <item x="17" y="5" type="CodeOfStudies" ownerRoom="6"/>
-                <item x="15" y="12" type="FakeMask" ownerRoom="1"/>
-                <item x="16" y="11" type="WetRag" ownerRoom="1"/>
-                <item x="14" y="13" type="AirFreshener" ownerRoom="1"/>
-                <item x="4" y="12" type="Transistor" ownerRoom="1"/>
-                <item x="6" y="11" type="Beer" ownerRoom="1"/>
-                <item x="12" y="19" type="Camembert" ownerRoom="2"/>
-                <item x="14" y="18" type="WetRag" ownerRoom="2"/>
-                <item x="20" y="14" type="AirFreshener" ownerRoom="3"/>
-                <item x="19" y="20" type="Camembert" ownerRoom="3"/>
-                <item x="5" y="19" type="Transistor" ownerRoom="4"/>
-            </items>
         </configuration>
         <configuration id="1" name="Split1" description="Split1">
             <!-- Top left room -->
@@ -76,39 +57,36 @@
                 <door from="0" x0="7" y0="3" to="5" x1="8" y1="3" oneway="false"/>
                 <door from="0" x0="3" y0="4" to="100" x1="4" y1="4" oneway="false"/>
             </doors>
-
-            <items>
-                <item x="5" y="5" type="Mask" ownerRoom="0"/>
-                <item x="6" y="6" type="AirFreshener" ownerRoom="0"/>
-                <item x="5" y="7" type="Transistor" ownerRoom="0"/>
-                <item x="13" y="6" type="Beer" ownerRoom="5"/>
-                <item x="10" y="3" type="WetRag" ownerRoom="5"/>
-                <item x="19" y="3" type="SlideRule" ownerRoom="6"/>
-                <item x="17" y="5" type="CodeOfStudies" ownerRoom="6"/>
-                <item x="15" y="12" type="FakeMask" ownerRoom="1"/>
-                <item x="16" y="11" type="WetRag" ownerRoom="1"/>
-                <item x="14" y="13" type="AirFreshener" ownerRoom="1"/>
-                <item x="4" y="12" type="Transistor" ownerRoom="1"/>
-                <item x="6" y="11" type="Beer" ownerRoom="1"/>
-                <item x="12" y="19" type="Camembert" ownerRoom="2"/>
-                <item x="14" y="18" type="WetRag" ownerRoom="2"/>
-                <item x="20" y="14" type="AirFreshener" ownerRoom="3"/>
-                <item x="19" y="20" type="Camembert" ownerRoom="3"/>
-                <item x="5" y="19" type="Transistor" ownerRoom="4"/>
-            </items>
         </configuration>
 
     </configurations>
     <people>
-        <person x="2" y="2" type="Teacher" ownerRoom="0"/>
-        <person x="3" y="3" type="Teacher" ownerRoom="0"/>
-        <person x="16" y="2" type="Teacher" ownerRoom="6"/>
-        <person x="10" y="13" type="Janitor" room="1"/>
-        <person x="9" y="18" type="Janitor" ownerRoom="2"/>
-        <person x="10" y="20" type="Teacher" ownerRoom="2"/>
-        <person x="19" y="12" type="Janitor" ownerRoom="3"/>
-        <person x="3" y="20" type="Player" ownerRoom="4"/>
+        <person x="2" y="2" type="Teacher"/>
+        <person x="3" y="3" type="Teacher"/>
+        <person x="16" y="2" type="Teacher"/>
+        <person x="10" y="13" type="Janitor"/>
+        <person x="9" y="18" type="Janitor"/>
+        <person x="10" y="20" type="Teacher"/>
+        <person x="19" y="12" type="Janitor"/>
+        <person x="3" y="20" type="Player"/>
     </people>
-
-
+    <items>
+        <item x="5" y="5" type="Mask"/>
+        <item x="6" y="6" type="AirFreshener"/>
+        <item x="5" y="7" type="Transistor"/>
+        <item x="13" y="6" type="Beer"/>
+        <item x="10" y="3" type="WetRag"/>
+        <item x="19" y="3" type="SlideRule"/>
+        <item x="17" y="5" type="CodeOfStudies"/>
+        <item x="15" y="12" type="FakeMask"/>
+        <item x="16" y="11" type="WetRag"/>
+        <item x="14" y="13" type="AirFreshener"/>
+        <item x="4" y="12" type="Transistor"/>
+        <item x="6" y="11" type="Beer"/>
+        <item x="12" y="19" type="Camembert"/>
+        <item x="14" y="18" type="WetRag"/>
+        <item x="20" y="14" type="AirFreshener"/>
+        <item x="19" y="20" type="Camembert"/>
+        <item x="5" y="19" type="Transistor"/>
+    </items>
 </map>

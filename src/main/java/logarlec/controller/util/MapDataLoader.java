@@ -1,6 +1,5 @@
 package logarlec.controller.util;
 
-import com.sun.jdi.request.BreakpointRequest;
 import logarlec.Configuration;
 import logarlec.model.util.Position;
 import org.w3c.dom.Document;
@@ -61,12 +60,13 @@ public class MapDataLoader {
             readInVariableData(doc, configurationId);
 
             // A tárgyak beolvasása
-            loadItems();
+            loadItems(doc);
 
             // A személyek beolvasása
             loadPeople(doc);
             return gameBuilder;
-        } catch (ParserConfigurationException | SAXException | IOException e) {
+        }
+        catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -100,18 +100,8 @@ public class MapDataLoader {
                             int height = Integer.parseInt(roomElement.getAttribute("height"));
                             int capacity = Integer.parseInt(roomElement.getAttribute("capacity"));
                             // A room elem attribútumainak beolvasása
-                            gameBuilder.addRoom(roomId, capacity, new Position(x, y), width, height);
-                        }
-                    }
-                    NodeList items = element.getElementsByTagName("item");
-                    for (int j = 0; j < items.getLength(); j++) {
-                        Node itemNode = items.item(j);
-                        if (itemNode.getNodeType() == Node.ELEMENT_NODE) {
-                            Element itemElement = (Element) itemNode;
-                            int x = Integer.parseInt(itemElement.getAttribute("x"));
-                            int y = Integer.parseInt(itemElement.getAttribute("y"));
-                            String type = itemElement.getAttribute("type");
-                            this.items.put(new Position(x, y), type);
+                            gameBuilder.addRoom(roomId, capacity, new Position(x, y), width,
+                                    height);
                         }
                     }
 
@@ -126,9 +116,11 @@ public class MapDataLoader {
                             int y0 = Integer.parseInt(itemElement.getAttribute("y0"));
                             int x1 = Integer.parseInt(itemElement.getAttribute("x1"));
                             int y1 = Integer.parseInt(itemElement.getAttribute("y1"));
-                            boolean oneway = Boolean.parseBoolean(itemElement.getAttribute("oneway"));
+                            boolean oneway =
+                                    Boolean.parseBoolean(itemElement.getAttribute("oneway"));
 
-                            gameBuilder.addDoor(from, to, new Position(x0, y0), new Position(x1, y1), oneway);
+                            gameBuilder.addDoor(from, to, new Position(x0, y0),
+                                    new Position(x1, y1), oneway);
                         }
                     }
                 }
@@ -140,7 +132,19 @@ public class MapDataLoader {
     /**
      * A tárgyak betöltése és létrehozása
      */
-    private void loadItems() {
+    private void loadItems(Document doc) {
+        NodeList itemNodes = doc.getElementsByTagName("item");
+        for (int j = 0; j < itemNodes.getLength(); j++) {
+            Node itemNode = itemNodes.item(j);
+            if (itemNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element itemElement = (Element) itemNode;
+                int x = Integer.parseInt(itemElement.getAttribute("x"));
+                int y = Integer.parseInt(itemElement.getAttribute("y"));
+                String type = itemElement.getAttribute("type");
+                this.items.put(new Position(x, y), type);
+            }
+        }
+
         for (Map.Entry<Position, String> entry : items.entrySet()) {
             Position position = entry.getKey();
             String type = entry.getValue();
@@ -201,7 +205,6 @@ public class MapDataLoader {
         }
 
         for (Map.Entry<Position, String> entry : people.entrySet()) {
-
             Position position = entry.getKey();
             String type = entry.getValue();
             switch (type) {
@@ -256,9 +259,11 @@ public class MapDataLoader {
                                 int y = Integer.parseInt(roomElement.getAttribute("y"));
                                 int width = Integer.parseInt(roomElement.getAttribute("width"));
                                 int height = Integer.parseInt(roomElement.getAttribute("height"));
-                                int capacity = Integer.parseInt(roomElement.getAttribute("capacity"));
+                                int capacity =
+                                        Integer.parseInt(roomElement.getAttribute("capacity"));
                                 // A room elem attribútumainak beolvasása
-                                roomsOut.add(new ExtendedRoom(roomId, capacity, new Position(x, y), width, height));
+                                roomsOut.add(new ExtendedRoom(roomId, capacity, new Position(x, y),
+                                        width, height));
                             }
                         }
 
@@ -266,7 +271,7 @@ public class MapDataLoader {
                 }
             }
         }
-        catch(ParserConfigurationException | SAXException | IOException e){
+        catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
         }
         return roomsOut;
@@ -308,7 +313,8 @@ public class MapDataLoader {
                                 int y0 = Integer.parseInt(itemElement.getAttribute("y0"));
                                 int x1 = Integer.parseInt(itemElement.getAttribute("x1"));
                                 int y1 = Integer.parseInt(itemElement.getAttribute("y1"));
-                                boolean oneway = Boolean.parseBoolean(itemElement.getAttribute("oneway"));
+                                boolean oneway =
+                                        Boolean.parseBoolean(itemElement.getAttribute("oneway"));
 
                                 doorsOut.add(new ExtendedDoor(from, to, x0, y0, x1, y1, oneway));
                             }
@@ -317,7 +323,7 @@ public class MapDataLoader {
                 }
             }
         }
-        catch(ParserConfigurationException | SAXException | IOException e){
+        catch (ParserConfigurationException | SAXException | IOException e) {
             throw new RuntimeException(e);
         }
         return doorsOut;
