@@ -8,8 +8,6 @@ import logarlec.view.Window;
 import logarlec.view.panels.GamePanel;
 import logarlec.view.panels.MenuPanel;
 
-import java.awt.event.KeyListener;
-
 /**
  * A játék vezérlője
  */

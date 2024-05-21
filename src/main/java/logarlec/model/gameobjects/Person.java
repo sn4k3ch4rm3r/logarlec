@@ -3,7 +3,6 @@ package logarlec.model.gameobjects;
 import logarlec.model.effects.Effect;
 import logarlec.model.items.Item;
 import logarlec.model.util.Inventory;
-import logarlec.prototype.Prototype;
 
 /**
  * A pályán mozogni képes entitások ősosztálya.
@@ -59,14 +58,6 @@ public abstract class Person extends GameObject {
 	 */
 	public void setKnockOut(double value) {
 		knockOutTime = value;
-		if (knockOutTime > 0) {
-			try {
-				Prototype.out
-						.write(String.format("<%d> got knocked out.\n", hashCode()).getBytes());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 	/**
@@ -125,11 +116,6 @@ public abstract class Person extends GameObject {
 	public void getOut() {
 		if (knockOutTime <= 0) {
 			currentRoom.getOut(this);
-			try {
-				Prototype.out.write(String.format("<%d> got kicked out.\n", hashCode()).getBytes());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 	}
 

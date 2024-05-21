@@ -2,7 +2,6 @@ package logarlec.model.effects;
 
 import logarlec.model.gameobjects.Student;
 import logarlec.model.gameobjects.Teacher;
-import logarlec.prototype.Prototype;
 
 public class MaskEffect extends Effect {
 
@@ -16,7 +15,6 @@ public class MaskEffect extends Effect {
 
 	/**
 	 * Diák bénított állapotának megszüntetése.
-	 *
 	 */
 	public void applyToStudent(Student target) {
 		target.setKnockOut(-5);
@@ -41,12 +39,6 @@ public class MaskEffect extends Effect {
 		super.update(deltaTime);
 		if (timeRemaining <= 0) {
 			holder.removeEffect(this);
-			try {
-				Prototype.out
-						.write(String.format("<%d> ran out of time.\n", hashCode()).getBytes());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 	}
 }

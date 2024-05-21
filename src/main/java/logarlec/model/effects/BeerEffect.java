@@ -2,7 +2,6 @@ package logarlec.model.effects;
 
 import logarlec.model.gameobjects.Student;
 import logarlec.model.gameobjects.Teacher;
-import logarlec.prototype.Prototype;
 
 public class BeerEffect extends Effect {
 
@@ -14,16 +13,9 @@ public class BeerEffect extends Effect {
 
 	/**
 	 * Egy diák játékból kiejtett állapotát megszünteti, és eldobatja
-	 *
 	 */
 	public void applyToStudent(Student target) {
 		if (target.isEliminated()) {
-			try {
-				Prototype.out.write(
-						String.format("<%d> was saved by beer.\n", target.hashCode()).getBytes());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 			target.setEliminated(false);
 		}
 	}
@@ -41,12 +33,6 @@ public class BeerEffect extends Effect {
 		super.update(deltaTime);
 		if (timeRemaining <= 0) {
 			holder.removeEffect(this);
-			try {
-				Prototype.out
-						.write(String.format("<%d> ran out of time.\n", hashCode()).getBytes());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 	}
 }

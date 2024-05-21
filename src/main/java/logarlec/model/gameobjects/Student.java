@@ -4,7 +4,6 @@ package logarlec.model.gameobjects;
 import java.util.LinkedList;
 import java.util.List;
 import logarlec.model.effects.Effect;
-import logarlec.prototype.Prototype;
 
 /**
  * Egy játékban szereplő diák.
@@ -66,13 +65,8 @@ public class Student extends Person {
 		eliminated = true;
 		if (immuneToTeacher.contains(teacher)) {
 			eliminated = false;
-		} else {
-			try {
-				Prototype.out
-						.write(String.format("<%d> was eliminated.\n", this.hashCode()).getBytes());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		}
+		else {
 			inventory.protectFrom(teacher);
 		}
 	}
