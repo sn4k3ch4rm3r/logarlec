@@ -54,7 +54,7 @@ public class Controller {
 		gamePanel.setFocusable(true);
 		gamePanel.requestFocus();
 		gamePanel.addKeyListener(InputHandler.getInstance());
-		GameController gameController = new MapDataLoader().loadMapData().setPanel(gamePanel)
+		GameController gameController = new MapDataLoader().loadMapData(0).setPanel(gamePanel)
 				.setRenderer(gameRenderer).build();
 		gameController.start();
 	}

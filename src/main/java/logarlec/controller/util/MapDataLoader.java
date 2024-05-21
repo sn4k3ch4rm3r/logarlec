@@ -31,7 +31,7 @@ public class MapDataLoader {
 
     GameBuilder gameBuilder;
 
-    public GameBuilder loadMapData() {
+    public GameBuilder loadMapData(int configurationId) {
         // Tárolók inicializálása
         items = new HashMap<>();
         people = new HashMap<>();
@@ -57,7 +57,7 @@ public class MapDataLoader {
             doc.getDocumentElement().normalize();
 
             // A szobák beolvasása az xml fájlból
-            readInVariableData(doc, 0);
+            readInVariableData(doc, configurationId);
 
             // A tárgyak beolvasása
             loadItems();
