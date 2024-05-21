@@ -11,6 +11,7 @@ import logarlec.view.drawables.MapView;
 import logarlec.view.drawables.SideBarView;
 import logarlec.view.panels.GamePanel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,27 +20,31 @@ public class GameRebuilder {
 
     Map<Integer, Room> rooms;
 
+    List<ExtendedRoom> extendedRooms;
+
 
 
     public GameRebuilder(Game game, GameBuilder bg) {
+        extendedRooms = new ArrayList<ExtendedRoom>();
         this.game = game;
         rooms = bg.getRooms();
     }
 
     private void getRoomsFromConfig(int configId){
-    }
-
-
-
-    public void refreshRooms(int newConfigId){
         MapDataLoader mdl = new MapDataLoader();
-        List<ExtendedRoom> newRooms = mdl.getRoomDatas(newConfigId);
+        List<ExtendedRoom> newRooms = mdl.getRoomDatas(configId);
 
         for(ExtendedRoom newRoom: newRooms){
             if(!rooms.containsKey(newRoom.roomId)){
                 rooms.put(newRoom.roomId, rooms.get(newRoom.roomId-100).split());
             }
         }
+    }
 
+    public void rebuildGame(int configId){
+        getRoomsFromConfig(configId);
+        for(ExtendedRoom er: extendedRooms){
+            er.getOwnershipOfTiles(game, rooms);
+        }
     }
 }
