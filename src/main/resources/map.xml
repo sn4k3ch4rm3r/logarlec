@@ -55,6 +55,7 @@
     <!-- Bottom left room -->
     <room id="4" x="0" y="17" width="7" height="7" capacity="10">
         <person x="3" y="20" type="Player" ownerRoom="4"/>
+        <person x="4" y="20" type="Player" ownerRoom="4"/>
         <item x="5" y="19" type="Transistor" ownerRoom="4"/>
     </room>
 </map>

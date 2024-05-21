@@ -3,6 +3,7 @@ package logarlec.controller;
 import logarlec.controller.util.FeedbackManager;
 import logarlec.controller.util.InputHandler;
 import logarlec.model.events.DropListener;
+import logarlec.model.gameobjects.Student;
 import logarlec.model.items.Item;
 import logarlec.model.items.Transistor;
 import logarlec.model.util.Direction;
@@ -19,6 +20,9 @@ import java.util.Map;
 public class PlayerController extends PersonController implements DropListener {
     private InventoryController inventoryController;
     private Map<Item, Position> linkedTransistors = new HashMap<>();
+
+    private boolean dead = false;
+
     /**
      * A játékos nézete
      */
@@ -81,6 +85,7 @@ public class PlayerController extends PersonController implements DropListener {
     }
 
     public void turn() {
+        if (dead) return;
         playerView.setActive(true);
         GameController.getInstance().updateView();
         movesThisTurn = 0;
@@ -94,6 +99,10 @@ public class PlayerController extends PersonController implements DropListener {
 
         }
         InputHandler.getInstance().setCurrentPlayer(null);
+        dead = ((Student) entity.getPerson()).isEliminated();
+        if (dead) {
+            playerView.setDead(true);
+        }
         playerView.setActive(false);
         // playerView.setActive(false);
         // GameController.getInstance().updateView();
@@ -228,4 +237,8 @@ public class PlayerController extends PersonController implements DropListener {
         }
     }
 
+    @Override
+    public boolean isDead() {
+        return dead;
+    }
 }
