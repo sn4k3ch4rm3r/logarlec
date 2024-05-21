@@ -8,13 +8,14 @@ import logarlec.model.tiles.FloorTile;
 import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
 import logarlec.model.util.Position;
+import logarlec.model.util.Updatable;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * A játékot reprezentáló osztály.
  */
-public class Game {
+public class Game implements Updatable {
     private List<Room> rooms;
     private Tile[][] tiles;
 
@@ -95,5 +96,11 @@ public class Game {
         }
         tile.setItem(item);
         item.setRoom(tile.getRoom());
+    }
+
+    public void update(double deltaTime) {
+        for (Room room : rooms) {
+            room.update(deltaTime);
+        }
     }
 }

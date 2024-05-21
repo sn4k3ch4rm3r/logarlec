@@ -70,6 +70,7 @@ public class GameController implements Runnable {
             for (PersonController person : personControllers) {
                 person.turn();
             }
+            game.update(1);
             updateView();
         }
     }
