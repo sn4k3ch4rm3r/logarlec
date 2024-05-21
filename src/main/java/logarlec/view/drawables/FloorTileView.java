@@ -18,6 +18,12 @@ public class FloorTileView extends TileView {
     }
 
     public void draw(Graphics2D g2d) {
+        if(tile.getRoom().isClean()) {
+            this.sprite = SpriteManager.getInstance().getSprite("floor-clean");
+        } 
+        else{
+            this.sprite = SpriteManager.getInstance().getSprite("floor");
+        }
         super.draw(g2d);
         Graphics2D tileGraphics = getGraphicsContext(g2d);
         if (item != null) {
