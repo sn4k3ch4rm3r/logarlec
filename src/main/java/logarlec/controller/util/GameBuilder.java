@@ -181,6 +181,9 @@ public class GameBuilder {
 					"The specified to and from tiles are not next to each other.");
 		}
 
+		fromTile.setDestination(game.getTile(to.add(direction.getOpposite(), 1)));
+		toTile.setDestination(game.getTile(from.add(direction, 1)));
+
 		DoorTileView fromView = new DoorTileView(fromTile, direction);
 		DoorTileView toView = new DoorTileView(toTile, direction.getOpposite());
 
