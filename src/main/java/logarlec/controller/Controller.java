@@ -1,6 +1,7 @@
 package logarlec.controller;
 
 import logarlec.Configuration;
+import logarlec.controller.util.MapDataLoader;
 import logarlec.view.Renderer;
 import logarlec.view.Window;
 import logarlec.view.panels.GamePanel;
@@ -24,5 +25,8 @@ public class Controller {
 
 	public void startGame() {
 		window.setPanel(gamePanel);
+		GameController gameController = new MapDataLoader().loadMapData().setPanel(gamePanel)
+				.setRenderer(gameRenderer).build();
+		gameController.updateView();
 	}
 }
