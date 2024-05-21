@@ -1,23 +1,10 @@
 package logarlec.controller;
 
-import logarlec.model.items.Item;
-import logarlec.model.items.Transistor;
-import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
 import logarlec.view.drawables.PersonView;
 import logarlec.view.drawables.PlayerView;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.List;
-
-/**
- * A játékos vezérlője
- */
-public class PlayerController extends PersonController{
-    /**
-     * Az inventory vezérlője
-     */
+public class PlayerController extends PersonController {
     private InventoryController inventoryController;
     /**
      * A játékos nézete
@@ -69,6 +56,15 @@ public class PlayerController extends PersonController{
      */
     public PlayerView getPlayerView() {
         return playerView;
+    }
+
+    public void turn() {
+        playerView.setActive(true);
+        GameController.getInstance().updateView();
+        while (true) {
+        }
+        // playerView.setActive(false);
+        // GameController.getInstance().updateView();
     }
 
     /**

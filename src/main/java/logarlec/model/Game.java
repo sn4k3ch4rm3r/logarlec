@@ -54,7 +54,8 @@ public class Game {
         Tile newTile = tiles[destination.x][destination.y];
 
         if (newTile.stepOn(person)) {
-            ((FloorTile) tiles[position.x][position.y]).removePerson(person);
+            entity.setPosition(newTile.getPosition());
+            ((FloorTile) tiles[position.x][position.y]).removePerson();
         }
     }
 

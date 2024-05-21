@@ -48,6 +48,6 @@ public class Controller {
 		window.setPanel(gamePanel);
 		GameController gameController = new MapDataLoader().loadMapData().setPanel(gamePanel)
 				.setRenderer(gameRenderer).build();
-		gameController.updateView();
+		gameController.start();
 	}
 }
