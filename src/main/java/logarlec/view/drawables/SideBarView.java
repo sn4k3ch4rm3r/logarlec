@@ -13,16 +13,22 @@ public class SideBarView implements Drawable {
 	private BufferedImage infoBox;
 	private BufferedImage spaceIcon;
 
+	private String feedback;
+
 	public SideBarView() {
 		players = new LinkedList<>();
 		SpriteManager spriteManager = SpriteManager.getInstance();
 		infoBox = spriteManager.getSprite("sidebar-info");
 		spaceIcon = spriteManager.getSprite("space");
-
+		feedback = "";
 	}
 
 	public void addPlayerView(PlayerView view) {
 		players.add(view);
+	}
+
+	public void setFeedback(String value) {
+		feedback = value;
 	}
 
 	@Override
@@ -60,8 +66,9 @@ public class SideBarView implements Drawable {
 
 		infoBoxGraphics.drawImage(
 				TextRenderer.drawCentered(I18n.getString("feedback"), 8, 128), 0, 96, null);
+		infoBoxGraphics.drawImage(
+				TextRenderer.drawWrapped(feedback, 8, 120), 4, 108, null);
 
-		// TODO: Print any feedback for selected command, or game events.
 		infoBoxGraphics.dispose();
 	}
 }

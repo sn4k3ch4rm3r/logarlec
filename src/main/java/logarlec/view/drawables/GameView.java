@@ -2,6 +2,7 @@ package logarlec.view.drawables;
 
 import java.awt.*;
 import logarlec.Configuration;
+import logarlec.controller.util.FeedbackManager;
 
 public class GameView implements Drawable {
     private MapView mapView;
@@ -13,6 +14,7 @@ public class GameView implements Drawable {
     public GameView(MapView mapView, SideBarView sideBarView) {
         this.mapView = mapView;
         this.sideBarView = sideBarView;
+        FeedbackManager.setView(sideBarView);
     }
 
     /**
