@@ -1,5 +1,8 @@
 package logarlec.model.util;
 
+/**
+ * Az irányokat reprezentáló enum.
+ */
 public enum Direction {
 	UP {
 		@Override

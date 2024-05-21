@@ -4,25 +4,47 @@ import logarlec.model.effects.Effect;
 import logarlec.model.effects.JanitorEffect;
 import logarlec.prototype.Prototype;
 
+/**
+ * Osztály a takarító személyek reprezentálására
+
+ */
 public class Janitor extends Person {
     @Override
     public void applyEffect(Effect effect) {
 
     }
 
+    /**
+     * A takarító személy interakciójának kezelése
+     *
+     * @param teacher a tanár, akivel a takarító személy interakcióba lép
+     */
     @Override
     public void interactTeacher(Teacher teacher) {
 
     }
 
+    /**
+     * A takarító tanárral való interakciójának kezelése
+     *
+     * @param teacher a tanár, akivel a takarító személy interakcióba lép
+     */
     @Override
     public void protectFromTeacher(Teacher target) {
 
     }
 
+    /**
+     * A takarító személy logarléc felvételének kezelése
+     */
     @Override
     public void pickedUpSlideRule() {}
 
+    /**
+     * A takarító személy belép egy szobába
+     *
+     * @param room a szoba, melybe a takarító belép
+     */
     @Override
     public void enterRoom(Room room) {
         super.enterRoom(room);
@@ -37,6 +59,10 @@ public class Janitor extends Person {
         room.addEffect(janitorEffect);
     }
 
+    /**
+     * Az osztály string reprezentációját adja vissza
+     * @return
+     */
     @Override
     public String toString() {
         StringBuilder effectsSB = new StringBuilder();

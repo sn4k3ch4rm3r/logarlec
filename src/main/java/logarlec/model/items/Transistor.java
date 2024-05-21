@@ -85,6 +85,10 @@ public class Transistor extends Item {
 		this.other = other;
 	}
 
+	/**
+	 * A Transistor osztály toString metódusa A metódus visszaadja a Transistor adatait
+	 * @return
+	 */
 	@Override
 	public String toString() {
 		return String.format(

@@ -11,6 +11,9 @@ import logarlec.model.util.Position;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * A játékot reprezentáló osztály.
+ */
 public class Game {
     private List<Room> rooms;
     private Tile[][] tiles;
@@ -20,14 +23,30 @@ public class Game {
         rooms = new LinkedList<>();
     }
 
+    /**
+     * Visszaadja a játékban szereplő szobákat.
+     *
+     * @return a szobák listája
+     */
     public List<Room> getRooms() {
         return rooms;
     }
 
+    /**
+     * Egy új szobát ad a játékhoz.
+     *
+     * @param room Az új szoba
+     */
     public void addRoom(Room room) {
         rooms.add(room);
     }
 
+    /**
+     * Egy entitást mozgat egy adott irányba.
+     *
+     * @param entity Az entitás, amit mozgatni szeretnénk
+     * @param direction Az irány, amerre mozgatni szeretnénk
+     */
     public void moveEntity(Entity entity, Direction direction) {
         Position position = entity.getPosition();
         Position destination = position.add(direction, 1);
@@ -48,6 +67,11 @@ public class Game {
         return tiles[position.x][position.y];
     }
 
+    /**
+     * Egy entitást hozzáad a játékhoz.
+     *
+     * @param entity Az entitás, amit hozzá szeretnénk adni
+     */
     public void addEntity(Entity entity) {
         Position position = entity.getPosition();
         Person person = entity.getPerson();
@@ -58,6 +82,12 @@ public class Game {
         }
     }
 
+    /**
+     * Egy tárgyat rak egy adott pozícióra.
+     *
+     * @param item A tárgy, amit le szeretnénk rakni
+     * @param position A pozíció, ahol hozzá szeretnénk rakni
+     */
     public void addItem(Item item, Position position) {
         FloorTile tile = (FloorTile) getTile(position);
         if (tile.getItem() != null) {

@@ -4,6 +4,9 @@ import logarlec.model.effects.GasEffect;
 import logarlec.model.gameobjects.Teacher;
 import logarlec.prototype.Prototype;
 
+/**
+ * A Camembert osztály reprezentálja a játékban a Camembert-t
+ */
 public class Camembert extends Item {
 	/**
 	 * A Camembert osztály use metódusa A metódus a GasEffect-et adja hozzá a room-hoz, majd
@@ -24,6 +27,12 @@ public class Camembert extends Item {
 		room.removeItem(this);
 	}
 
+	/**
+	 * A Camembert osztály useAgainst metódusa A metódus a GasEffect-et adja hozzá a room-hoz, majd
+	 * eltávolítja a person inventory-jából a Camembert-t
+	 *
+	 * @param target a tanár, aki ellen a Camembert-t használják
+	 */
 	@Override
 	public void useAgainst(Teacher target) {
 		// Do nothing
