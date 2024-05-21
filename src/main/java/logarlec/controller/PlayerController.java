@@ -1,6 +1,7 @@
 package logarlec.controller;
 
 import logarlec.controller.util.InputHandler;
+import logarlec.model.events.DropListener;
 import logarlec.model.items.Item;
 import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
@@ -10,7 +11,7 @@ import logarlec.view.drawables.PlayerView;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
-public class PlayerController extends PersonController {
+public class PlayerController extends PersonController implements DropListener {
     private InventoryController inventoryController;
     /**
      * A játékos nézete
@@ -32,6 +33,12 @@ public class PlayerController extends PersonController {
     private int itemUsesThisTurn;
     private int itemDropsThisTurn;
     private Item selectedTransistor;
+
+    @Override
+    public void onDrop(Item item) {
+        GameController.getInstance().dropItem(entity, item);
+    }
+
     /**
      * USE- éppen ki akarunk választani egy tárgyat használatra
      * DROP - éppen ki akarunk választani egy tárgyat eldobásra
@@ -71,7 +78,7 @@ public class PlayerController extends PersonController {
         itemUsesThisTurn = 0;
         itemDropsThisTurn = 0;
         expectedInventoryInput = InventoryInput.NONE;
-        selectedTransistor = null;
+        //selectedTransistor = null;
         thisPlayersTurn = true;
         InputHandler.getInstance().setCurrentPlayer(this);
         while (thisPlayersTurn) {
@@ -170,8 +177,8 @@ public class PlayerController extends PersonController {
             }
             case DROP -> {
                     if (itemDropsThisTurn < maxItemDropsPerTurn){
+                        if (!GameController.getInstance().dropItem(entity, item)) return;
                         entity.getPerson().dropItem(item);
-                        GameController.getInstance().dropItem(entity, item);
                         itemDropsThisTurn++;
                     }
             }
@@ -182,6 +189,7 @@ public class PlayerController extends PersonController {
                         itemUsesThisTurn++;
                     } else if (selectedTransistor != item) {
                         selectedTransistor.useItem(item);
+                        selectedTransistor = null;
                         itemUsesThisTurn++;
                     }
                 }

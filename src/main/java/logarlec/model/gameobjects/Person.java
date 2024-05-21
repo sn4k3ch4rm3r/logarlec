@@ -1,8 +1,12 @@
 package logarlec.model.gameobjects;
 
 import logarlec.model.effects.Effect;
+import logarlec.model.events.DropListener;
 import logarlec.model.items.Item;
 import logarlec.model.util.Inventory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A pályán mozogni képes entitások ősosztálya.
@@ -21,9 +25,15 @@ public abstract class Person extends GameObject {
 	 */
 	protected Room currentRoom;
 
+	protected List<DropListener> dropListeners = new ArrayList<>();
+
 	public Person() {
 		inventory = new Inventory();
 		knockOutTime = -5;
+	}
+
+	public void addDropListener(DropListener listener) {
+		dropListeners.add(listener);
 	}
 
 	/**
@@ -48,6 +58,9 @@ public abstract class Person extends GameObject {
 	 */
 	public void dropItem(Item item) {
 		inventory.remove(item);
+		for (DropListener listener : dropListeners) {
+			listener.onDrop(item);
+		}
 		item.drop();
 	}
 

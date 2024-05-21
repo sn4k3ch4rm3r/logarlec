@@ -60,8 +60,8 @@ public class GameController implements Runnable {
         game.moveEntity(entity, direction);
     }
 
-    public void dropItem(Entity entity, Item item) {
-        game.dropItem(entity, item);
+    public boolean dropItem(Entity entity, Item item) {
+        return game.dropItem(entity, item);
     }
 
     public void start() {
