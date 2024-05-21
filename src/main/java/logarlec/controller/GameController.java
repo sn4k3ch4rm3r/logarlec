@@ -81,7 +81,7 @@ public class GameController implements Runnable {
     @Override
     public void run() {
         GameRebuilder rebuilder = new GameRebuilder(game, builder);
-        rebuilder.rebuildGame(1);
+        rebuilder.rebuildGame(0);
         while (true) {
             for (PersonController person : personControllers) {
                 person.turn();
