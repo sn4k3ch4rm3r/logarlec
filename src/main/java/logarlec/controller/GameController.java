@@ -13,6 +13,9 @@ import logarlec.view.panels.GamePanel;
 import logarlec.view.utils.Palette;
 
 
+/**
+ * A játék vezérlője
+ */
 public class GameController {
     private static GameController instance;
     private Game game;

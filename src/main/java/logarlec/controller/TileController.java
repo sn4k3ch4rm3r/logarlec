@@ -8,20 +8,41 @@ import logarlec.view.drawables.FloorTileView;
 import logarlec.view.drawables.ItemView;
 import logarlec.view.drawables.PersonView;
 
+/**
+ * A mező vezérlője
+ */
 public class TileController implements TileChangeListener {
+    /**
+     * A mező, amit vezérel
+     */
     private FloorTile tile;
+    /**
+     * A vezérlet mező nézete
+     */
     private FloorTileView tileView;
 
+    /**
+     * Konstruktor
+     *
+     * @param tile A mező, amit vezérel
+     * @param view A nézet, amit frissít
+     */
     public TileController(FloorTile tile, FloorTileView view) {
         this.tile = tile;
         this.tileView = view;
     }
 
+    /**
+     * A mező inicializálása
+     */
     public void initialize() {
         tile.addOnChangeEventListener(this);
         onTileChanged();
     }
 
+    /**
+     * A mező megválzosá eseményének kezelése
+     */
     @Override
     public void onTileChanged() {
         Item item = tile.getItem();
