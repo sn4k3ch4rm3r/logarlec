@@ -422,4 +422,8 @@ public class GameBuilder {
 	public Map<Integer, Room> getRooms(){
 		return rooms;
 	}
+
+	public MapView getMapView() {
+		return mapView;
+	}
 }

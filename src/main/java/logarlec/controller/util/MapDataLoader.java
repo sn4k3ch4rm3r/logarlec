@@ -1,5 +1,6 @@
 package logarlec.controller.util;
 
+import com.sun.jdi.request.BreakpointRequest;
 import logarlec.Configuration;
 import logarlec.model.util.Position;
 import org.w3c.dom.Document;
@@ -220,7 +221,7 @@ public class MapDataLoader {
     }
 
     List<ExtendedRoom> getRoomDatas(int configurationId) {
-        List<ExtendedRoom> rooms = new ArrayList<>();
+        List<ExtendedRoom> roomsOut = new ArrayList<>();
         try {
             // Az UTF-8 kódolásó fájl beolvasásához steraemet kell használni
             InputStream inputStream =
@@ -243,20 +244,32 @@ public class MapDataLoader {
                     Element element = (Element) node;
                     // A room elem attribútumainak beolvasása
                     int id = Integer.parseInt(element.getAttribute("id"));
-                    int x = Integer.parseInt(element.getAttribute("x"));
-                    int y = Integer.parseInt(element.getAttribute("y"));
-                    int width = Integer.parseInt(element.getAttribute("width"));
-                    int height = Integer.parseInt(element.getAttribute("height"));
-                    int capacity = Integer.parseInt(element.getAttribute("capacity"));
                     if (id == configurationId) {
-                        rooms.add(new ExtendedRoom(id, capacity, new Position(x, y), width, height));
+                        NodeList rooms = element.getElementsByTagName("room");
+                        for (int j = 0; j < rooms.getLength(); j++) {
+                            Node roomNode = rooms.item(j);
+                            if (roomNode.getNodeType() == Node.ELEMENT_NODE) {
+                                Element roomElement = (Element) roomNode;
+                                // A room elem attribútumainak beolvasása
+                                int roomId = Integer.parseInt(roomElement.getAttribute("id"));
+                                int x = Integer.parseInt(roomElement.getAttribute("x"));
+                                int y = Integer.parseInt(roomElement.getAttribute("y"));
+                                int width = Integer.parseInt(roomElement.getAttribute("width"));
+                                int height = Integer.parseInt(roomElement.getAttribute("height"));
+                                int capacity = Integer.parseInt(roomElement.getAttribute("capacity"));
+                                // A room elem attribútumainak beolvasása
+                                roomsOut.add(new ExtendedRoom(roomId, capacity, new Position(x, y), width, height));
+                            }
+                        }
+
                     }
                 }
             }
-            return rooms;
         }
         catch(ParserConfigurationException | SAXException | IOException e){
             throw new RuntimeException(e);
         }
+        return roomsOut;
     }
+
 }

@@ -3,6 +3,7 @@ package logarlec.controller;
 import java.util.Map;
 import java.util.List;
 import logarlec.controller.util.GameBuilder;
+import logarlec.controller.util.GameRebuilder;
 import logarlec.model.Game;
 import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
@@ -24,7 +25,10 @@ public class GameController implements Runnable {
 
     private GameView gameView;
 
+    private GameBuilder builder;
+
     private GameController(GameBuilder builder) {
+        this.builder = builder;
         game = builder.getGameState();
         modelViews = builder.getModelViews();
         personControllers = builder.getPersonControllers();
@@ -66,6 +70,8 @@ public class GameController implements Runnable {
 
     @Override
     public void run() {
+        GameRebuilder rebuilder = new GameRebuilder(game, builder);
+        rebuilder.rebuildGame(1);
         while (true) {
             for (PersonController person : personControllers) {
                 person.turn();
