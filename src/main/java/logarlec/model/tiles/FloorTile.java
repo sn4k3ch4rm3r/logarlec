@@ -13,6 +13,14 @@ public class FloorTile extends Tile {
         super(position, room);
     }
 
+    public FloorTile(Tile oldTile) {
+        super(oldTile.getPosition(), oldTile.getRoom());
+        if (oldTile instanceof FloorTile) {
+            person = ((FloorTile) oldTile).getPerson();
+            item = ((FloorTile) oldTile).getItem();
+        }
+    }
+
     /**
      * Egy személy erre a tile-ra lép, ha nincs még rajta személy. Ha sikereses a rálépés felveszi
      * az itt található tárgyat

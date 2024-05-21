@@ -1,6 +1,5 @@
 package logarlec.controller.util;
 
-import logarlec.controller.PersonController;
 import logarlec.controller.TileController;
 import logarlec.model.Game;
 import logarlec.model.gameobjects.Room;
@@ -38,34 +37,34 @@ public class GameRebuilder {
         rooms = bg.getRooms();
     }
 
-    private void getRoomsFromConfig(int configId){
+    private void getRoomsFromConfig(int configId) {
         MapDataLoader mdl = new MapDataLoader();
         extendedRooms = mdl.getRoomDatas(configId);
 
-        for(ExtendedRoom newRoom: extendedRooms){
-            if(!rooms.containsKey(newRoom.roomId)){
-                rooms.put(newRoom.roomId, rooms.get(newRoom.roomId-100).split());
+        for (ExtendedRoom newRoom : extendedRooms) {
+            if (!rooms.containsKey(newRoom.roomId)) {
+                rooms.put(newRoom.roomId, rooms.get(newRoom.roomId - 100).split());
             }
         }
     }
 
-    public void rebuildGame(int configId){
+    public void rebuildGame(int configId) {
         getRoomsFromConfig(configId);
-        for(ExtendedRoom er: extendedRooms){
+        for (ExtendedRoom er : extendedRooms) {
             er.getOwnershipOfTiles(game, rooms);
         }
         buildNewWalls(bg.getPanel(), bg.getRenderer());
         addDoors(configId);
     }
 
-    public void buildNewWalls(GamePanel panel, Renderer renderer){
+    public void buildNewWalls(GamePanel panel, Renderer renderer) {
 
-        for(ExtendedRoom e_room: extendedRooms){
+        for (ExtendedRoom e_room : extendedRooms) {
             buildWalls(e_room.position, e_room.width, e_room.height, rooms.get(e_room.roomId));
         }
     }
 
-    private void buildWalls(Position position, int width, int height, Room room){
+    private void buildWalls(Position position, int width, int height, Room room) {
 
         for (int x = position.x; x < width + position.x; x++) {
             for (int y = position.y; y < height + position.y; y++) {
@@ -103,8 +102,13 @@ public class GameRebuilder {
 
                     tile = wallTile;
                     view = wallView;
-                    addTile(tile, view);
                 }
+                else {
+                    tile = new FloorTile(game.getTile(new Position(x, y)));
+                    view = new FloorTileView((FloorTile) tile);
+                    new TileController((FloorTile) tile, (FloorTileView) view).initialize();
+                }
+                addTile(tile, view);
             }
         }
     }
@@ -115,10 +119,10 @@ public class GameRebuilder {
         bg.getModelViews().put(tile, view);
     }
 
-    private void addDoors(int configurationId){
+    private void addDoors(int configurationId) {
         MapDataLoader mdl = new MapDataLoader();
         extendedDoors = mdl.getDoorDatas(configurationId);
-        for(ExtendedDoor ed: extendedDoors){
+        for (ExtendedDoor ed : extendedDoors) {
             Room fromRoom = rooms.get(ed.fromID);
             Room toRoom = rooms.get(ed.toID);
 
@@ -138,6 +142,9 @@ public class GameRebuilder {
                 throw new IllegalArgumentException(
                         "The specified to and from tiles are not next to each other.");
             }
+
+            fromTile.setDestination(game.getTile(ed.to.add(direction, 1)));
+            toTile.setDestination(game.getTile(ed.from.add(direction.getOpposite(), 1)));
 
             DoorTileView fromView = new DoorTileView(fromTile, direction);
             DoorTileView toView = new DoorTileView(toTile, direction.getOpposite());
