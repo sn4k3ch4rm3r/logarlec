@@ -1,12 +1,13 @@
 package logarlec.controller;
 
+import logarlec.controller.util.FeedbackManager;
 import logarlec.controller.util.InputHandler;
 import logarlec.model.items.Item;
 import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
 import logarlec.view.drawables.PersonView;
 import logarlec.view.drawables.PlayerView;
-
+import logarlec.view.utils.I18n;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
@@ -32,21 +33,22 @@ public class PlayerController extends PersonController {
     private int itemUsesThisTurn;
     private int itemDropsThisTurn;
     private Item selectedTransistor;
+
     /**
-     * USE- éppen ki akarunk választani egy tárgyat használatra
-     * DROP - éppen ki akarunk választani egy tárgyat eldobásra
-     * LINK - éppen ki akarunk választani két tranzisztort linkelésre
-     * NONE -nem akarunk kiválasztani épp tárgyat
+     * USE- éppen ki akarunk választani egy tárgyat használatra DROP - éppen ki akarunk választani
+     * egy tárgyat eldobásra LINK - éppen ki akarunk választani két tranzisztort linkelésre NONE
+     * -nem akarunk kiválasztani épp tárgyat
      */
     private enum InventoryInput {
         USE, DROP, LINK, NONE
     }
+
     private InventoryInput expectedInventoryInput;
 
     /**
      * Konstruktor
      *
-     * @param entity    Az entitás, amit vezérel
+     * @param entity Az entitás, amit vezérel
      * @param personView A nézet, amit frissít
      */
     public PlayerController(Entity entity, PersonView personView) {
@@ -84,12 +86,9 @@ public class PlayerController extends PersonController {
     }
 
     /**
-     * Játékos irányítása billentyűzettel
-     * WASD - mozgatás jobbra, balra, fel, le
-     * Space - kör vége
-     * E - Válassz itemet használatra
-     * Q - Válassz itemet eldobásra
-     * L - Válassz itemet linkelésre
+     * Játékos irányítása billentyűzettel WASD - mozgatás jobbra, balra, fel, le Space - kör vége E
+     * - Válassz itemet használatra Q - Válassz itemet eldobásra L - Válassz itemet linkelésre
+     * 
      * @param e - ez tárolja a lenyomott billentyűt
      */
     public void keyPressed(KeyEvent e) {
@@ -110,12 +109,15 @@ public class PlayerController extends PersonController {
                 endTurn();
                 break;
             case KeyEvent.VK_E:
+                FeedbackManager.setFeedback(I18n.getString("use-feedback"));
                 expectedInventoryInput = InventoryInput.USE;
                 break;
             case KeyEvent.VK_Q:
+                FeedbackManager.setFeedback(I18n.getString("drop-feedback"));
                 expectedInventoryInput = InventoryInput.DROP;
                 break;
             case KeyEvent.VK_L:
+                FeedbackManager.setFeedback(I18n.getString("link-feedback"));
                 expectedInventoryInput = InventoryInput.LINK;
                 break;
             case KeyEvent.VK_1:
@@ -139,18 +141,20 @@ public class PlayerController extends PersonController {
     }
 
     /**
-     * A felhasználó lenyomott egy 1-5 közötti számot
-     * Ha előzőleg az item használatot választottuk, az így kiválasztott itemet használjuk
-     * Ha előzőleg az item eldobást választottuk, az így kiválasztott itemet eldobjuk
-     * Ha előzőleg a tranzisztor linkelést választottuk és még nem választottunk linkelendő itemet, azt kiválasztjuk
-     * Ha előzőleg a tranzisztor linkelést választottuk és már választottunk linkelendő itemet, linkeljük a most kiválasztottal
-     * az item használat és linkelés az item használat számlálót növelik, az eldobás az eldobás számlálót
+     * A felhasználó lenyomott egy 1-5 közötti számot Ha előzőleg az item használatot választottuk,
+     * az így kiválasztott itemet használjuk Ha előzőleg az item eldobást választottuk, az így
+     * kiválasztott itemet eldobjuk Ha előzőleg a tranzisztor linkelést választottuk és még nem
+     * választottunk linkelendő itemet, azt kiválasztjuk Ha előzőleg a tranzisztor linkelést
+     * választottuk és már választottunk linkelendő itemet, linkeljük a most kiválasztottal az item
+     * használat és linkelés az item használat számlálót növelik, az eldobás az eldobás számlálót
+     * 
      * @param index - a kiválasztott item indexe
      */
     private void inventoryInput(int index) {
         List<Item> items = inventoryController.getInventory().getItems();
         Item item = items.get(index);
-        if (item == null) return;
+        if (item == null)
+            return;
 
         switch (expectedInventoryInput) {
             case USE -> {
@@ -160,23 +164,25 @@ public class PlayerController extends PersonController {
                 }
             }
             case DROP -> {
-                    if (itemDropsThisTurn < maxItemDropsPerTurn){
-                        entity.getPerson().dropItem(item);
-                        itemDropsThisTurn++;
-                    }
+                if (itemDropsThisTurn < maxItemDropsPerTurn) {
+                    entity.getPerson().dropItem(item);
+                    itemDropsThisTurn++;
+                }
             }
             case LINK -> {
                 if (itemUsesThisTurn < maxItemUsesPerTurn) {
                     if (selectedTransistor == null) {
                         selectedTransistor = item;
                         itemUsesThisTurn++;
-                    } else if (selectedTransistor != item) {
+                    }
+                    else if (selectedTransistor != item) {
                         selectedTransistor.useItem(item);
                         itemUsesThisTurn++;
                     }
                 }
             }
-            case NONE -> {}
+            case NONE -> {
+            }
         }
     }
 
