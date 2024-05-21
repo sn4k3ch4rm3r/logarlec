@@ -43,4 +43,8 @@ public class InventoryController implements InventoryChangeListener {
             inventoryView.addItem((ItemView) GameController.getInstance().getModelView(item));
         }
     }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
 }
