@@ -35,4 +35,8 @@ public class InventoryView implements Drawable {
     public void addItem(ItemView item) {
         items.add(item);
     }
+
+    public List<ItemView> getItems() {
+        return items;
+    }
 }

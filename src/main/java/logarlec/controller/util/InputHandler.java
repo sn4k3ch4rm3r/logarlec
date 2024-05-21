@@ -1,4 +1,6 @@
-package logarlec.controller;
+package logarlec.controller.util;
+
+import logarlec.controller.PlayerController;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -34,7 +36,9 @@ public class InputHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        currentPlayer.keyPressed(e);
+        if (currentPlayer != null) {
+            currentPlayer.keyPressed(e);
+        }
     }
 
     @Override

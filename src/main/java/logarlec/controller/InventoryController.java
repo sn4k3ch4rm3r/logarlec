@@ -12,7 +12,7 @@ public class InventoryController implements InventoryChangeListener {
      * Az inventory nézete
      */
     private InventoryView inventoryView;
-
+    private Inventory inventory;
     /**
      * Konstruktor
      *
@@ -20,6 +20,7 @@ public class InventoryController implements InventoryChangeListener {
      */
     public InventoryController(Inventory inventory) {
         inventoryView = new InventoryView();
+        this.inventory = inventory;
     }
 
     /**
@@ -35,5 +36,9 @@ public class InventoryController implements InventoryChangeListener {
     public void onInventoryChange() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'onInventoryChange'");
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }

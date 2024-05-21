@@ -1,8 +1,14 @@
 package logarlec.controller;
 
+import logarlec.controller.util.InputHandler;
+import logarlec.model.items.Item;
+import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
 import logarlec.view.drawables.PersonView;
 import logarlec.view.drawables.PlayerView;
+
+import java.awt.event.KeyEvent;
+import java.util.List;
 
 public class PlayerController extends PersonController {
     private InventoryController inventoryController;
@@ -13,7 +19,7 @@ public class PlayerController extends PersonController {
     /**
      * várunk-e inputot ehhez a játékoshoz
      */
-    private boolean thisPlayersTurn;
+    private volatile boolean thisPlayersTurn;
 
     /**
      * ezek határozzák meg, hogy mit lehet egy kör alatt tenni
@@ -25,14 +31,14 @@ public class PlayerController extends PersonController {
     private int movesThisTurn;
     private int itemUsesThisTurn;
     private int itemDropsThisTurn;
-
+    private Item selectedTransistor;
     /**
      * USE- éppen ki akarunk választani egy tárgyat használatra
      * DROP - éppen ki akarunk választani egy tárgyat eldobásra
      * LINK - éppen ki akarunk választani két tranzisztort linkelésre
      * NONE -nem akarunk kiválasztani épp tárgyat
      */
-    private static enum InventoryInput {
+    private enum InventoryInput {
         USE, DROP, LINK, NONE
     }
     private InventoryInput expectedInventoryInput;
@@ -61,18 +67,31 @@ public class PlayerController extends PersonController {
     public void turn() {
         playerView.setActive(true);
         GameController.getInstance().updateView();
-        while (true) {
+        movesThisTurn = 0;
+        itemUsesThisTurn = 0;
+        itemDropsThisTurn = 0;
+        expectedInventoryInput = InventoryInput.NONE;
+        selectedTransistor = null;
+        thisPlayersTurn = true;
+        InputHandler.getInstance().setCurrentPlayer(this);
+        while (thisPlayersTurn) {
+
         }
+        InputHandler.getInstance().setCurrentPlayer(null);
         // playerView.setActive(false);
         // GameController.getInstance().updateView();
     }
 
     /**
      * Játékos irányítása billentyűzettel
+     * WASD - mozgatás jobbra, balra, fel, le
+     * Space - kör vége
+     * E - Válassz itemet használatra
+     * Q - Válassz itemet eldobásra
+     * L - Válassz itemet linkelésre
      * @param e - ez tárolja a lenyomott billentyűt
      */
     public void keyPressed(KeyEvent e) {
-
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
                 move(Direction.UP);
@@ -90,54 +109,73 @@ public class PlayerController extends PersonController {
                 endTurn();
                 break;
             case KeyEvent.VK_E:
-                useItem();
+                expectedInventoryInput = InventoryInput.USE;
                 break;
             case KeyEvent.VK_Q:
-                dropItem();
+                expectedInventoryInput = InventoryInput.DROP;
                 break;
             case KeyEvent.VK_L:
-                linkTransistors();
+                expectedInventoryInput = InventoryInput.LINK;
+                break;
+            case KeyEvent.VK_1:
+                inventoryInput(1);
+                break;
+            case KeyEvent.VK_2:
+                inventoryInput(2);
+                break;
+            case KeyEvent.VK_3:
+                inventoryInput(3);
+                break;
+            case KeyEvent.VK_4:
+                inventoryInput(4);
+                break;
+            case KeyEvent.VK_5:
+                inventoryInput(5);
                 break;
             default:
         }
     }
 
     /**
-     * kettő az inventory-ban szereplő tranzisztor linkelése
+     * A felhasználó lenyomott egy 1-5 közötti számot
+     * Ha előzőleg az item használatot választottuk, az így kiválasztott itemet használjuk
+     * Ha előzőleg az item eldobást választottuk, az így kiválasztott itemet eldobjuk
+     * Ha előzőleg a tranzisztor linkelést választottuk és még nem választottunk linkelendő itemet, azt kiválasztjuk
+     * Ha előzőleg a tranzisztor linkelést választottuk és már választottunk linkelendő itemet, linkeljük a most kiválasztottal
+     * az item használat és linkelés az item használat számlálót növelik, az eldobás az eldobás számlálót
+     * @param index - a kiválasztott item indexe
      */
-    private void linkTransistors() {
-        /*
-        if (itemUsesThisTurn >= maxItemUsesPerTurn) {
-            return;
+    private void inventoryInput(int index) {
+        List<Item> items = inventoryController.getInventory().getItems();
+        Item item = items.get(index);
+        if (item == null) return;
+
+        switch (expectedInventoryInput) {
+            case USE -> {
+                if (itemUsesThisTurn < maxItemUsesPerTurn) {
+                    item.use();
+                    itemUsesThisTurn++;
+                }
+            }
+            case DROP -> {
+                    if (itemDropsThisTurn < maxItemDropsPerTurn){
+                        entity.getPerson().dropItem(item);
+                        itemDropsThisTurn++;
+                    }
+            }
+            case LINK -> {
+                if (itemUsesThisTurn < maxItemUsesPerTurn) {
+                    if (selectedTransistor == null) {
+                        selectedTransistor = item;
+                        itemUsesThisTurn++;
+                    } else if (selectedTransistor != item) {
+                        selectedTransistor.useItem(item);
+                        itemUsesThisTurn++;
+                    }
+                }
+            }
+            case NONE -> {}
         }
-
-        List<Item> items = entity.getPerson().getInventory().getItems();
-        List<Transistor> transistors = (List<Transistor>) items.stream().filter(item -> item instanceof Transistor);
-        if (transistors.size() >= 2) {
-            transistors.get(0).link(transistors.get(1));
-            itemUsesThisTurn++;
-        }
-        */
-    }
-
-    /**
-     * item kiválasztása eldobásra és az item eldobása
-     */
-    private void dropItem() {
-
-    }
-
-    /**
-     * item kiválasztása használatra és az item használata
-     */
-    private void useItem() {
-    }
-
-    public void setThisPlayersTurn() {
-        movesThisTurn = 0;
-        itemUsesThisTurn = 0;
-        itemDropsThisTurn = 0;
-        expectedInventoryInput = InventoryInput.NONE;
     }
 
     /**
