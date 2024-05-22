@@ -31,4 +31,8 @@ public abstract class PersonController {
     }
 
     public abstract void turn();
+
+    public boolean isDead() {
+        return true;
+    }
 }

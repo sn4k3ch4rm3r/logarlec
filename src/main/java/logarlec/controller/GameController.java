@@ -2,6 +2,8 @@ package logarlec.controller;
 
 import java.util.Map;
 import java.util.List;
+
+import logarlec.controller.util.FeedbackManager;
 import logarlec.controller.util.GameBuilder;
 import logarlec.model.Game;
 import logarlec.model.items.Item;
@@ -25,6 +27,8 @@ public class GameController implements Runnable {
     private Renderer renderer;
 
     private GameView gameView;
+
+    private boolean gameEnded;
 
     private GameController(GameBuilder builder) {
         game = builder.getGameState();
@@ -79,9 +83,32 @@ public class GameController implements Runnable {
         while (true) {
             for (PersonController person : personControllers) {
                 person.turn();
+                if (gameEnded) {
+                    break;
+                }
+            }
+            if (gameEnded) {
+                break;
             }
             game.update(1);
+            boolean allPlayersDied = true;
+            for (PersonController person : personControllers) {
+                if (!person.isDead()) {
+                    allPlayersDied = false;
+                    break;
+                }
+            }
+            if (allPlayersDied) {
+                FeedbackManager.setFeedback("Everyone died. Game over.");
+                break;
+            }
             updateView();
         }
+        updateView();
+    }
+
+    public void endGame() {
+        gameEnded = true;
+        FeedbackManager.setFeedback("Game ended. You won!");
     }
 }

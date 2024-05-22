@@ -206,6 +206,7 @@ public class GameBuilder {
 		Entity entity = new Entity(position, person);
 		PlayerController controller = new PlayerController(entity, view);
 
+		person.addGameEndedListener(controller);
 		person.addDropListener(controller);
 		modelViews.put(person, view);
 		personControllers.add(controller);
