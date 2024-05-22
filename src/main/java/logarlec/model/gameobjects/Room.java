@@ -216,15 +216,18 @@ public class Room extends GameObject {
 			else
 				hideDoors();
 		}
-		for (Effect effect : effects) {
+		for (int i = effects.size() - 1; i >= 0; i--) {
+			Effect effect = effects.get(i);
 			effect.update(deltaTime);
 			effect.applyToRoom(this);
 			for (EffectAppliedListener e : effectAppliedListeners) {
 				effect.acceptEffectListener(e);
 			}
 		}
-		for (Person person : people) {
-			for (Effect effect : this.effects) {
+
+		for (int i = people.size() - 1; i >= 0; i--) {
+			Person person = people.get(i);
+			for (Effect effect : effects) {
 				person.applyEffect(effect);
 			}
 			person.update(deltaTime);
@@ -277,8 +280,8 @@ public class Room extends GameObject {
 	}
 
 	public void interactCleanEffect(CleanEffect effect) {
-		for (Effect e : effects) {
-			e.interactCleanEffect(effect);
+		for (int i = effects.size() - 1; i >= 0; i--) {
+			effects.get(i).interactCleanEffect(effect);
 		}
 	}
 

@@ -8,7 +8,7 @@ public class AirFreshener extends Item {
     public void use() {
         CleanEffect cleanEffect = new CleanEffect();
         room.addEffect(cleanEffect);
-        room.removeItem(this);
+        person.removeItem(this);
     }
 
     @Override
