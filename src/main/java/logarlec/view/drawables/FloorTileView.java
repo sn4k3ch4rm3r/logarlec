@@ -18,14 +18,13 @@ public class FloorTileView extends TileView {
      */
     public FloorTileView(FloorTile tile) {
         super(tile);
-        this.sprite = SpriteManager.getInstance().getSprite("floor-clean");
     }
 
     public void draw(Graphics2D g2d) {
-        if(tile.getRoom().isClean()) {
-            this.sprite = SpriteManager.getInstance().getSprite("floor-clean");
-        } 
-        else{
+        if (tile.getRoom().isClean()) {
+            this.sprite = SpriteManager.getInstance().getSprite("floor");
+        }
+        else {
             this.sprite = SpriteManager.getInstance().getSprite("floor-dirty");
         }
         super.draw(g2d);
