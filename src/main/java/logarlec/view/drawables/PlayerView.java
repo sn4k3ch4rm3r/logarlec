@@ -22,7 +22,6 @@ public class PlayerView implements Drawable {
 
     @Override
     public void draw(Graphics2D g2d) {
-        // TODO: Have named players or something.
         g2d.drawImage(TextRenderer.draw(I18n.getString("player"), 8), 8, 8, null);
 
         if (isActive) {

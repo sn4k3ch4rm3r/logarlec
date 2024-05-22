@@ -1,6 +1,5 @@
 package logarlec.controller;
 
-import logarlec.model.effects.Effect;
 import logarlec.model.effects.GasEffect;
 import logarlec.model.effects.JanitorEffect;
 import logarlec.model.events.EffectAppliedListener;
