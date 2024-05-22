@@ -84,6 +84,9 @@
         </configuration>
     </configurations>
     <people>
+        <person x="3" y="20" type="Player"/>
+        <person x="2" y="20" type="Player"/>
+        <person x="3" y="21" type="Player"/>
         <person x="2" y="2" type="Teacher"/>
         <person x="3" y="3" type="Teacher"/>
         <person x="16" y="2" type="Teacher"/>
@@ -91,7 +94,6 @@
         <person x="9" y="18" type="Janitor"/>
         <person x="10" y="20" type="Teacher"/>
         <person x="19" y="12" type="Janitor"/>
-        <person x="3" y="20" type="Player"/>
     </people>
     <items>
         <item x="5" y="5" type="Mask"/>
