@@ -91,14 +91,15 @@ public class PlayerController extends PersonController implements DropListener, 
     }
 
     public void turn() {
-        if (dead) return;
+        if (dead)
+            return;
         playerView.setActive(true);
         GameController.getInstance().updateView();
         movesThisTurn = 0;
         itemUsesThisTurn = 0;
         itemDropsThisTurn = 0;
         expectedInventoryInput = InventoryInput.NONE;
-        //selectedTransistor = null;
+        // selectedTransistor = null;
         thisPlayersTurn = true;
         InputHandler.getInstance().setCurrentPlayer(this);
         while (thisPlayersTurn) {
@@ -124,19 +125,15 @@ public class PlayerController extends PersonController implements DropListener, 
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
                 move(Direction.UP);
-                endTurn();
                 break;
             case KeyEvent.VK_S:
                 move(Direction.DOWN);
-                endTurn();
                 break;
             case KeyEvent.VK_A:
                 move(Direction.LEFT);
-                endTurn();
                 break;
             case KeyEvent.VK_D:
                 move(Direction.RIGHT);
-                endTurn();
                 break;
             case KeyEvent.VK_SPACE:
                 endTurn();
@@ -155,27 +152,23 @@ public class PlayerController extends PersonController implements DropListener, 
                 break;
             case KeyEvent.VK_1:
                 inventoryInput(1);
-                endTurn();
                 break;
             case KeyEvent.VK_2:
                 inventoryInput(2);
-                endTurn();
                 break;
             case KeyEvent.VK_3:
                 inventoryInput(3);
-                endTurn();
                 break;
             case KeyEvent.VK_4:
                 inventoryInput(4);
-                endTurn();
                 break;
             case KeyEvent.VK_5:
                 inventoryInput(5);
-                endTurn();
                 break;
             default:
+                break;
         }
-
+        GameController.getInstance().updateView();
     }
 
     /**
@@ -191,21 +184,24 @@ public class PlayerController extends PersonController implements DropListener, 
     private void inventoryInput(int index) {
         List<Item> items = inventoryController.getInventory().getItems();
         Item item = items.get(index - 1);
-        if (item == null) return;
+        if (item == null)
+            return;
 
         switch (expectedInventoryInput) {
             case USE -> {
                 if (itemUsesThisTurn < maxItemUsesPerTurn) {
                     item.use();
                     if (linkedTransistors.containsKey(item)) {
-                        GameController.getInstance().moveEntity(entity, linkedTransistors.get(item));
+                        GameController.getInstance().moveEntity(entity,
+                                linkedTransistors.get(item));
                     }
                     itemUsesThisTurn++;
                 }
             }
             case DROP -> {
-                if (itemDropsThisTurn < maxItemDropsPerTurn){
-                    if (!GameController.getInstance().dropItem(entity, item)) return;
+                if (itemDropsThisTurn < maxItemDropsPerTurn) {
+                    if (!GameController.getInstance().dropItem(entity, item))
+                        return;
                     entity.getPerson().dropItem(item);
                     itemDropsThisTurn++;
                 }
