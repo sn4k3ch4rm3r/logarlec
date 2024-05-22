@@ -134,7 +134,10 @@ public abstract class Person extends GameObject {
 	}
 
 	public void dropRandomItem() {
-		inventory.dropRandomItem();
+		Item item = inventory.getRandomItem();
+		if (item != null) {
+			dropItem(item);
+		}
 	}
 
 	public Room getCurrentRoom() {

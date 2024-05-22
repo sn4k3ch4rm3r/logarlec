@@ -54,5 +54,7 @@ public abstract class Item {
 		this.person = person;
 	}
 
-
+	public Person getPerson() {
+		return person;
+	}
 }
