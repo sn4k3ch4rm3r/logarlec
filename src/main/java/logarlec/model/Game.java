@@ -126,6 +126,10 @@ public class Game implements Updatable {
     }
 
     public void update(double deltaTime) {
+        for (Tile[] tileRow : tiles) {
+            for (Tile tile : tileRow)
+                tile.clearEffects();
+        }
         for (Room room : rooms) {
             room.update(deltaTime);
         }

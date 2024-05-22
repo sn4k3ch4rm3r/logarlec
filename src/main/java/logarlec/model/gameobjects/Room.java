@@ -2,6 +2,7 @@ package logarlec.model.gameobjects;
 
 import logarlec.model.effects.CleanEffect;
 import logarlec.model.effects.Effect;
+import logarlec.model.events.EffectAppliedListener;
 import logarlec.model.items.Item;
 import logarlec.model.util.Door;
 import java.util.LinkedList;
@@ -12,6 +13,7 @@ import java.util.Random;
  * Egy játékban szereplő szoba.
  */
 public class Room extends GameObject {
+	private List<EffectAppliedListener> effectAppliedListeners = new LinkedList<>();
 
 	/**
 	 * A szoba jelenlegi lakói.
@@ -49,6 +51,10 @@ public class Room extends GameObject {
 		this(4);
 	}
 
+	public void addEffectListener(EffectAppliedListener e) {
+		effectAppliedListeners.add(e);
+	}
+
 	public Room(Integer capacity) {
 		people = new LinkedList<>();
 		doors = new LinkedList<>();
@@ -84,6 +90,7 @@ public class Room extends GameObject {
 		if (people.size() < capacity) {
 			people.add(person);
 			person.enterRoom(this);
+			visitorsSinceClean++;
 			return true;
 		}
 		return false;
@@ -205,6 +212,9 @@ public class Room extends GameObject {
 		for (Effect effect : effects) {
 			effect.update(deltaTime);
 			effect.applyToRoom(this);
+			for (EffectAppliedListener e : effectAppliedListeners) {
+				effect.acceptEffectListener(e);
+			}
 		}
 		for (Person person : people) {
 			for (Effect effect : this.effects) {
@@ -279,7 +289,7 @@ public class Room extends GameObject {
 	}
 
 	public boolean isClean() {
-		if (visitorsSinceClean > 10) {
+		if (visitorsSinceClean > 3) {
 			return false;
 		}
 		return true;
