@@ -58,9 +58,14 @@ public class Game implements Updatable {
         Tile newTile = tiles[destination.x][destination.y];
 
         Position newPosition = newTile.stepOn(person);
-        if (newPosition != null) {
-            entity.setPosition(newPosition);
-            ((FloorTile) tiles[position.x][position.y]).removePerson();
+        try {
+            if (newPosition != null) {
+                entity.setPosition(newPosition);
+                ((FloorTile) tiles[position.x][position.y]).removePerson();
+            }
+        }
+        catch (Exception e) {
+            // This should not happen.
         }
     }
 

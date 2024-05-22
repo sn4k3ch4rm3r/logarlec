@@ -29,6 +29,10 @@ public class MapView implements Drawable {
         return height * Configuration.TILE_SIZE;
     }
 
+    public void clear() {
+        tileViews.clear();
+    }
+
     @Override
     public void draw(Graphics2D g2d) {
         for (TileView tileView : tileViews) {

@@ -90,7 +90,6 @@ public class GameController implements Runnable {
     @Override
     public void run() {
         GameRebuilder rebuilder = new GameRebuilder(game, builder);
-        rebuilder.rebuildGame(0);
         while (true) {
             for (PersonController person : personControllers) {
                 person.turn();
@@ -102,7 +101,6 @@ public class GameController implements Runnable {
                 break;
             }
             game.update(1);
-            rebuilder.rebuildGame(1);
             boolean allPlayersDied = true;
             for (PersonController person : personControllers) {
                 if (!person.isDead()) {
@@ -114,6 +112,7 @@ public class GameController implements Runnable {
                 FeedbackManager.setFeedback(I18n.getString("lost"));
                 break;
             }
+            // TODO: Rebuild sometimes
             updateView();
         }
         updateView();

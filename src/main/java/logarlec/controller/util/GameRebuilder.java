@@ -17,6 +17,7 @@ import logarlec.view.panels.GamePanel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class GameRebuilder {
     Game game;
@@ -27,7 +28,7 @@ public class GameRebuilder {
     List<ExtendedRoom> extendedRooms;
     List<ExtendedDoor> extendedDoors;
 
-
+    private int currentConfig = 0;
 
     public GameRebuilder(Game game, GameBuilder bg) {
         extendedRooms = new ArrayList<ExtendedRoom>();
@@ -58,7 +59,7 @@ public class GameRebuilder {
     }
 
     public void buildNewWalls(GamePanel panel, Renderer renderer) {
-
+        bg.getMapView().clear();
         for (ExtendedRoom e_room : extendedRooms) {
             buildWalls(e_room.position, e_room.width, e_room.height, rooms.get(e_room.roomId));
         }
@@ -152,5 +153,17 @@ public class GameRebuilder {
             addTile(fromTile, fromView);
             addTile(toTile, toView);
         }
+    }
+
+    Random rand = new Random();
+
+    public int nextConfig() {
+        if (currentConfig == 0) {
+            currentConfig = rand.nextInt(1, 3);
+        }
+        else {
+            currentConfig = 0;
+        }
+        return currentConfig;
     }
 }
