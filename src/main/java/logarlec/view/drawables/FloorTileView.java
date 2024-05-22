@@ -1,6 +1,9 @@
 package logarlec.view.drawables;
 
 import java.awt.Graphics2D;
+import java.util.LinkedList;
+import java.util.List;
+
 import logarlec.controller.util.SpriteManager;
 import logarlec.model.tiles.FloorTile;
 
@@ -8,6 +11,7 @@ public class FloorTileView extends TileView {
 
     ItemView item;
     PersonView person;
+    List<Overlay> overlays = new LinkedList<>();
 
     /**
      * A padló csempe konstruktora.
@@ -32,11 +36,22 @@ public class FloorTileView extends TileView {
         if (person != null) {
             person.draw(tileGraphics);
         }
+        for (Overlay o : overlays) {
+            o.draw(tileGraphics);
+        }
         tileGraphics.dispose();
     }
 
     public void setContents(ItemView item, PersonView person) {
         this.item = item;
         this.person = person;
+    }
+
+    public void addOverlay(Overlay o) {
+        overlays.add(o);
+    }
+
+    public void clearOverlays() {
+        overlays.clear();
     }
 }

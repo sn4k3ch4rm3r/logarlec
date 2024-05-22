@@ -7,4 +7,6 @@ public interface TileChangeListener {
      * @param tile
      */
     public void onTileChanged();
+
+    public void onClearTile();
 }

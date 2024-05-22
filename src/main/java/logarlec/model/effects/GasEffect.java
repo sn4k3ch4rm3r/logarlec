@@ -1,5 +1,6 @@
 package logarlec.model.effects;
 
+import logarlec.model.events.EffectAppliedListener;
 import logarlec.model.gameobjects.Student;
 import logarlec.model.gameobjects.Teacher;
 
@@ -31,6 +32,11 @@ public class GasEffect extends Effect {
 	public String toString() {
 		return String.format("GasEffect <%d>\nHolder: <%d>\nTime remaining: %.0f\n",
 				this.hashCode(), this.holder.hashCode(), timeRemaining);
+	}
+
+	@Override
+	public void acceptEffectListener(EffectAppliedListener e) {
+		e.onEffectApplied(this);
 	}
 
 	@Override

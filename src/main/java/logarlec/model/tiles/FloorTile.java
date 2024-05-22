@@ -1,5 +1,6 @@
 package logarlec.model.tiles;
 
+import logarlec.model.events.TileChangeListener;
 import logarlec.model.gameobjects.Person;
 import logarlec.model.gameobjects.Room;
 import logarlec.model.items.Item;
@@ -48,5 +49,12 @@ public class FloorTile extends Tile {
     public void removePerson() {
         this.person = null;
         onChanged();
+    }
+
+    @Override
+    public void clearEffects() {
+        for (TileChangeListener listener : onChangeListeners) {
+            listener.onClearTile();
+        }
     }
 }
