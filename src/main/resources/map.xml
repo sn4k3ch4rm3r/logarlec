@@ -58,7 +58,30 @@
                 <door from="0" x0="3" y0="4" to="100" x1="4" y1="4" oneway="false"/>
             </doors>
         </configuration>
-
+        <configuration id="2" name="Merge1" description="Merge1">
+            <!-- Top left room -->
+            <room id="0" x="0" y="0" width="15" height="10" capacity="10"/>
+            <!-- Top right room -->
+            <room id="6" x="15" y="0" width="8" height="10" capacity="10"/>
+            <!-- Middle left room -->
+            <room id="1" x="0" y="10" width="18" height="7" capacity="5"/>
+            <!-- Bottom middle room -->
+            <room id="2" x="7" y="17" width="11" height="7" capacity="7"/>
+            <!-- Bottom right room -->
+            <room id="3" x="18" y="10" width="5" height="14" capacity="3"/>
+            <!-- Bottom left room -->
+            <room id="4" x="0" y="17" width="7" height="7" capacity="10"/>
+            <doors>
+                <door from="1" x0="12" y0="9" to="0" x1="12" y1="10" oneway="false"/>
+                <door from="6" x0="20" y0="9" to="3" x1="20" y1="10" oneway="true"/>
+                <door from="1" x0="17" y0="13" to="3" x1="18" y1="13" oneway="false"/>
+                <door from="4" x0="2" y0="17" to="1" x1="2" y1="16" oneway="true"/>
+                <door from="1" x0="9" y0="16" to="2" x1="9" y1="17" oneway="false"/>
+                <door from="4" x0="6" y0="20" to="2" x1="7" y1="20" oneway="false"/>
+                <door from="2" x0="17" y0="19" to="3" x1="18" y1="19" oneway="false"/>
+                <door from="0" x0="14" y0="5" to="6" x1="15" y1="5" oneway="true"/>
+            </doors>
+        </configuration>
     </configurations>
     <people>
         <person x="2" y="2" type="Teacher"/>
