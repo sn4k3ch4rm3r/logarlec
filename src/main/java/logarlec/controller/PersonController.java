@@ -36,4 +36,8 @@ public abstract class PersonController implements RoomChangedListener {
     public void onRoomChanged() {
         GameController.getInstance().moveEntity(entity, entity.getPerson().getCurrentRoom());
     }
+
+    public boolean isDead() {
+        return true;
+    }
 }

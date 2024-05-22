@@ -1,5 +1,9 @@
 package logarlec.controller;
 
+import logarlec.model.effects.Effect;
+import logarlec.model.effects.GasEffect;
+import logarlec.model.effects.JanitorEffect;
+import logarlec.model.events.EffectAppliedListener;
 import logarlec.model.events.TileChangeListener;
 import logarlec.model.gameobjects.Person;
 import logarlec.model.items.Item;
@@ -7,11 +11,12 @@ import logarlec.model.tiles.FloorTile;
 import logarlec.view.drawables.FloorTileView;
 import logarlec.view.drawables.ItemView;
 import logarlec.view.drawables.PersonView;
+import logarlec.view.utils.OverlayFactory;
 
 /**
  * A mező vezérlője
  */
-public class TileController implements TileChangeListener {
+public class TileController implements TileChangeListener, EffectAppliedListener {
     /**
      * A mező, amit vezérel
      */
@@ -55,4 +60,18 @@ public class TileController implements TileChangeListener {
         tileView.setContents(itemView, personView);
     }
 
+    @Override
+    public void onClearTile() {
+        tileView.clearOverlays();
+    }
+
+    @Override
+    public void onEffectApplied(GasEffect effect) {
+        tileView.addOverlay(OverlayFactory.createOverlay(effect));
+    }
+
+    @Override
+    public void onEffectApplied(JanitorEffect effect) {
+        tileView.addOverlay(OverlayFactory.createOverlay(effect));
+    }
 }

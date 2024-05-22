@@ -12,6 +12,7 @@ public class PlayerView implements Drawable {
     private InventoryView inventoryView;
     private BufferedImage highlight;
     private boolean isActive;
+    private boolean isDead;
 
     public PlayerView(PersonView personView, InventoryView inventoryView) {
         this.personView = personView;
@@ -35,9 +36,19 @@ public class PlayerView implements Drawable {
         Graphics2D inventoryGraphics = (Graphics2D) g2d.create(40, 20, 80, 16);
         inventoryView.draw(inventoryGraphics);
         inventoryGraphics.dispose();
+
+        if (isDead) {
+            g2d.setColor(Color.RED);
+            g2d.drawLine(0, 0, 128, 40);
+            g2d.drawLine(0, 40, 128, 0);
+        }
     }
 
     public void setActive(boolean value) {
         isActive = value;
+    }
+
+    public void setDead(boolean value) {
+        isDead = value;
     }
 }

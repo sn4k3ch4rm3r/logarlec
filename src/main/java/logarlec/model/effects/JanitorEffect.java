@@ -1,5 +1,6 @@
 package logarlec.model.effects;
 
+import logarlec.model.events.EffectAppliedListener;
 import logarlec.model.gameobjects.Room;
 import logarlec.model.gameobjects.Student;
 import logarlec.model.gameobjects.Teacher;
@@ -19,6 +20,11 @@ public class JanitorEffect extends CleanEffect {
     public void applyToRoom(Room target) {
         super.applyToRoom(target);
         target.clean();
+    }
+
+    @Override
+    public void acceptEffectListener(EffectAppliedListener e) {
+        e.onEffectApplied(this);
     }
 
     @Override
