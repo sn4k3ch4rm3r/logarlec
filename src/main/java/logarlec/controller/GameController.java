@@ -15,6 +15,7 @@ import logarlec.view.Renderer;
 import logarlec.view.drawables.Drawable;
 import logarlec.view.drawables.GameView;
 import logarlec.view.panels.GamePanel;
+import logarlec.view.utils.I18n;
 import logarlec.view.utils.Palette;
 
 
@@ -104,7 +105,7 @@ public class GameController implements Runnable {
                 }
             }
             if (allPlayersDied) {
-                FeedbackManager.setFeedback("Everyone died. Game over.");
+                FeedbackManager.setFeedback(I18n.getString("lost"));
                 break;
             }
             updateView();
@@ -114,6 +115,6 @@ public class GameController implements Runnable {
 
     public void endGame() {
         gameEnded = true;
-        FeedbackManager.setFeedback("Game ended. You won!");
+        FeedbackManager.setFeedback(I18n.getString("won"));
     }
 }
