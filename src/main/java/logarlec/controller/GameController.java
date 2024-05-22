@@ -2,9 +2,12 @@ package logarlec.controller;
 
 import java.util.Map;
 import java.util.List;
+
+import logarlec.controller.util.FeedbackManager;
 import logarlec.controller.util.GameBuilder;
 import logarlec.controller.util.GameRebuilder;
 import logarlec.model.Game;
+import logarlec.model.gameobjects.Room;
 import logarlec.model.items.Item;
 import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
@@ -13,6 +16,7 @@ import logarlec.view.Renderer;
 import logarlec.view.drawables.Drawable;
 import logarlec.view.drawables.GameView;
 import logarlec.view.panels.GamePanel;
+import logarlec.view.utils.I18n;
 import logarlec.view.utils.Palette;
 
 
@@ -28,6 +32,7 @@ public class GameController implements Runnable {
     private GameView gameView;
 
     private GameBuilder builder;
+    private boolean gameEnded;
 
     private GameController(GameBuilder builder) {
         this.builder = builder;
@@ -69,6 +74,10 @@ public class GameController implements Runnable {
         game.moveEntity(entity, position);
     }
 
+    public void moveEntity(Entity entity, Room room) {
+        game.moveEntity(entity, room);
+    }
+
     public boolean dropItem(Entity entity, Item item) {
         return game.dropItem(entity, item);
     }
@@ -85,10 +94,33 @@ public class GameController implements Runnable {
         while (true) {
             for (PersonController person : personControllers) {
                 person.turn();
+                if (gameEnded) {
+                    break;
+                }
+            }
+            if (gameEnded) {
+                break;
             }
             game.update(1);
             rebuilder.rebuildGame(1);
+            boolean allPlayersDied = true;
+            for (PersonController person : personControllers) {
+                if (!person.isDead()) {
+                    allPlayersDied = false;
+                    break;
+                }
+            }
+            if (allPlayersDied) {
+                FeedbackManager.setFeedback(I18n.getString("lost"));
+                break;
+            }
             updateView();
         }
+        updateView();
+    }
+
+    public void endGame() {
+        gameEnded = true;
+        FeedbackManager.setFeedback(I18n.getString("won"));
     }
 }

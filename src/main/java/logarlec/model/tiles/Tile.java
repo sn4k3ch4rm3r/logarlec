@@ -10,7 +10,7 @@ import java.util.List;
 
 public abstract class Tile {
     private Position position;
-    private List<TileChangeListener> onChangeListeners = new ArrayList<>();
+    protected List<TileChangeListener> onChangeListeners = new ArrayList<>();
     private Room room;
 
     public Tile(Position position, Room room) {
@@ -46,7 +46,10 @@ public abstract class Tile {
     public Room getRoom() {
         return room;
     }
+
     public void setRoom(Room room) {
         this.room = room;
     }
+
+    public void clearEffects() {}
 }

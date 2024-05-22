@@ -12,7 +12,7 @@ public class GamePanel extends JPanel {
 
     public GamePanel(Renderer renderer) {
         this.renderer = renderer;
-        this.setDoubleBuffered(true);
+        this.setDoubleBuffered(false);
         this.setPreferredSize(
                 new Dimension(Configuration.WINDOW_WIDTH, Configuration.WINDOW_HEIGHT));
     }

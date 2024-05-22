@@ -1,10 +1,11 @@
 package logarlec.controller;
 
+import logarlec.model.events.RoomChangedListener;
 import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
 import logarlec.view.drawables.PersonView;
 
-public abstract class PersonController {
+public abstract class PersonController implements RoomChangedListener {
     protected Entity entity;
     /**
      * Az entitás nézete
@@ -31,4 +32,12 @@ public abstract class PersonController {
     }
 
     public abstract void turn();
+
+    public void onRoomChanged() {
+        GameController.getInstance().moveEntity(entity, entity.getPerson().getCurrentRoom());
+    }
+
+    public boolean isDead() {
+        return true;
+    }
 }

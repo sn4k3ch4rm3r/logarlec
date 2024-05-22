@@ -142,9 +142,11 @@ public class GameBuilder {
 					FloorTile floorTile = new FloorTile(new Position(x, y), room);
 					tile = floorTile;
 					view = new FloorTileView(floorTile);
-					tileControllers.add(new TileController(floorTile, (FloorTileView) view));
+					TileController t = new TileController(floorTile, (FloorTileView) view);
+					tileControllers.add(t);
+					room.addEffectListener(t);
 				}
-				addTile(tile, view);
+				addTile(tile, view);;
 			}
 		}
 		return this;
@@ -206,7 +208,9 @@ public class GameBuilder {
 		Entity entity = new Entity(position, person);
 		PlayerController controller = new PlayerController(entity, view);
 
+		person.addGameEndedListener(controller);
 		person.addDropListener(controller);
+		person.addRoomChangedListener(controller);
 		modelViews.put(person, view);
 		personControllers.add(controller);
 		game.addEntity(entity);
@@ -386,6 +390,7 @@ public class GameBuilder {
 		Entity entity = new Entity(position, person);
 		PersonController controller = controllerFactory.apply(entity, view);
 
+		person.addRoomChangedListener(controller);
 		modelViews.put(person, view);
 		personControllers.add(controller);
 		game.addEntity(entity);

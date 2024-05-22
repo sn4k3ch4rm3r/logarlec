@@ -72,13 +72,12 @@ public class Inventory {
 	/**
 	 * Random tárgy eldobása az eszköztárból.
 	 */
-	public void dropRandomItem() {
-		if (!items.isEmpty()) {
-			Random random = new Random();
-			Item item = items.get(random.nextInt(items.size()));
-			item.drop();
-			remove(item);
+	public Item getRandomItem() {
+		if (items.isEmpty()) {
+			return null;
 		}
+		Random random = new Random();
+		return items.get(random.nextInt(items.size()));
 	}
 
 	/**

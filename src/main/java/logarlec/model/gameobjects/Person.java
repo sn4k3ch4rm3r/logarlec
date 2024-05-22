@@ -2,6 +2,7 @@ package logarlec.model.gameobjects;
 
 import logarlec.model.effects.Effect;
 import logarlec.model.events.DropListener;
+import logarlec.model.events.RoomChangedListener;
 import logarlec.model.items.Item;
 import logarlec.model.util.Inventory;
 
@@ -26,6 +27,7 @@ public abstract class Person extends GameObject {
 	protected Room currentRoom;
 
 	protected List<DropListener> dropListeners = new ArrayList<>();
+	protected List<RoomChangedListener> roomChangedListeners = new ArrayList<>();
 
 	public Person() {
 		inventory = new Inventory();
@@ -34,6 +36,10 @@ public abstract class Person extends GameObject {
 
 	public void addDropListener(DropListener listener) {
 		dropListeners.add(listener);
+	}
+
+	public void addRoomChangedListener(RoomChangedListener listener) {
+		roomChangedListeners.add(listener);
 	}
 
 	/**
@@ -130,11 +136,17 @@ public abstract class Person extends GameObject {
 	public void getOut() {
 		if (knockOutTime <= 0) {
 			currentRoom.getOut(this);
+			for (RoomChangedListener listener : roomChangedListeners) {
+				listener.onRoomChanged();
+			}
 		}
 	}
 
 	public void dropRandomItem() {
-		inventory.dropRandomItem();
+		Item item = inventory.getRandomItem();
+		if (item != null) {
+			dropItem(item);
+		}
 	}
 
 	public Room getCurrentRoom() {

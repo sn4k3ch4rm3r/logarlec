@@ -1,5 +1,6 @@
 package logarlec.model.effects;
 
+import logarlec.model.events.EffectAppliedListener;
 import logarlec.model.gameobjects.GameObject;
 import logarlec.model.gameobjects.Room;
 import logarlec.model.gameobjects.Student;
@@ -8,7 +9,7 @@ import logarlec.model.util.Updatable;
 
 public abstract class Effect implements Updatable {
 	protected GameObject holder;
-	protected double timeRemaining;
+	protected double timeRemaining = 1.1;
 
 	Effect() {}
 
@@ -58,5 +59,9 @@ public abstract class Effect implements Updatable {
 		if (timeRemaining > 0) {
 			timeRemaining -= deltaTime;
 		}
+	}
+
+	public void acceptEffectListener(EffectAppliedListener e) {
+
 	}
 }

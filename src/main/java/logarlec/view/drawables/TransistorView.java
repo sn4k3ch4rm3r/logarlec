@@ -12,7 +12,6 @@ public class TransistorView extends ItemView {
 
     @Override
     public void draw(Graphics2D g2d) {
-        // TODO: could be event based.
         this.sprite = SpriteManager.getInstance()
                 .getSprite(((Transistor) item).isActive() ? "transistor-active" : "transistor");
         super.draw(g2d);

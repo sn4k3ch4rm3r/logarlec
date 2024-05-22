@@ -3,6 +3,8 @@ package logarlec.controller;
 import logarlec.controller.util.FeedbackManager;
 import logarlec.controller.util.InputHandler;
 import logarlec.model.events.DropListener;
+import logarlec.model.events.GameEndedListener;
+import logarlec.model.gameobjects.Student;
 import logarlec.model.items.Item;
 import logarlec.model.items.Transistor;
 import logarlec.model.util.Direction;
@@ -16,9 +18,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PlayerController extends PersonController implements DropListener {
+public class PlayerController extends PersonController implements DropListener, GameEndedListener {
     private InventoryController inventoryController;
     private Map<Item, Position> linkedTransistors = new HashMap<>();
+
+    private boolean dead = false;
+
     /**
      * A játékos nézete
      */
@@ -46,6 +51,11 @@ public class PlayerController extends PersonController implements DropListener {
         if (item instanceof Transistor) {
             linkedTransistors.put(((Transistor) item).getPair(), entity.getPosition());
         }
+    }
+
+    @Override
+    public void onGameEnded() {
+        GameController.getInstance().endGame();
     }
 
     /**
@@ -81,19 +91,25 @@ public class PlayerController extends PersonController implements DropListener {
     }
 
     public void turn() {
+        if (dead)
+            return;
         playerView.setActive(true);
         GameController.getInstance().updateView();
         movesThisTurn = 0;
         itemUsesThisTurn = 0;
         itemDropsThisTurn = 0;
         expectedInventoryInput = InventoryInput.NONE;
-        //selectedTransistor = null;
+        // selectedTransistor = null;
         thisPlayersTurn = true;
         InputHandler.getInstance().setCurrentPlayer(this);
         while (thisPlayersTurn) {
 
         }
         InputHandler.getInstance().setCurrentPlayer(null);
+        dead = ((Student) entity.getPerson()).isEliminated();
+        if (dead) {
+            playerView.setDead(true);
+        }
         playerView.setActive(false);
         // playerView.setActive(false);
         // GameController.getInstance().updateView();
@@ -109,19 +125,15 @@ public class PlayerController extends PersonController implements DropListener {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
                 move(Direction.UP);
-                endTurn();
                 break;
             case KeyEvent.VK_S:
                 move(Direction.DOWN);
-                endTurn();
                 break;
             case KeyEvent.VK_A:
                 move(Direction.LEFT);
-                endTurn();
                 break;
             case KeyEvent.VK_D:
                 move(Direction.RIGHT);
-                endTurn();
                 break;
             case KeyEvent.VK_SPACE:
                 endTurn();
@@ -140,27 +152,23 @@ public class PlayerController extends PersonController implements DropListener {
                 break;
             case KeyEvent.VK_1:
                 inventoryInput(1);
-                endTurn();
                 break;
             case KeyEvent.VK_2:
                 inventoryInput(2);
-                endTurn();
                 break;
             case KeyEvent.VK_3:
                 inventoryInput(3);
-                endTurn();
                 break;
             case KeyEvent.VK_4:
                 inventoryInput(4);
-                endTurn();
                 break;
             case KeyEvent.VK_5:
                 inventoryInput(5);
-                endTurn();
                 break;
             default:
+                break;
         }
-
+        GameController.getInstance().updateView();
     }
 
     /**
@@ -176,21 +184,24 @@ public class PlayerController extends PersonController implements DropListener {
     private void inventoryInput(int index) {
         List<Item> items = inventoryController.getInventory().getItems();
         Item item = items.get(index - 1);
-        if (item == null) return;
+        if (item == null)
+            return;
 
         switch (expectedInventoryInput) {
             case USE -> {
                 if (itemUsesThisTurn < maxItemUsesPerTurn) {
                     item.use();
                     if (linkedTransistors.containsKey(item)) {
-                        GameController.getInstance().moveEntity(entity, linkedTransistors.get(item));
+                        GameController.getInstance().moveEntity(entity,
+                                linkedTransistors.get(item));
                     }
                     itemUsesThisTurn++;
                 }
             }
             case DROP -> {
-                if (itemDropsThisTurn < maxItemDropsPerTurn){
-                    if (!GameController.getInstance().dropItem(entity, item)) return;
+                if (itemDropsThisTurn < maxItemDropsPerTurn) {
+                    if (!GameController.getInstance().dropItem(entity, item))
+                        return;
                     entity.getPerson().dropItem(item);
                     itemDropsThisTurn++;
                 }
@@ -228,4 +239,8 @@ public class PlayerController extends PersonController implements DropListener {
         }
     }
 
+    @Override
+    public boolean isDead() {
+        return dead;
+    }
 }
