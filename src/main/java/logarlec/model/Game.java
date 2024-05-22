@@ -75,6 +75,23 @@ public class Game implements Updatable {
         }
     }
 
+    public void moveEntity(Entity entity, Room room) {
+        Position oldPosition = entity.getPosition();
+        Person person = entity.getPerson();
+        for (Tile[] row : tiles) {
+            for (Tile tile : row) {
+                if (tile.getRoom() == room) {
+                    Position newPosition = tile.stepOn(person);
+                    if (newPosition != null) {
+                        entity.setPosition(newPosition);
+                        ((FloorTile) tiles[oldPosition.x][oldPosition.y]).removePerson();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
     public boolean dropItem(Entity entity, Item item) {
         Position position = entity.getPosition();
         FloorTile tile = (FloorTile) tiles[position.x][position.y];

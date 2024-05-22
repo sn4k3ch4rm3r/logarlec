@@ -207,6 +207,7 @@ public class GameBuilder {
 		PlayerController controller = new PlayerController(entity, view);
 
 		person.addDropListener(controller);
+		person.addRoomChangedListener(controller);
 		modelViews.put(person, view);
 		personControllers.add(controller);
 		game.addEntity(entity);
@@ -386,6 +387,7 @@ public class GameBuilder {
 		Entity entity = new Entity(position, person);
 		PersonController controller = controllerFactory.apply(entity, view);
 
+		person.addRoomChangedListener(controller);
 		modelViews.put(person, view);
 		personControllers.add(controller);
 		game.addEntity(entity);

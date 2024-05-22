@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.List;
 import logarlec.controller.util.GameBuilder;
 import logarlec.model.Game;
+import logarlec.model.gameobjects.Room;
 import logarlec.model.items.Item;
 import logarlec.model.util.Direction;
 import logarlec.model.util.Entity;
@@ -63,6 +64,10 @@ public class GameController implements Runnable {
 
     public void moveEntity(Entity entity, Position position) {
         game.moveEntity(entity, position);
+    }
+
+    public void moveEntity(Entity entity, Room room) {
+        game.moveEntity(entity, room);
     }
 
     public boolean dropItem(Entity entity, Item item) {

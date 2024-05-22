@@ -2,6 +2,7 @@ package logarlec.model.gameobjects;
 
 import logarlec.model.effects.CleanEffect;
 import logarlec.model.effects.Effect;
+import logarlec.model.events.RoomChangedListener;
 import logarlec.model.items.Item;
 import logarlec.model.util.Door;
 import java.util.LinkedList;
@@ -45,6 +46,8 @@ public class Room extends GameObject {
 	private boolean hidden;
 	private Random random = new Random();
 
+	private List<RoomChangedListener> listeners = new LinkedList<>();
+
 	public Room() {
 		this(4);
 	}
@@ -87,6 +90,10 @@ public class Room extends GameObject {
 			return true;
 		}
 		return false;
+	}
+
+	public void addListener(RoomChangedListener listener) {
+		listeners.add(listener);
 	}
 
 	/**
@@ -269,6 +276,7 @@ public class Room extends GameObject {
 		for (Door door : doors) {
 			door.use(person);
 			if (!people.contains(person)) {
+
 				break;
 			}
 		}
