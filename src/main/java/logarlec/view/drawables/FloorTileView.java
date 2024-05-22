@@ -26,7 +26,7 @@ public class FloorTileView extends TileView {
             this.sprite = SpriteManager.getInstance().getSprite("floor-clean");
         } 
         else{
-            this.sprite = SpriteManager.getInstance().getSprite("floor");
+            this.sprite = SpriteManager.getInstance().getSprite("floor-dirty");
         }
         super.draw(g2d);
         Graphics2D tileGraphics = getGraphicsContext(g2d);

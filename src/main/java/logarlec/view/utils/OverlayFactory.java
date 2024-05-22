@@ -10,7 +10,7 @@ import logarlec.view.drawables.Overlay;
 
 public class OverlayFactory {
     public static Overlay createOverlay(GasEffect effect) {
-        return new Overlay(SpriteManager.getInstance().getSprite("transistor"));
+        return new Overlay(SpriteManager.getInstance().getSprite("gas"));
     }
 
     public static Overlay createOverlay(JanitorEffect effect) {
