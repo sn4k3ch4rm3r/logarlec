@@ -1,37 +1,127 @@
-\chapter{Grafikus felület specifikációja}
+\chapter{Grafikus változat elkészítése}
 
 \section{Fordítási és futtatási útmutató}
-\comment{A feltöltött program fordításával és futtatásával kapcsolatos útmutatás. Ennek tartalmaznia kell leltárszerűen az egyes fájlok pontos nevét, méretét byte-ban, keletkezési idejét, valamint azt, hogy a fájlban mi került megvalósításra.}
 
 \subsection{Fájllista}
 
 \begin{fajllista}
-    \fajl
-    {Demo.java} % Kezdet
-    {353 byte} % Méret
-    {2020.03.26~21:05~} % Időpont
-    {Demo programosztály} % Leírás
+    \fajl{build.bat}{234 byte}{2024-05-22 06:14}{...}
+    
+\fajl{dokumentacio.pdf}{71176 byte}{2024-05-22 09:29}{...}
+\fajl{src/main/java/logarlec/Configuration.java}{611 byte}{2024-05-21 09:30}{...}
+\fajl{src/main/java/logarlec/controller/AiController.java}{688 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/controller/Controller.java}{1355 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/java/logarlec/controller/GameController.java}{3632 byte}{2024-05-22 06:50}{...}
+\fajl{src/main/java/logarlec/controller/InventoryController.java}{1316 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/controller/PersonController.java}{1162 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/java/logarlec/controller/PlayerController.java}{8581 byte}{2024-05-22 06:50}{...}
+\fajl{src/main/java/logarlec/controller/TileController.java}{2119 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/java/logarlec/controller/util/ExtendedDoor.java}{470 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/java/logarlec/controller/util/ExtendedRoom.java}{874 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/java/logarlec/controller/util/FeedbackManager.java}{365 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/controller/util/GameBuilder.java}{12791 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/java/logarlec/controller/util/GameRebuilder.java}{6128 byte}{2024-05-22 06:37}{...}
+\fajl{src/main/java/logarlec/controller/util/InputHandler.java}{1206 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/controller/util/MapDataLoader.java}{15165 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/java/logarlec/controller/util/SpriteManager.java}{3325 byte}{2024-05-14 12:51}{...}
+\fajl{src/main/java/logarlec/Main.java}{615 byte}{2024-05-21 09:28}{...}
+\fajl{src/main/java/logarlec/model/effects/BeerEffect.java}{842 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/effects/CleanEffect.java}{842 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/effects/Effect.java}{1550 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/java/logarlec/model/effects/GasEffect.java}{1060 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/java/logarlec/model/effects/JanitorEffect.java}{905 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/java/logarlec/model/effects/MaskEffect.java}{916 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/effects/RagEffect.java}{745 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/events/DropListener.java}{143 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/events/EffectAppliedListener.java}{255 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/java/logarlec/model/events/GameEndedListener.java}{100 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/java/logarlec/model/events/InventoryChangeListener.java}{119 byte}{2024-05-21 09:28}{...}
+\fajl{src/main/java/logarlec/model/events/RoomChangedListener.java}{104 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/java/logarlec/model/events/TileChangeListener.java}{271 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/java/logarlec/model/Game.java}{5055 byte}{2024-05-22 06:15}{...}
+\fajl{src/main/java/logarlec/model/gameobjects/GameObject.java}{1521 byte}{2024-05-14 12:50}{...}
+\fajl{src/main/java/logarlec/model/gameobjects/Janitor.java}{1777 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/gameobjects/Person.java}{3561 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/java/logarlec/model/gameobjects/Room.java}{7246 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/java/logarlec/model/gameobjects/Student.java}{2520 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/java/logarlec/model/gameobjects/Teacher.java}{1336 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/items/AirFreshener.java}{842 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/java/logarlec/model/items/Beer.java}{1216 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/items/Camembert.java}{1310 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/items/CodeOfStudies.java}{1310 byte}{2024-05-21 09:28}{...}
+\fajl{src/main/java/logarlec/model/items/FakeCodeOfStudies.java}{604 byte}{2024-05-14 10:47}{...}
+\fajl{src/main/java/logarlec/model/items/FakeMask.java}{478 byte}{2024-05-14 10:47}{...}
+\fajl{src/main/java/logarlec/model/items/FakeSlideRule.java}{713 byte}{2024-05-14 10:47}{...}
+\fajl{src/main/java/logarlec/model/items/Item.java}{1298 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/java/logarlec/model/items/Mask.java}{1375 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/items/SlideRule.java}{1112 byte}{2024-05-14 10:47}{...}
+\fajl{src/main/java/logarlec/model/items/Transistor.java}{2641 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/items/WetRag.java}{1205 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/tiles/DoorTile.java}{1017 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/tiles/FloorTile.java}{1765 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/java/logarlec/model/tiles/Tile.java}{1396 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/java/logarlec/model/tiles/WallTile.java}{450 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/util/Direction.java}{1014 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/util/Door.java}{2373 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/util/Entity.java}{600 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/model/util/Inventory.java}{2320 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/java/logarlec/model/util/Position.java}{507 byte}{2024-05-21 09:28}{...}
+\fajl{src/main/java/logarlec/model/util/Updatable.java}{231 byte}{2024-05-14 10:47}{...}
+\fajl{src/main/java/logarlec/view/components/Button.java}{1296 byte}{2024-05-21 09:28}{...}
+\fajl{src/main/java/logarlec/view/drawables/DoorTileView.java}{1327 byte}{2024-05-21 09:28}{...}
+\fajl{src/main/java/logarlec/view/drawables/Drawable.java}{258 byte}{2024-05-21 09:28}{...}
+\fajl{src/main/java/logarlec/view/drawables/FloorTileView.java}{1414 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/java/logarlec/view/drawables/GameView.java}{1243 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/view/drawables/InventoryView.java}{1086 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/view/drawables/ItemView.java}{686 byte}{2024-05-21 09:28}{...}
+\fajl{src/main/java/logarlec/view/drawables/MapView.java}{925 byte}{2024-05-22 06:36}{...}
+\fajl{src/main/java/logarlec/view/drawables/Overlay.java}{409 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/java/logarlec/view/drawables/PersonView.java}{486 byte}{2024-05-21 09:28}{...}
+\fajl{src/main/java/logarlec/view/drawables/PlayerView.java}{1572 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/java/logarlec/view/drawables/SideBarView.java}{2436 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/view/drawables/TileView.java}{1004 byte}{2024-05-21 11:20}{...}
+\fajl{src/main/java/logarlec/view/drawables/TransistorView.java}{588 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/java/logarlec/view/drawables/WallTileView.java}{393 byte}{2024-05-21 09:28}{...}
+\fajl{src/main/java/logarlec/view/panels/GamePanel.java}{745 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/java/logarlec/view/panels/MenuPanel.java}{2650 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/java/logarlec/view/Renderer.java}{831 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/view/utils/I18n.java}{815 byte}{2024-05-21 09:28}{...}
+\fajl{src/main/java/logarlec/view/utils/OverlayFactory.java}{545 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/java/logarlec/view/utils/Palette.java}{1608 byte}{2024-05-21 09:28}{...}
+\fajl{src/main/java/logarlec/view/utils/TextRenderer.java}{2335 byte}{2024-05-22 01:38}{...}
+\fajl{src/main/java/logarlec/view/Window.java}{468 byte}{2024-05-21 09:28}{...}
+\fajl{src/main/resources/lang/Strings\_en\_US.properties}{499 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/resources/lang/Strings\_hu\_HU.properties}{615 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/resources/lang/Strings\_la.properties}{528 byte}{2024-05-22 06:14}{...}
+\fajl{src/main/resources/map.xml}{6585 byte}{2024-05-22 06:54}{...}
+\fajl{src/main/resources/PublicPixel.ttf}{74840 byte}{2024-05-21 09:28}{...}
+\fajl{src/main/resources/sprites.xml}{3132 byte}{2024-05-22 06:13}{...}
+\fajl{src/main/resources/spritesheet.png}{5302 byte}{2024-05-22 06:14}{...}
 \end{fajllista}
-
+\clearpage
 \subsection{Fordítás}
-\comment{A fenti listában szereplő forrásfájlokból milyen műveletekkel lehet a bináris, futtatható kódot előállítani. Az előállításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
+% \comment{A fenti listában szereplő forrásfájlokból milyen műveletekkel lehet a bináris, futtatható kódot előállítani. Az előállításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
 
+Indítsunk Windows CMD-t vagy Powershell-t és lépjünk a projektet tartalmazó mappába. Ezután adjuk ki a következő parancsot:
 \begin{verbatim}
-javac -d bin *.java
+    .\build.bat
 \end{verbatim}
 
 \subsection{Futtatás}
-\comment{A futtatható kód elindításával kapcsolatos teendők leírása. Az indításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
+% \comment{A futtatható kód elindításával kapcsolatos teendők leírása. Az indításhoz csak a 2. Követelmények c. dokumentumban leírt környezetet szabad előírni.}
 
+Indítsunk Windows CMD-t vagy Powershell-t és lépjünk a projektet tartalmazó mappába. Ezután adjuk ki a következő parancsot:
 \begin{verbatim}
-cd bin
-java Main.java
+    java -cp build/bin logarlec.Main
 \end{verbatim}
-
 \clearpage
 \section{Értékelés}
-\comment{A projekt kezdete óta az értékelésig eltelt időben tagokra bontva, százalékban.}
+% \comment{A projekt kezdete óta az értékelésig eltelt időben tagokra bontva, százalékban.}
 \begin{ertekeles}
-    \ertekelestag{Teszt János}{ ?????? }{100\%}
+    \ertekelestag{Balla Gergely}{ [NEPTUN] }{19\%}
+    \ertekelestag{Joób Zalán}{ [NEPTUN] }{20\%}
+    \ertekelestag{Nagy Alexandra}{ [NEPTUN] }{20\%}
+    \ertekelestag{Tóth Boldizsár}{ [NEPTUN] }{21\%}
+    \ertekelestag{Zelei Mátyás}{ [NEPTUN] }{20\%}
 \end{ertekeles}
 
