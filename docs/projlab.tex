@@ -17,6 +17,9 @@
 \usepackage{xcolor}
 \usepackage{algorithmicx}
 \usepackage{listings}
+\usepackage{float}
+\usepackage{fontspec}
+\setmonofont{Cascadia Code PL}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -37,7 +40,7 @@
 		\LARGE{\bfseries{Szoftver projekt laboratórium}}\\
 		\vspace{0.5cm}
 		%kitöltendő
-		\Large\textsc{[Cím]}\\
+		\Large\textsc{Dokumentáció}\\
 		\vspace{1cm}
 		\small{Csapat}\\
 		\Large{\bfseries{61 - Zeusz}}\\
@@ -70,13 +73,11 @@
 %-----------------------------------------------------------------------------------------
 
 %Végső beadáshoz tartalomjegyzék:
-%\tableofcontents
+\tableofcontents
 
 %A fejezetek számozásának átállítására (mindig a megadott számtól folytatódik a számozás):
-\setcounter{chapter}{-1}
-
-
 \setcounter{chapter}{1}
+
 \input{weekly/bead02/02doc}
 \clearpage
 \input{weekly/bead02/02naplo}
